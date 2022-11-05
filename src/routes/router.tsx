@@ -1,10 +1,11 @@
 import { Typography } from "@mui/material";
 import { createBrowserRouter } from "react-router-dom";
-import { Deputies, Root } from "../pages";
+import { Deputies, DeputyDetails, Root } from "../pages";
+import { Routes } from "../types";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: Routes.AboutProject,
     element: <Root />,
     children: [
       {
@@ -12,23 +13,27 @@ export const router = createBrowserRouter([
         element: <Typography>Despre</Typography>,
       },
       {
-        path: "deputati",
+        path: Routes.Deputies,
         element: <Deputies />,
       },
       {
-        path: "activitate",
+        path: `${Routes.Deputies}/:id`,
+        element: <DeputyDetails />,
+      },
+      {
+        path: Routes.LegislativeActivity,
         element: <Typography>Activitate legislativă</Typography>,
       },
       {
-        path: "sedinte",
+        path: Routes.PlenaryMeetings,
         element: <Typography>Ședințe plenare</Typography>,
       },
       {
-        path: "rapoarte",
+        path: Routes.Reports,
         element: <Typography>Rapoarte</Typography>,
       },
       {
-        path: "noutati",
+        path: Routes.News,
         element: <Typography>Noutăți</Typography>,
       },
     ],

@@ -5,22 +5,15 @@ import {
   Container,
   Grid,
   Stack,
-  Typography,
 } from "@mui/material";
-import { DeputyCard } from "../components";
+import { Link } from "react-router-dom";
+import { DeputyCard, Header } from "../components";
+import { Routes } from "../types";
 
 export const Deputies = () => {
   return (
     <Stack gap={4}>
-      <Box boxShadow={2}>
-        <Container>
-          <Stack direction="row" py={8}>
-            <Typography fontWeight={700} variant="h2">
-              Deputați
-            </Typography>
-          </Stack>
-        </Container>
-      </Box>
+      <Header title="Deputați" />
       <Container>
         <Box pb={4}>
           <ButtonGroup disableRipple variant="contained">
@@ -34,7 +27,9 @@ export const Deputies = () => {
         </Box>
         <Grid container columnSpacing={3} rowSpacing={4}>
           <Grid item>
-            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+            <Link to={`${Routes.Deputies}/1`}>
+              <DeputyCard fullName="Ion Căprioară" party="PAS" />
+            </Link>
           </Grid>
           <Grid item>
             <DeputyCard fullName="Ion Căprioară" party="PAS" />

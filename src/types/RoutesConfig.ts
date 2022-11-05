@@ -1,10 +1,10 @@
 export enum Routes {
   AboutProject = "/",
-  Deputies = "deputati",
-  LegislativeActivity = "activitate",
-  PlenaryMeetings = "sedinte",
-  Reports = "rapoarte",
-  News = "noutati",
+  Deputies = "/deputati",
+  LegislativeActivity = "/activitate",
+  PlenaryMeetings = "/sedinte",
+  Reports = "/rapoarte",
+  News = "/noutati",
 }
 
 type RouteConfig = {
