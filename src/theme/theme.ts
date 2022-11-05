@@ -23,6 +23,13 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: () => `
+        html, body, #root {
+          height: 100%;
+        }
+      `,
+    },
     MuiCardContent: {
       styleOverrides: {
         root: {
