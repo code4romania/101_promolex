@@ -1,1 +1,3 @@
-export default 'queries';
+export * from "./QueryClientProvider";
+export * from "./useCurrentLegislatureQuery";
+export * from "./useDeputiesByLegislatureQuery";

@@ -1,1 +1,2 @@
-export default 'services';
+export * from "./fetchCurrentLegislature";
+export * from "./fetchDeputiesByLegislature";
