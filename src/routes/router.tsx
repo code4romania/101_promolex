@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { createBrowserRouter } from "react-router-dom";
-import { Root } from "../pages";
+import { Deputies, Root } from "../pages";
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "deputati",
-        element: <Typography>Deputati</Typography>,
+        element: <Deputies />,
       },
       {
         path: "activitate",

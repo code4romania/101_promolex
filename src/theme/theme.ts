@@ -12,5 +12,24 @@ export const theme = createTheme({
   spacing: 4,
   typography: {
     fontFamily: "Titillium Web",
+    subtitle1: {
+      fontSize: 18,
+      fontWeight: 700,
+    },
+    subtitle2: {
+      color: "#00B4CC",
+      fontSize: 18,
+      fontWeight: 500,
+    },
+  },
+  components: {
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          paddingBottom: 8,
+          paddingTop: 8,
+        },
+      },
+    },
   },
 });
