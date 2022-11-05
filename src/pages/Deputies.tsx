@@ -3,6 +3,7 @@ import {
   Button,
   ButtonGroup,
   Container,
+  Grid,
   Stack,
   Typography,
 } from "@mui/material";
@@ -31,7 +32,35 @@ export const Deputies = () => {
             <Button>ȘOR</Button>
           </ButtonGroup>
         </Box>
-        <DeputyCard fullName="Ion Căprioară" party="PAS" />
+        <Grid container columnSpacing={3} rowSpacing={4}>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+          <Grid item>
+            <DeputyCard fullName="Ion Căprioară" party="PAS" />
+          </Grid>
+        </Grid>
       </Container>
     </Stack>
   );
