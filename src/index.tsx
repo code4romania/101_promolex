@@ -4,15 +4,18 @@ import reportWebVitals from "./reportWebVitals";
 import { RouterProvider } from "./routes";
 import { ThemeContext } from "./theme";
 import "@fontsource/titillium-web";
+import { QueryClientProvider } from "./queries";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <ThemeContext>
-      <RouterProvider />
-    </ThemeContext>
+    <QueryClientProvider>
+      <ThemeContext>
+        <RouterProvider />
+      </ThemeContext>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
