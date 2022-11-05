@@ -1,1 +1,1 @@
-export default 'utils';
+export * from "./routesConfig";

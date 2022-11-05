@@ -1,1 +1,1 @@
-export default 'pages';
+export * from "./Root";

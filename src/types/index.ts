@@ -1,1 +1,1 @@
-export default 'types';
+export * from "./RoutesConfig";

@@ -1,1 +1,1 @@
-export default 'components';
+export * from "./Navbar";
