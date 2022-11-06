@@ -1,5 +1,7 @@
 import { Typography } from "@mui/material";
 import { createBrowserRouter } from "react-router-dom";
+import { DeputiesByFaction } from "../components";
+import { DeputiesByLegislature } from "../components/DeputiesByLegislature";
 import { Deputies, DeputyDetails, Root } from "../pages";
 import { Routes } from "../types";
 
@@ -15,9 +17,19 @@ export const router = createBrowserRouter([
       {
         path: Routes.Deputies,
         element: <Deputies />,
+        children: [
+          {
+            index: true,
+            element: <DeputiesByLegislature />,
+          },
+          {
+            path: `${Routes.Deputies}/:fid`,
+            element: <DeputiesByFaction />,
+          },
+        ],
       },
       {
-        path: `${Routes.Deputies}/:id`,
+        path: `${Routes.Deputies}/detalii/:did`,
         element: <DeputyDetails />,
       },
       {

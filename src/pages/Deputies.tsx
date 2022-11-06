@@ -1,22 +1,16 @@
+import { Box, Button, ButtonGroup, Container, Stack } from "@mui/material";
+import { useCallback } from "react";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Header } from "../components";
 import {
-  Box,
-  Button,
-  ButtonGroup,
-  CircularProgress,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { deburr, sortBy } from "lodash";
-import { Fragment, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { DeputyCard, Header } from "../components";
-import { useCurrentLegislatureQuery } from "../queries";
-import { useDeputiesByLegislatureQuery } from "../queries/useDeputiesByLegislatureQuery";
-import { Routes } from "../types";
+  useCurrentLegislatureQuery,
+  useFactionsByLegislatureQuery,
+} from "../queries";
+import { DeputiesParams, Routes } from "../types";
 
 export const Deputies = () => {
+  const navigate = useNavigate();
+  const { fid: fidParam } = useParams<DeputiesParams>();
   const {
     data: lid,
     isLoading: isLoadingLid,
@@ -24,20 +18,24 @@ export const Deputies = () => {
   } = useCurrentLegislatureQuery();
 
   const {
-    data: deputies,
-    isLoading: isLoadingDeputies,
-    isError: isErrorLoadingDeputies,
-  } = useDeputiesByLegislatureQuery(lid);
+    data: factions,
+    isLoading: isLoadingFactions,
+    isError: isErrorLoadingFactions,
+  } = useFactionsByLegislatureQuery(lid);
 
-  const isLoading = isLoadingLid || isLoadingDeputies;
-  const isError = isErrorLoadingLid || isErrorLoadingDeputies;
+  const isLoading = isLoadingLid || isLoadingFactions;
+  const isError = isErrorLoadingLid || isErrorLoadingFactions;
 
-  const sortedDeputies = useMemo(
-    () =>
-      sortBy(deputies, ({ full_name }) =>
-        deburr(full_name).replaceAll(/Ș/g, "S")
-      ) ?? [],
-    [deputies]
+  const onFilterDeputies = useCallback(
+    (fid?: string) => () => {
+      if (!fid) {
+        navigate(Routes.Deputies);
+        return;
+      }
+
+      navigate(`${Routes.Deputies}/${fid}`);
+    },
+    [navigate]
   );
 
   return (
@@ -50,52 +48,27 @@ export const Deputies = () => {
             disableRipple
             variant="contained"
           >
-            <Button sx={{ backgroundColor: "primary.dark" }}>
+            <Button
+              onClick={onFilterDeputies()}
+              sx={{ backgroundColor: !fidParam ? "primary.dark" : undefined }}
+            >
               Toți deputații
             </Button>
-            <Button>PAS</Button>
-            <Button>BCS</Button>
-            <Button>ȘOR</Button>
+            {factions?.map(({ fid, short_name }) => (
+              <Button
+                key={short_name}
+                onClick={onFilterDeputies(fid)}
+                sx={{
+                  backgroundColor:
+                    fidParam === fid ? "primary.dark" : undefined,
+                }}
+              >
+                {short_name}
+              </Button>
+            ))}
           </ButtonGroup>
         </Box>
-        {isLoading || isError ? (
-          <Stack alignItems="center" gap={4} justifyContent="center" py={8}>
-            {isLoading && (
-              <Fragment>
-                <Typography variant="h5">
-                  Se încarcă lista cu deputați
-                </Typography>
-                <CircularProgress size={24} />
-              </Fragment>
-            )}
-            {isError && (
-              <Fragment>
-                <Typography variant="h5">
-                  Ne pare rău a apărut o eroare. Vă rugăm încercați mai târziu
-                </Typography>
-              </Fragment>
-            )}
-          </Stack>
-        ) : (
-          <Grid container columnSpacing={3} rowSpacing={4}>
-            {sortedDeputies?.map(
-              ({ did, factions_short_name, full_name, photo }) => (
-                <Grid key={did} item>
-                  <Link
-                    to={`${Routes.Deputies}/${did}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <DeputyCard
-                      fullName={full_name}
-                      factionShortName={factions_short_name}
-                      photo={photo}
-                    />
-                  </Link>
-                </Grid>
-              )
-            )}
-          </Grid>
-        )}
+        <Outlet />
       </Container>
     </Stack>
   );
