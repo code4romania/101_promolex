@@ -8,7 +8,12 @@ import {
 } from "@mui/material";
 import { Fragment } from "react";
 import { useParams } from "react-router-dom";
-import { DeputyActivity, DeputyStatisticsCard, Header } from "../components";
+import {
+  DeputyActivity,
+  DeputyStatisticsCard,
+  DeputyWealth,
+  Header,
+} from "../components";
 import { CARD_BORDER } from "../constants";
 import { useDeputyDetailsQuery } from "../queries";
 import { RoutesParams } from "../types";
@@ -131,9 +136,7 @@ export const DeputyDetails = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography fontWeight={700} variant="h4">
-              Declarația de venituri
-            </Typography>
+            <DeputyWealth />
           </Grid>
         </Grid>
       </Container>
