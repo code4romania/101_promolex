@@ -6,11 +6,11 @@ import {
   useCurrentLegislatureQuery,
   useFactionsByLegislatureQuery,
 } from "../queries";
-import { DeputiesParams, Routes } from "../types";
+import { RoutesParams, Routes } from "../types";
 
 export const Deputies = () => {
   const navigate = useNavigate();
-  const { fid: fidParam } = useParams<DeputiesParams>();
+  const { fid: fidParam } = useParams<RoutesParams>();
   const {
     data: lid,
     isLoading: isLoadingLid,

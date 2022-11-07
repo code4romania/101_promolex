@@ -7,6 +7,11 @@ export enum Routes {
   News = "/noutati",
 }
 
+export type RoutesParams = {
+  fid: string;
+  did: string;
+};
+
 type RouteConfig = {
   label: string;
   route: Routes;
