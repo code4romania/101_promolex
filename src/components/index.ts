@@ -1,3 +1,4 @@
+export * from "./BarChart";
 export * from "./DeputiesByFaction";
 export * from "./DeputiesByLegislature";
 export * from "./DeputiesList";

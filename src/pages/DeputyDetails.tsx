@@ -6,9 +6,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Fragment } from "react";
+import { ChartData } from "chart.js";
+import { capitalize, keys, values } from "lodash";
+import { Fragment, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import {
+  BarChart,
   DeputyActivity,
   DeputyStatisticsCard,
   DeputyWealth,
@@ -18,11 +21,24 @@ import { CARD_BORDER } from "../constants";
 import { useDeputyDetailsQuery } from "../queries";
 import { RoutesParams } from "../types";
 
+const BAR_COLOR_MAP = ["#88A9B5", "#E9C699", "#EE7C83"];
+
 export const DeputyDetails = () => {
   const { did } = useParams<RoutesParams>();
-  const { data } = useDeputyDetailsQuery(did);
+  const { data, isLoading } = useDeputyDetailsQuery(did);
 
-  return (
+  const votingChartData: ChartData<"bar", number[], string> = useMemo(() => {
+    const labels = keys(data?.voting).map((label) => capitalize(label));
+    const datasets = values(data?.voting).map((value, index) => ({
+      label: labels[index],
+      data: [parseInt(value)],
+      backgroundColor: BAR_COLOR_MAP[index],
+    }));
+
+    return { labels: ["Voturi"], datasets };
+  }, [data?.voting]);
+
+  return !isLoading ? (
     <Stack gap={4}>
       <Header title={data?.full_name ?? "Anonim"} />
       <Container>
@@ -104,10 +120,16 @@ export const DeputyDetails = () => {
           <Grid item md>
             <Grid container columnSpacing={3} rowSpacing={7}>
               <Grid item md={6} xs={12}>
-                <DeputyStatisticsCard
-                  title="Inițiativele/propunerile legislative"
-                  count={parseInt(data?.author ?? "")}
-                />
+                <DeputyStatisticsCard title="Votul deputatului">
+                  <BarChart chartHeight={60} data={votingChartData} />
+                </DeputyStatisticsCard>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <DeputyStatisticsCard title="Inițiative legislative">
+                  <Typography color="#88A9B5" fontSize={60} fontWeight={700}>
+                    {data?.author ?? 0}
+                  </Typography>
+                </DeputyStatisticsCard>
               </Grid>
             </Grid>
           </Grid>
@@ -129,5 +151,7 @@ export const DeputyDetails = () => {
         </Grid>
       </Container>
     </Stack>
+  ) : (
+    <div>loading</div>
   );
 };

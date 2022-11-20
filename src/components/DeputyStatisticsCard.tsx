@@ -1,17 +1,23 @@
 import { Box, Stack, Typography } from "@mui/material";
+import { PropsWithChildren } from "react";
 import { CARD_BORDER } from "../constants";
 
 type DeputyStatisticsCardProps = {
-  count?: number;
   title: string;
 };
 
 export const DeputyStatisticsCard = ({
-  count,
+  children,
   title,
-}: DeputyStatisticsCardProps) => {
+}: PropsWithChildren<DeputyStatisticsCardProps>) => {
   return (
-    <Stack border={1} borderColor={CARD_BORDER} borderRadius={2} height={245}>
+    <Stack
+      border={1}
+      borderColor={CARD_BORDER}
+      borderRadius={2}
+      height={245}
+      boxShadow={3}
+    >
       <Box px={9} py={5} borderBottom={1} borderColor={CARD_BORDER}>
         <Typography variant="subtitle1">{title}</Typography>
       </Box>
@@ -21,9 +27,7 @@ export const DeputyStatisticsCard = ({
         flexGrow={1}
         justifyContent="center"
       >
-        <Typography color="#88A9B5" fontSize={60} fontWeight={700}>
-          {count}
-        </Typography>
+        {children}
       </Box>
     </Stack>
   );
