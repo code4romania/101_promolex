@@ -105,20 +105,8 @@ export const DeputyDetails = () => {
             <Grid container columnSpacing={3} rowSpacing={7}>
               <Grid item md={6} xs={12}>
                 <DeputyStatisticsCard
-                  title="Absențe la sedintele plenare"
-                  count={parseInt(data?.sessions_absent ?? "")}
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <DeputyStatisticsCard
                   title="Inițiativele/propunerile legislative"
                   count={parseInt(data?.author ?? "")}
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <DeputyStatisticsCard
-                  title="Absențe la ședința comisiilor parlamentare"
-                  count={parseInt(data?.comissions_absent ?? "")}
                 />
               </Grid>
             </Grid>

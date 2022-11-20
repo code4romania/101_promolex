@@ -3,3 +3,7 @@ export * from "./fetchDeputiesByFaction";
 export * from "./fetchDeputiesByLegislature";
 export * from "./fetchDeputyDetails";
 export * from "./fetchFactionsByLegislature";
+export * from "./fetchIncomeStatementsByDeputy";
+export * from "./fetchLegislationInitiativeDetails";
+export * from "./fetchLegislationInitiativesByDeputy";
+export * from "./fetchStatementYear";

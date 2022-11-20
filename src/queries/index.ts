@@ -4,3 +4,7 @@ export * from "./useDeputiesByFactionQuery";
 export * from "./useDeputiesByLegislatureQuery";
 export * from "./useDeputyDetailsQuery";
 export * from "./useFactionsByLegislatureQuery";
+export * from "./useIncomeStatementsByDeputyQuery";
+export * from "./useLegislationInitiativeDetailsQuery";
+export * from "./useLegislationInitiativesByDeputyQuery";
+export * from "./useStatementYearQuery";
