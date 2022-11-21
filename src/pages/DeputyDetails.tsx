@@ -38,6 +38,28 @@ export const DeputyDetails = () => {
     return { labels: ["Voturi"], datasets };
   }, [data?.voting]);
 
+  const sessionsChartData: ChartData<"bar", number[], string> = useMemo(
+    () => ({
+      labels: ["Sesiuni plenare"],
+      datasets: [
+        {
+          label: "Prezent",
+          data: [data?.sessions_present_absent?.presents ?? 0],
+          backgroundColor: BAR_COLOR_MAP[0],
+        },
+        {
+          label: "Absent",
+          data: [data?.sessions_present_absent?.absents ?? 0],
+          backgroundColor: BAR_COLOR_MAP[1],
+        },
+      ],
+    }),
+    [
+      data?.sessions_present_absent?.absents,
+      data?.sessions_present_absent?.presents,
+    ]
+  );
+
   return !isLoading ? (
     <Stack gap={4}>
       <Header title={data?.full_name ?? "Anonim"} />
@@ -119,6 +141,20 @@ export const DeputyDetails = () => {
           </Grid>
           <Grid item md>
             <Grid container columnSpacing={3} rowSpacing={7}>
+              <Grid item xs={12}>
+                <DeputyActivity
+                  committee={data?.committee}
+                  delegates={data?.delegates}
+                  investigationCommittees={data?.investigate_comissions}
+                  friendships={data?.friendships}
+                  mandatesCount={data?.nr_mandates}
+                  specialCommittees={data?.special_comissions}
+                />
+                <Divider
+                  variant="fullWidth"
+                  sx={{ backgroundColor: CARD_BORDER }}
+                />
+              </Grid>
               <Grid item md={6} xs={12}>
                 <DeputyStatisticsCard title="Votul deputatului">
                   <BarChart chartHeight={60} data={votingChartData} />
@@ -131,22 +167,21 @@ export const DeputyDetails = () => {
                   </Typography>
                 </DeputyStatisticsCard>
               </Grid>
+              <Grid item md={6} xs={12}>
+                <DeputyStatisticsCard title="Prezența la ședintele plenare">
+                  <BarChart chartHeight={60} data={sessionsChartData} />
+                </DeputyStatisticsCard>
+              </Grid>
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <DeputyActivity
-              committee={data?.committee}
-              delegates={data?.delegates}
-              factionName={data?.faction_name}
-              friendships={data?.friendships}
-            />
             <Divider
               variant="fullWidth"
               sx={{ backgroundColor: CARD_BORDER }}
             />
           </Grid>
           <Grid item xs={12}>
-            <DeputyWealth />
+            <DeputyWealth did={did ?? ""} />
           </Grid>
         </Grid>
       </Container>

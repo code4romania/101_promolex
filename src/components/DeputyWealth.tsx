@@ -1,7 +1,33 @@
 import { Stack, Typography } from "@mui/material";
+import { keys, values } from "lodash";
+import { useMemo, useState } from "react";
+import {
+  useIncomeStatementsByDeputyQuery,
+  useStatementYearQuery,
+} from "../queries";
+import { statementsTableColumns } from "../utils";
 import { DeputyIncomeCard } from "./DeputyIncomeCard";
+import { Table } from "./Table";
 
-export const DeputyWealth = () => {
+type DeputyWealthProps = {
+  did: string;
+};
+
+export const DeputyWealth = ({ did }: DeputyWealthProps) => {
+  const { data: year } = useStatementYearQuery();
+  const { data: incomeStatements } = useIncomeStatementsByDeputyQuery(
+    did,
+    year
+  );
+
+  const [selectedCategory, setSelectedCategory] = useState(0);
+
+  const [categories, statements] = useMemo(() => {
+    const categories = keys(incomeStatements);
+    const statements = values(incomeStatements);
+    return [categories, statements];
+  }, [incomeStatements]);
+
   return (
     <Stack gap={6}>
       <Typography fontWeight={700} variant="h4">
@@ -9,15 +35,21 @@ export const DeputyWealth = () => {
       </Typography>
 
       <Stack direction="row" gap={2} overflow="auto">
-        <DeputyIncomeCard bgcolor="#88A9B5" label="Active financiare" />
-        <DeputyIncomeCard bgcolor="#474757" label="Afaceri" />
-        <DeputyIncomeCard bgcolor="#E9C699" label="Bunuri de valoare" />
-        <DeputyIncomeCard bgcolor="#F6C3B4" label="Bunuri imobile" />
-        <DeputyIncomeCard bgcolor="#EE7C83" label="Bunuri mobile" />
-        <DeputyIncomeCard bgcolor="#88A9B5" label="Datorii" />
-        <DeputyIncomeCard bgcolor="#E9C699" label="Interese personale" />
-        <DeputyIncomeCard bgcolor="#EE7C83" label="Venit" />
+        {categories.map((category, index) => (
+          <DeputyIncomeCard
+            key={index}
+            bgcolor="#88A9B5"
+            isActive={selectedCategory === index}
+            label={category}
+            onClick={() => setSelectedCategory(index)}
+          />
+        ))}
       </Stack>
+      <Table
+        columns={statementsTableColumns}
+        height={350}
+        rows={statements[selectedCategory] ?? []}
+      />
     </Stack>
   );
 };

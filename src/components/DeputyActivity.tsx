@@ -1,5 +1,6 @@
 import { Box, Stack, styled, Tab, Tabs, Typography } from "@mui/material";
-import { useState } from "react";
+import { Fragment, useState } from "react";
+import { CARD_BORDER } from "../constants";
 
 type StyledTabProps = {
   label: string;
@@ -20,15 +21,19 @@ const StyledTab = styled((props: StyledTabProps) => (
 type DeputyActivityProps = {
   committee?: string;
   delegates?: string;
-  factionName?: string;
+  investigationCommittees?: string[];
   friendships?: string;
+  mandatesCount?: string;
+  specialCommittees?: string[];
 };
 
 export const DeputyActivity = ({
   committee,
   delegates,
-  factionName,
+  investigationCommittees,
   friendships,
+  mandatesCount,
+  specialCommittees,
 }: DeputyActivityProps) => {
   const [value, setValue] = useState(0);
 
@@ -43,29 +48,62 @@ export const DeputyActivity = ({
       </Typography>
 
       <Box>
-        <Box boxShadow={2}>
+        <Box
+          boxShadow={2}
+          border={1}
+          borderColor={CARD_BORDER}
+          borderRadius={2}
+        >
           <Tabs
             onChange={handleChange}
             scrollButtons="auto"
             value={value}
             variant="scrollable"
           >
-            <StyledTab label="Fracțiunea politică" />
             <StyledTab label="Comisia parlamentară" />
-            <StyledTab label="Comisii speciale/ Comisii de anchetă" />
+            <StyledTab label="Comisii speciale/ de anchetă" />
             <StyledTab label="Delegații parlamentare" />
             <StyledTab label="Apartenența la grupurile de prietenie internaționale / adunări parlamentare:" />
+            <StyledTab label="Numarul de mandate/ Legislatura" />
           </Tabs>
         </Box>
 
         <Box height={260} overflow="auto" p={4}>
-          {value === 0 && <Typography fontSize={20}>{factionName}</Typography>}
-          {value === 1 && <Typography fontSize={20}>{committee}</Typography>}
-          {value === 3 && <Typography fontSize={20}>{delegates}</Typography>}
-          {value === 4 &&
+          {value === 0 && <Typography fontSize={20}>{committee}</Typography>}
+          {value === 1 && (
+            <Fragment>
+              {(specialCommittees?.length ?? 0) > 0 && (
+                <Fragment>
+                  <Typography fontSize={20} fontWeight={700}>
+                    Comisii speciale:
+                  </Typography>
+                  {specialCommittees?.map((specialCommittee) => (
+                    <Typography fontSize={20}>{specialCommittee}</Typography>
+                  ))}
+                </Fragment>
+              )}
+              {(investigationCommittees?.length ?? 0) > 0 && (
+                <Fragment>
+                  <Typography fontSize={20} fontWeight={700}>
+                    Comisii de anchetă:
+                  </Typography>
+                  {investigationCommittees?.map((investigationCommittee) => (
+                    <Typography fontSize={20}>
+                      {investigationCommittee}
+                    </Typography>
+                  ))}
+                </Fragment>
+              )}
+            </Fragment>
+          )}
+          {value === 2 && <Typography fontSize={20}>{delegates}</Typography>}
+          {value === 3 &&
             friendships
               ?.split(/\r\n/)
               .map((text) => <Typography fontSize={20}>{text}</Typography>)}
+          {value === 4 && (
+            <Typography fontSize={20}>{mandatesCount}</Typography>
+          )}
         </Box>
       </Box>
     </Stack>
