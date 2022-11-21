@@ -1,6 +1,7 @@
 export type DeputyDetails = {
   did: string;
   full_name: string;
+  dep_status: string;
   birth_year: string;
   home_address: string;
   profession: string;
@@ -26,8 +27,16 @@ export type DeputyDetails = {
   conflicts: string;
   delegates: string;
   friendships: string;
+  sold_absente_total: string;
+  sold_sessions_total: string;
+  investigate_comissions: string[];
+  special_comissions: string[];
   author: string;
-  comissions_absent: string;
-  sessions_absent: string;
+  sessions_present_absent: { presents: number; absents: number };
   declarations: string;
+  voting: {
+    pentru: string;
+    contra: string;
+    abtinut: string;
+  };
 };

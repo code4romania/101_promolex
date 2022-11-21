@@ -38,5 +38,21 @@ export const theme = createTheme({
         },
       },
     },
+    MuiDialog: {
+      defaultProps: {
+        maxWidth: "lg",
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          gap: 4,
+        },
+        input: {
+          paddingBottom: 8,
+          paddingTop: 8,
+        },
+      },
+    },
   },
 });

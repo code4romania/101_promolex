@@ -1,16 +1,24 @@
 import EuroSymbolIcon from "@mui/icons-material/EuroSymbol";
-import { Box, ButtonBase, Typography } from "@mui/material";
+import { Box, ButtonBase, darken, Typography } from "@mui/material";
 
 type DeputyIncomeCardProps = {
   bgcolor: string;
+  isActive?: boolean;
   label: string;
+  onClick: () => void;
 };
 
-export const DeputyIncomeCard = ({ bgcolor, label }: DeputyIncomeCardProps) => {
+export const DeputyIncomeCard = ({
+  bgcolor,
+  isActive,
+  label,
+  onClick,
+}: DeputyIncomeCardProps) => {
   return (
     <ButtonBase
+      onClick={onClick}
       sx={{
-        bgcolor,
+        bgcolor: isActive ? darken(bgcolor, 0.3) : bgcolor,
         borderRadius: 2,
         color: "common.white",
         cursor: "pointer",

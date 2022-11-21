@@ -7,4 +7,9 @@ export const apiPaths = {
   deputiesListByLegislatureId: `${API_BASE_URL}?type=list_deputies_by_legislature_id&lid=`,
   deputiesListByFactionId: `${API_BASE_URL}?type=list_deputies_by_faction_id&fid=`,
   deputyDetailsById: `${API_BASE_URL}?type=deputies_details_by_deputie_id&did=`,
+  statementYear: `${API_BASE_URL}?type=default_statement_year`,
+  legislationInitiativesByDeputyId: `${API_BASE_URL}?type=deputie_author_details&did=`,
+  legislationInitiativeDetailsById: `${API_BASE_URL}?type=document_details&docid=`,
+  incomeStatementsByDeputyId: (did: string, year: string) =>
+    `${API_BASE_URL}?type=deputie_income_statement&did=${did}&year=${year}`,
 };
