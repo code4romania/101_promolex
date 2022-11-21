@@ -47,6 +47,7 @@ export const DeputyWealth = ({ did }: DeputyWealthProps) => {
       </Stack>
       <Table
         columns={statementsTableColumns}
+        getRowId={(row) => row.itemid}
         height={350}
         rows={statements[selectedCategory] ?? []}
       />

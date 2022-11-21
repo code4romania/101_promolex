@@ -7,5 +7,6 @@ export * from "./DeputyCard";
 export * from "./DeputyIncomeCard";
 export * from "./DeputyStatisticsCard";
 export * from "./DeputyWealth";
+export * from "./DetailsDialog";
 export * from "./Header";
 export * from "./Navbar";
