@@ -23,10 +23,4 @@ export const legislationInitiativesTableColumns: GridColumns<GridValidRowModel> 
       headerName: "Statutul proiectului",
       flex: 0.3,
     },
-    {
-      field: "details",
-      headerName: "Detalii",
-      sortable: false,
-      flex: 0.2,
-    },
   ];

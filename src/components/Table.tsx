@@ -8,8 +8,9 @@ import {
 } from "@mui/x-data-grid";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ro } from "date-fns/locale";
+import { deburr, filter, values } from "lodash";
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   "& .MuiDataGrid-columnHeader, & .MuiDataGrid-footerContainer": {
@@ -31,21 +32,43 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
 
 type TableProps = {
   columns: GridColumns<GridValidRowModel>;
+  fromDate?: Date;
   getRowId: GridRowIdGetter<GridValidRowModel>;
   height: number | string;
+  onFromDateChange?: (date: Date | null) => void;
+  onToDateChange?: (date: Date | null) => void;
   pageSize?: number;
   rows: GridValidRowModel[];
+  toDate?: Date;
 };
+
+const cleanText = (text: string) =>
+  deburr(text.toLowerCase()).replaceAll(/ș/g, "s");
 
 export const Table = ({
   columns,
+  fromDate,
   getRowId,
   height,
+  onFromDateChange,
+  onToDateChange,
   pageSize = 3,
   rows,
+  toDate,
 }: TableProps) => {
   const [search, setSearch] = useState("");
-  const [startDate, setStartDate] = useState<Date | null>();
+
+  const filteredRows = useMemo(
+    () =>
+      filter(rows, (row) =>
+        values(row)
+          .map(cleanText)
+          .some((value) => value.includes(cleanText(search)))
+      ),
+    [rows, search]
+  );
+
+  console.log(filteredRows);
 
   return (
     <Stack gap={4}>
@@ -58,14 +81,26 @@ export const Table = ({
           onChange={(event) => setSearch(event.target.value)}
           value={search}
         />
-        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ro}>
-          <DatePicker
-            label="Selectează data"
-            value={startDate}
-            onChange={(value) => setStartDate(value)}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
+        {onFromDateChange && (
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ro}>
+            <DatePicker
+              label="De la data"
+              onChange={onFromDateChange}
+              renderInput={(params) => <TextField {...params} />}
+              value={fromDate}
+            />
+          </LocalizationProvider>
+        )}
+        {onToDateChange && (
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ro}>
+            <DatePicker
+              label="Până la data"
+              onChange={onToDateChange}
+              renderInput={(params) => <TextField {...params} />}
+              value={toDate}
+            />
+          </LocalizationProvider>
+        )}
       </Stack>
       <Box height={height}>
         <StyledDataGrid
@@ -74,9 +109,11 @@ export const Table = ({
           disableColumnMenu
           disableColumnSelector
           getRowId={getRowId}
+          isCellEditable={() => false}
+          isRowSelectable={() => false}
           pageSize={pageSize}
           rowHeight={80}
-          rows={rows}
+          rows={filteredRows}
         />
       </Box>
     </Stack>
