@@ -1,9 +1,13 @@
+import LaunchIcon from "@mui/icons-material/Launch";
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import {
   Box,
   Container,
   Divider,
   Grid,
+  Link,
   Stack,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { ChartData } from "chart.js";
@@ -70,80 +74,154 @@ export const DeputyDetails = () => {
         <Header title={data?.full_name ?? "Anonim"} />
         <Container>
           <Grid container columnSpacing={10} rowSpacing={8}>
-            <Grid item xs md={4}>
+            <Grid item xs md={3}>
               <Stack gap={5}>
                 <Box
                   borderRadius={2}
                   height={300}
-                  bgcolor="red"
                   sx={{
-                    backgroundImage: `url(https://via.placeholder.com/150.png?text=Fără+poză)`,
+                    backgroundImage: `url(${
+                      data?.photo ??
+                      "https://via.placeholder.com/150.png?text=Fără+poză"
+                    })`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
+                    backgroundPosition: "center",
                   }}
-                  maxWidth={300}
                 />
-                <Box>
-                  <Typography fontWeight={700}>Date de contact</Typography>
-                  <Typography fontWeight={500}>
-                    {data?.phone}, {data?.email_work}, {data?.email_personal}
+
+                <Stack gap={1}>
+                  <Typography fontWeight={700} variant="h6">
+                    Fracțiunea parlamentară
                   </Typography>
-                </Box>
-                <Box>
-                  <Typography fontWeight={700}>Anul nașterii</Typography>
-                  <Typography fontWeight={500}>{data?.birth_year}</Typography>
-                </Box>
-                <Box>
-                  <Typography fontWeight={700}>Domiciliul</Typography>
-                  <Typography fontWeight={500}>{data?.home_address}</Typography>
-                </Box>
-                <Box>
-                  <Typography fontWeight={700}>Studii</Typography>
-                  {!data?.license && !data?.master && !data?.doctorat ? (
-                    <Typography>Fără studii superioare</Typography>
-                  ) : (
-                    <Fragment>
-                      {data?.license && (
-                        <Typography fontWeight={500}>
-                          Licență: {data?.license}
-                        </Typography>
-                      )}
-                      {data?.master && (
-                        <Typography fontWeight={500}>
-                          Master: {data?.master}
-                        </Typography>
-                      )}
-                      {data?.doctorat && (
-                        <Typography fontWeight={500}>
-                          Doctorat: {data?.doctorat}
-                        </Typography>
-                      )}
-                    </Fragment>
-                  )}
-                </Box>
-                <Box>
-                  <Typography fontWeight={700}>
-                    Numărul de mandate deținute de deputat/Legislatura
-                  </Typography>
-                  <Typography fontWeight={500}>
-                    {data?.mandates_details}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography fontWeight={700}>Curriculum Vitae</Typography>
-                  {data?.curriculum_vitae && (
-                    <Typography
-                      component="a"
-                      fontWeight={500}
-                      href={data.curriculum_vitae}
-                      target="_blank"
-                    >
-                      {data?.curriculum_vitae}
+                  <Stack
+                    alignItems="center"
+                    border={1}
+                    borderColor={CARD_BORDER}
+                    borderRadius={2}
+                    boxShadow={3}
+                    direction="row"
+                    gap={4}
+                    px={2}
+                    py={4}
+                  >
+                    <Typography fontWeight={700} variant="subtitle1">
+                      {data?.factions_short_name}
                     </Typography>
+                    <Typography>
+                      {data?.faction_name
+                        ?.replace("Fracțiunea parlamentară", "")
+                        .replaceAll('"', "")}
+                    </Typography>
+                  </Stack>
+                </Stack>
+
+                <Stack
+                  border={1}
+                  borderColor={CARD_BORDER}
+                  borderRadius={2}
+                  boxShadow={3}
+                  gap={4}
+                  px={6}
+                  py={8}
+                >
+                  <Box>
+                    <Typography fontWeight={700}>Date de contact</Typography>
+                    {!data?.phone &&
+                      !data?.email_work &&
+                      !data?.email_personal && (
+                        <Typography fontWeight={600}>-</Typography>
+                      )}
+                    {data?.phone && (
+                      <Typography fontWeight={600}>{data.phone}</Typography>
+                    )}
+                    {data?.email_work && (
+                      <Tooltip
+                        arrow
+                        placement="top"
+                        title={data.email_work ?? ""}
+                      >
+                        <Typography fontWeight={600} noWrap>
+                          {data.email_work}
+                        </Typography>
+                      </Tooltip>
+                    )}
+                    {data?.email_personal && (
+                      <Typography fontWeight={600}>
+                        {data.email_personal}
+                      </Typography>
+                    )}
+                  </Box>
+
+                  <Box>
+                    <Typography fontWeight={700}>Profesia</Typography>
+                    <Typography>
+                      {data?.profession ? data?.profession : "-"}
+                    </Typography>
+                  </Box>
+
+                  <Box>
+                    <Typography fontWeight={700}>Studii</Typography>
+                    <Typography>
+                      Licență: {data?.license ? data?.license : "-"}
+                    </Typography>
+                    <Typography>
+                      Master: {data?.master ? data?.master : "-"}
+                    </Typography>
+                    <Typography>
+                      Doctorat: {data?.doctorat ? data?.doctorat : "-"}
+                    </Typography>
+                  </Box>
+
+                  <Stack
+                    direction="row"
+                    columnGap={8}
+                    flexWrap="wrap"
+                    rowGap={5}
+                  >
+                    <Box>
+                      <Typography fontWeight={700}>Anul nașterii</Typography>
+                      <Typography fontWeight={600}>
+                        {data?.birth_year ? data?.birth_year : "-"}
+                      </Typography>
+                    </Box>
+
+                    <Box>
+                      <Typography fontWeight={700}>Domiciliul</Typography>
+                      <Typography>
+                        {data?.home_address ? data?.home_address : "-"}
+                      </Typography>
+                    </Box>
+                  </Stack>
+
+                  {data?.curriculum_vitae && (
+                    <Stack alignItems="center" direction="row" gap={4}>
+                      <Box
+                        alignItems="center"
+                        bgcolor={CARD_BORDER}
+                        borderRadius={99}
+                        color="common.white"
+                        display="flex"
+                        justifyContent="center"
+                        p={2}
+                      >
+                        <TextSnippetIcon />
+                      </Box>
+                      <Box>
+                        <Typography fontWeight={700}>
+                          Curriculum Vitae
+                        </Typography>
+                        <Typography color="#9CA3AF">Vezi documentul</Typography>
+                      </Box>
+                      <Link href={data.curriculum_vitae} target="_blank">
+                        <LaunchIcon />
+                      </Link>
+                    </Stack>
                   )}
-                </Box>
+                </Stack>
               </Stack>
             </Grid>
+
             <Grid item md>
               <Grid container columnSpacing={3} rowSpacing={7}>
                 <Grid item xs={12}>
