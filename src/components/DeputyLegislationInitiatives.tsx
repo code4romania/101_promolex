@@ -10,10 +10,12 @@ import { Table } from "./Table";
 
 type DeputyLegislationInitiativesProps = {
   did: string;
+  onShowDetails: (docId: string) => void;
 };
 
 export const DeputyLegislationInitiatives = ({
   did,
+  onShowDetails,
 }: DeputyLegislationInitiativesProps) => {
   const [fromDate, setFromDate] = useState<Date>(new Date(Date.now()));
   const [toDate, setToDate] = useState<Date>(new Date(Date.now()));
@@ -34,14 +36,14 @@ export const DeputyLegislationInitiatives = ({
         headerName: "Detalii",
         sortable: false,
         flex: 0.2,
-        renderCell: (row) => (
-          <IconButton onClick={() => console.log(row)}>
+        renderCell: ({ row }) => (
+          <IconButton onClick={() => onShowDetails(row.docid)}>
             <FindInPageIcon />
           </IconButton>
         ),
       },
     ],
-    []
+    [onShowDetails]
   );
 
   const filteredInitiatives = useMemo(() => {

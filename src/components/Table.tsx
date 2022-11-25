@@ -49,6 +49,7 @@ type TableProps = {
   fromDate?: Date;
   getRowId: GridRowIdGetter<GridValidRowModel>;
   height: number | string;
+  hideFooter?: boolean;
   isLoading?: boolean;
   onFromDateChange?: (date: Date | null) => void;
   onToDateChange?: (date: Date | null) => void;
@@ -67,6 +68,7 @@ export const Table = ({
   fromDate,
   getRowId,
   height,
+  hideFooter,
   isLoading,
   onFromDateChange,
   onToDateChange,
@@ -80,12 +82,14 @@ export const Table = ({
 
   const filteredRows = useMemo(
     () =>
-      filter(rows, (row) =>
-        values(row)
-          .map(cleanText)
-          .some((value) => value.includes(cleanText(search)))
-      ),
-    [rows, search]
+      showSearch
+        ? filter(rows, (row) =>
+            values(row)
+              .map(cleanText)
+              .some((value) => value.includes(cleanText(search)))
+          )
+        : rows,
+    [rows, search, showSearch]
   );
 
   return (
@@ -152,6 +156,7 @@ export const Table = ({
           rowHeight={80}
           rows={filteredRows}
           rowsPerPageOptions={[5]}
+          hideFooter={hideFooter}
         />
       </Box>
     </Stack>

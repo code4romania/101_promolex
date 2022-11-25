@@ -26,6 +26,7 @@ import {
   DeputyWealth,
   DetailsDialog,
   Header,
+  LegislationInitiativeDetails,
 } from "../components";
 import { DeputyLegislationInitiatives } from "../components/DeputyLegislationInitiatives";
 import { useDeputyDetailsQuery } from "../queries";
@@ -38,6 +39,7 @@ export const DeputyDetails = () => {
   const { data } = useDeputyDetailsQuery(did);
 
   const [open, setOpen] = useState(false);
+  const [docId, setDocId] = useState("");
 
   const votingChartData: ChartData<"bar", number[], string> = useMemo(() => {
     const labels = keys(data?.voting).map((label) => capitalize(label));
@@ -314,7 +316,13 @@ export const DeputyDetails = () => {
         </Container>
       </Stack>
       <DetailsDialog open={open} handleClose={() => setOpen(false)}>
-        <DeputyLegislationInitiatives did={did ?? ""} />
+        <DeputyLegislationInitiatives
+          did={did ?? ""}
+          onShowDetails={(docId: string) => setDocId(docId)}
+        />
+      </DetailsDialog>
+      <DetailsDialog open={Boolean(docId)} handleClose={() => setDocId("")}>
+        <LegislationInitiativeDetails docId={docId} />
       </DetailsDialog>
     </Fragment>
   );
