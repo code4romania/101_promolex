@@ -1,3 +1,7 @@
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
 import LaunchIcon from "@mui/icons-material/Launch";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import {
@@ -5,6 +9,7 @@ import {
   Container,
   Divider,
   Grid,
+  IconButton,
   Link,
   Stack,
   Tooltip,
@@ -123,8 +128,51 @@ export const DeputyDetails = () => {
                   boxShadow={3}
                   gap={4}
                   px={6}
-                  py={8}
+                  py={4}
                 >
+                  <Stack
+                    alignItems="center"
+                    direction="row"
+                    gap={1}
+                    justifyContent="center"
+                  >
+                    <Link
+                      component={IconButton}
+                      disabled={!data?.linkedIn}
+                      href={data?.linkedIn}
+                      size="small"
+                      target="_blank"
+                    >
+                      <LinkedInIcon fontSize="large" />
+                    </Link>
+                    <Link
+                      component={IconButton}
+                      disabled={!data?.facebook}
+                      href={data?.facebook}
+                      size="small"
+                      target="_blank"
+                    >
+                      <FacebookRoundedIcon fontSize="large" />
+                    </Link>
+                    <Link
+                      component={IconButton}
+                      disabled={!data?.instagram}
+                      href={data?.instagram}
+                      size="small"
+                      target="_blank"
+                    >
+                      <InstagramIcon fontSize="large" />
+                    </Link>
+                    <Link
+                      component={IconButton}
+                      disabled={!data?.tweeter}
+                      href={data?.tweeter}
+                      size="small"
+                      target="_blank"
+                    >
+                      <TwitterIcon fontSize="large" />
+                    </Link>
+                  </Stack>
                   <Box>
                     <Typography fontWeight={700}>Date de contact</Typography>
                     {!data?.phone &&
