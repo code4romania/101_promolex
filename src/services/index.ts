@@ -1,4 +1,5 @@
 export * from "./fetchCurrentLegislature";
+export * from "./fetchCurrentLegislatureDetails";
 export * from "./fetchDeputiesByFaction";
 export * from "./fetchDeputiesByLegislature";
 export * from "./fetchDeputyDetails";

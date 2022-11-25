@@ -1,6 +1,5 @@
 import { Box, Stack, styled, Tab, Tabs, Typography } from "@mui/material";
 import { Fragment, useState } from "react";
-import { CARD_BORDER } from "../constants";
 
 type StyledTabProps = {
   label: string;
@@ -51,7 +50,7 @@ export const DeputyActivity = ({
         <Box
           boxShadow={2}
           border={1}
-          borderColor={CARD_BORDER}
+          borderColor="secondary.main"
           borderRadius={2}
         >
           <Tabs

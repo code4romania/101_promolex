@@ -38,7 +38,7 @@ export const DeputiesList = ({
             Ne pare rău a apărut o eroare. Vă rugăm încercați mai târziu
           </Typography>
         )}
-        {!sortedDeputies.length && (
+        {!isLoading && !isError && !sortedDeputies.length && (
           <Typography variant="h5">Nu există deputați înregistrați</Typography>
         )}
       </Stack>

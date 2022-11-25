@@ -25,7 +25,13 @@ export type LegislationInitiativeDetails = {
   data_vot_1_lect: string;
   data_vot_2_lect: string;
   data_vot_3_lect: string;
-  //   1_lect_dep_pentru: Pick<Deputy, "did" | "full_name">[];
-  //   lect_dep_contra: Pick<Deputy, "did" | "full_name">[];
-  //   lect_dep_abtinut: Pick<Deputy, "did" | "full_name">[];
+  dep_pentru_1_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_contra_1_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_abtinut_1_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_pentru_2_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_contra_2_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_abtinut_2_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_pentru_3_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_contra_3_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_abtinut_3_lect: Pick<Deputy, "did" | "full_name">[];
 };

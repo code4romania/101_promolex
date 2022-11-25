@@ -1,6 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { PropsWithChildren } from "react";
-import { CARD_BORDER } from "../constants";
 
 type DeputyStatisticsCardProps = {
   onClick?: () => void;
@@ -15,7 +14,7 @@ export const DeputyStatisticsCard = ({
   return (
     <Stack
       border={1}
-      borderColor={CARD_BORDER}
+      borderColor="secondary.main"
       borderRadius={2}
       boxShadow={3}
       height={245}
@@ -24,7 +23,7 @@ export const DeputyStatisticsCard = ({
         cursor: onClick ? "pointer" : "default",
       }}
     >
-      <Box px={9} py={5} borderBottom={1} borderColor={CARD_BORDER}>
+      <Box px={9} py={5} borderBottom={1} borderColor="secondary.main">
         <Typography variant="subtitle1">{title}</Typography>
       </Box>
       <Box

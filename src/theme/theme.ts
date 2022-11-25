@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { PRIMARY, PRIMARY_DARK, WHITE } from "../constants";
+import { SECONDARY, PRIMARY, PRIMARY_DARK, WHITE } from "../constants";
 
 export const theme = createTheme({
   palette: {
@@ -8,6 +8,10 @@ export const theme = createTheme({
       main: PRIMARY,
       contrastText: WHITE,
     },
+    secondary: {
+      main: SECONDARY,
+    },
+    divider: SECONDARY,
   },
   spacing: 4,
   typography: {

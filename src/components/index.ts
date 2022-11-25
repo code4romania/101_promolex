@@ -9,4 +9,5 @@ export * from "./DeputyStatisticsCard";
 export * from "./DeputyWealth";
 export * from "./DetailsDialog";
 export * from "./Header";
+export * from "./LegislationInitiativeDetails";
 export * from "./Navbar";

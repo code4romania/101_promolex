@@ -1,4 +1,5 @@
 export * from "./QueryClientProvider";
+export * from "./useCurrentLegislatureDetailsQuery";
 export * from "./useCurrentLegislatureQuery";
 export * from "./useDeputiesByFactionQuery";
 export * from "./useDeputiesByLegislatureQuery";
