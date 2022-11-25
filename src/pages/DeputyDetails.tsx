@@ -28,7 +28,6 @@ import {
   Header,
 } from "../components";
 import { DeputyLegislationInitiatives } from "../components/DeputyLegislationInitiatives";
-import { CARD_BORDER } from "../constants";
 import { useDeputyDetailsQuery } from "../queries";
 import { RoutesParams } from "../types";
 
@@ -102,7 +101,7 @@ export const DeputyDetails = () => {
                   <Stack
                     alignItems="center"
                     border={1}
-                    borderColor={CARD_BORDER}
+                    borderColor="secondary.main"
                     borderRadius={2}
                     boxShadow={3}
                     direction="row"
@@ -123,7 +122,7 @@ export const DeputyDetails = () => {
 
                 <Stack
                   border={1}
-                  borderColor={CARD_BORDER}
+                  borderColor="secondary.main"
                   borderRadius={2}
                   boxShadow={3}
                   gap={4}
@@ -246,7 +245,7 @@ export const DeputyDetails = () => {
                     <Stack alignItems="center" direction="row" gap={4}>
                       <Box
                         alignItems="center"
-                        bgcolor={CARD_BORDER}
+                        bgcolor="secondary.main"
                         borderRadius={99}
                         color="common.white"
                         display="flex"
@@ -281,10 +280,7 @@ export const DeputyDetails = () => {
                     mandatesCount={data?.nr_mandates}
                     specialCommittees={data?.special_comissions}
                   />
-                  <Divider
-                    variant="fullWidth"
-                    sx={{ backgroundColor: CARD_BORDER }}
-                  />
+                  <Divider variant="fullWidth" />
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <DeputyStatisticsCard title="Votul deputatului">
@@ -309,10 +305,7 @@ export const DeputyDetails = () => {
               </Grid>
             </Grid>
             <Grid item xs={12}>
-              <Divider
-                variant="fullWidth"
-                sx={{ backgroundColor: CARD_BORDER }}
-              />
+              <Divider variant="fullWidth" />
             </Grid>
             <Grid item xs={12}>
               <DeputyWealth did={did ?? ""} />
