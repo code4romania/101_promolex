@@ -23,7 +23,6 @@ export const LegislativeActivity = () => {
   const navigate = useNavigate();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    console.log(newValue);
     navigate(newValue);
   };
 

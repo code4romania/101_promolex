@@ -7,6 +7,7 @@ import {
   DeputyDetails,
   LegislativeActivity,
   LegislativeActivityProjects,
+  LegislativeActivityStatute,
   Root,
 } from "../pages";
 import { LegislativeActivityRoutes, Routes } from "../types";
@@ -48,7 +49,7 @@ export const router = createBrowserRouter([
           },
           {
             path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.statute}`,
-            element: <Typography>Statut proiecte</Typography>,
+            element: <LegislativeActivityStatute />,
           },
           {
             path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.domains}`,

@@ -1,3 +1,10 @@
+export type LegislationInitiativeStatute =
+  | "în examinare"
+  | "adoptat"
+  | "respins"
+  | "comasat"
+  | "retras";
+
 export type LegislationInitiative = {
   docid: string;
   proiect_act: string;

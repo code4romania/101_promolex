@@ -20,15 +20,9 @@ const pieChartOptions: ChartOptions<"pie"> = {
       labels: {
         boxHeight: 20,
         boxWidth: 40,
-        filter: (legendItem, data) => {
-          console.log(legendItem.index);
-          console.log(data.datasets[0].data[legendItem.index ?? 0]);
-
-          return (
-            legendItem.index !== undefined &&
-            Boolean(data.datasets[0].data[legendItem.index])
-          );
-        },
+        filter: (legendItem, data) =>
+          legendItem.index !== undefined &&
+          Boolean(data.datasets[0].data[legendItem.index]),
       },
     },
     datalabels: {
