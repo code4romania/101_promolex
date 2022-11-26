@@ -2,7 +2,13 @@ import { Typography } from "@mui/material";
 import { createBrowserRouter } from "react-router-dom";
 import { DeputiesByFaction } from "../components";
 import { DeputiesByLegislature } from "../components/DeputiesByLegislature";
-import { Deputies, DeputyDetails, LegislativeActivity, Root } from "../pages";
+import {
+  Deputies,
+  DeputyDetails,
+  LegislativeActivity,
+  LegislativeActivityProjects,
+  Root,
+} from "../pages";
 import { LegislativeActivityRoutes, Routes } from "../types";
 
 export const router = createBrowserRouter([
@@ -38,7 +44,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.projects}`,
-            element: <Typography>Proiecte înregistrate</Typography>,
+            element: <LegislativeActivityProjects />,
           },
           {
             path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.statute}`,
