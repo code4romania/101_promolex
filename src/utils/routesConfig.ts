@@ -1,4 +1,4 @@
-import { Routes, RoutesConfig } from "../types";
+import { LegislativeActivityRoutes, Routes, RoutesConfig } from "../types";
 
 export const routesConfig: RoutesConfig = [
   {
@@ -12,6 +12,20 @@ export const routesConfig: RoutesConfig = [
   {
     label: "Activitate legislativă",
     route: Routes.LegislativeActivity,
+    subRoutes: [
+      {
+        label: "Proiecte înregistrate",
+        route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.projects}`,
+      },
+      {
+        label: "Statutul proiectelor",
+        route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.statute}`,
+      },
+      {
+        label: "Domeniile proiectelor",
+        route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.domains}`,
+      },
+    ],
   },
   {
     label: "Ședințe plenare",

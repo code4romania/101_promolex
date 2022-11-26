@@ -2,8 +2,8 @@ import { Typography } from "@mui/material";
 import { createBrowserRouter } from "react-router-dom";
 import { DeputiesByFaction } from "../components";
 import { DeputiesByLegislature } from "../components/DeputiesByLegislature";
-import { Deputies, DeputyDetails, Root } from "../pages";
-import { Routes } from "../types";
+import { Deputies, DeputyDetails, LegislativeActivity, Root } from "../pages";
+import { LegislativeActivityRoutes, Routes } from "../types";
 
 export const router = createBrowserRouter([
   {
@@ -34,7 +34,21 @@ export const router = createBrowserRouter([
       },
       {
         path: Routes.LegislativeActivity,
-        element: <Typography>Activitate legislativă</Typography>,
+        element: <LegislativeActivity />,
+        children: [
+          {
+            path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.projects}`,
+            element: <Typography>Proiecte înregistrate</Typography>,
+          },
+          {
+            path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.statute}`,
+            element: <Typography>Statut proiecte</Typography>,
+          },
+          {
+            path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.domains}`,
+            element: <Typography>Domeniile proiectelor</Typography>,
+          },
+        ],
       },
       {
         path: Routes.PlenaryMeetings,
