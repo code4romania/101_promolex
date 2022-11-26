@@ -59,7 +59,6 @@ const barChartOptions: ChartOptions<"bar"> = {
       },
     },
     datalabels: {
-      // anchor: "start",
       color: "white",
       labels: {
         title: {

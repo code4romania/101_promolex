@@ -7,4 +7,5 @@ export * from "./fetchFactionsByLegislature";
 export * from "./fetchIncomeStatementsByDeputy";
 export * from "./fetchLegislationInitiativeDetails";
 export * from "./fetchLegislationInitiativesByDeputy";
+export * from "./fetchRegisteredProjects";
 export * from "./fetchStatementYear";

@@ -8,4 +8,5 @@ export * from "./useFactionsByLegislatureQuery";
 export * from "./useIncomeStatementsByDeputyQuery";
 export * from "./useLegislationInitiativeDetailsQuery";
 export * from "./useLegislationInitiativesByDeputyQuery";
+export * from "./useRegisteredProjectsQuery";
 export * from "./useStatementYearQuery";
