@@ -9,7 +9,7 @@ import {
   styled,
   useTheme,
 } from "@mui/material";
-import { MouseEvent, useState } from "react";
+import { Fragment, MouseEvent, useState } from "react";
 import { NavLink, NavLinkProps, useNavigate } from "react-router-dom";
 import { routesConfig } from "../utils";
 
@@ -60,14 +60,16 @@ export const Navbar = () => {
                 {label}
               </StyledNavLink>
             ) : (
-              <>
+              <Fragment key={route}>
                 <StyledButton onClick={handleClick}>{label}</StyledButton>
                 <Menu anchorEl={anchorEl} open={open} onClose={handleClose()}>
                   {subRoutes.map(({ label, route }) => (
-                    <MenuItem onClick={handleClose(route)}>{label}</MenuItem>
+                    <MenuItem key={route} onClick={handleClose(route)}>
+                      {label}
+                    </MenuItem>
                   ))}
                 </Menu>
-              </>
+              </Fragment>
             )
           )}
         </Stack>
