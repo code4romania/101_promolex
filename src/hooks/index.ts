@@ -1,1 +1,1 @@
-export * from "./useRegisteredProjects";
+export * from './useRegisteredProjects';

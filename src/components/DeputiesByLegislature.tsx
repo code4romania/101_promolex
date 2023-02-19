@@ -1,10 +1,10 @@
-import { DeputiesList } from "./DeputiesList";
 import {
   useCurrentLegislatureQuery,
   useDeputiesByLegislatureQuery,
-} from "../queries";
+} from '../queries';
+import { DeputiesList } from './DeputiesList';
 
-export const DeputiesByLegislature = () => {
+export function DeputiesByLegislature() {
   const {
     data: lid,
     isLoading: isLoadingLid,
@@ -23,4 +23,4 @@ export const DeputiesByLegislature = () => {
   return (
     <DeputiesList deputies={deputies} isError={isError} isLoading={isLoading} />
   );
-};
+}

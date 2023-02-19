@@ -1,11 +1,12 @@
-import FindInPageIcon from "@mui/icons-material/FindInPage";
-import { IconButton, Stack } from "@mui/material";
-import { Table } from "../components/Table";
-import { legislationInitiativesTableColumns } from "../utils";
-import { DetailsDialog, LegislationInitiativeDetails } from "../components";
-import { Fragment, PropsWithChildren, useMemo, useState } from "react";
-import { uniqueId } from "lodash";
-import { LegislationInitiative } from "../types";
+import FindInPageIcon from '@mui/icons-material/FindInPage';
+import { IconButton, Stack } from '@mui/material';
+import { uniqueId } from 'lodash';
+import { Fragment, PropsWithChildren, useMemo, useState } from 'react';
+import { LegislationInitiative } from '../types';
+import { legislationInitiativesTableColumns } from '../utils';
+import { DetailsDialog } from './DetailsDialog';
+import { LegislationInitiativeDetails } from './LegislationInitiativeDetails';
+import { Table } from './Table';
 
 type LegislativeActivityWrapperProps = {
   fromDate: Date;
@@ -15,21 +16,21 @@ type LegislativeActivityWrapperProps = {
   toDate: Date;
 };
 
-export const LegislativeActivityWrapper = ({
+export function LegislativeActivityWrapper({
   children,
   fromDate,
   onFromDateChange,
   onToDateChange,
   registeredProjects,
   toDate,
-}: PropsWithChildren<LegislativeActivityWrapperProps>) => {
-  const [docId, setDocId] = useState("");
+}: PropsWithChildren<LegislativeActivityWrapperProps>) {
+  const [docId, setDocId] = useState('');
   const extendedColumns = useMemo(
     () => [
       ...legislationInitiativesTableColumns,
       {
-        field: "details",
-        headerName: "Detalii",
+        field: 'details',
+        headerName: 'Detalii',
         sortable: false,
         flex: 0.2,
         renderCell: ({ row }) => (
@@ -39,11 +40,11 @@ export const LegislativeActivityWrapper = ({
         ),
       },
     ],
-    []
+    [],
   );
 
   return (
-    <Fragment>
+    <>
       <Stack gap={8} pt={8}>
         {children}
         <Table
@@ -60,9 +61,9 @@ export const LegislativeActivityWrapper = ({
           toDate={toDate}
         />
       </Stack>
-      <DetailsDialog open={Boolean(docId)} handleClose={() => setDocId("")}>
+      <DetailsDialog open={Boolean(docId)} handleClose={() => setDocId('')}>
         <LegislationInitiativeDetails docId={docId} />
       </DetailsDialog>
-    </Fragment>
+    </>
   );
-};
+}

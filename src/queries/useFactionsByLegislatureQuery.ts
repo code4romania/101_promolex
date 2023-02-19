@@ -1,18 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchFactionsByLegislature } from "../services";
+import { useQuery } from '@tanstack/react-query';
+import { fetchFactionsByLegislature } from '../services';
 
 export const useFactionsByLegislatureQuery = (lid?: string) => {
   const enabled = Boolean(lid);
 
   return useQuery(
-    ["factions", lid],
+    ['factions', lid],
     () => {
-      if (!lid) return;
+      if (!lid) return undefined;
 
       return fetchFactionsByLegislature(lid);
     },
     {
       enabled,
-    }
+    },
   );
 };

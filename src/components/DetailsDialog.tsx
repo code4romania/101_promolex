@@ -1,15 +1,15 @@
-import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from '@mui/icons-material/Close';
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   IconButton,
   styled,
-} from "@mui/material";
-import { PropsWithChildren } from "react";
+} from '@mui/material';
+import { PropsWithChildren } from 'react';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogActions-root": {
+  '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
   },
 }));
@@ -19,28 +19,28 @@ type DetailsDialogProps = {
   open: boolean;
 };
 
-export const DetailsDialog = ({
+export function DetailsDialog({
   children,
   handleClose,
   open,
-}: PropsWithChildren<DetailsDialogProps>) => {
+}: PropsWithChildren<DetailsDialogProps>) {
   return (
     <BootstrapDialog onClose={handleClose} open={open} fullWidth>
       <DialogTitle
         sx={{
-          alignItems: "center",
-          display: "flex",
+          alignItems: 'center',
+          display: 'flex',
           m: 0,
           p: 2,
           minHeight: 65,
         }}
       >
         <IconButton
-          aria-label="close"
+          aria-label='close'
           onClick={handleClose}
           sx={{
             color: (theme) => theme.palette.grey[500],
-            ml: "auto",
+            ml: 'auto',
           }}
         >
           <CloseIcon />
@@ -49,4 +49,4 @@ export const DetailsDialog = ({
       <DialogContent dividers>{children}</DialogContent>
     </BootstrapDialog>
   );
-};
+}

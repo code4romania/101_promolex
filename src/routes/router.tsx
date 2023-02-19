@@ -1,7 +1,7 @@
-import { Typography } from "@mui/material";
-import { createBrowserRouter } from "react-router-dom";
-import { DeputiesByFaction } from "../components";
-import { DeputiesByLegislature } from "../components/DeputiesByLegislature";
+import { Typography } from '@mui/material';
+import { createBrowserRouter } from 'react-router-dom';
+import { DeputiesByFaction } from '../components';
+import { DeputiesByLegislature } from '../components/DeputiesByLegislature';
 import {
   Deputies,
   DeputyDetails,
@@ -9,8 +9,8 @@ import {
   LegislativeActivityProjects,
   LegislativeActivityStatute,
   Root,
-} from "../pages";
-import { LegislativeActivityRoutes, Routes } from "../types";
+} from '../pages';
+import { LegislativeActivityRoutes, Routes } from '../types';
 
 export const router = createBrowserRouter([
   {

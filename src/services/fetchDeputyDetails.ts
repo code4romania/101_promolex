@@ -1,9 +1,9 @@
-import axios from "axios";
-import { apiPaths } from "../constants";
-import { DeputyDetails } from "../types";
+import axios from 'axios';
+import { apiPaths } from '../constants';
+import { DeputyDetails } from '../types';
 
 export const fetchDeputyDetails = async (
-  did: string
+  did: string,
 ): Promise<Partial<DeputyDetails>> => {
   const { data } = await axios.post(`${apiPaths.deputyDetailsById}${did}`);
 

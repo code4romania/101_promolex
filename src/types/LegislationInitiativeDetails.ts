@@ -1,4 +1,4 @@
-import { Deputy } from "./Deputy";
+import { Deputy } from './Deputy';
 
 type Committee = {
   cid: string;
@@ -14,7 +14,7 @@ export type LegislationInitiativeDetails = {
   last_update: string;
   link_proiect: string;
   dom_int: string;
-  autor: Pick<Deputy, "did" | "full_name">[];
+  autor: Pick<Deputy, 'did' | 'full_name'>[];
   urgenta: string;
   comisia_sesizata: Committee[];
   cons_pub: string;
@@ -25,13 +25,13 @@ export type LegislationInitiativeDetails = {
   data_vot_1_lect: string;
   data_vot_2_lect: string;
   data_vot_3_lect: string;
-  dep_pentru_1_lect: Pick<Deputy, "did" | "full_name">[];
-  dep_contra_1_lect: Pick<Deputy, "did" | "full_name">[];
-  dep_abtinut_1_lect: Pick<Deputy, "did" | "full_name">[];
-  dep_pentru_2_lect: Pick<Deputy, "did" | "full_name">[];
-  dep_contra_2_lect: Pick<Deputy, "did" | "full_name">[];
-  dep_abtinut_2_lect: Pick<Deputy, "did" | "full_name">[];
-  dep_pentru_3_lect: Pick<Deputy, "did" | "full_name">[];
-  dep_contra_3_lect: Pick<Deputy, "did" | "full_name">[];
-  dep_abtinut_3_lect: Pick<Deputy, "did" | "full_name">[];
+  dep_pentru_1_lect: Pick<Deputy, 'did' | 'full_name'>[];
+  dep_contra_1_lect: Pick<Deputy, 'did' | 'full_name'>[];
+  dep_abtinut_1_lect: Pick<Deputy, 'did' | 'full_name'>[];
+  dep_pentru_2_lect: Pick<Deputy, 'did' | 'full_name'>[];
+  dep_contra_2_lect: Pick<Deputy, 'did' | 'full_name'>[];
+  dep_abtinut_2_lect: Pick<Deputy, 'did' | 'full_name'>[];
+  dep_pentru_3_lect: Pick<Deputy, 'did' | 'full_name'>[];
+  dep_contra_3_lect: Pick<Deputy, 'did' | 'full_name'>[];
+  dep_abtinut_3_lect: Pick<Deputy, 'did' | 'full_name'>[];
 };

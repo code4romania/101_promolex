@@ -1,9 +1,9 @@
 export type LegislationInitiativeStatute =
-  | "în examinare"
-  | "adoptat"
-  | "respins"
-  | "comasat"
-  | "retras";
+  | 'în examinare'
+  | 'adoptat'
+  | 'respins'
+  | 'comasat'
+  | 'retras';
 
 export type LegislationInitiative = {
   docid: string;

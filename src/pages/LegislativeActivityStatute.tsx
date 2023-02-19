@@ -1,10 +1,10 @@
-import { Grid } from "@mui/material";
-import { has } from "lodash";
-import { LegislativeActivityWrapper, StatisticsBarChart } from "../components";
-import { useRegisteredProjects } from "../hooks";
-import { getProjectsByStatuteAndTypeChartData } from "../utils";
+import { Grid } from '@mui/material';
+import { has } from 'lodash';
+import { LegislativeActivityWrapper, StatisticsBarChart } from '../components';
+import { useRegisteredProjects } from '../hooks';
+import { getProjectsByStatuteAndTypeChartData } from '../utils';
 
-export const LegislativeActivityStatute = () => {
+export function LegislativeActivityStatute() {
   const {
     fromDate,
     onFromDateChange,
@@ -13,29 +13,29 @@ export const LegislativeActivityStatute = () => {
     toDate,
   } = useRegisteredProjects();
 
-  if (has(registeredProjects, "error")) {
+  if (has(registeredProjects, 'error')) {
     return null;
   }
 
   const projectsInExamination = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
-    "în examinare"
+    'în examinare',
   );
   const projectsPassed = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
-    "adoptat"
+    'adoptat',
   );
   const projectsRejected = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
-    "respins"
+    'respins',
   );
   const projectsMerged = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
-    "comasat"
+    'comasat',
   );
   const projectsRetracted = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
-    "retras"
+    'retras',
   );
 
   return (
@@ -46,32 +46,32 @@ export const LegislativeActivityStatute = () => {
       registeredProjects={registeredProjects ?? []}
       toDate={toDate}
     >
-      <Grid container columnSpacing={6} justifyContent="center" rowSpacing={6}>
+      <Grid container columnSpacing={6} justifyContent='center' rowSpacing={6}>
         <Grid item xs lg={4}>
           <StatisticsBarChart
             data={projectsInExamination}
-            title="Proiecte în examinare"
+            title='Proiecte în examinare'
           />
         </Grid>
         <Grid item xs lg={4}>
-          <StatisticsBarChart data={projectsPassed} title="Proiecte adoptate" />
+          <StatisticsBarChart data={projectsPassed} title='Proiecte adoptate' />
         </Grid>
         <Grid item xs lg={4}>
           <StatisticsBarChart
             data={projectsRejected}
-            title="Proiecte respinse"
+            title='Proiecte respinse'
           />
         </Grid>
         <Grid item xs lg={4}>
-          <StatisticsBarChart data={projectsMerged} title="Proiecte comasate" />
+          <StatisticsBarChart data={projectsMerged} title='Proiecte comasate' />
         </Grid>
         <Grid item xs lg={4}>
           <StatisticsBarChart
             data={projectsRetracted}
-            title="Proiecte retrase"
+            title='Proiecte retrase'
           />
         </Grid>
       </Grid>
     </LegislativeActivityWrapper>
   );
-};
+}

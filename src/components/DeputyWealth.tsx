@@ -1,44 +1,43 @@
-import { Stack, Typography } from "@mui/material";
-import { keys, values } from "lodash";
-import { useMemo, useState } from "react";
+import { Stack, Typography } from '@mui/material';
+import { keys, values } from 'lodash';
+import { useMemo, useState } from 'react';
 import {
   useIncomeStatementsByDeputyQuery,
   useStatementYearQuery,
-} from "../queries";
-import { statementsTableColumns } from "../utils";
-import { DeputyIncomeCard } from "./DeputyIncomeCard";
-import { Table } from "./Table";
+} from '../queries';
+import { statementsTableColumns } from '../utils';
+import { DeputyIncomeCard } from './DeputyIncomeCard';
+import { Table } from './Table';
 
 type DeputyWealthProps = {
   did: string;
 };
 
-export const DeputyWealth = ({ did }: DeputyWealthProps) => {
+export function DeputyWealth({ did }: DeputyWealthProps) {
   const { data: year } = useStatementYearQuery();
   const { data: incomeStatements } = useIncomeStatementsByDeputyQuery(
     did,
-    year
+    year,
   );
 
   const [selectedCategory, setSelectedCategory] = useState(0);
 
-  const [categories, statements] = useMemo(() => {
-    const categories = keys(incomeStatements);
-    const statements = values(incomeStatements);
-    return [categories, statements];
-  }, [incomeStatements]);
+  const [categories, statements] = useMemo(
+    () => [keys(incomeStatements), values(incomeStatements)],
+    [incomeStatements],
+  );
 
   return (
     <Stack gap={6}>
-      <Typography fontWeight={700} variant="h4">
+      <Typography fontWeight={700} variant='h4'>
         Declarația de venituri
       </Typography>
 
-      <Stack direction="row" gap={2} overflow="auto">
+      <Stack direction='row' gap={2} overflow='auto'>
         {categories.map((category, index) => (
           <DeputyIncomeCard
-            key={index}
-            bgcolor="#88A9B5"
+            key={category}
+            bgcolor='#88A9B5'
             isActive={selectedCategory === index}
             label={category}
             onClick={() => setSelectedCategory(index)}
@@ -53,4 +52,4 @@ export const DeputyWealth = ({ did }: DeputyWealthProps) => {
       />
     </Stack>
   );
-};
+}
