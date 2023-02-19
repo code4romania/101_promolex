@@ -58,26 +58,26 @@ export function DeputyDetails() {
       datasets: [
         {
           label: 'Prezent',
-          data: [data?.sessions_present_absent?.presents ?? 0],
+          data: [data?.sessionsPresentAbsent?.presents ?? 0],
           backgroundColor: BAR_COLOR_MAP[0],
         },
         {
           label: 'Absent',
-          data: [data?.sessions_present_absent?.absents ?? 0],
+          data: [data?.sessionsPresentAbsent?.absents ?? 0],
           backgroundColor: BAR_COLOR_MAP[1],
         },
       ],
     }),
     [
-      data?.sessions_present_absent?.absents,
-      data?.sessions_present_absent?.presents,
+      data?.sessionsPresentAbsent?.absents,
+      data?.sessionsPresentAbsent?.presents,
     ],
   );
 
   return (
     <>
       <Stack gap={4}>
-        <Header title={data?.full_name ?? 'Anonim'} />
+        <Header title={data?.fullName ?? 'Anonim'} />
         <Container>
           <Grid container columnSpacing={10} rowSpacing={8}>
             <Grid item xs md={3}>
@@ -112,10 +112,10 @@ export function DeputyDetails() {
                     py={4}
                   >
                     <Typography fontWeight={700} variant='subtitle1'>
-                      {data?.factions_short_name}
+                      {data?.factionsShortName}
                     </Typography>
                     <Typography>
-                      {data?.faction_name
+                      {data?.factionName
                         ?.replace('Fracțiunea parlamentară', '')
                         .replaceAll('"', '')}
                     </Typography>
@@ -177,27 +177,27 @@ export function DeputyDetails() {
                   <Box>
                     <Typography fontWeight={700}>Date de contact</Typography>
                     {!data?.phone &&
-                      !data?.email_work &&
-                      !data?.email_personal && (
+                      !data?.emailWork &&
+                      !data?.emailPersonal && (
                         <Typography fontWeight={600}>-</Typography>
                       )}
                     {data?.phone && (
                       <Typography fontWeight={600}>{data.phone}</Typography>
                     )}
-                    {data?.email_work && (
+                    {data?.emailWork && (
                       <Tooltip
                         arrow
                         placement='top'
-                        title={data.email_work ?? ''}
+                        title={data.emailWork ?? ''}
                       >
                         <Typography fontWeight={600} noWrap>
-                          {data.email_work}
+                          {data.emailWork}
                         </Typography>
                       </Tooltip>
                     )}
-                    {data?.email_personal && (
+                    {data?.emailPersonal && (
                       <Typography fontWeight={600}>
-                        {data.email_personal}
+                        {data.emailPersonal}
                       </Typography>
                     )}
                   </Box>
@@ -231,19 +231,19 @@ export function DeputyDetails() {
                     <Box>
                       <Typography fontWeight={700}>Anul nașterii</Typography>
                       <Typography fontWeight={600}>
-                        {data?.birth_year ? data?.birth_year : '-'}
+                        {data?.birthYear ? data?.birthYear : '-'}
                       </Typography>
                     </Box>
 
                     <Box>
                       <Typography fontWeight={700}>Domiciliul</Typography>
                       <Typography>
-                        {data?.home_address ? data?.home_address : '-'}
+                        {data?.homeAddress ? data?.homeAddress : '-'}
                       </Typography>
                     </Box>
                   </Stack>
 
-                  {data?.curriculum_vitae && (
+                  {data?.curriculumVitae && (
                     <Stack alignItems='center' direction='row' gap={4}>
                       <Box
                         alignItems='center'
@@ -262,7 +262,7 @@ export function DeputyDetails() {
                         </Typography>
                         <Typography color='#9CA3AF'>Vezi documentul</Typography>
                       </Box>
-                      <Link href={data.curriculum_vitae} target='_blank'>
+                      <Link href={data.curriculumVitae} target='_blank'>
                         <LaunchIcon />
                       </Link>
                     </Stack>
@@ -277,10 +277,10 @@ export function DeputyDetails() {
                   <DeputyActivity
                     committee={data?.committee}
                     delegates={data?.delegates}
-                    investigationCommittees={data?.investigate_comissions}
+                    investigationCommittees={data?.investigateComissions}
                     friendships={data?.friendships}
-                    mandatesCount={data?.nr_mandates}
-                    specialCommittees={data?.special_comissions}
+                    mandatesCount={data?.nrMandates}
+                    specialCommittees={data?.specialComissions}
                   />
                   <Divider variant='fullWidth' />
                 </Grid>

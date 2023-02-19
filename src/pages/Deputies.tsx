@@ -54,16 +54,16 @@ export function Deputies() {
             >
               Toți deputații
             </Button>
-            {factions?.map(({ fid, short_name }) => (
+            {factions?.map(({ fid, shortName }) => (
               <Button
-                key={short_name}
+                key={`${fid}-${shortName}`}
                 onClick={onFilterDeputies(fid)}
                 sx={{
                   backgroundColor:
                     fidParam === fid ? 'primary.dark' : undefined,
                 }}
               >
-                {short_name}
+                {shortName}
               </Button>
             ))}
           </ButtonGroup>

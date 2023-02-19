@@ -11,7 +11,7 @@ export const useCurrentLegislatureDetailsQuery = (
   const enabled = Boolean(lid) && !isLoading && !isError;
 
   return useQuery<LegislatureDetails>(
-    ['current-legislature-details'],
+    ['current-legislature-details', lid],
     () => fetchCurrentLegislatureDetails(lid ?? ''),
     {
       ...options,

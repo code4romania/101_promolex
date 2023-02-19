@@ -23,8 +23,8 @@ export function DeputyLegislationInitiatives({
     useLegislationInitiativesByDeputyQuery(did);
   const { isFetching: isLoadingLegislatureDetails } =
     useCurrentLegislatureDetailsQuery({
-      onSuccess: ({ legislature_from }) => {
-        setFromDate(new Date(legislature_from));
+      onSuccess: ({ legislatureFrom }) => {
+        setFromDate(new Date(legislatureFrom));
       },
     });
 
@@ -50,7 +50,7 @@ export function DeputyLegislationInitiatives({
     if (isLoadingInitiatives || isLoadingLegislatureDetails || !data) return [];
 
     return data?.filter((initiative) => {
-      const regDate = new Date(initiative.data_reg);
+      const regDate = new Date(initiative.dataReg);
       return regDate >= fromDate && regDate <= toDate;
     });
   }, [

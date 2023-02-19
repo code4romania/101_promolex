@@ -1,8 +1,8 @@
 export type Deputy = {
   did: string;
-  dep_status: string;
-  full_name: string;
-  factions_short_name: string;
-  faction_name: string;
+  depStatus: string;
+  fullName: string;
+  factionsShortName: string;
+  factionName: string;
   photo: string;
 };

@@ -1,12 +1,12 @@
 export type IncomeStatement = {
   itemid: string;
-  item_name: string;
-  property_type: string;
+  itemName: string;
+  propertyType: string;
   acquisition: string;
   cost: string;
   currency: string;
-  market_cost: string;
-  market_currency: string;
+  marketCost: string;
+  marketCurrency: string;
   note: string;
 };
 

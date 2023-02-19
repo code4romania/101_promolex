@@ -2,7 +2,7 @@ import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
 
 export const statementsTableColumns: GridColumns<GridValidRowModel> = [
   {
-    field: 'item_name',
+    field: 'itemName',
     headerName: 'Denumire',
     sortable: false,
     flex: 0.5,

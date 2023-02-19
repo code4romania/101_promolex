@@ -15,7 +15,7 @@ const projectTypeMap = [
 export const getProjectsByTypeChartData = (
   projects: LegislationInitiative[],
 ): ChartData<'pie', number[], string> => {
-  const projectsByType = groupBy(projects, 'proiect_act');
+  const projectsByType = groupBy(projects, 'proiectAct');
 
   const sortedProjectTypeMap = chain(projectTypeMap)
     .sortBy(({ key }) => keys(projectsByType).indexOf(key))

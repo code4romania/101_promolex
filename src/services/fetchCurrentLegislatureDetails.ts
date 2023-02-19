@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { apiPaths } from '../constants';
 import { LegislatureDetails } from '../types';
+import { mapKeysToCamelCase } from '../utils';
 
 export const fetchCurrentLegislatureDetails = async (
   lid: string,
@@ -9,5 +10,5 @@ export const fetchCurrentLegislatureDetails = async (
     `${apiPaths.currentLegislatureDetails}${lid}`,
   );
 
-  return data;
+  return mapKeysToCamelCase(data);
 };

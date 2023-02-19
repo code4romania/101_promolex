@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { apiPaths } from '../constants';
 import { Deputy } from '../types';
+import { mapKeysToCamelCase } from '../utils';
 
 export const fetchDeputiesByFaction = async (
   fid: string,
@@ -9,5 +10,5 @@ export const fetchDeputiesByFaction = async (
     `${apiPaths.deputiesListByFactionId}${fid}`,
   );
 
-  return data;
+  return mapKeysToCamelCase(data);
 };

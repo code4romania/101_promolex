@@ -18,8 +18,8 @@ export function DeputiesList({
 }: DeputiesListProps) {
   const sortedDeputies = useMemo(
     () =>
-      sortBy(deputies, ({ full_name }) =>
-        deburr(full_name).replaceAll(/Ș/g, 'S'),
+      sortBy(deputies, ({ fullName }) =>
+        deburr(fullName).replaceAll(/Ș/g, 'S'),
       ) ?? [],
     [deputies],
   );
@@ -47,15 +47,15 @@ export function DeputiesList({
 
   return (
     <Grid container columnSpacing={3} rowSpacing={4}>
-      {sortedDeputies?.map(({ did, factions_short_name, full_name, photo }) => (
+      {sortedDeputies?.map(({ did, factionsShortName, fullName, photo }) => (
         <Grid key={did} item>
           <Link
             to={`${Routes.Deputies}/detalii/${did}`}
             style={{ textDecoration: 'none' }}
           >
             <DeputyCard
-              fullName={full_name}
-              factionShortName={factions_short_name}
+              fullName={fullName}
+              factionShortName={factionsShortName}
               photo={photo}
             />
           </Link>
