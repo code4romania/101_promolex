@@ -6,7 +6,7 @@ const StyledLink = styled(RouterLink)(({ theme }) => ({
   color: theme.palette.text.primary,
   textDecoration: 'none',
   '&:hover': {
-    color: '#29829E',
+    color: theme.palette.secondary.main,
     fontWeight: theme.typography.fontWeightBold,
   },
 }));

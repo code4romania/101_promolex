@@ -14,7 +14,7 @@ export function CommitteeSummary({ details, watched }: CommitteeDetailsProps) {
   const { palette, typography } = useTheme();
   const [expanded, setExpanded] = useState(false);
 
-  const expandedBgColor = watched ? WATCHED_COLOR : '#29829E';
+  const expandedBgColor = watched ? WATCHED_COLOR : palette.secondary.main;
   const expandedColor = palette.common.white;
   const bgColor = watched ? palette.grey[100] : palette.common.white;
   const color = watched ? WATCHED_COLOR : palette.text.primary;
