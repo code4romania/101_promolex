@@ -11,6 +11,7 @@ export * from './DetailsDialog';
 export * from './Header';
 export * from './LegislationInitiativeDetails';
 export * from './LegislativeActivityWrapper';
+export * from './StackedBarChart';
 export * from './StatisticsBarChart';
 export * from './StatisticsPieChart';
 export * from './Navbar';
