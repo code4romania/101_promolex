@@ -1,5 +1,6 @@
 export * from './BarChart';
 export * from './CommitteeDetails';
+export * from './CommitteeSummary';
 export * from './DeputiesByFaction';
 export * from './DeputiesByLegislature';
 export * from './DeputiesList';
