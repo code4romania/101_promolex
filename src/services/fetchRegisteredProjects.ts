@@ -20,7 +20,7 @@ export const fetchRegisteredProjects = async (
 ): Promise<LegislationInitiative[]> => {
   const queryParams = new URLSearchParams(params);
   const { data } = await axios.post(
-    `${apiPaths.registeredProjectsByFilters}?${queryParams.toString()}`,
+    `${apiPaths.registeredProjectsByFilters}${queryParams.toString()}`,
   );
 
   return mapKeysToCamelCase(data);
