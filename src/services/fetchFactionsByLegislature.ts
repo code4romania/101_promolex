@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { apiPaths } from '../constants';
 import { Faction } from '../types';
 import { mapKeysToCamelCase } from '../utils';
+import { apiPaths } from './apiUrls';
 
 export const fetchFactionsByLegislature = async (
   lid: string,

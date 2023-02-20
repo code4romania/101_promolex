@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { apiPaths } from '../constants';
 import { IncomeStatements } from '../types';
 import { mapKeysToCamelCase } from '../utils';
+import { apiPaths } from './apiUrls';
 
 export const fetchIncomeStatementsByDeputy = async (
   did: string,

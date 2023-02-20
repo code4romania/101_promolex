@@ -1,15 +1,26 @@
 import axios from 'axios';
-import { apiPaths } from '../constants';
 import { LegislationInitiative } from '../types';
 import { mapKeysToCamelCase } from '../utils';
+import { apiPaths } from './apiUrls';
+
+export type RegisteredProjectsQueryParams = Partial<{
+  did: string;
+  domeniul: string;
+  fid: string;
+  from: string;
+  lectura: string;
+  lid: string;
+  proiectAct: string;
+  statutProiect: string;
+  to: string;
+}>;
 
 export const fetchRegisteredProjects = async (
-  lid: string,
-  from: string,
-  to: string,
+  params: RegisteredProjectsQueryParams,
 ): Promise<LegislationInitiative[]> => {
+  const queryParams = new URLSearchParams(params);
   const { data } = await axios.post(
-    apiPaths.registeredProjectsByLegislatureId(lid, from, to),
+    `${apiPaths.registeredProjectsByFilters}?${queryParams.toString()}`,
   );
 
   return mapKeysToCamelCase(data);

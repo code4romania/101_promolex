@@ -12,6 +12,5 @@ export const apiPaths = {
   legislationInitiativeDetailsById: `${API_BASE_URL}?type=document_details&docid=`,
   incomeStatementsByDeputyId: (did: string, year: string) =>
     `${API_BASE_URL}?type=deputie_income_statement&did=${did}&year=${year}`,
-  registeredProjectsByLegislatureId: (lid: string, from: string, to: string) =>
-    `${API_BASE_URL}?type=list_registered_projects&lid=${lid}&from=${from}&to=${to}`,
+  registeredProjectsByFilters: `${API_BASE_URL}?type=list_registered_projects`,
 };
