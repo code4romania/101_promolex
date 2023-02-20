@@ -16,6 +16,7 @@ export const theme = createTheme({
   spacing: 4,
   typography: {
     fontFamily: 'Titillium Web',
+    fontWeightMedium: 600,
     subtitle1: {
       fontSize: 18,
       fontWeight: 700,
@@ -27,6 +28,13 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: () => `
         html, body, #root {
