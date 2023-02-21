@@ -1,25 +1,35 @@
-import { Typography } from '@mui/material';
 import { createBrowserRouter } from 'react-router-dom';
 import { DeputiesByFaction } from '../components';
 import { DeputiesByLegislature } from '../components/DeputiesByLegislature';
 import {
+  AboutProjectPage,
+  CommitteesPage,
+  ControlPage,
   Deputies,
   DeputyDetails,
+  EventDetailsPage,
+  EventsPage,
+  HomePage,
   LegislativeActivity,
-  LegislativeActivityProjects,
-  LegislativeActivityStatute,
+  ReportDetailsPage,
+  ReportsPage,
   Root,
+  SessionsPage,
 } from '../pages';
 import { LegislativeActivityRoutes, Routes } from '../types';
 
 export const router = createBrowserRouter([
   {
-    path: Routes.AboutProject,
+    path: Routes.Home,
     element: <Root />,
     children: [
       {
         index: true,
-        element: <Typography>Despre</Typography>,
+        element: <HomePage />,
+      },
+      {
+        path: Routes.AboutProject,
+        element: <AboutProjectPage />,
       },
       {
         path: Routes.Deputies,
@@ -41,33 +51,50 @@ export const router = createBrowserRouter([
       },
       {
         path: Routes.LegislativeActivity,
-        element: <LegislativeActivity />,
         children: [
           {
-            path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.projects}`,
-            element: <LegislativeActivityProjects />,
+            path: LegislativeActivityRoutes.projects,
+            element: <LegislativeActivity />,
           },
           {
-            path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.statute}`,
-            element: <LegislativeActivityStatute />,
+            path: LegislativeActivityRoutes.committees,
+            element: <CommitteesPage />,
           },
           {
-            path: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.domains}`,
-            element: <Typography>Domeniile proiectelor</Typography>,
+            path: LegislativeActivityRoutes.control,
+            element: <ControlPage />,
           },
         ],
       },
       {
         path: Routes.PlenaryMeetings,
-        element: <Typography>Ședințe plenare</Typography>,
+        element: <SessionsPage />,
       },
       {
         path: Routes.Reports,
-        element: <Typography>Rapoarte</Typography>,
+        children: [
+          {
+            index: true,
+            element: <ReportsPage />,
+          },
+          {
+            path: 'detalii/:rid',
+            element: <ReportDetailsPage />,
+          },
+        ],
       },
       {
         path: Routes.News,
-        element: <Typography>Noutăți</Typography>,
+        children: [
+          {
+            index: true,
+            element: <EventsPage />,
+          },
+          {
+            path: 'detalii/:eid',
+            element: <EventDetailsPage />,
+          },
+        ],
       },
     ],
   },

@@ -1,16 +1,17 @@
 export enum Routes {
-  AboutProject = '/',
+  Home = '/',
+  AboutProject = '/despre-proiect',
   Deputies = '/deputati',
-  LegislativeActivity = '/activitate',
-  PlenaryMeetings = '/sedinte',
-  Reports = '/rapoarte',
+  LegislativeActivity = '/activitate-legislativa',
+  PlenaryMeetings = '/sedinte-plenare',
+  Reports = '/publicatii',
   News = '/noutati',
 }
 
 export enum LegislativeActivityRoutes {
-  projects = '/proiecte-inregistrate',
-  statute = '/statut-proiecte',
-  domains = '/domenii-proiecte',
+  projects = 'proiecte-de-legi-si-hotarari',
+  committees = 'comisii-parlamentare-permanente',
+  control = 'control-parlamentar',
 }
 
 export type RoutesParams = {

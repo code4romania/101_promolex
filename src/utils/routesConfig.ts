@@ -14,16 +14,16 @@ export const routesConfig: RoutesConfig = [
     route: Routes.LegislativeActivity,
     subRoutes: [
       {
-        label: 'Proiecte înregistrate',
-        route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.projects}`,
+        label: 'Proiecte de legi si hotarari',
+        route: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.projects}`,
       },
       {
-        label: 'Statutul proiectelor',
-        route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.statute}`,
+        label: 'Comisii parlamentare permanente',
+        route: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.committees}`,
       },
       {
-        label: 'Domeniile proiectelor',
-        route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.domains}`,
+        label: 'Control parlamentar',
+        route: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.control}`,
       },
     ],
   },
@@ -32,7 +32,7 @@ export const routesConfig: RoutesConfig = [
     route: Routes.PlenaryMeetings,
   },
   {
-    label: 'Rapoarte',
+    label: 'Publicații',
     route: Routes.Reports,
   },
   {
