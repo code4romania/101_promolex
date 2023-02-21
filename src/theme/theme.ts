@@ -12,6 +12,11 @@ export const theme = createTheme({
       main: SECONDARY,
     },
     divider: SECONDARY,
+    grey: {
+      500: '#71717A',
+      800: '#27272A',
+      900: '#18181B',
+    },
   },
   spacing: 4,
   typography: {
