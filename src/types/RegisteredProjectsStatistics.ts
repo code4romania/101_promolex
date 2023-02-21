@@ -6,8 +6,9 @@ export type KeyFilter =
   | 'lectura'
   | 'domeniul';
 
-export type RegisteredProjectsStatisticsQueryParams = Partial<{
+export type RegisteredProjectsStatisticsQueryParams = {
   key: KeyFilter;
+} & Partial<{
   lid: string;
   from: string;
   to: string;
