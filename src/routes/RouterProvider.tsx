@@ -1,6 +1,6 @@
-import { RouterProvider as RouterProviderCore } from "react-router-dom";
-import { router } from "./router";
+import { RouterProvider as RouterProviderCore } from 'react-router-dom';
+import { router } from './router';
 
-export const RouterProvider = () => {
+export function RouterProvider() {
   return <RouterProviderCore router={router} />;
-};
+}

@@ -1,14 +1,14 @@
-import { Box, Button, ButtonGroup, Container, Stack } from "@mui/material";
-import { useCallback } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
-import { Header } from "../components";
+import { Box, Button, ButtonGroup, Container, Stack } from '@mui/material';
+import { useCallback } from 'react';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Header } from '../components';
 import {
   useCurrentLegislatureQuery,
   useFactionsByLegislatureQuery,
-} from "../queries";
-import { RoutesParams, Routes } from "../types";
+} from '../queries';
+import { RoutesParams, Routes } from '../types';
 
-export const Deputies = () => {
+export function Deputies() {
   const navigate = useNavigate();
   const { fid: fidParam } = useParams<RoutesParams>();
   const {
@@ -35,35 +35,35 @@ export const Deputies = () => {
 
       navigate(`${Routes.Deputies}/${fid}`);
     },
-    [navigate]
+    [navigate],
   );
 
   return (
     <Stack gap={4}>
-      <Header title="Deputați" />
+      <Header title='Deputați' />
       <Container>
         <Box pb={4}>
           <ButtonGroup
             disabled={isLoading || isError}
             disableRipple
-            variant="contained"
+            variant='contained'
           >
             <Button
               onClick={onFilterDeputies()}
-              sx={{ backgroundColor: !fidParam ? "primary.dark" : undefined }}
+              sx={{ backgroundColor: !fidParam ? 'primary.dark' : undefined }}
             >
               Toți deputații
             </Button>
-            {factions?.map(({ fid, short_name }) => (
+            {factions?.map(({ fid, shortName }) => (
               <Button
-                key={short_name}
+                key={`${fid}-${shortName}`}
                 onClick={onFilterDeputies(fid)}
                 sx={{
                   backgroundColor:
-                    fidParam === fid ? "primary.dark" : undefined,
+                    fidParam === fid ? 'primary.dark' : undefined,
                 }}
               >
-                {short_name}
+                {shortName}
               </Button>
             ))}
           </ButtonGroup>
@@ -72,4 +72,4 @@ export const Deputies = () => {
       </Container>
     </Stack>
   );
-};
+}

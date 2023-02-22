@@ -1,9 +1,9 @@
-import { Grid } from "@mui/material";
-import { getProjectsByTypeChartData } from "../utils";
-import { LegislativeActivityWrapper, StatisticsPieChart } from "../components";
-import { useRegisteredProjects } from "../hooks";
+import { Grid } from '@mui/material';
+import { LegislativeActivityWrapper, StatisticsPieChart } from '../components';
+import { useRegisteredProjects } from '../hooks';
+import { getProjectsByTypeChartData } from '../utils';
 
-export const LegislativeActivityProjects = () => {
+export function LegislativeActivityProjects() {
   const {
     fromDate,
     onFromDateChange,
@@ -13,7 +13,7 @@ export const LegislativeActivityProjects = () => {
   } = useRegisteredProjects();
 
   const projectsByTypeChartData = getProjectsByTypeChartData(
-    registeredProjects ?? []
+    registeredProjects ?? [],
   );
 
   return (
@@ -24,14 +24,14 @@ export const LegislativeActivityProjects = () => {
       registeredProjects={registeredProjects ?? []}
       toDate={toDate}
     >
-      <Grid container columnSpacing={8} justifyContent="center" rowSpacing={6}>
+      <Grid container columnSpacing={8} justifyContent='center' rowSpacing={6}>
         <Grid item xs lg={6}>
           <StatisticsPieChart
             data={projectsByTypeChartData}
-            title="Tipul proiectului"
+            title='Tipul proiectului'
           />
         </Grid>
       </Grid>
     </LegislativeActivityWrapper>
   );
-};
+}

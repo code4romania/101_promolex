@@ -1,5 +1,5 @@
 export type LegislatureDetails = {
-  legislature_name: string;
-  legislature_from: string;
-  legislature_to: string;
+  legislatureName: string;
+  legislatureFrom: string;
+  legislatureTo: string;
 };

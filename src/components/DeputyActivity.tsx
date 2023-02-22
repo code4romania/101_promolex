@@ -1,5 +1,5 @@
-import { Box, Stack, styled, Tab, Tabs, Typography } from "@mui/material";
-import { Fragment, useState } from "react";
+import { Box, Stack, styled, Tab, Tabs, Typography } from '@mui/material';
+import { useState } from 'react';
 
 type StyledTabProps = {
   label: string;
@@ -10,10 +10,10 @@ const StyledTab = styled((props: StyledTabProps) => (
 ))(({ theme }) => ({
   color: theme.palette.common.black,
   fontWeight: theme.typography.fontWeightBold,
-  textTransform: "none",
-  "&.Mui-selected": {
+  textTransform: 'none',
+  '&.Mui-selected': {
     color: theme.palette.common.black,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: '#F3F4F6',
   },
 }));
 
@@ -26,14 +26,14 @@ type DeputyActivityProps = {
   specialCommittees?: string[];
 };
 
-export const DeputyActivity = ({
+export function DeputyActivity({
   committee,
   delegates,
   investigationCommittees,
   friendships,
   mandatesCount,
   specialCommittees,
-}: DeputyActivityProps) => {
+}: DeputyActivityProps) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -42,7 +42,7 @@ export const DeputyActivity = ({
 
   return (
     <Stack gap={5}>
-      <Typography fontWeight={700} variant="h4">
+      <Typography fontWeight={700} variant='h4'>
         Activitate parlamentară
       </Typography>
 
@@ -50,56 +50,60 @@ export const DeputyActivity = ({
         <Box
           boxShadow={2}
           border={1}
-          borderColor="secondary.main"
+          borderColor='secondary.main'
           borderRadius={2}
         >
           <Tabs
             onChange={handleChange}
-            scrollButtons="auto"
+            scrollButtons='auto'
             value={value}
-            variant="scrollable"
+            variant='scrollable'
           >
-            <StyledTab label="Comisia parlamentară" />
-            <StyledTab label="Comisii speciale/ de anchetă" />
-            <StyledTab label="Delegații parlamentare" />
-            <StyledTab label="Apartenența la grupurile de prietenie internaționale / adunări parlamentare:" />
-            <StyledTab label="Numarul de mandate/ Legislatura" />
+            <StyledTab label='Comisia parlamentară' />
+            <StyledTab label='Comisii speciale/ de anchetă' />
+            <StyledTab label='Delegații parlamentare' />
+            <StyledTab label='Apartenența la grupurile de prietenie internaționale / adunări parlamentare:' />
+            <StyledTab label='Numarul de mandate/ Legislatura' />
           </Tabs>
         </Box>
 
-        <Box height={260} overflow="auto" p={4}>
+        <Box height={260} overflow='auto' p={4}>
           {value === 0 && <Typography fontSize={20}>{committee}</Typography>}
           {value === 1 && (
-            <Fragment>
+            <>
               {(specialCommittees?.length ?? 0) > 0 && (
-                <Fragment>
+                <>
                   <Typography fontSize={20} fontWeight={700}>
                     Comisii speciale:
                   </Typography>
                   {specialCommittees?.map((specialCommittee) => (
-                    <Typography fontSize={20}>{specialCommittee}</Typography>
+                    <Typography key={specialCommittee} fontSize={20}>
+                      {specialCommittee}
+                    </Typography>
                   ))}
-                </Fragment>
+                </>
               )}
               {(investigationCommittees?.length ?? 0) > 0 && (
-                <Fragment>
+                <>
                   <Typography fontSize={20} fontWeight={700}>
                     Comisii de anchetă:
                   </Typography>
                   {investigationCommittees?.map((investigationCommittee) => (
-                    <Typography fontSize={20}>
+                    <Typography key={investigationCommittee} fontSize={20}>
                       {investigationCommittee}
                     </Typography>
                   ))}
-                </Fragment>
+                </>
               )}
-            </Fragment>
+            </>
           )}
           {value === 2 && <Typography fontSize={20}>{delegates}</Typography>}
           {value === 3 &&
-            friendships
-              ?.split(/\r\n/)
-              .map((text) => <Typography fontSize={20}>{text}</Typography>)}
+            friendships?.split(/\r\n/).map((text) => (
+              <Typography key={text} fontSize={20}>
+                {text}
+              </Typography>
+            ))}
           {value === 4 && (
             <Typography fontSize={20}>{mandatesCount}</Typography>
           )}
@@ -107,4 +111,13 @@ export const DeputyActivity = ({
       </Box>
     </Stack>
   );
+}
+
+DeputyActivity.defaultProps = {
+  committee: '',
+  delegates: '',
+  investigationCommittees: [],
+  friendships: '',
+  mandatesCount: '',
+  specialCommittees: [],
 };

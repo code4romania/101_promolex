@@ -1,18 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchLegislationInitiativeDetails } from "../services";
+import { useQuery } from '@tanstack/react-query';
+import { fetchLegislationInitiativeDetails } from '../services';
 
 export const useLegislationInitiativeDetailsQuery = (docid?: string) => {
   const enabled = Boolean(docid);
 
   return useQuery(
-    ["legislation-initiative-details", docid],
+    ['legislation-initiative-details', docid],
     () => {
-      if (!docid) return;
+      if (!docid) return undefined;
 
       return fetchLegislationInitiativeDetails(docid);
     },
     {
       enabled,
-    }
+    },
   );
 };

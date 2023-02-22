@@ -1,30 +1,30 @@
-import FindInPageIcon from "@mui/icons-material/FindInPage";
-import { IconButton } from "@mui/material";
-import { useCallback, useMemo, useState } from "react";
+import FindInPageIcon from '@mui/icons-material/FindInPage';
+import { IconButton } from '@mui/material';
+import { useCallback, useMemo, useState } from 'react';
 import {
   useCurrentLegislatureDetailsQuery,
   useLegislationInitiativesByDeputyQuery,
-} from "../queries";
-import { legislationInitiativesTableColumns } from "../utils";
-import { Table } from "./Table";
+} from '../queries';
+import { legislationInitiativesTableColumns } from '../utils';
+import { Table } from './Table';
 
 type DeputyLegislationInitiativesProps = {
   did: string;
   onShowDetails: (docId: string) => void;
 };
 
-export const DeputyLegislationInitiatives = ({
+export function DeputyLegislationInitiatives({
   did,
   onShowDetails,
-}: DeputyLegislationInitiativesProps) => {
+}: DeputyLegislationInitiativesProps) {
   const [fromDate, setFromDate] = useState<Date>(new Date(Date.now()));
   const [toDate, setToDate] = useState<Date>(new Date(Date.now()));
   const { data, isFetching: isLoadingInitiatives } =
     useLegislationInitiativesByDeputyQuery(did);
   const { isFetching: isLoadingLegislatureDetails } =
     useCurrentLegislatureDetailsQuery({
-      onSuccess: ({ legislature_from }) => {
-        setFromDate(new Date(legislature_from));
+      onSuccess: ({ legislatureFrom }) => {
+        setFromDate(new Date(legislatureFrom));
       },
     });
 
@@ -32,8 +32,8 @@ export const DeputyLegislationInitiatives = ({
     () => [
       ...legislationInitiativesTableColumns,
       {
-        field: "details",
-        headerName: "Detalii",
+        field: 'details',
+        headerName: 'Detalii',
         sortable: false,
         flex: 0.2,
         renderCell: ({ row }) => (
@@ -43,14 +43,14 @@ export const DeputyLegislationInitiatives = ({
         ),
       },
     ],
-    [onShowDetails]
+    [onShowDetails],
   );
 
   const filteredInitiatives = useMemo(() => {
     if (isLoadingInitiatives || isLoadingLegislatureDetails || !data) return [];
 
     return data?.filter((initiative) => {
-      const regDate = new Date(initiative.data_reg);
+      const regDate = new Date(initiative.dataReg);
       return regDate >= fromDate && regDate <= toDate;
     });
   }, [
@@ -87,4 +87,4 @@ export const DeputyLegislationInitiatives = ({
       toDate={toDate}
     />
   );
-};
+}

@@ -1,5 +1,4 @@
-import { Box } from "@mui/material";
-import { Bar } from "react-chartjs-2";
+import { Box } from '@mui/material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,8 +8,9 @@ import {
   Legend,
   ChartData,
   ChartOptions,
-} from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+} from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(
   BarElement,
@@ -18,11 +18,11 @@ ChartJS.register(
   LinearScale,
   Tooltip,
   Legend,
-  ChartDataLabels
+  ChartDataLabels,
 );
 
-const barChartOptions: ChartOptions<"bar"> = {
-  indexAxis: "y" as const,
+const barChartOptions: ChartOptions<'bar'> = {
+  indexAxis: 'y' as const,
   responsive: true,
   skipNull: true,
   scales: {
@@ -44,26 +44,26 @@ const barChartOptions: ChartOptions<"bar"> = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      align: "center",
-      position: "bottom",
+      align: 'center',
+      position: 'bottom',
       labels: {
         boxWidth: 20,
         boxHeight: 20,
         font: {
-          family: "Titillium Web",
-          lineHeight: "16px",
+          family: 'Titillium Web',
+          lineHeight: '16px',
           size: 16,
-          weight: "bold",
+          weight: 'bold',
         },
-        textAlign: "left",
+        textAlign: 'left',
       },
     },
     datalabels: {
-      color: "white",
+      color: 'white',
       labels: {
         title: {
           font: {
-            weight: "bold",
+            weight: 'bold',
           },
         },
       },
@@ -76,13 +76,17 @@ const barChartOptions: ChartOptions<"bar"> = {
 
 type BarChartProps = {
   chartHeight?: number | string;
-  data: ChartData<"bar", number[], string>;
+  data: ChartData<'bar', number[], string>;
 };
 
-export const BarChart = ({ chartHeight, data }: BarChartProps) => {
+export function BarChart({ chartHeight, data }: BarChartProps) {
   return (
     <Box height={chartHeight}>
       <Bar options={barChartOptions} data={data} />
     </Box>
   );
+}
+
+BarChart.defaultProps = {
+  chartHeight: 400,
 };

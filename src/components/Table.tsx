@@ -1,44 +1,44 @@
-import SearchIcon from "@mui/icons-material/Search";
-import { Box, Stack, styled, TextField } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import { Box, Stack, styled, TextField } from '@mui/material';
 import {
   DataGrid,
   GridColumns,
   GridRowIdGetter,
   GridValidRowModel,
-} from "@mui/x-data-grid";
+} from '@mui/x-data-grid';
 import {
   DatePicker,
   LocalizationProvider,
   PickersDay,
-} from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { useMemo, useState } from "react";
-import { ro } from "date-fns/locale";
-import { deburr, filter, values } from "lodash";
+} from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { ro } from 'date-fns/locale';
+import { deburr, filter, values } from 'lodash';
+import { useMemo, useState } from 'react';
 
-const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
-  "& .MuiDataGrid-columnHeader, & .MuiDataGrid-footerContainer": {
-    backgroundColor: "#EFF0F3",
+const StyledDataGrid = styled(DataGrid)(() => ({
+  '& .MuiDataGrid-columnHeader, & .MuiDataGrid-footerContainer': {
+    backgroundColor: '#EFF0F3',
   },
-  "& .MuiDataGrid-columnHeaders": {
+  '& .MuiDataGrid-columnHeaders': {
     borderBottomWidth: 0,
   },
-  "& .MuiDataGrid-columnHeaderTitle": {
+  '& .MuiDataGrid-columnHeaderTitle': {
     fontWeight: 700,
   },
-  "& .MuiDataGrid-iconSeparator": {
-    display: "none",
+  '& .MuiDataGrid-iconSeparator': {
+    display: 'none',
   },
-  "& .MuiDataGrid-footerContainer": {
+  '& .MuiDataGrid-footerContainer': {
     borderTopWidth: 0,
   },
 }));
 
 const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
-  "&.Mui-selected": {
+  '&.Mui-selected': {
     backgroundColor: theme.palette.secondary.main,
 
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.secondary.dark,
     },
   },
@@ -61,9 +61,9 @@ type TableProps = {
 };
 
 const cleanText = (text: string) =>
-  deburr(text.toLowerCase()).replaceAll(/ș/g, "s");
+  deburr(text.toLowerCase()).replaceAll(/ș/g, 's');
 
-export const Table = ({
+export function Table({
   columns,
   fromDate,
   getRowId,
@@ -77,8 +77,8 @@ export const Table = ({
   showDatePickers,
   showSearch,
   toDate,
-}: TableProps) => {
-  const [search, setSearch] = useState("");
+}: TableProps) {
+  const [search, setSearch] = useState('');
 
   const filteredRows = useMemo(
     () =>
@@ -86,21 +86,21 @@ export const Table = ({
         ? filter(rows, (row) =>
             values(row)
               .map(cleanText)
-              .some((value) => value.includes(cleanText(search)))
+              .some((value) => value.includes(cleanText(search))),
           )
         : rows,
-    [rows, search, showSearch]
+    [rows, search, showSearch],
   );
 
   return (
     <Stack gap={4}>
       {(showSearch || showDatePickers) && (
-        <Stack direction="row" gap={4}>
+        <Stack direction='row' gap={4}>
           {showSearch && (
             <TextField
-              placeholder="Caută..."
+              placeholder='Caută...'
               InputProps={{
-                startAdornment: <SearchIcon color="disabled" />,
+                startAdornment: <SearchIcon color='disabled' />,
               }}
               onChange={(event) => setSearch(event.target.value)}
               value={search}
@@ -112,7 +112,7 @@ export const Table = ({
               adapterLocale={ro}
             >
               <DatePicker
-                label="De la data"
+                label='De la data'
                 maxDate={toDate}
                 onChange={onFromDateChange}
                 renderDay={(date, selectedDays, pickersDayProps) => (
@@ -129,7 +129,7 @@ export const Table = ({
               adapterLocale={ro}
             >
               <DatePicker
-                label="Până la data"
+                label='Până la data'
                 minDate={fromDate}
                 onChange={onToDateChange}
                 renderDay={(date, selectedDays, pickersDayProps) => (
@@ -161,4 +161,16 @@ export const Table = ({
       </Box>
     </Stack>
   );
+}
+
+Table.defaultProps = {
+  fromDate: undefined,
+  hideFooter: true,
+  isLoading: false,
+  onFromDateChange: undefined,
+  onToDateChange: undefined,
+  pageSize: 3,
+  showDatePickers: false,
+  showSearch: false,
+  toDate: undefined,
 };

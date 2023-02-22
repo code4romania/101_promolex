@@ -1,16 +1,16 @@
 export enum Routes {
-  AboutProject = "/",
-  Deputies = "/deputati",
-  LegislativeActivity = "/activitate",
-  PlenaryMeetings = "/sedinte",
-  Reports = "/rapoarte",
-  News = "/noutati",
+  AboutProject = '/',
+  Deputies = '/deputati',
+  LegislativeActivity = '/activitate',
+  PlenaryMeetings = '/sedinte',
+  Reports = '/rapoarte',
+  News = '/noutati',
 }
 
 export enum LegislativeActivityRoutes {
-  projects = "/proiecte-inregistrate",
-  statute = "/statut-proiecte",
-  domains = "/domenii-proiecte",
+  projects = '/proiecte-inregistrate',
+  statute = '/statut-proiecte',
+  domains = '/domenii-proiecte',
 }
 
 export type RoutesParams = {

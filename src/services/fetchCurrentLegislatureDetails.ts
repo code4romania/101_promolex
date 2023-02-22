@@ -1,13 +1,14 @@
-import axios from "axios";
-import { apiPaths } from "../constants";
-import { LegislatureDetails } from "../types";
+import axios from 'axios';
+import { apiPaths } from '../constants';
+import { LegislatureDetails } from '../types';
+import { mapKeysToCamelCase } from '../utils';
 
 export const fetchCurrentLegislatureDetails = async (
-  lid: string
+  lid: string,
 ): Promise<LegislatureDetails> => {
   const { data } = await axios.post(
-    `${apiPaths.currentLegislatureDetails}${lid}`
+    `${apiPaths.currentLegislatureDetails}${lid}`,
   );
 
-  return data;
+  return mapKeysToCamelCase(data);
 };

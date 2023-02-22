@@ -1,42 +1,42 @@
-import { LegislativeActivityRoutes, Routes, RoutesConfig } from "../types";
+import { LegislativeActivityRoutes, Routes, RoutesConfig } from '../types';
 
 export const routesConfig: RoutesConfig = [
   {
-    label: "Despre proiect",
+    label: 'Despre proiect',
     route: Routes.AboutProject,
   },
   {
-    label: "Deputați",
+    label: 'Deputați',
     route: Routes.Deputies,
   },
   {
-    label: "Activitate legislativă",
+    label: 'Activitate legislativă',
     route: Routes.LegislativeActivity,
     subRoutes: [
       {
-        label: "Proiecte înregistrate",
+        label: 'Proiecte înregistrate',
         route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.projects}`,
       },
       {
-        label: "Statutul proiectelor",
+        label: 'Statutul proiectelor',
         route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.statute}`,
       },
       {
-        label: "Domeniile proiectelor",
+        label: 'Domeniile proiectelor',
         route: `${Routes.LegislativeActivity}${LegislativeActivityRoutes.domains}`,
       },
     ],
   },
   {
-    label: "Ședințe plenare",
+    label: 'Ședințe plenare',
     route: Routes.PlenaryMeetings,
   },
   {
-    label: "Rapoarte",
+    label: 'Rapoarte',
     route: Routes.Reports,
   },
   {
-    label: "Noutăți",
+    label: 'Noutăți',
     route: Routes.News,
   },
 ];

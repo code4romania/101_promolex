@@ -1,5 +1,5 @@
-import { createTheme } from "@mui/material/styles";
-import { SECONDARY, PRIMARY, PRIMARY_DARK, WHITE } from "../constants";
+import { createTheme } from '@mui/material/styles';
+import { SECONDARY, PRIMARY, PRIMARY_DARK, WHITE } from '../constants';
 
 export const theme = createTheme({
   palette: {
@@ -15,18 +15,26 @@ export const theme = createTheme({
   },
   spacing: 4,
   typography: {
-    fontFamily: "Titillium Web",
+    fontFamily: 'Titillium Web',
+    fontWeightMedium: 600,
     subtitle1: {
       fontSize: 18,
       fontWeight: 700,
     },
     subtitle2: {
-      color: "#00B4CC",
+      color: '#00B4CC',
       fontSize: 18,
       fontWeight: 500,
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: () => `
         html, body, #root {
@@ -44,7 +52,7 @@ export const theme = createTheme({
     },
     MuiDialog: {
       defaultProps: {
-        maxWidth: "lg",
+        maxWidth: 'lg',
       },
     },
     MuiOutlinedInput: {

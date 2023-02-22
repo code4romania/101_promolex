@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
-import { RouterProvider } from "./routes";
-import { ThemeContext } from "./theme";
-import "@fontsource/titillium-web";
-import { QueryClientProvider } from "./queries";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { QueryClientProvider } from './queries';
+import reportWebVitals from './reportWebVitals';
+import { RouterProvider } from './routes';
+import { ThemeContext } from './theme';
+import '@fontsource/titillium-web';
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   <React.StrictMode>
@@ -16,7 +16,7 @@ root.render(
         <RouterProvider />
       </ThemeContext>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

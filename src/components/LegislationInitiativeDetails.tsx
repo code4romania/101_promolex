@@ -1,16 +1,16 @@
-import { Box, Link, Stack, Typography } from "@mui/material";
-import { useLegislationInitiativeDetailsQuery } from "../queries";
-import { legislationInitiativesTableColumns } from "../utils";
-import { DetailsRow } from "./DetailsRow";
-import { Table } from "./Table";
+import { Box, Link, Stack, Typography } from '@mui/material';
+import { useLegislationInitiativeDetailsQuery } from '../queries';
+import { legislationInitiativesTableColumns } from '../utils';
+import { DetailsRow } from './DetailsRow';
+import { Table } from './Table';
 
 type LegislationInitiativeDetailsProps = {
   docId: string;
 };
 
-export const LegislationInitiativeDetails = ({
+export function LegislationInitiativeDetails({
   docId,
-}: LegislationInitiativeDetailsProps) => {
+}: LegislationInitiativeDetailsProps) {
   const { data } = useLegislationInitiativeDetailsQuery(docId);
 
   return (
@@ -25,123 +25,121 @@ export const LegislationInitiativeDetails = ({
         />
       )}
       <DetailsRow
-        details={data?.last_update ?? ""}
-        label="Ultima actualizare a proiectului"
+        details={data?.lastUpdate ?? ''}
+        label='Ultima actualizare a proiectului'
       />
-      <Stack direction="row" gap={1}>
+      <Stack direction='row' gap={1}>
         <Typography fontWeight={700}>Link:</Typography>
-        <Link href={data?.link_proiect} target="_blank">
-          {data?.link_proiect}
+        <Link href={data?.linkProiect} target='_blank'>
+          {data?.linkProiect}
         </Link>
       </Stack>
       <DetailsRow
-        details={data?.dom_int ?? ""}
-        label="Domeniul de intervenție în legislație"
+        details={data?.domInt ?? ''}
+        label='Domeniul de intervenție în legislație'
       />
       <DetailsRow
-        details={data?.autor?.map(({ full_name }) => full_name) ?? ""}
-        label="Autori"
+        details={data?.autor?.map(({ fullName }) => fullName) ?? ''}
+        label='Autori'
       />
       <DetailsRow
-        details={data?.urgenta ?? ""}
-        label="Procedură de urgență sau mod prioritar"
+        details={data?.urgenta ?? ''}
+        label='Procedură de urgență sau mod prioritar'
       />
       <DetailsRow
-        details={
-          data?.comisia_sesizata?.map(({ committee }) => committee) ?? ""
-        }
-        label="Comisia permanentă sesizată în fond"
+        details={data?.comisiaSesizata?.map(({ committee }) => committee) ?? ''}
+        label='Comisia permanentă sesizată în fond'
       />
       <DetailsRow
-        details={data?.cons_pub ?? ""}
-        label="Consultări publice în Parlament"
+        details={data?.consPub ?? ''}
+        label='Consultări publice în Parlament'
       />
       <DetailsRow
-        details={data?.avizat_proiectul ?? ""}
-        label="Avize/expertize la proiectul de lege"
+        details={data?.avizatProiectul ?? ''}
+        label='Avize/expertize la proiectul de lege'
       />
       <DetailsRow
-        details={data?.amendamente ?? ""}
-        label="Amendamente depuse de deputați"
+        details={data?.amendamente ?? ''}
+        label='Amendamente depuse de deputați'
       />
       <Stack gap={1}>
         <DetailsRow
-          details={data?.data_vot_1_lect ?? ""}
-          label="Votare I lectură"
+          details={data?.dataVot1Lect ?? ''}
+          label='Votare I lectură'
         />
         <Box pl={4}>
           <DetailsRow
             details={
-              data?.dep_pentru_1_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['1depPentruLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Pentru (${data?.dep_pentru_1_lect?.length ?? 0})`}
+            label={`Pentru (${data?.['1depPentruLect']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.dep_contra_1_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['1depContraLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Contra (${data?.dep_contra_1_lect?.length ?? 0})`}
+            label={`Contra (${data?.['1depContraLect']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.dep_abtinut_1_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['1depAbtinutLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Nu a votat (${data?.dep_abtinut_1_lect?.length ?? 0})`}
+            label={`Nu a votat (${data?.['1depAbtinutLect']?.length ?? 0})`}
           />
         </Box>
       </Stack>
       <Stack gap={1}>
         <DetailsRow
-          details={data?.data_vot_2_lect ?? ""}
-          label="Votare a-II-a lectură"
+          details={data?.dataVot2Lect ?? ''}
+          label='Votare a-II-a lectură'
         />
         <Box pl={4}>
           <DetailsRow
             details={
-              data?.dep_pentru_2_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['2depContraLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Pentru (${data?.dep_pentru_2_lect?.length ?? 0})`}
+            label={`Pentru (${data?.['2depContraLect']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.dep_contra_2_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['2depContraLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Contra (${data?.dep_contra_2_lect?.length ?? 0})`}
+            label={`Contra (${data?.['2depContraLect']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.dep_abtinut_2_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['2depAbtinutLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Nu a votat (${data?.dep_abtinut_2_lect?.length ?? 0})`}
+            label={`Nu a votat (${data?.['2depAbtinutLect']?.length ?? 0})`}
           />
         </Box>
       </Stack>
       <Stack gap={1}>
         <DetailsRow
-          details={data?.data_vot_3_lect ?? ""}
-          label="Votare a-III-a lectură"
+          details={data?.dataVot3Lect ?? ''}
+          label='Votare a-III-a lectură'
         />
         <Box pl={4}>
           <DetailsRow
             details={
-              data?.dep_pentru_3_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['3depPentruLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Pentru (${data?.dep_pentru_3_lect?.length ?? 0})`}
+            label={`Pentru (${data?.['3depPentruLect']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.dep_contra_3_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['3depContraLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Contra (${data?.dep_contra_3_lect?.length ?? 0})`}
+            label={`Contra (${data?.['3depContraLect']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.dep_abtinut_3_lect?.map(({ full_name }) => full_name) ?? ""
+              data?.['3depAbtinutLect']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Nu a votat (${data?.dep_abtinut_3_lect?.length ?? 0})`}
+            label={`Nu a votat (${data?.['3depAbtinutLect']?.length ?? 0})`}
           />
         </Box>
       </Stack>
     </Stack>
   );
-};
+}

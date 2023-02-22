@@ -1,12 +1,13 @@
-import { Stack } from "@mui/material";
-import { Navbar } from "../components";
-import { Outlet } from "react-router-dom";
+import { Stack } from '@mui/material';
+import { Outlet } from 'react-router-dom';
+import { Footer, Navbar } from '../components';
 
-export const Root = () => {
+export function Root() {
   return (
-    <Stack pb={8}>
+    <Stack height={1}>
       <Navbar />
       <Outlet />
+      <Footer />
     </Stack>
   );
-};
+}

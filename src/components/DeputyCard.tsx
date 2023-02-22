@@ -4,7 +4,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
 type DeputyCardProps = {
   factionShortName: string;
@@ -12,27 +12,31 @@ type DeputyCardProps = {
   photo?: string;
 };
 
-export const DeputyCard = ({
+export function DeputyCard({
   factionShortName,
   fullName,
   photo,
-}: DeputyCardProps) => {
+}: DeputyCardProps) {
   return (
     <Card sx={{ minWidth: 220 }}>
       <CardActionArea disableRipple>
         <CardMedia
-          component="img"
-          height="180"
-          image={photo ?? "https://via.placeholder.com/150.png?text=Fără+poză"}
+          component='img'
+          height='180'
+          image={photo ?? 'https://via.placeholder.com/150.png?text=Fără+poză'}
           alt={fullName}
         />
         <CardContent>
-          <Typography variant="subtitle1" component="div">
+          <Typography variant='subtitle1' component='div'>
             {fullName}
           </Typography>
-          <Typography variant="subtitle2">{factionShortName}</Typography>
+          <Typography variant='subtitle2'>{factionShortName}</Typography>
         </CardContent>
       </CardActionArea>
     </Card>
   );
+}
+
+DeputyCard.defaultProps = {
+  photo: 'https://via.placeholder.com/150.png?text=Fără+poză',
 };
