@@ -1,30 +1,34 @@
-import { Box, Grid, Link, Stack, Typography, styled } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import { Report } from '../types';
-
-const StyledLink = styled(Link)(({ theme }) => ({
-  color: theme.palette.grey[800],
-  fontSize: 20,
-  textDecoration: 'none',
-
-  '&:hover': {
-    fontWeight: theme.typography.fontWeightMedium,
-    textDecoration: 'underline',
-  },
-}));
+import { DownloadLink } from './DownloadLink';
 
 type ReportItemProps = {
   report: Report;
 };
 
 export function ReportItem({ report }: ReportItemProps) {
-  const { title, fileRo, fileEn, fileRu, pubdate } = report;
+  const { rid, title, fileRo, fileEn, fileRu, pubdate } = report;
   return (
     <Grid container columnSpacing={8}>
       <Grid item>
         <Box sx={{ width: 188, height: 270, bgcolor: 'grey.400' }} />
       </Grid>
       <Grid item xs>
-        <Typography color='grey.900' variant='h6' gutterBottom>
+        <Typography
+          color='grey.900'
+          component={RouterLink}
+          gutterBottom
+          to={`detalii/${rid}`}
+          variant='h6'
+          sx={{
+            textDecoration: 'none',
+
+            '&:hover': {
+              textDecoration: 'underline',
+            },
+          }}
+        >
           {title}
         </Typography>
         <Typography color='grey.500' fontWeight='medium'>
@@ -32,17 +36,17 @@ export function ReportItem({ report }: ReportItemProps) {
         </Typography>
 
         <Stack alignItems='center' direction='row' gap={4} mt={8}>
-          <StyledLink href={fileRo} target='_blank'>
+          <DownloadLink href={fileRo} download>
             Română
-          </StyledLink>
+          </DownloadLink>
           <Typography fontSize={20}>|</Typography>
-          <StyledLink href={fileEn} target='_blank'>
+          <DownloadLink href={fileEn} download>
             Engleză
-          </StyledLink>
+          </DownloadLink>
           <Typography fontSize={20}>|</Typography>
-          <StyledLink href={fileRu} target='_blank'>
+          <DownloadLink href={fileRu} download>
             Rusă
-          </StyledLink>
+          </DownloadLink>
         </Stack>
       </Grid>
     </Grid>

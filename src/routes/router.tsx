@@ -12,6 +12,7 @@ import {
   HomePage,
   LegislativeActivity,
   ReportDetailsPage,
+  ReportsListPage,
   ReportsPage,
   Root,
   SessionsPage,
@@ -72,10 +73,11 @@ export const router = createBrowserRouter([
       },
       {
         path: Routes.Reports,
+        element: <ReportsPage />,
         children: [
           {
             index: true,
-            element: <ReportsPage />,
+            element: <ReportsListPage />,
           },
           {
             path: 'detalii/:rid',

@@ -17,7 +17,7 @@ export const apiPaths = {
   deputiesListByCommitteeId: `${API_BASE_URL}?type=list_deputies_by_committee_id&committee=`,
   registeredProjectsStatistics: `${API_BASE_URL}?type=registered_projects_statistics`,
   reportsList: `${API_BASE_URL}?type=get_reports`,
-  reportDetails: `${API_BASE_URL}?get_report_details&rid=`,
+  reportDetails: `${API_BASE_URL}?type=get_report_details&rid=`,
   eventsList: `${API_BASE_URL}?type=get_events`,
   eventDetails: `${API_BASE_URL}?type=get_event_details&eid=`,
   sessionsListByLegislatureId: `${API_BASE_URL}?type=get_sessions_list&lid=`,

@@ -10,6 +10,7 @@ export * from './LegislativeActivity';
 export * from './LegislativeActivityProjects';
 export * from './LegislativeActivityStatute';
 export * from './ReportDetailsPage';
+export * from './ReportsListPage';
 export * from './ReportsPage';
 export * from './Root';
 export * from './SessionsPage';

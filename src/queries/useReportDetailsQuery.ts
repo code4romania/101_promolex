@@ -11,6 +11,6 @@ export const useReportDetailsQuery = (
     () => fetchReportDetails(rid),
     {
       ...options,
-      enabled: Boolean(rid) && options?.enabled,
+      enabled: Boolean(rid) && (options?.enabled ?? true),
     },
   );
