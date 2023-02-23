@@ -12,6 +12,12 @@ export const theme = createTheme({
       main: SECONDARY,
     },
     divider: SECONDARY,
+    grey: {
+      200: '#E5E7EB',
+      500: '#71717A',
+      800: '#27272A',
+      900: '#18181B',
+    },
   },
   spacing: 4,
   typography: {
@@ -28,6 +34,17 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiBreadcrumbs: {
+      styleOverrides: {
+        root: {
+          paddingTop: 4,
+          paddingBottom: 4,
+        },
+        separator: {
+          margin: 0,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

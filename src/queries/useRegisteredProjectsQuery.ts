@@ -13,7 +13,7 @@ export const useRegisteredProjectsQuery = (from?: string, to?: string) => {
     () => {
       if (!lid || !from || !to) return undefined;
 
-      return fetchRegisteredProjects(lid, from, to);
+      return fetchRegisteredProjects({ lid, from, to });
     },
     {
       enabled,

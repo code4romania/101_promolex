@@ -12,6 +12,13 @@ export const apiPaths = {
   legislationInitiativeDetailsById: `${API_BASE_URL}?type=document_details&docid=`,
   incomeStatementsByDeputyId: (did: string, year: string) =>
     `${API_BASE_URL}?type=deputie_income_statement&did=${did}&year=${year}`,
-  registeredProjectsByLegislatureId: (lid: string, from: string, to: string) =>
-    `${API_BASE_URL}?type=list_registered_projects&lid=${lid}&from=${from}&to=${to}`,
+  registeredProjectsByFilters: `${API_BASE_URL}?type=list_registered_projects`,
+  committeesListByLegislatureId: `${API_BASE_URL}?type=list_committees_by_lid&lid=`,
+  deputiesListByCommitteeId: `${API_BASE_URL}?type=list_deputies_by_committee_id&committee=`,
+  registeredProjectsStatistics: `${API_BASE_URL}?type=registered_projects_statistics`,
+  reportsList: `${API_BASE_URL}?type=get_reports`,
+  reportDetails: `${API_BASE_URL}?type=get_report_details&rid=`,
+  eventsList: `${API_BASE_URL}?type=get_events`,
+  eventDetails: `${API_BASE_URL}?type=get_event_details&eid=`,
+  sessionsListByLegislatureId: `${API_BASE_URL}?type=get_sessions_list&lid=`,
 };

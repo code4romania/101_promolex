@@ -13,5 +13,4 @@ export type LegislationInitiative = {
   statutProiect: string;
   linkProiect: string;
   denumireProiect: string;
-  autor: string;
 };

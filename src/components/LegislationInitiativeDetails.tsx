@@ -70,21 +70,21 @@ export function LegislationInitiativeDetails({
         <Box pl={4}>
           <DetailsRow
             details={
-              data?.['1depPentruLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['1LectDepPentru']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Pentru (${data?.['1depPentruLect']?.length ?? 0})`}
+            label={`Pentru (${data?.['1LectDepPentru']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.['1depContraLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['1LectDepContra']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Contra (${data?.['1depContraLect']?.length ?? 0})`}
+            label={`Contra (${data?.['1LectDepContra']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.['1depAbtinutLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['1LectDepAbtinut']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Nu a votat (${data?.['1depAbtinutLect']?.length ?? 0})`}
+            label={`Nu a votat (${data?.['1LectDepAbtinut']?.length ?? 0})`}
           />
         </Box>
       </Stack>
@@ -96,21 +96,21 @@ export function LegislationInitiativeDetails({
         <Box pl={4}>
           <DetailsRow
             details={
-              data?.['2depContraLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['2LectDepPentru']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Pentru (${data?.['2depContraLect']?.length ?? 0})`}
+            label={`Pentru (${data?.['2LectDepPentru']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.['2depContraLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['2LectDepContra']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Contra (${data?.['2depContraLect']?.length ?? 0})`}
+            label={`Contra (${data?.['2LectDepContra']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.['2depAbtinutLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['2LectDepAbtinut']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Nu a votat (${data?.['2depAbtinutLect']?.length ?? 0})`}
+            label={`Nu a votat (${data?.['2LectDepAbtinut']?.length ?? 0})`}
           />
         </Box>
       </Stack>
@@ -122,21 +122,21 @@ export function LegislationInitiativeDetails({
         <Box pl={4}>
           <DetailsRow
             details={
-              data?.['3depPentruLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['3LectDepPentru']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Pentru (${data?.['3depPentruLect']?.length ?? 0})`}
+            label={`Pentru (${data?.['3LectDepPentru']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.['3depContraLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['3LectDepContra']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Contra (${data?.['3depContraLect']?.length ?? 0})`}
+            label={`Contra (${data?.['3LectDepContra']?.length ?? 0})`}
           />
           <DetailsRow
             details={
-              data?.['3depAbtinutLect']?.map(({ fullName }) => fullName) ?? ''
+              data?.['3LectDepAbtinut']?.map(({ fullName }) => fullName) ?? ''
             }
-            label={`Nu a votat (${data?.['3depAbtinutLect']?.length ?? 0})`}
+            label={`Nu a votat (${data?.['3LectDepAbtinut']?.length ?? 0})`}
           />
         </Box>
       </Stack>

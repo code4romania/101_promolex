@@ -8,8 +8,8 @@ export function Header({ title }: HeaderProps) {
   return (
     <Box boxShadow={2}>
       <Container>
-        <Stack direction='row' py={8}>
-          <Typography fontWeight={700} variant='h2'>
+        <Stack direction='row' py={6}>
+          <Typography component='h2' fontSize={40} fontWeight='bold'>
             {title}
           </Typography>
         </Stack>

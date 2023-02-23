@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { Deputy } from '../types';
+import { Committee } from '../types';
 import { mapKeysToCamelCase } from '../utils';
 import { apiPaths } from './apiUrls';
 
-export const fetchDeputiesByFaction = async (
-  fid: string,
-): Promise<Deputy[]> => {
+export const fetchCommitteesByLegislature = async (
+  lid: string,
+): Promise<Committee[]> => {
   const { data } = await axios.post(
-    `${apiPaths.deputiesListByFactionId}${fid}`,
+    `${apiPaths.committeesListByLegislatureId}${lid}`,
   );
 
   return mapKeysToCamelCase(data);

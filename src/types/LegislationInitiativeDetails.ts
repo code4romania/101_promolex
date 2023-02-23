@@ -6,6 +6,8 @@ type Committee = {
   hasMembers: string;
 };
 
+type PartialDeputy = Pick<Deputy, 'did' | 'fullName'>;
+
 export type LegislationInitiativeDetails = {
   denumireProiect: string;
   nrProiect: string;
@@ -14,24 +16,24 @@ export type LegislationInitiativeDetails = {
   lastUpdate: string;
   linkProiect: string;
   domInt: string;
-  autor: Pick<Deputy, 'did' | 'fullName'>[];
+  autor: PartialDeputy[];
   urgenta: string;
   comisiaSesizata: Committee[];
   consPub: string;
   dataConsPub: string;
   avizatProiectul: string;
   amendamente: string;
-  deputatiAmendamente: string;
+  deputatiAmendamente: PartialDeputy[];
   dataVot1Lect: string;
   dataVot2Lect: string;
   dataVot3Lect: string;
-  '1depPentruLect': Pick<Deputy, 'did' | 'fullName'>[];
-  '1depContraLect': Pick<Deputy, 'did' | 'fullName'>[];
-  '1depAbtinutLect': Pick<Deputy, 'did' | 'fullName'>[];
-  '2depPentruLect': Pick<Deputy, 'did' | 'fullName'>[];
-  '2depContraLect': Pick<Deputy, 'did' | 'fullName'>[];
-  '2depAbtinutLect': Pick<Deputy, 'did' | 'fullName'>[];
-  '3depPentruLect': Pick<Deputy, 'did' | 'fullName'>[];
-  '3depContraLect': Pick<Deputy, 'did' | 'fullName'>[];
-  '3depAbtinutLect': Pick<Deputy, 'did' | 'fullName'>[];
+  '1LectDepPentru': PartialDeputy[] | null;
+  '1LectDepContra': PartialDeputy[] | null;
+  '1LectDepAbtinut': PartialDeputy[] | null;
+  '2LectDepPentru': PartialDeputy[] | null;
+  '2LectDepContra': PartialDeputy[] | null;
+  '2LectDepAbtinut': PartialDeputy[] | null;
+  '3LectDepPentru': PartialDeputy[] | null;
+  '3LectDepContra': PartialDeputy[] | null;
+  '3LectDepAbtinut': PartialDeputy[] | null;
 };
