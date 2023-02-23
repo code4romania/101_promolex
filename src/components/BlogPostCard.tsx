@@ -7,47 +7,55 @@ import {
   Button,
   useTheme,
 } from '@mui/material';
+import parse from 'html-react-parser';
+import { Link as RouterLink } from 'react-router-dom';
+import { options } from '../constants';
+import { Event } from '../types';
 
-export function BlogPostCard() {
+type BlogPostCardProps = {
+  event: Event;
+};
+
+export function BlogPostCard({ event }: BlogPostCardProps) {
   const { palette, typography } = useTheme();
 
   return (
     <Card raised>
-      <CardMedia
-        sx={{ height: 192 }}
-        // image='/static/images/cards/contemplative-reptile.jpg'
-        // title='green iguana'
-      />
-      <CardContent>
+      <CardMedia sx={{ height: 192 }} image={event.logo} title={event.title} />
+      <CardContent sx={{ height: 260 }}>
         <Typography
           color='grey.500'
           fontWeight={typography.fontWeightMedium}
           variant='body2'
         >
-          01/09/2023
+          {event.pubdate}
         </Typography>
-        <Typography
-          gutterBottom
-          variant='h6'
-          sx={{
-            '&:hover': { color: palette.secondary.main },
-            cursor: 'pointer',
-          }}
+        <RouterLink
+          to={`detalii/${event.eid}`}
+          style={{ color: 'unset', textDecoration: 'none' }}
         >
-          APEL PUBLIC: Asociația Promo-LEX solicită Parlamentului ajustarea
-          proiectului Codului electoral conform recomandărilor Comisiei de la
-          Veneția și OSCE/ODIHR
-        </Typography>
-        <Typography color='text.secondary'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
-          accusantium praesentium eius, ut atque fuga culpa, similique sequi cum
-          eos quis dolorum.
-        </Typography>
+          <Typography
+            gutterBottom
+            variant='h6'
+            sx={{
+              '&:hover': { color: palette.secondary.main },
+              cursor: 'pointer',
+            }}
+          >
+            {event.title}
+          </Typography>
+        </RouterLink>
+        {parse(event.shortDescription, options)}
       </CardContent>
       <CardActions>
-        <Button color='secondary' size='small' variant='contained'>
-          Citește mai mult
-        </Button>
+        <RouterLink
+          to={`detalii/${event.eid}`}
+          style={{ textDecoration: 'none' }}
+        >
+          <Button color='secondary' size='small' variant='contained'>
+            Citește mai mult
+          </Button>
+        </RouterLink>
       </CardActions>
     </Card>
   );

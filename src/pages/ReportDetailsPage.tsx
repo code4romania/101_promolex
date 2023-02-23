@@ -8,24 +8,11 @@ import {
   Typography,
   styled,
 } from '@mui/material';
-import parse, {
-  HTMLReactParserOptions,
-  Element,
-  domToReact,
-} from 'html-react-parser';
+import parse from 'html-react-parser';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { DownloadLink, Loading } from '../components';
+import { options } from '../constants';
 import { useReportDetailsQuery } from '../queries';
-
-const options: HTMLReactParserOptions = {
-  replace: (domNode) => {
-    if (domNode instanceof Element && domNode.name === 'p') {
-      return <Typography>{domToReact(domNode.children)}</Typography>;
-    }
-
-    return domNode;
-  },
-};
 
 const BreadCrumbLink = styled(RouterLink)(({ theme }) => ({
   alignItems: 'center',

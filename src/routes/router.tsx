@@ -8,6 +8,7 @@ import {
   Deputies,
   DeputyDetails,
   EventDetailsPage,
+  EventsListPage,
   EventsPage,
   HomePage,
   LegislativeActivity,
@@ -87,10 +88,11 @@ export const router = createBrowserRouter([
       },
       {
         path: Routes.News,
+        element: <EventsPage />,
         children: [
           {
             index: true,
-            element: <EventsPage />,
+            element: <EventsListPage />,
           },
           {
             path: 'detalii/:eid',
