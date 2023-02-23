@@ -1,30 +1,11 @@
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import {
-  Box,
-  Breadcrumbs,
-  Grid,
-  Stack,
-  Typography,
-  styled,
-} from '@mui/material';
+import { Box, Breadcrumbs, Grid, Stack, Typography } from '@mui/material';
 import parse from 'html-react-parser';
-import { useParams, Link as RouterLink } from 'react-router-dom';
-import { DownloadLink, Loading } from '../components';
+import { useParams } from 'react-router-dom';
+import { BreadCrumbLink, DownloadLink, Loading } from '../components';
 import { options } from '../constants';
 import { useReportDetailsQuery } from '../queries';
-
-const BreadCrumbLink = styled(RouterLink)(({ theme }) => ({
-  alignItems: 'center',
-  color: theme.palette.grey[500],
-  display: 'flex',
-  fontWeight: 500,
-
-  textDecoration: 'none',
-  '&:hover': {
-    textDecoration: 'underline',
-  },
-}));
 
 export function ReportDetailsPage() {
   const { rid } = useParams<{ rid: string }>();
