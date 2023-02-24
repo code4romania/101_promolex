@@ -1,5 +1,6 @@
 export * from './BarChart';
 export * from './BlogPostCard';
+export * from './BreadCrumbLink';
 export * from './CommitteeDetails';
 export * from './CommitteeSummary';
 export * from './DeputiesByFaction';

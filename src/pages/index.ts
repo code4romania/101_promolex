@@ -4,6 +4,7 @@ export * from './ControlPage';
 export * from './Deputies';
 export * from './DeputyDetails';
 export * from './EventDetailsPage';
+export * from './EventsListPage';
 export * from './EventsPage';
 export * from './HomePage';
 export * from './LegislativeActivity';

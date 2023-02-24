@@ -59,6 +59,13 @@ export const theme = createTheme({
         }
       `,
     },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          padding: 16,
+        },
+      },
+    },
     MuiCardContent: {
       styleOverrides: {
         root: {
