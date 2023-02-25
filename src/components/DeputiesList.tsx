@@ -1,5 +1,5 @@
 import { Stack, Typography, CircularProgress, Grid } from '@mui/material';
-import { sortBy, deburr } from 'lodash';
+import { deburr, orderBy } from 'lodash';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Deputy, Routes } from '../types';
@@ -18,8 +18,10 @@ export function DeputiesList({
 }: DeputiesListProps) {
   const sortedDeputies = useMemo(
     () =>
-      sortBy(deputies, ({ fullName }) =>
-        deburr(fullName).replaceAll(/Ș/g, 'S'),
+      orderBy(
+        deputies,
+        ['depStatus', ({ fullName }) => deburr(fullName).replaceAll(/Ș/g, 'S')],
+        ['desc', 'asc'],
       ) ?? [],
     [deputies],
   );
@@ -47,20 +49,23 @@ export function DeputiesList({
 
   return (
     <Grid container columnSpacing={3} rowSpacing={4}>
-      {sortedDeputies?.map(({ did, factionsShortName, fullName, photo }) => (
-        <Grid key={did} item>
-          <Link
-            to={`${Routes.Deputies}/detalii/${did}`}
-            style={{ textDecoration: 'none' }}
-          >
-            <DeputyCard
-              fullName={fullName}
-              factionShortName={factionsShortName}
-              photo={photo}
-            />
-          </Link>
-        </Grid>
-      ))}
+      {sortedDeputies?.map(
+        ({ depStatus, did, factionsShortName, fullName, photo }) => (
+          <Grid key={did} item xs={24} sm={3} columns={24}>
+            <Link
+              to={`${Routes.Deputies}/detalii/${did}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <DeputyCard
+                fullName={fullName}
+                factionShortName={factionsShortName}
+                isActive={depStatus === '1'}
+                photo={photo}
+              />
+            </Link>
+          </Grid>
+        ),
+      )}
     </Grid>
   );
 }

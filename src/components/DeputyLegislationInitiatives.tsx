@@ -77,6 +77,7 @@ export function DeputyLegislationInitiatives({
       fromDate={fromDate}
       getRowId={(row) => row.docid}
       height={510}
+      hideFooter={!filteredInitiatives?.length}
       isLoading={isLoadingInitiatives || isLoadingLegislatureDetails}
       onFromDateChange={onFromDateChange}
       onToDateChange={onToDateChange}

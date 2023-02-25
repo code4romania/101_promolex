@@ -1,8 +1,14 @@
-import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
-import { Box, ButtonBase, darken, Typography } from '@mui/material';
+import {
+  Box,
+  ButtonBase,
+  darken,
+  SvgIconProps,
+  Typography,
+} from '@mui/material';
 
 type DeputyIncomeCardProps = {
   bgcolor: string;
+  icon: (props: SvgIconProps) => JSX.Element;
   isActive?: boolean;
   label: string;
   onClick: () => void;
@@ -10,6 +16,7 @@ type DeputyIncomeCardProps = {
 
 export function DeputyIncomeCard({
   bgcolor,
+  icon: Icon,
   isActive,
   label,
   onClick,
@@ -30,9 +37,13 @@ export function DeputyIncomeCard({
       }}
     >
       <Box fontSize={96}>
-        <EuroSymbolIcon color='inherit' fontSize='inherit' />
+        <Icon color='inherit' fontSize='inherit' />
       </Box>
-      <Typography fontWeight={700} textAlign='center'>
+      <Typography
+        fontWeight={700}
+        textAlign='center'
+        textTransform='capitalize'
+      >
         {label}
       </Typography>
     </ButtonBase>

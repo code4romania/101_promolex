@@ -1,4 +1,6 @@
 import {
+  alpha,
+  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -9,20 +11,31 @@ import {
 type DeputyCardProps = {
   factionShortName: string;
   fullName: string;
+  isActive: boolean;
   photo?: string;
 };
 
 export function DeputyCard({
   factionShortName,
   fullName,
+  isActive,
   photo,
 }: DeputyCardProps) {
   return (
-    <Card sx={{ minWidth: 220 }}>
+    <Card sx={{ position: 'relative' }}>
+      {!isActive && (
+        <Box
+          bgcolor={alpha('#fff', 0.5)}
+          height={1}
+          sx={{ position: 'absolute' }}
+          width={1}
+          zIndex={100}
+        />
+      )}
       <CardActionArea disableRipple>
         <CardMedia
           component='img'
-          height='180'
+          height='380'
           image={photo ?? 'https://via.placeholder.com/150.png?text=Fără+poză'}
           alt={fullName}
         />
