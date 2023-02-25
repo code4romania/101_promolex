@@ -1,5 +1,5 @@
-import { Stack, Typography } from '@mui/material';
-import { keys, values } from 'lodash';
+import { Stack, SvgIconProps, Typography } from '@mui/material';
+import { chain, keys, values } from 'lodash';
 import { useMemo, useState } from 'react';
 import {
   useIncomeStatementsByDeputyQuery,
@@ -7,7 +7,30 @@ import {
 } from '../queries';
 import { statementsTableColumns } from '../utils';
 import { DeputyIncomeCard } from './DeputyIncomeCard';
+import {
+  BusinessesIcon,
+  DebtsIcon,
+  FinancialActivesIcon,
+  ImmovableAssetsIcon,
+  IncomeIcon,
+  MovableAssetsIcon,
+  PersonalInterestsIcon,
+  ValuablesIcon,
+} from './Icons';
 import { Table } from './Table';
+
+const deputyWealthIconsMap: {
+  [k: string]: { icon: (props: SvgIconProps) => JSX.Element; color: string };
+} = {
+  activeFinanciare: { icon: FinancialActivesIcon, color: '#88A9B5' },
+  afaceri: { icon: BusinessesIcon, color: '#4747574D' },
+  bunuriDeValoare: { icon: ValuablesIcon, color: '#E9C699' },
+  bunuriImobile: { icon: ImmovableAssetsIcon, color: '#F6C3B466' },
+  bunuriMobile: { icon: MovableAssetsIcon, color: '#EE7C8366' },
+  datorii: { icon: DebtsIcon, color: '#88A9B566' },
+  interesePersonale: { icon: PersonalInterestsIcon, color: '#E9C69966' },
+  venit: { icon: IncomeIcon, color: '#EE7C8366' },
+};
 
 type DeputyWealthProps = {
   did: string;
@@ -37,9 +60,18 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
         {categories.map((category, index) => (
           <DeputyIncomeCard
             key={category}
-            bgcolor='#88A9B5'
+            bgcolor={
+              deputyWealthIconsMap[
+                category as keyof typeof deputyWealthIconsMap
+              ].color
+            }
+            icon={
+              deputyWealthIconsMap[
+                category as keyof typeof deputyWealthIconsMap
+              ].icon
+            }
             isActive={selectedCategory === index}
-            label={category}
+            label={chain(category).startCase().toLower().upperFirst().value()}
             onClick={() => setSelectedCategory(index)}
           />
         ))}
@@ -48,6 +80,7 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
         columns={statementsTableColumns}
         getRowId={(row) => row.itemid}
         height={350}
+        hideFooter={!statements[selectedCategory]?.length}
         rows={statements[selectedCategory] ?? []}
       />
     </Stack>

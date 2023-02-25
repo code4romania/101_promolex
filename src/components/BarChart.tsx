@@ -62,6 +62,8 @@ const barChartOptions: ChartOptions<'bar'> = {
       color: 'white',
       labels: {
         title: {
+          align: 'start',
+          anchor: 'end',
           font: {
             weight: 'bold',
           },
@@ -81,7 +83,7 @@ type BarChartProps = {
 
 export function BarChart({ chartHeight, data }: BarChartProps) {
   return (
-    <Box height={chartHeight}>
+    <Box height={chartHeight} width={1} px={6}>
       <Bar options={barChartOptions} data={data} />
     </Box>
   );

@@ -1,10 +1,14 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Box, Stack, styled, TextField } from '@mui/material';
+import { Box, Pagination, Stack, styled, TextField } from '@mui/material';
 import {
   DataGrid,
   GridColumns,
+  gridPageCountSelector,
+  gridPageSelector,
   GridRowIdGetter,
   GridValidRowModel,
+  useGridApiContext,
+  useGridSelector,
 } from '@mui/x-data-grid';
 import {
   DatePicker,
@@ -15,6 +19,21 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ro } from 'date-fns/locale';
 import { deburr, filter, values } from 'lodash';
 import { useMemo, useState } from 'react';
+
+function CustomPagination() {
+  const apiRef = useGridApiContext();
+  const page = useGridSelector(apiRef, gridPageSelector);
+  const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+
+  return (
+    <Pagination
+      color='primary'
+      count={pageCount}
+      page={page + 1}
+      onChange={(event, value) => apiRef.current.setPage(value - 1)}
+    />
+  );
+}
 
 const StyledDataGrid = styled(DataGrid)(() => ({
   '& .MuiDataGrid-columnHeader, & .MuiDataGrid-footerContainer': {
@@ -110,6 +129,10 @@ export function Table({
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
               adapterLocale={ro}
+              localeText={{
+                nextMonth: 'Luna următoare',
+                previousMonth: 'Luna anterioară',
+              }}
             >
               <DatePicker
                 label='De la data'
@@ -127,6 +150,10 @@ export function Table({
             <LocalizationProvider
               dateAdapter={AdapterDateFns}
               adapterLocale={ro}
+              localeText={{
+                nextMonth: 'Luna următoare',
+                previousMonth: 'Luna anterioară',
+              }}
             >
               <DatePicker
                 label='Până la data'
@@ -148,6 +175,7 @@ export function Table({
           disableColumnFilter
           disableColumnMenu
           disableColumnSelector
+          disableSelectionOnClick
           getRowId={getRowId}
           isCellEditable={() => false}
           isRowSelectable={() => false}
@@ -157,6 +185,9 @@ export function Table({
           rows={filteredRows}
           rowsPerPageOptions={[5]}
           hideFooter={hideFooter}
+          components={{
+            Pagination: CustomPagination,
+          }}
         />
       </Box>
     </Stack>

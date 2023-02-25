@@ -1,4 +1,12 @@
-import { Box, Stack, styled, Tab, Tabs, Typography } from '@mui/material';
+import {
+  Box,
+  Stack,
+  styled,
+  Tab,
+  Tabs,
+  TabsProps,
+  Typography,
+} from '@mui/material';
 import { useState } from 'react';
 
 type StyledTabProps = {
@@ -8,12 +16,29 @@ type StyledTabProps = {
 const StyledTab = styled((props: StyledTabProps) => (
   <Tab disableRipple {...props} />
 ))(({ theme }) => ({
+  borderRadius: 8,
   color: theme.palette.common.black,
   fontWeight: theme.typography.fontWeightBold,
+  padding: theme.spacing(2, 3),
   textTransform: 'none',
   '&.Mui-selected': {
     color: theme.palette.common.black,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: theme.palette.grey[100],
+  },
+}));
+
+const StyledTabs = styled((props: TabsProps) => (
+  <Tabs
+    {...props}
+    TabIndicatorProps={{ children: <span className='MuiTabs-indicatorSpan' /> }}
+  />
+))(({ theme }) => ({
+  '& .MuiTabs-flexContainer': {
+    alignItems: 'center',
+    padding: theme.spacing(2, 9),
+  },
+  '& .MuiTabs-indicator': {
+    backgroundColor: 'transparent',
   },
 }));
 
@@ -53,18 +78,18 @@ export function DeputyActivity({
           borderColor='secondary.main'
           borderRadius={2}
         >
-          <Tabs
+          <StyledTabs
             onChange={handleChange}
             scrollButtons='auto'
             value={value}
-            variant='scrollable'
+            variant='fullWidth'
           >
             <StyledTab label='Comisia parlamentară' />
             <StyledTab label='Comisii speciale/ de anchetă' />
             <StyledTab label='Delegații parlamentare' />
             <StyledTab label='Apartenența la grupurile de prietenie internaționale / adunări parlamentare:' />
             <StyledTab label='Numarul de mandate/ Legislatura' />
-          </Tabs>
+          </StyledTabs>
         </Box>
 
         <Box height={260} overflow='auto' p={4}>

@@ -76,7 +76,7 @@ export function DeputyDetails() {
 
   return (
     <>
-      <Stack gap={4}>
+      <Stack gap={4} pb={6}>
         <Header title={data?.fullName ?? 'Anonim'} />
         <Container>
           <Grid container columnSpacing={10} rowSpacing={8}>
@@ -138,38 +138,62 @@ export function DeputyDetails() {
                     justifyContent='center'
                   >
                     <Link
+                      color='grey.400'
                       component={IconButton}
                       disabled={!data?.linkedIn}
                       href={data?.linkedIn}
                       size='small'
                       target='_blank'
+                      sx={{
+                        '&:hover': {
+                          color: '#0A66C2',
+                        },
+                      }}
                     >
                       <LinkedInIcon fontSize='large' />
                     </Link>
                     <Link
+                      color='grey.400'
                       component={IconButton}
                       disabled={!data?.facebook}
                       href={data?.facebook}
                       size='small'
                       target='_blank'
+                      sx={{
+                        '&:hover': {
+                          color: '#1877F2',
+                        },
+                      }}
                     >
                       <FacebookRoundedIcon fontSize='large' />
                     </Link>
                     <Link
+                      color='grey.400'
                       component={IconButton}
                       disabled={!data?.instagram}
                       href={data?.instagram}
                       size='small'
                       target='_blank'
+                      sx={{
+                        '&:hover': {
+                          color: '#BC2A8D',
+                        },
+                      }}
                     >
                       <InstagramIcon fontSize='large' />
                     </Link>
                     <Link
+                      color='grey.400'
                       component={IconButton}
                       disabled={!data?.tweeter}
                       href={data?.tweeter}
                       size='small'
                       target='_blank'
+                      sx={{
+                        '&:hover': {
+                          color: '#1DA1F2',
+                        },
+                      }}
                     >
                       <TwitterIcon fontSize='large' />
                     </Link>
@@ -272,7 +296,7 @@ export function DeputyDetails() {
             </Grid>
 
             <Grid item md>
-              <Grid container columnSpacing={3} rowSpacing={7}>
+              <Grid container columnSpacing={12} rowSpacing={10}>
                 <Grid item xs={12}>
                   <DeputyActivity
                     committee={data?.committee}
@@ -286,7 +310,7 @@ export function DeputyDetails() {
                 </Grid>
                 <Grid item md={6} xs={12}>
                   <DeputyStatisticsCard title='Votul deputatului'>
-                    <BarChart chartHeight={60} data={votingChartData} />
+                    <BarChart chartHeight={80} data={votingChartData} />
                   </DeputyStatisticsCard>
                 </Grid>
                 <Grid item md={6} xs={12}>
@@ -304,6 +328,14 @@ export function DeputyDetails() {
                     <BarChart chartHeight={60} data={sessionsChartData} />
                   </DeputyStatisticsCard>
                 </Grid>
+                <Grid item md={6} xs={12}>
+                  <DeputyStatisticsCard title='Întrebări și interpelări adresate instituțiilor publice'>
+                    {/* @todo missing from deputy details data. Ask from API */}
+                    <Typography color='#88A9B5' fontSize={60} fontWeight={700}>
+                      5
+                    </Typography>
+                  </DeputyStatisticsCard>
+                </Grid>
               </Grid>
             </Grid>
             <Grid item xs={12}>
@@ -315,12 +347,14 @@ export function DeputyDetails() {
           </Grid>
         </Container>
       </Stack>
+
       <DetailsDialog open={open} handleClose={() => setOpen(false)}>
         <DeputyLegislationInitiatives
           did={did ?? ''}
           onShowDetails={(id) => setDocId(id)}
         />
       </DetailsDialog>
+
       <DetailsDialog open={Boolean(docId)} handleClose={() => setDocId('')}>
         <LegislationInitiativeDetails docId={docId} />
       </DetailsDialog>
