@@ -2,23 +2,23 @@ import { ChartData } from 'chart.js';
 import { chain, groupBy, keys, values } from 'lodash';
 import { RegisteredProjectsStatistics } from '../types';
 
-const projectTypeMap = [
+const factionsMap = [
   {
-    color: '#88A9B5',
-    key: 'lege',
-    label: 'Legi',
+    color: '#FACC15',
+    key: '1',
+    label: 'Partidul Acțiune și Solidaritate',
   },
-  { color: '#BAE2F1', key: 'moțiune', label: 'Moțiuni' },
-  { color: '#3868D7', key: 'hotărâre', label: 'Hotărâri' },
+  { color: '#DC2626', key: '2', label: 'Blocul Comuniștilor și Socialiștilor' },
+  { color: '#16A34A', key: '3', label: 'Partidul Politic "ȘOR"' },
 ];
 
-export const getProjectsByTypeChartData = (
-  projects: RegisteredProjectsStatistics<'proiect_act'>[],
+export const getProjectsByFactionChartData = (
+  projects: RegisteredProjectsStatistics<'fid'>[],
 ): ChartData<'pie', number[], string> => {
-  const projectsByType = groupBy(projects, 'proiectAct');
+  const projectsByFid = groupBy(projects, 'fid');
 
-  const sortedProjectTypeMap = chain(projectTypeMap)
-    .sortBy(({ key }) => keys(projectsByType).indexOf(key))
+  const sortedProjectTypeMap = chain(factionsMap)
+    .sortBy(({ key }) => keys(projectsByFid).indexOf(key))
     .value();
 
   const labels: string[] = sortedProjectTypeMap.map(({ label }) => label);

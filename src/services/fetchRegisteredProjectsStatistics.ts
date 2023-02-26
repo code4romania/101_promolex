@@ -12,7 +12,7 @@ export const fetchRegisteredProjectsStatistics = async <T extends KeyFilter>(
 ): Promise<RegisteredProjectsStatistics<T>[]> => {
   const queryParams = new URLSearchParams(params);
   const { data } = await axios.post(
-    `${apiPaths.registeredProjectsStatistics}?${queryParams.toString()}`,
+    `${apiPaths.registeredProjectsStatistics}&${queryParams.toString()}`,
   );
 
   return mapKeysToCamelCase(data);

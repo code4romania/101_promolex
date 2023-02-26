@@ -17,6 +17,8 @@ export * from './DownloadLink';
 export * from './Footer';
 export * from './Header';
 export * from './LegislationInitiativeDetails';
+export * from './LegislativeActivityProjects';
+export * from './LegislativeActivityStatute';
 export * from './LegislativeActivityWrapper';
 export * from './Loading';
 export * from './Navbar';

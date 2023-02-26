@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { has } from 'lodash';
-import { LegislativeActivityWrapper, StatisticsBarChart } from '../components';
+import { LegislativeActivityWrapper, StatisticsBarChart } from '.';
 import { useRegisteredProjects } from '../hooks';
 import { getProjectsByStatuteAndTypeChartData } from '../utils';
 
@@ -37,6 +37,7 @@ export function LegislativeActivityStatute() {
     registeredProjects ?? [],
     'retras',
   );
+  console.log(projectsInExamination);
 
   return (
     <LegislativeActivityWrapper

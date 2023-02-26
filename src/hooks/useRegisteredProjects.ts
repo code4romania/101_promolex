@@ -6,8 +6,8 @@ import {
 import { getDateString } from '../utils';
 
 export const useRegisteredProjects = () => {
-  const [fromDate, setFromDate] = useState<Date>(new Date(Date.now()));
-  const [toDate, setToDate] = useState<Date>(new Date(Date.now()));
+  const [fromDate, setFromDate] = useState<Date>();
+  const [toDate, setToDate] = useState<Date>();
   useCurrentLegislatureDetailsQuery({
     onSuccess: ({ legislatureFrom, legislatureTo }) => {
       setFromDate(new Date(legislatureFrom));

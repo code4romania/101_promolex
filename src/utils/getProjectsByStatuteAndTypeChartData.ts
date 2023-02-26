@@ -8,8 +8,8 @@ const projectTypeMap = [
     key: 'lege',
     label: 'Legi',
   },
-  { color: '#ADBCA5', key: 'hotărâre', label: 'Hotărâri' },
-  { color: '#FFC896', key: 'moțiune', label: 'Moțiuni' },
+  { color: '#70C2DA', key: 'hotărâre', label: 'Hotărâri' },
+  { color: '#C5D9DF', key: 'moțiune', label: 'Moțiuni' },
 ];
 
 export const getProjectsByStatuteAndTypeChartData = (

@@ -9,11 +9,11 @@ import { LegislationInitiativeDetails } from './LegislationInitiativeDetails';
 import { Table } from './Table';
 
 type LegislativeActivityWrapperProps = {
-  fromDate: Date;
+  fromDate?: Date;
   onFromDateChange: (date: Date | null) => void;
   onToDateChange: (date: Date | null) => void;
   registeredProjects: LegislationInitiative[];
-  toDate: Date;
+  toDate?: Date;
 };
 
 export function LegislativeActivityWrapper({
@@ -51,6 +51,7 @@ export function LegislativeActivityWrapper({
           columns={extendedColumns}
           fromDate={fromDate}
           height={510}
+          hideFooter={!registeredProjects.length}
           getRowId={(row) => row.docid ?? uniqueId()}
           onFromDateChange={onFromDateChange}
           onToDateChange={onToDateChange}
@@ -67,3 +68,8 @@ export function LegislativeActivityWrapper({
     </>
   );
 }
+
+LegislativeActivityWrapper.defaultProps = {
+  fromDate: undefined,
+  toDate: undefined,
+};

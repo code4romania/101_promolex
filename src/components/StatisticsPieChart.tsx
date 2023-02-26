@@ -29,6 +29,8 @@ const pieChartOptions: ChartOptions<'pie'> = {
       color: 'black',
       labels: {
         title: {
+          align: 'start',
+          anchor: 'end',
           font: {
             weight: 'bold',
           },
