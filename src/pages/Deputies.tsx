@@ -1,7 +1,7 @@
-import { Box, Button, ButtonGroup, Container, Stack } from '@mui/material';
+import { Box, Button, ButtonGroup } from '@mui/material';
 import { useCallback } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { Header } from '../components';
+import { PageContainer } from '../components';
 import {
   useCurrentLegislatureQuery,
   useFactionsByLegislatureQuery,
@@ -39,37 +39,33 @@ export function Deputies() {
   );
 
   return (
-    <Stack gap={4}>
-      <Header title='Deputați' />
-      <Container>
-        <Box pb={4}>
-          <ButtonGroup
-            disabled={isLoading || isError}
-            disableRipple
-            variant='contained'
+    <PageContainer pageTitle='Deputați'>
+      <Box pb={4}>
+        <ButtonGroup
+          disabled={isLoading || isError}
+          disableRipple
+          variant='contained'
+        >
+          <Button
+            onClick={onFilterDeputies()}
+            sx={{ backgroundColor: !fidParam ? 'primary.dark' : undefined }}
           >
+            Toți deputații
+          </Button>
+          {factions?.map(({ fid, shortName }) => (
             <Button
-              onClick={onFilterDeputies()}
-              sx={{ backgroundColor: !fidParam ? 'primary.dark' : undefined }}
+              key={`${fid}-${shortName}`}
+              onClick={onFilterDeputies(fid)}
+              sx={{
+                backgroundColor: fidParam === fid ? 'primary.dark' : undefined,
+              }}
             >
-              Toți deputații
+              {shortName}
             </Button>
-            {factions?.map(({ fid, shortName }) => (
-              <Button
-                key={`${fid}-${shortName}`}
-                onClick={onFilterDeputies(fid)}
-                sx={{
-                  backgroundColor:
-                    fidParam === fid ? 'primary.dark' : undefined,
-                }}
-              >
-                {shortName}
-              </Button>
-            ))}
-          </ButtonGroup>
-        </Box>
-        <Outlet />
-      </Container>
-    </Stack>
+          ))}
+        </ButtonGroup>
+      </Box>
+      <Outlet />
+    </PageContainer>
   );
 }

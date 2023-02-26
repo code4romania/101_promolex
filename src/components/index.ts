@@ -19,6 +19,7 @@ export * from './LegislationInitiativeDetails';
 export * from './LegislativeActivityWrapper';
 export * from './Loading';
 export * from './Navbar';
+export * from './PageContainer';
 export * from './ReportItem';
 export * from './StackedBarChart';
 export * from './StatisticsBarChart';
