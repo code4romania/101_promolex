@@ -8,9 +8,16 @@ import {
   ChartData,
   Legend,
 } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Bar } from 'react-chartjs-2';
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Legend);
+ChartJS.register(
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  ChartDataLabels,
+);
 
 const MAX_TICK_WIDTH = 35;
 
@@ -97,12 +104,27 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
 
 type StackedBarChartProps = {
   data: ChartData<'bar', (number | undefined)[], string>;
+  showLegend?: boolean;
 };
 
-export function StackedBarChart({ data }: StackedBarChartProps) {
+export function StackedBarChart({ data, showLegend }: StackedBarChartProps) {
+  const chartOptions: ChartOptions<'bar'> = {
+    ...stackedBarChartOptions,
+    plugins: {
+      ...stackedBarChartOptions.plugins,
+      legend: {
+        ...stackedBarChartOptions.plugins?.legend,
+        display: showLegend,
+      },
+    },
+  };
   return (
     <Box height={500}>
-      <Bar options={stackedBarChartOptions} data={data} />
+      <Bar options={chartOptions} data={data} />
     </Box>
   );
 }
+
+StackedBarChart.defaultProps = {
+  showLegend: false,
+};

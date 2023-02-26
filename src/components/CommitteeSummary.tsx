@@ -6,11 +6,16 @@ import { ReactNode, useState } from 'react';
 const WATCHED_COLOR = '#835388';
 
 type CommitteeDetailsProps = {
-  details: ReactNode;
+  children: ReactNode;
+  name: string;
   watched?: boolean;
 };
 
-export function CommitteeSummary({ details, watched }: CommitteeDetailsProps) {
+export function CommitteeSummary({
+  children,
+  name,
+  watched,
+}: CommitteeDetailsProps) {
   const { palette, typography } = useTheme();
   const [expanded, setExpanded] = useState(false);
 
@@ -39,7 +44,7 @@ export function CommitteeSummary({ details, watched }: CommitteeDetailsProps) {
           flexGrow={1}
           fontWeight={typography.fontWeightBold}
         >
-          Comisia pentru afaceri europene
+          {name}
         </Typography>
 
         {expanded ? (
@@ -50,7 +55,7 @@ export function CommitteeSummary({ details, watched }: CommitteeDetailsProps) {
       </Stack>
 
       <Collapse in={expanded} mountOnEnter unmountOnExit>
-        {details}
+        {children}
       </Collapse>
     </Stack>
   );

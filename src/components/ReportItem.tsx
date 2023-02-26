@@ -12,6 +12,7 @@ export function ReportItem({ report }: ReportItemProps) {
   return (
     <Grid container columnSpacing={8}>
       <Grid item>
+        {/* @todo missing image from report data. Ask from API */}
         <Box sx={{ width: 188, height: 270, bgcolor: 'grey.400' }} />
       </Grid>
       <Grid item xs>
