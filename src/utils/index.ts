@@ -1,4 +1,6 @@
 export * from './getDateString';
+export * from './getProjectsByAuthorChartData';
+export * from './getProjectsByFactionChartData';
 export * from './getProjectsByStatuteAndTypeChartData';
 export * from './getProjectsByTypeChartData';
 export * from './legislationInitiativesTableColumns';

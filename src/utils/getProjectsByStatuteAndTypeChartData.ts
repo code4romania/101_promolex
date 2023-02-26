@@ -8,13 +8,14 @@ const projectTypeMap = [
     key: 'lege',
     label: 'Legi',
   },
-  { color: '#ADBCA5', key: 'hotărâre', label: 'Hotărâri' },
-  { color: '#FFC896', key: 'moțiune', label: 'Moțiuni' },
+  { color: '#70C2DA', key: 'hotărâre', label: 'Hotărâri' },
+  { color: '#C5D9DF', key: 'moțiune', label: 'Moțiuni' },
 ];
 
 export const getProjectsByStatuteAndTypeChartData = (
   projects: LegislationInitiative[],
   statute: LegislationInitiativeStatute,
+  mainLabel: string,
 ): ChartData<'bar', number[], string> => {
   const projectsByStatute = chain(projects)
     .groupBy('proiectAct')
@@ -36,7 +37,7 @@ export const getProjectsByStatuteAndTypeChartData = (
   const labels: string[] = projectTypeMap.map(({ label }) => label);
 
   return {
-    labels: ['În examinare'],
+    labels: [mainLabel],
     datasets: values(projectsByStatute).map((p, index) => ({
       label: labels[index],
       data: [p.length > 0 ? p.length : undefined],

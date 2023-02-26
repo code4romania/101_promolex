@@ -8,11 +8,11 @@ import {
   ChartOptions,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-const pieChartOptions: ChartOptions<'pie'> = {
+const doughnutChartOptions: ChartOptions<'doughnut'> = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
@@ -43,19 +43,24 @@ const pieChartOptions: ChartOptions<'pie'> = {
   },
 };
 
-type StatisticsPieChartProps = {
-  data: ChartData<'pie', number[], string>;
+type StatisticsDoughnutChartProps = {
+  data: ChartData<'doughnut', number[], string>;
+  height?: number;
   title: string;
 };
 
-export function StatisticsPieChart({ data, title }: StatisticsPieChartProps) {
+export function StatisticsDoughnutChart({
+  data,
+  height,
+  title,
+}: StatisticsDoughnutChartProps) {
   return (
     <Stack
       border={1}
       borderColor='divider'
       borderRadius={2}
       boxShadow={3}
-      height={320}
+      height={height}
       px={12}
       py={4}
     >
@@ -63,8 +68,12 @@ export function StatisticsPieChart({ data, title }: StatisticsPieChartProps) {
         {title}
       </Typography>
       <Box height={1}>
-        <Pie data={data} options={pieChartOptions} />
+        <Doughnut data={data} options={doughnutChartOptions} />
       </Box>
     </Stack>
   );
 }
+
+StatisticsDoughnutChart.defaultProps = {
+  height: undefined,
+};

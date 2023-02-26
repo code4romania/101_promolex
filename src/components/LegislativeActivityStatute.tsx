@@ -1,6 +1,8 @@
 import { Grid } from '@mui/material';
+import { ChartData } from 'chart.js';
 import { has } from 'lodash';
-import { LegislativeActivityWrapper, StatisticsBarChart } from '../components';
+import { useMemo } from 'react';
+import { LegislativeActivityWrapper, StatisticsBarChart } from '.';
 import { useRegisteredProjects } from '../hooks';
 import { getProjectsByStatuteAndTypeChartData } from '../utils';
 
@@ -10,8 +12,44 @@ export function LegislativeActivityStatute() {
     onFromDateChange,
     onToDateChange,
     registeredProjects,
+    registeredProjectsByFirstLecture,
+    registeredProjectsBySecondLecture,
+    registeredProjectsByThirdLecture,
     toDate,
   } = useRegisteredProjects();
+
+  const projectsByLectures = useMemo<
+    ChartData<'bar', (number | undefined)[], string>
+  >(() => {
+    const firstLectureCount = registeredProjectsByFirstLecture?.length;
+    const secondLectureCount = registeredProjectsBySecondLecture?.length;
+    const thirdLectureCount = registeredProjectsByThirdLecture?.length;
+
+    return {
+      labels: ['Proiecte'],
+      datasets: [
+        {
+          label: 'I lectură',
+          data: [firstLectureCount],
+          backgroundColor: '#16697A',
+        },
+        {
+          label: 'a II-a lectură',
+          data: [secondLectureCount],
+          backgroundColor: '#489FB5',
+        },
+        {
+          label: 'a III-a lectură',
+          data: [thirdLectureCount],
+          backgroundColor: '#82C0CC',
+        },
+      ],
+    };
+  }, [
+    registeredProjectsByFirstLecture?.length,
+    registeredProjectsBySecondLecture?.length,
+    registeredProjectsByThirdLecture?.length,
+  ]);
 
   if (has(registeredProjects, 'error')) {
     return null;
@@ -20,22 +58,27 @@ export function LegislativeActivityStatute() {
   const projectsInExamination = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
     'în examinare',
+    'În examinare',
   );
   const projectsPassed = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
     'adoptat',
+    'Adoptate',
   );
   const projectsRejected = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
     'respins',
+    'Respinse',
   );
   const projectsMerged = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
     'comasat',
+    'Comasate',
   );
   const projectsRetracted = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
     'retras',
+    'Retrase',
   );
 
   return (
@@ -69,6 +112,13 @@ export function LegislativeActivityStatute() {
           <StatisticsBarChart
             data={projectsRetracted}
             title='Proiecte retrase'
+          />
+        </Grid>
+        <Grid item xs lg={8}>
+          {/* @todo missing data for project phases. Ask from API */}
+          <StatisticsBarChart
+            data={projectsByLectures}
+            title='Etapele proiectelor de legi aflate în examinare'
           />
         </Grid>
       </Grid>
