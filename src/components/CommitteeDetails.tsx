@@ -1,6 +1,8 @@
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { Box, Link, Stack, styled, Typography, useTheme } from '@mui/material';
+import { deburr } from 'lodash';
 import { Link as RouterLink } from 'react-router-dom';
+import { useDeputiesByCommitteeQuery } from '../queries';
 
 const StyledLink = styled(RouterLink)(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -11,8 +13,38 @@ const StyledLink = styled(RouterLink)(({ theme }) => ({
   },
 }));
 
-export function CommitteeDetails() {
+type CommitteeDetailsProps = {
+  cid: string;
+};
+
+export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
   const { typography } = useTheme();
+
+  const { data: committee } = useDeputiesByCommitteeQuery(cid);
+
+  const committeePresidents =
+    committee?.filter(
+      ({ comFunction }) =>
+        deburr(comFunction.toLowerCase()).replaceAll(/ș/g, 's') ===
+        'presedinte',
+    ) ?? [];
+
+  const committeeVicePresidents =
+    committee?.filter(
+      ({ comFunction }) =>
+        deburr(comFunction.toLowerCase()).replaceAll(/ș/g, 's') ===
+        'vicepresedinte',
+    ) ?? [];
+
+  const committeeSecretaries =
+    committee?.filter(
+      ({ comFunction }) => comFunction.toLowerCase() === 'secretar',
+    ) ?? [];
+
+  const committeeMembers =
+    committee?.filter(
+      ({ comFunction }) => comFunction.toLowerCase() === 'membru',
+    ) ?? [];
 
   return (
     <Stack
@@ -28,51 +60,62 @@ export function CommitteeDetails() {
       </Typography>
 
       <Stack direction='row' gap={6}>
-        <Box>
-          <Typography component={StyledLink} to=''>
-            Stamate Olesea
-          </Typography>
-          <Typography fontWeight={typography.fontWeightBold}>
-            Președinte
-          </Typography>
-        </Box>
-        <Box>
-          <Typography component={StyledLink} to=''>
-            Bolea Vasile
-          </Typography>
-          <Typography fontWeight={typography.fontWeightBold}>
-            Vicepreședinte
-          </Typography>
-        </Box>
-        <Box>
-          <Typography component={StyledLink} to=''>
-            Roșca Veronica
-          </Typography>
-          <Typography fontWeight={typography.fontWeightBold}>
-            Vicepreședinte
-          </Typography>
-        </Box>
-        <Box>
-          <Typography component={StyledLink} to=''>
-            Chiriac Igor
-          </Typography>
-          <Typography fontWeight={typography.fontWeightBold}>
-            Secretar
-          </Typography>
-        </Box>
+        {committeePresidents.map((president) => (
+          <Box key={president.did}>
+            <Typography
+              component={StyledLink}
+              to={`/deputati/detalii/${president.did}`}
+            >
+              {president.fullName}
+            </Typography>
+            <Typography fontWeight={typography.fontWeightBold}>
+              {president.comFunction}
+            </Typography>
+          </Box>
+        ))}
+        {committeeVicePresidents.map((vicePresident) => (
+          <Box key={vicePresident.did}>
+            <Typography
+              component={StyledLink}
+              to={`/deputati/detalii/${vicePresident.did}`}
+            >
+              {vicePresident.fullName}
+            </Typography>
+            <Typography fontWeight={typography.fontWeightBold}>
+              {vicePresident.comFunction}
+            </Typography>
+          </Box>
+        ))}
+        {committeeSecretaries.map((secretary) => (
+          <Box key={secretary.did}>
+            <Typography
+              component={StyledLink}
+              to={`/deputati/detalii/${secretary.did}`}
+            >
+              {secretary.fullName}
+            </Typography>
+            <Typography fontWeight={typography.fontWeightBold}>
+              {secretary.comFunction}
+            </Typography>
+          </Box>
+        ))}
       </Stack>
 
       <Stack direction='row' gap={6}>
-        {[].map((member) => (
-          <Box key={member}>
-            <Typography component={StyledLink} to=''>
-              Chiriac Igor
+        {committeeMembers.map((member) => (
+          <Box key={member.did}>
+            <Typography
+              component={StyledLink}
+              to={`/deputati/detalii/${member.did}`}
+            >
+              {member.fullName}
             </Typography>
             <Typography>Membru</Typography>
           </Box>
         ))}
       </Stack>
 
+      {/* @todo missing committee email from committee data. Ask from API */}
       <Stack gap={2}>
         <Typography fontWeight={typography.fontWeightBold}>
           Date de contact ale comisiei
@@ -90,6 +133,7 @@ export function CommitteeDetails() {
         </Stack>
       </Stack>
 
+      {/* @todo missing auditionsOrganized from committee data. Ask from API */}
       <Stack gap={2}>
         <Typography fontWeight={typography.fontWeightBold}>
           Audieri organizate
@@ -124,6 +168,7 @@ export function CommitteeDetails() {
         </Box>
       </Stack>
 
+      {/* @todo missing committeeMeetings from committee data. Ask from API */}
       <Stack gap={2}>
         <Typography fontWeight={typography.fontWeightBold}>
           Ședințele comisiei
