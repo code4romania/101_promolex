@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import { SyntheticEvent, useState } from 'react';
 import {
   CommitteeDetails,
+  CommitteesActivityCharts,
   CommitteeSummary,
   Loading,
   PageContainer,
@@ -82,6 +83,8 @@ export function CommitteesPage() {
             </Box>
           </Stack>
         ))}
+
+      {tabValue === 1 && <CommitteesActivityCharts />}
     </PageContainer>
   );
 }
