@@ -78,7 +78,7 @@ const barChartOptions: ChartOptions<'bar'> = {
 
 type BarChartProps = {
   chartHeight?: number | string;
-  data: ChartData<'bar', number[], string>;
+  data: ChartData<'bar', (number | undefined)[], string>;
 };
 
 export function BarChart({ chartHeight, data }: BarChartProps) {

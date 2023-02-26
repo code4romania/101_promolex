@@ -2,6 +2,7 @@ import { Stack, Container, Box, Tab, Tabs, styled } from '@mui/material';
 import { useState, SyntheticEvent } from 'react';
 import {
   Header,
+  LegislativeActivityDomains,
   LegislativeActivityProjects,
   LegislativeActivityStatute,
 } from '../components';
@@ -45,6 +46,7 @@ export function LegislativeActivity() {
 
         {tabValue === 0 && <LegislativeActivityProjects />}
         {tabValue === 1 && <LegislativeActivityStatute />}
+        {tabValue === 2 && <LegislativeActivityDomains />}
       </Container>
     </Stack>
   );

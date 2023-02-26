@@ -14,9 +14,30 @@ export const useRegisteredProjects = () => {
       setToDate(new Date(legislatureTo));
     },
   });
-  const { data: registeredProjects } = useRegisteredProjectsQuery(
-    getDateString(fromDate),
-    getDateString(toDate),
+  const { data: registeredProjects } = useRegisteredProjectsQuery({
+    from: getDateString(fromDate),
+    to: getDateString(toDate),
+  });
+
+  const { data: registeredProjectsByFirstLecture } = useRegisteredProjectsQuery(
+    {
+      from: getDateString(fromDate),
+      lectura: 'I lectură',
+      to: getDateString(toDate),
+    },
+  );
+  const { data: registeredProjectsBySecondLecture } =
+    useRegisteredProjectsQuery({
+      from: getDateString(fromDate),
+      lectura: 'II lectură',
+      to: getDateString(toDate),
+    });
+  const { data: registeredProjectsByThirdLecture } = useRegisteredProjectsQuery(
+    {
+      from: getDateString(fromDate),
+      lectura: 'III lectură',
+      to: getDateString(toDate),
+    },
   );
 
   const onFromDateChange = useCallback((date: Date | null) => {
@@ -34,6 +55,9 @@ export const useRegisteredProjects = () => {
     onFromDateChange,
     onToDateChange,
     registeredProjects,
+    registeredProjectsByFirstLecture,
+    registeredProjectsBySecondLecture,
+    registeredProjectsByThirdLecture,
     toDate,
   };
 };

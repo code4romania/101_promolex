@@ -15,6 +15,7 @@ const projectTypeMap = [
 export const getProjectsByStatuteAndTypeChartData = (
   projects: LegislationInitiative[],
   statute: LegislationInitiativeStatute,
+  mainLabel: string,
 ): ChartData<'bar', number[], string> => {
   const projectsByStatute = chain(projects)
     .groupBy('proiectAct')
@@ -36,7 +37,7 @@ export const getProjectsByStatuteAndTypeChartData = (
   const labels: string[] = projectTypeMap.map(({ label }) => label);
 
   return {
-    labels: ['În examinare'],
+    labels: [mainLabel],
     datasets: values(projectsByStatute).map((p, index) => ({
       label: labels[index],
       data: [p.length > 0 ? p.length : undefined],

@@ -3,7 +3,7 @@ import { ChartData } from 'chart.js';
 import { BarChart } from './BarChart';
 
 type StatisticsPieChartProps = {
-  data: ChartData<'bar', number[], string>;
+  data: ChartData<'bar', (number | undefined)[], string>;
   title: string;
 };
 
@@ -14,7 +14,6 @@ export function StatisticsBarChart({ data, title }: StatisticsPieChartProps) {
       borderColor='divider'
       borderRadius={2}
       boxShadow={3}
-      height={280}
       px={6}
       py={4}
     >
