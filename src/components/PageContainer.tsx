@@ -9,7 +9,7 @@ type PageContainerProps = {
 
 export function PageContainer({ children, pageTitle }: PageContainerProps) {
   return (
-    <Stack gap={4} pb={6}>
+    <Stack gap={4} pb={6} position='relative'>
       <Header title={pageTitle} />
       <Container>{children}</Container>
     </Stack>
