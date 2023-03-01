@@ -100,6 +100,10 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: '/contact',
+        element: <div>contact</div>,
+      },
     ],
   },
 ]);

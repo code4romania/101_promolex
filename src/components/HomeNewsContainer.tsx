@@ -1,6 +1,8 @@
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { useEventsQuery } from '../queries';
+import { Routes } from '../types';
 import { BlogPostCard } from './BlogPostCard';
 import { Loading } from './Loading';
 
@@ -39,13 +41,15 @@ export function HomeNewsContainer() {
             ))}
             <Grid item sm={12} mt='auto'>
               <Box textAlign='right'>
-                <Button
-                  color='primary'
-                  variant='text'
-                  endIcon={<ArrowForwardIosRoundedIcon fontSize='small' />}
-                >
-                  Vezi toate noutățile
-                </Button>
+                <Link to={Routes.News} style={{ textDecoration: 'none' }}>
+                  <Button
+                    color='primary'
+                    variant='text'
+                    endIcon={<ArrowForwardIosRoundedIcon fontSize='small' />}
+                  >
+                    Vezi toate noutățile
+                  </Button>
+                </Link>
               </Box>
               <Box bgcolor='secondary.main' borderRadius={2} height={12} />
             </Grid>

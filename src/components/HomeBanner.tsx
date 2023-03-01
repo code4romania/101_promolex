@@ -3,6 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, ChartOptions } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import banner from '../assets/images/banner.png';
 
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
@@ -113,9 +114,11 @@ export function HomeBanner() {
 
       <Stack bottom={0} position='absolute' right={0}>
         <Typography variant='h6'>Pune o întrebare deputaților</Typography>
-        <Button color='secondary' variant='contained'>
-          Întreabă Parlamentul
-        </Button>
+        <Link to='/contact' style={{ textDecoration: 'none' }}>
+          <Button color='secondary' variant='contained'>
+            Întreabă Parlamentul
+          </Button>
+        </Link>
       </Stack>
     </Grid>
   );

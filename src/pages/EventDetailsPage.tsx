@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { BreadCrumbLink, Loading } from '../components';
 import { options } from '../constants';
 import { useEventDetailsQuery } from '../queries';
+import { Routes } from '../types';
 
 export function EventDetailsPage() {
   const { eid } = useParams<{ eid: string }>();
@@ -18,10 +19,10 @@ export function EventDetailsPage() {
         separator={<NavigateNextIcon color='inherit' fontSize='large' />}
         sx={{ color: 'grey.200' }}
       >
-        <BreadCrumbLink to='/'>
+        <BreadCrumbLink to={Routes.Home}>
           <HomeRoundedIcon />
         </BreadCrumbLink>
-        <BreadCrumbLink to='/noutati'>Noutăți</BreadCrumbLink>
+        <BreadCrumbLink to={Routes.News}>Noutăți</BreadCrumbLink>
         <Typography color='grey.500' fontWeight='medium'>
           {event?.title}
         </Typography>
