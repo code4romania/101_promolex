@@ -1,12 +1,14 @@
 import { Container, Stack } from '@mui/material';
-import { HomeBanner } from '../components';
+import { HomeBanner, HomeNewsContainer } from '../components';
 
 export function HomePage() {
   return (
-    <Stack gap={4} pt={10} pb={6}>
-      <Container>
+    <Container>
+      <Stack gap={8} pt={10} pb={6}>
         <HomeBanner />
-      </Container>
-    </Stack>
+
+        <HomeNewsContainer />
+      </Stack>
+    </Container>
   );
 }

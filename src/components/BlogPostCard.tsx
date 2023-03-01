@@ -20,9 +20,13 @@ export function BlogPostCard({ event }: BlogPostCardProps) {
   const { palette, typography } = useTheme();
 
   return (
-    <Card raised>
-      <CardMedia sx={{ height: 192 }} image={event.logo} title={event.title} />
-      <CardContent sx={{ height: 260 }}>
+    <Card raised sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>
+      <CardMedia
+        sx={{ minHeight: 192 }}
+        image={event.logo}
+        title={event.title}
+      />
+      <CardContent sx={{ flexGrow: 1 }}>
         <Typography
           color='grey.500'
           fontWeight={typography.fontWeightMedium}
@@ -31,7 +35,7 @@ export function BlogPostCard({ event }: BlogPostCardProps) {
           {event.pubdate}
         </Typography>
         <RouterLink
-          to={`detalii/${event.eid}`}
+          to={`/noutati/detalii/${event.eid}`}
           style={{ color: 'unset', textDecoration: 'none' }}
         >
           <Typography
@@ -49,7 +53,7 @@ export function BlogPostCard({ event }: BlogPostCardProps) {
       </CardContent>
       <CardActions>
         <RouterLink
-          to={`detalii/${event.eid}`}
+          to={`/noutati/detalii/${event.eid}`}
           style={{ textDecoration: 'none' }}
         >
           <Button color='secondary' size='small' variant='contained'>
