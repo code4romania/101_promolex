@@ -1,5 +1,12 @@
-import { Typography } from '@mui/material';
+import { Container, Stack } from '@mui/material';
+import { HomeBanner } from '../components';
 
 export function HomePage() {
-  return <Typography>Home</Typography>;
+  return (
+    <Stack gap={4} pt={10} pb={6}>
+      <Container>
+        <HomeBanner />
+      </Container>
+    </Stack>
+  );
 }
