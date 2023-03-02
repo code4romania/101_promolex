@@ -1,6 +1,7 @@
 export type Report = {
   rid: string;
   title: string;
+  reportLogo: string;
   pubdate: string;
   fileRo: string;
   fileEn: string;

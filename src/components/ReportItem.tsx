@@ -8,12 +8,21 @@ type ReportItemProps = {
 };
 
 export function ReportItem({ report }: ReportItemProps) {
-  const { rid, title, fileRo, fileEn, fileRu, pubdate } = report;
+  const { rid, title, fileRo, fileEn, fileRu, pubdate, reportLogo } = report;
   return (
     <Grid container columnSpacing={8}>
       <Grid item>
-        {/* @todo missing image from report data. Ask from API */}
-        <Box sx={{ width: 188, height: 270, bgcolor: 'grey.400' }} />
+        <Box
+          sx={{
+            backgroundImage: `url(${reportLogo})`,
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            bgcolor: 'grey.400',
+            height: 270,
+            width: 188,
+          }}
+        />
       </Grid>
       <Grid item xs>
         <Typography

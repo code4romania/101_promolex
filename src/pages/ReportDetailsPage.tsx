@@ -42,7 +42,17 @@ export function ReportDetailsPage() {
           </Typography>
           <Grid container columnSpacing={8} mt={8}>
             <Grid item>
-              <Box sx={{ width: 220, height: 320, bgcolor: 'grey.400' }} />
+              <Box
+                sx={{
+                  backgroundImage: `url(${report?.reportLogo})`,
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  bgcolor: 'grey.400',
+                  height: 320,
+                  width: 220,
+                }}
+              />
             </Grid>
             <Grid item xs>
               <Typography color='grey.800' gutterBottom variant='h6'>
