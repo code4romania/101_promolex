@@ -21,4 +21,5 @@ export const apiPaths = {
   eventsList: `${API_BASE_URL}?type=get_events`,
   eventDetails: `${API_BASE_URL}?type=get_event_details&eid=`,
   sessionsListByLegislatureId: `${API_BASE_URL}?type=get_sessions_list&lid=`,
+  liveSession: `${API_BASE_URL}?type=get_live_session`,
 };

@@ -12,6 +12,7 @@ export * from './useFactionsByLegislatureQuery';
 export * from './useIncomeStatementsByDeputyQuery';
 export * from './useLegislationInitiativeDetailsQuery';
 export * from './useLegislationInitiativesByDeputyQuery';
+export * from './useLiveSessionQuery';
 export * from './useRegisteredProjectsQuery';
 export * from './useRegisteredProjectsStatisticsQuery';
 export * from './useReportDetailsQuery';

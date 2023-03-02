@@ -11,6 +11,7 @@ export * from './fetchFactionsByLegislature';
 export * from './fetchIncomeStatementsByDeputy';
 export * from './fetchLegislationInitiativeDetails';
 export * from './fetchLegislationInitiativesByDeputy';
+export * from './fetchLiveSession';
 export * from './fetchRegisteredProjects';
 export * from './fetchRegisteredProjectsStatistics';
 export * from './fetchReportDetails';
