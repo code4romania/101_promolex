@@ -41,7 +41,7 @@ export function EventsListPage() {
       ) : (
         <Grid columnSpacing={5} container rowSpacing={15} py={10}>
           {filteredEvents.map((event) => (
-            <Grid item key={event.eid} sm={4}>
+            <Grid height={580} item key={event.eid} sm={4}>
               <BlogPostCard event={event} />
             </Grid>
           ))}

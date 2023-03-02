@@ -10,7 +10,9 @@ import {
   useTheme,
 } from '@mui/material';
 import { Fragment, MouseEvent, useState } from 'react';
-import { NavLink, NavLinkProps, useNavigate } from 'react-router-dom';
+import { Link, NavLink, NavLinkProps, useNavigate } from 'react-router-dom';
+import logo101Promolex from '../assets/images/logo_101_promolex.png';
+import { Routes } from '../types';
 import { routesConfig } from '../utils';
 
 const StyledNavLink = styled(NavLink)<NavLinkProps>(({ theme }) => ({
@@ -47,7 +49,18 @@ export function Navbar() {
   return (
     <Box bgcolor={palette.primary.main}>
       <Container>
-        <Stack direction='row' justifyContent='flex-end' gap={10} py={8}>
+        <Stack
+          alignItems='center'
+          direction='row'
+          justifyContent='flex-end'
+          gap={10}
+          py={1}
+        >
+          <Box mr='auto'>
+            <Link to={Routes.Home}>
+              <img alt='Logo 101 Promo-LEX' height={85} src={logo101Promolex} />
+            </Link>
+          </Box>
           {routesConfig.map(({ label, route, subRoutes }) =>
             !subRoutes?.length ? (
               <StyledNavLink

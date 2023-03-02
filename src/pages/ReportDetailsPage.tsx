@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { BreadCrumbLink, DownloadLink, Loading } from '../components';
 import { options } from '../constants';
 import { useReportDetailsQuery } from '../queries';
+import { Routes } from '../types';
 
 export function ReportDetailsPage() {
   const { rid } = useParams<{ rid: string }>();
@@ -18,10 +19,10 @@ export function ReportDetailsPage() {
         separator={<NavigateNextIcon color='inherit' fontSize='large' />}
         sx={{ color: 'grey.200' }}
       >
-        <BreadCrumbLink to='/'>
+        <BreadCrumbLink to={Routes.Home}>
           <HomeRoundedIcon />
         </BreadCrumbLink>
-        <BreadCrumbLink to='/publicatii'>Publicații</BreadCrumbLink>
+        <BreadCrumbLink to={Routes.Reports}>Publicații</BreadCrumbLink>
         <Typography color='grey.500' fontWeight='medium'>
           {report?.title}
         </Typography>
