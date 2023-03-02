@@ -1,14 +1,10 @@
-import {
-  Box,
-  ButtonBase,
-  darken,
-  SvgIconProps,
-  Typography,
-} from '@mui/material';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Box, ButtonBase, darken, Typography } from '@mui/material';
 
 type DeputyIncomeCardProps = {
   bgcolor: string;
-  icon: (props: SvgIconProps) => JSX.Element;
+  icon: IconProp;
   isActive?: boolean;
   label: string;
   onClick: () => void;
@@ -16,7 +12,7 @@ type DeputyIncomeCardProps = {
 
 export function DeputyIncomeCard({
   bgcolor,
-  icon: Icon,
+  icon,
   isActive,
   label,
   onClick,
@@ -37,7 +33,7 @@ export function DeputyIncomeCard({
       }}
     >
       <Box fontSize={96}>
-        <Icon color='inherit' fontSize='inherit' />
+        <FontAwesomeIcon icon={icon} />
       </Box>
       <Typography
         fontWeight={700}

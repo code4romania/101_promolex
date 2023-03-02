@@ -1,3 +1,4 @@
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { Stack, SvgIconProps, Typography } from '@mui/material';
 import { chain, keys, values } from 'lodash';
 import { useMemo, useState } from 'react';
@@ -66,9 +67,10 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
               ].color
             }
             icon={
-              deputyWealthIconsMap[
-                category as keyof typeof deputyWealthIconsMap
-              ].icon
+              statements[index]?.icon
+                .replace('fa-solid', 'fas')
+                .replace('fa-', '')
+                .split(' ') as IconProp
             }
             isActive={selectedCategory === index}
             label={chain(category).startCase().toLower().upperFirst().value()}
@@ -80,8 +82,8 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
         columns={statementsTableColumns}
         getRowId={(row) => row.itemid}
         height={350}
-        hideFooter={!statements[selectedCategory]?.length}
-        rows={statements[selectedCategory] ?? []}
+        hideFooter={!statements[selectedCategory]?.items?.length}
+        rows={statements[selectedCategory]?.items ?? []}
       />
     </Stack>
   );
