@@ -8,5 +8,5 @@ export type Event = {
 
 export type EventDetails = Event & {
   content: string;
-  photos: [{ file: string }];
+  photos: { file: string }[];
 };

@@ -2,7 +2,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { Box, Link, Stack, styled, Typography, useTheme } from '@mui/material';
 import { deburr } from 'lodash';
 import { Link as RouterLink } from 'react-router-dom';
-import { useDeputiesByCommitteeQuery } from '../queries';
+import { useCommitteeDetailsQuery } from '../queries';
 
 const StyledLink = styled(RouterLink)(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -20,29 +20,29 @@ type CommitteeDetailsProps = {
 export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
   const { typography } = useTheme();
 
-  const { data: committee } = useDeputiesByCommitteeQuery(cid);
+  const { data: committee } = useCommitteeDetailsQuery(cid);
 
   const committeePresidents =
-    committee?.filter(
+    committee?.members?.filter(
       ({ comFunction }) =>
         deburr(comFunction.toLowerCase()).replaceAll(/ș/g, 's') ===
         'presedinte',
     ) ?? [];
 
   const committeeVicePresidents =
-    committee?.filter(
+    committee?.members?.filter(
       ({ comFunction }) =>
         deburr(comFunction.toLowerCase()).replaceAll(/ș/g, 's') ===
         'vicepresedinte',
     ) ?? [];
 
   const committeeSecretaries =
-    committee?.filter(
+    committee?.members?.filter(
       ({ comFunction }) => comFunction.toLowerCase() === 'secretar',
     ) ?? [];
 
   const committeeMembers =
-    committee?.filter(
+    committee?.members?.filter(
       ({ comFunction }) => comFunction.toLowerCase() === 'membru',
     ) ?? [];
 
@@ -54,6 +54,8 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
       gap={4}
       px={8}
       py={7}
+      maxHeight={520}
+      overflow='auto'
     >
       <Typography fontWeight={typography.fontWeightBold}>
         Componența comisiei
@@ -115,7 +117,6 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
         ))}
       </Stack>
 
-      {/* @todo missing committee email from committee data. Ask from API */}
       <Stack gap={2}>
         <Typography fontWeight={typography.fontWeightBold}>
           Date de contact ale comisiei
@@ -123,8 +124,9 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
         <Stack alignItems='center' direction='row' gap={3}>
           <EmailOutlinedIcon />
           <Typography
+            color='text.primary'
             component={Link}
-            href='email:'
+            href={`mailto:${committee?.commEmail}`}
             underline='none'
             variant='body2'
           >
@@ -133,47 +135,83 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
         </Stack>
       </Stack>
 
-      {/* @todo missing auditionsOrganized from committee data. Ask from API */}
-      <Stack gap={2}>
-        <Typography fontWeight={typography.fontWeightBold}>
-          Audieri organizate
-        </Typography>
-
-        <Box>
-          <Typography
-            alignItems='center'
-            component={Stack}
-            direction='row'
-            fontWeight={typography.fontWeightBold}
-            gap={1}
-            variant='body2'
-          >
-            Subiect:
-            <Typography fontSize='inherit'>
-              Audierea instituției / dezbateri publice
-            </Typography>
+      {!!committee?.organizedHearings.length && (
+        <Stack gap={2}>
+          <Typography fontWeight={typography.fontWeightBold}>
+            Audieri organizate
           </Typography>
 
-          <Typography
-            alignItems='center'
-            component={Stack}
-            direction='row'
-            fontSize='inherit'
-            fontWeight={typography.fontWeightBold}
-            gap={1}
-          >
-            Data:
-            <Typography fontSize='inherit'>10.10.2021</Typography>
-          </Typography>
-        </Box>
-      </Stack>
+          {committee?.organizedHearings.map(({ hearingType, dataSedinte }) => (
+            <Box key={hearingType}>
+              <Typography
+                alignItems='center'
+                component={Stack}
+                direction='row'
+                fontWeight={typography.fontWeightBold}
+                gap={1}
+                variant='body2'
+              >
+                Subiect:
+                <Typography fontSize='inherit'>{hearingType}</Typography>
+              </Typography>
 
-      {/* @todo missing committeeMeetings from committee data. Ask from API */}
-      <Stack gap={2}>
-        <Typography fontWeight={typography.fontWeightBold}>
-          Ședințele comisiei
-        </Typography>
-      </Stack>
+              <Typography
+                alignItems='center'
+                component={Stack}
+                direction='row'
+                fontWeight={typography.fontWeightBold}
+                gap={1}
+                variant='body2'
+              >
+                Data:
+                <Typography fontSize='inherit'>{dataSedinte}</Typography>
+              </Typography>
+            </Box>
+          ))}
+        </Stack>
+      )}
+
+      {!!committee?.sessions.length && (
+        <Stack gap={2}>
+          <Typography fontWeight={typography.fontWeightBold}>
+            Ședințele comisiei
+          </Typography>
+
+          {committee?.sessions.map(({ procesVerbal, dataSedinte }) => (
+            <Box key={procesVerbal}>
+              <Typography
+                alignItems='center'
+                color='text.primary'
+                component={Link}
+                href={procesVerbal}
+                fontWeight={typography.fontWeightBold}
+                variant='body2'
+                sx={{
+                  textDecoration: 'none',
+
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                Proces verbal
+              </Typography>
+
+              <Typography
+                alignItems='center'
+                component={Stack}
+                direction='row'
+                fontWeight={typography.fontWeightBold}
+                gap={1}
+                variant='body2'
+              >
+                Data:
+                <Typography fontSize='inherit'>{dataSedinte}</Typography>
+              </Typography>
+            </Box>
+          ))}
+        </Stack>
+      )}
     </Stack>
   );
 }
