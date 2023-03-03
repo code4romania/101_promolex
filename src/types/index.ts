@@ -11,3 +11,4 @@ export * from './RegisteredProjectsStatistics';
 export * from './Report';
 export * from './RoutesConfig';
 export * from './Session';
+export * from './Vote';

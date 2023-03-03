@@ -7,3 +7,4 @@ export * from './legislationInitiativesTableColumns';
 export * from './mapKeysToCamelCase';
 export * from './routesConfig';
 export * from './statementsTableColumns';
+export * from './voteCookies';

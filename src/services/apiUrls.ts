@@ -26,4 +26,6 @@ export const apiPaths = {
   committeesMainReporterCoreporterData: `${API_BASE_URL}?type=committee_main_reporter_coreporter_data&lid=`,
   committeesNotices: `${API_BASE_URL}?type=committee_notices&lid=`,
   committeeDetails: `${API_BASE_URL}?type=committee_detail_by_id&committee=`,
+  sendVote: `${API_BASE_URL}?type=insert_vote`,
+  voteResults: `${API_BASE_URL}?type=show_votes_result`,
 };

@@ -1,1 +1,1 @@
-export default 'mutations';
+export * from './useSendVoteMutation';
