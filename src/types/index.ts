@@ -1,4 +1,5 @@
 export * from './Committee';
+export * from './ContactFormData';
 export * from './Deputy';
 export * from './DeputyDetails';
 export * from './Event';

@@ -23,4 +23,5 @@ export * from './fetchReports';
 export * from './fetchSessionsByLegislature';
 export * from './fetchStatementYear';
 export * from './fetchVoteResults';
+export * from './sendQuestion';
 export * from './sendVote';
