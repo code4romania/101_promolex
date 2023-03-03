@@ -4,6 +4,7 @@ import { mapKeysToCamelCase } from '../utils';
 import { apiPaths } from './apiUrls';
 
 export type RegisteredProjectsQueryParams = Partial<{
+  autor: string;
   did: string;
   domeniul: string;
   fid: string;

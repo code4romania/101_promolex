@@ -1,3 +1,4 @@
+import CircleRoundedIcon from '@mui/icons-material/CircleRounded';
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import { Chart as ChartJS, ArcElement, Tooltip, ChartOptions } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -5,6 +6,8 @@ import { useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 import banner from '../assets/images/banner.png';
+import { useLiveSessionQuery } from '../queries';
+import { Routes } from '../types';
 
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
 
@@ -34,6 +37,7 @@ const doughnutChartOptions: ChartOptions<'doughnut'> = {
 
 export function HomeBanner() {
   const [hasVoted, setHasVoted] = useState(false);
+  const { data } = useLiveSessionQuery({ refetchInterval: 5000 });
 
   return (
     <Grid columnSpacing={10} container position='relative' rowSpacing={10}>
@@ -106,10 +110,30 @@ export function HomeBanner() {
           )}
         </Stack>
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6} position='relative'>
         <Box>
           <img src={banner} alt='banner' width='100%' />
         </Box>
+
+        {data && (
+          <Box position='absolute' right={0} top={24}>
+            <Link
+              to={Routes.PlenaryMeetings}
+              style={{ textDecoration: 'none' }}
+            >
+              <Button
+                color='error'
+                startIcon={<CircleRoundedIcon />}
+                sx={{
+                  textTransform: 'uppercase',
+                }}
+                variant='contained'
+              >
+                Live
+              </Button>
+            </Link>
+          </Box>
+        )}
       </Grid>
 
       <Stack bottom={0} position='absolute' right={0}>

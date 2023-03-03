@@ -1,3 +1,5 @@
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { QueryClientProvider } from './queries';
@@ -5,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider } from './routes';
 import { ThemeContext } from './theme';
 import '@fontsource/titillium-web';
+
+library.add(fas);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

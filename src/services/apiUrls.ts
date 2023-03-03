@@ -21,4 +21,9 @@ export const apiPaths = {
   eventsList: `${API_BASE_URL}?type=get_events`,
   eventDetails: `${API_BASE_URL}?type=get_event_details&eid=`,
   sessionsListByLegislatureId: `${API_BASE_URL}?type=get_sessions_list&lid=`,
+  liveSession: `${API_BASE_URL}?type=get_live_session`,
+  committeesMainReporterData: `${API_BASE_URL}?type=committee_main_reporter_data&lid=`,
+  committeesMainReporterCoreporterData: `${API_BASE_URL}?type=committee_main_reporter_coreporter_data&lid=`,
+  committeesNotices: `${API_BASE_URL}?type=committee_notices&lid=`,
+  committeeDetails: `${API_BASE_URL}?type=committee_detail_by_id&committee=`,
 };

@@ -42,8 +42,6 @@ export function CommitteesPage() {
     <PageContainer pageTitle='Comisii parlamentare permanente'>
       <Box
         boxShadow={2}
-        // border={1}
-        // borderColor='secondary.main'
         sx={{
           borderTopLeftRadius: 2,
           borderTopRightRadius: 2,
@@ -65,9 +63,12 @@ export function CommitteesPage() {
           <Loading />
         ) : (
           <Stack gap={6} mt={10}>
-            {/* @todo missing watched from committees data. Ask from API */}
-            {committees?.map(({ cid, committee }) => (
-              <CommitteeSummary key={cid} name={committee}>
+            {committees?.map(({ cid, committee, hasDetails }) => (
+              <CommitteeSummary
+                key={cid}
+                name={committee}
+                watched={hasDetails === 'yes'}
+              >
                 <CommitteeDetails cid={cid} />
               </CommitteeSummary>
             ))}

@@ -11,5 +11,8 @@ export type IncomeStatement = {
 };
 
 export type IncomeStatements = {
-  [k: string]: IncomeStatement[];
+  [k: string]: {
+    icon: string;
+    items: IncomeStatement[];
+  };
 };

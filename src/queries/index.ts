@@ -1,5 +1,9 @@
 export * from './QueryClientProvider';
+export * from './useCommitteeDetailsQuery';
 export * from './useCommitteesByLegislatureQuery';
+export * from './useCommitteesMainReporterCoreporterDataByLegislatureQuery';
+export * from './useCommitteesMainReporterDataByLegislatureQuery';
+export * from './useCommitteesNoticesByLegislatureQuery';
 export * from './useCurrentLegislatureDetailsQuery';
 export * from './useCurrentLegislatureQuery';
 export * from './useDeputiesByCommitteeQuery';
@@ -12,6 +16,7 @@ export * from './useFactionsByLegislatureQuery';
 export * from './useIncomeStatementsByDeputyQuery';
 export * from './useLegislationInitiativeDetailsQuery';
 export * from './useLegislationInitiativesByDeputyQuery';
+export * from './useLiveSessionQuery';
 export * from './useRegisteredProjectsQuery';
 export * from './useRegisteredProjectsStatisticsQuery';
 export * from './useReportDetailsQuery';

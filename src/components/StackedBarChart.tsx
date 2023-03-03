@@ -10,6 +10,7 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Bar } from 'react-chartjs-2';
+import { Loading } from './Loading';
 
 ChartJS.register(
   BarElement,
@@ -30,6 +31,9 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
   },
   maintainAspectRatio: false,
   plugins: {
+    datalabels: {
+      display: false,
+    },
     legend: {
       align: 'start',
       position: 'bottom',
@@ -104,10 +108,15 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
 
 type StackedBarChartProps = {
   data: ChartData<'bar', (number | undefined)[], string>;
+  isLoading?: boolean;
   showLegend?: boolean;
 };
 
-export function StackedBarChart({ data, showLegend }: StackedBarChartProps) {
+export function StackedBarChart({
+  data,
+  isLoading,
+  showLegend,
+}: StackedBarChartProps) {
   const chartOptions: ChartOptions<'bar'> = {
     ...stackedBarChartOptions,
     plugins: {
@@ -118,13 +127,16 @@ export function StackedBarChart({ data, showLegend }: StackedBarChartProps) {
       },
     },
   };
-  return (
-    <Box height={500}>
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <Box height={1000}>
       <Bar options={chartOptions} data={data} />
     </Box>
   );
 }
 
 StackedBarChart.defaultProps = {
+  isLoading: false,
   showLegend: false,
 };
