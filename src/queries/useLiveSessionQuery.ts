@@ -1,6 +1,12 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { fetchLiveSession } from '../services';
-import { LiveSession } from '../types';
+import { ErrorResponse, LiveSession } from '../types';
 
-export const useLiveSessionQuery = (options?: UseQueryOptions<LiveSession>) =>
-  useQuery<LiveSession>(['live-session'], () => fetchLiveSession(), options);
+export const useLiveSessionQuery = (
+  options?: UseQueryOptions<LiveSession | ErrorResponse>,
+) =>
+  useQuery<LiveSession | ErrorResponse>(
+    ['live-session'],
+    () => fetchLiveSession(),
+    options,
+  );

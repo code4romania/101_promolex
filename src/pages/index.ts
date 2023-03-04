@@ -1,5 +1,6 @@
 export * from './AboutProjectPage';
 export * from './CommitteesPage';
+export * from './ContactPage';
 export * from './ControlPage';
 export * from './Deputies';
 export * from './DeputyDetails';

@@ -1,1 +1,2 @@
-export default 'mutations';
+export * from './useSendQuestionMutation';
+export * from './useSendVoteMutation';

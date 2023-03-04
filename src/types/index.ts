@@ -1,6 +1,8 @@
 export * from './Committee';
+export * from './ContactFormData';
 export * from './Deputy';
 export * from './DeputyDetails';
+export * from './ErrorResponse';
 export * from './Event';
 export * from './Faction';
 export * from './IncomeStatement';
@@ -11,3 +13,5 @@ export * from './RegisteredProjectsStatistics';
 export * from './Report';
 export * from './RoutesConfig';
 export * from './Session';
+export * from './typeGuards';
+export * from './Vote';
