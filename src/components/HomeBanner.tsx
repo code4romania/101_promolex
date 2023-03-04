@@ -22,7 +22,7 @@ import banner from '../assets/images/banner.png';
 import { useSendVoteMutation } from '../mutations';
 import { useLiveSessionQuery } from '../queries';
 import { useVoteResultsQuery } from '../queries/useVoteResults';
-import { Routes } from '../types';
+import { isErrorResponse, Routes } from '../types';
 import { getVoteCookies, setVoteCookies } from '../utils';
 
 ChartJS.register(ArcElement, Tooltip, ChartDataLabels);
@@ -57,7 +57,7 @@ export function HomeBanner() {
     severity?: AlertProps['severity'];
   }>({ message: '' });
   const [open, setOpen] = useState(false);
-  const { data } = useLiveSessionQuery({ refetchInterval: 5000 });
+  const { data: liveSession } = useLiveSessionQuery({ refetchInterval: 5000 });
   const { data: voteResults, isFetching: isLoadingVoteResults } =
     useVoteResultsQuery();
   const { mutate: sendVote, isLoading: isSendingVote } = useSendVoteMutation();
@@ -167,6 +167,7 @@ export function HomeBanner() {
                           datalabels: {
                             formatter(value, context) {
                               const total =
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                 (context.dataset.data as any[]).reduce(
                                   (acc, v) => acc + parseInt(v, 10),
                                   0,
@@ -227,7 +228,7 @@ export function HomeBanner() {
             <img src={banner} alt='banner' width='100%' />
           </Box>
 
-          {data && (
+          {liveSession && !isErrorResponse(liveSession) && (
             <Box position='absolute' right={0} top={24}>
               <Link
                 to={Routes.PlenaryMeetings}
