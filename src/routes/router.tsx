@@ -4,6 +4,7 @@ import { DeputiesByLegislature } from '../components/DeputiesByLegislature';
 import {
   AboutProjectPage,
   CommitteesPage,
+  ContactPage,
   ControlPage,
   Deputies,
   DeputyDetails,
@@ -102,7 +103,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/contact',
-        element: <div>contact</div>,
+        element: <ContactPage />,
       },
     ],
   },

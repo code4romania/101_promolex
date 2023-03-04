@@ -18,6 +18,7 @@ export * from './Footer';
 export * from './Header';
 export * from './HomeBanner';
 export * from './HomeNewsContainer';
+export * from './Icons';
 export * from './LegislationActivityDomains';
 export * from './LegislationInitiativeDetails';
 export * from './LegislativeActivityProjects';

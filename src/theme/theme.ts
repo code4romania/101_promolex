@@ -83,6 +83,21 @@ export const theme = createTheme(
           maxWidth: 'lg',
         },
       },
+      MuiInputLabel: {
+        styleOverrides: {
+          outlined: {
+            fontWeight: 600,
+            position: 'relative',
+            transform: 'none',
+          },
+          root: {
+            color: 'inherit',
+            '&.Mui-error': {
+              color: 'inherit',
+            },
+          },
+        },
+      },
       MuiOutlinedInput: {
         styleOverrides: {
           root: {

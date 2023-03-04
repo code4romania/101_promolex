@@ -4,5 +4,5 @@ export type ContactFormData = {
   email: string;
   phone_number: string;
   question_for: string;
-  questions: string;
+  question: string;
 };
