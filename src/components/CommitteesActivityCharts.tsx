@@ -1,13 +1,15 @@
 /* eslint-disable camelcase */
-import { Stack, styled, Tab, Tabs, TabsProps } from '@mui/material';
+import { Stack } from '@mui/material';
 import { ChartData } from 'chart.js';
 import { chain, keys, toPairs, zip } from 'lodash';
-import { SyntheticEvent, useMemo, useState } from 'react';
+import { useMemo } from 'react';
+import { useTabs } from '../hooks';
 import {
   useCommitteesMainReporterCoreporterDataByLegislatureQuery,
   useCommitteesMainReporterDataByLegislatureQuery,
   useCommitteesNoticesByLegislatureQuery,
 } from '../queries';
+import { SecondaryTabs, SecondaryTab } from './SecondaryTabs';
 import { StackedBarChart } from './StackedBarChart';
 
 const reportChartConfig = [
@@ -48,42 +50,8 @@ const coreportConfig = [
   },
 ];
 
-type StyledTabProps = {
-  label: string;
-};
-
-const StyledTab = styled((props: StyledTabProps) => (
-  <Tab disableRipple {...props} />
-))(({ theme }) => ({
-  borderRadius: 8,
-  color: theme.palette.grey[900],
-  fontWeight: theme.typography.fontWeightMedium,
-  padding: theme.spacing(2, 3),
-  textTransform: 'none',
-
-  '&.Mui-selected': {
-    color: theme.palette.grey[900],
-    backgroundColor: theme.palette.grey[100],
-  },
-}));
-
-const StyledTabs = styled((props: TabsProps) => (
-  <Tabs
-    {...props}
-    TabIndicatorProps={{ children: <span className='MuiTabs-indicatorSpan' /> }}
-  />
-))({
-  '& .MuiTabs-indicator': {
-    backgroundColor: 'transparent',
-  },
-});
-
 export function CommitteesActivityCharts() {
-  const [tabValue, setTabValue] = useState(0);
-
-  const handleTabChange = (_: SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
+  const { tabValue, handleTabChange } = useTabs();
 
   const {
     data: committeesMainReporterData,
@@ -183,16 +151,16 @@ export function CommitteesActivityCharts() {
 
   return (
     <Stack gap={4} mt={10}>
-      <StyledTabs
+      <SecondaryTabs
         onChange={handleTabChange}
         scrollButtons='auto'
         value={tabValue}
         variant='fullWidth'
       >
-        <StyledTab label='Proiecte în care Comisia a fost numită raportor principal' />
-        <StyledTab label='Proiecte în care Comisia a fost numită raportor sau coraportor' />
-        <StyledTab label='Avize acordate de Comisii' />
-      </StyledTabs>
+        <SecondaryTab label='Proiecte în care Comisia a fost numită raportor principal' />
+        <SecondaryTab label='Proiecte în care Comisia a fost numită raportor sau coraportor' />
+        <SecondaryTab label='Avize acordate de Comisii' />
+      </SecondaryTabs>
 
       {tabValue === 0 && (
         <StackedBarChart

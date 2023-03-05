@@ -10,6 +10,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { merge } from 'lodash';
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(
@@ -79,16 +80,18 @@ const barChartOptions: ChartOptions<'bar'> = {
 type BarChartProps = {
   chartHeight?: number | string;
   data: ChartData<'bar', (number | undefined)[], string>;
+  options?: ChartOptions<'bar'>;
 };
 
-export function BarChart({ chartHeight, data }: BarChartProps) {
+export function BarChart({ chartHeight, data, options }: BarChartProps) {
   return (
     <Box height={chartHeight} width={1} px={6}>
-      <Bar options={barChartOptions} data={data} />
+      <Bar options={merge(barChartOptions, options)} data={data} />
     </Box>
   );
 }
 
 BarChart.defaultProps = {
   chartHeight: 400,
+  options: undefined,
 };
