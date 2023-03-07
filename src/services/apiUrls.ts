@@ -29,4 +29,13 @@ export const apiPaths = {
   sendVote: `${API_BASE_URL}?type=insert_vote`,
   voteResults: `${API_BASE_URL}?type=show_votes_result`,
   sendQuestion: `${API_BASE_URL}?type=insert_question`,
+  committeeQuestions: `${API_BASE_URL}?type=get_pc_questions&lid=`,
+  committeeInterpellations: `${API_BASE_URL}?type=get_pc_interpelations&lid=`,
+  committeeExPostEvaluation: `${API_BASE_URL}?type=get_pc_ex_post_evaluations`,
+  committeeInstitutionReports: `${API_BASE_URL}?type=get_pc_institutions_reports&lid=`,
+  committeeInstitutionHearings: `${API_BASE_URL}?type=get_pc_institutions_hearings&lid=`,
+  committeeHearingReports: `${API_BASE_URL}?type=get_pc_hearings_reports&lid=`,
+  committeeSpecialCommissions: `${API_BASE_URL}?type=get_pc_special_comissions&lid=`,
+  committeeInvestigationCommissions: `${API_BASE_URL}?type=get_pc_investigate_comissions&lid=`,
+  committeeMotions: `${API_BASE_URL}?type=get_motions`,
 };
