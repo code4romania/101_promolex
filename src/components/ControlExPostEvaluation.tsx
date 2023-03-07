@@ -1,17 +1,35 @@
 import {
   Box,
   Button,
+  Link,
   MenuItem,
   Select,
   Stack,
   Typography,
 } from '@mui/material';
 import { useTabs } from '../hooks';
+import { useCommitteeExPostEvaluationByLegislatureQuery } from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { StatisticsBarChart } from './StatisticsBarChart';
 
 export function ControlExportEvaluation() {
   const { tabValue, handleTabChange } = useTabs();
+
+  const {
+    data: legalExPostEvaluation,
+    isInitialLoading: isLoadingLegalExPostEvaluation,
+  } = useCommitteeExPostEvaluationByLegislatureQuery('Juridică', {
+    enabled: tabValue === 0,
+    refetchOnMount: false,
+  });
+
+  const {
+    data: impactExPostEvaluation,
+    isInitialLoading: isLoadingImpactExPostEvaluation,
+  } = useCommitteeExPostEvaluationByLegislatureQuery('De impact', {
+    enabled: tabValue === 1,
+    refetchOnMount: false,
+  });
 
   return (
     <Stack gap={6} mt={9}>
@@ -24,7 +42,7 @@ export function ControlExportEvaluation() {
         <SecondaryTab label='De impact' />
       </SecondaryTabs>
 
-      {tabValue === 0 && (
+      {tabValue === 0 && !isLoadingLegalExPostEvaluation && (
         <>
           <Box borderRadius={2} boxShadow={3} px={6} py={4}>
             <Typography gutterBottom variant='h6'>
@@ -58,7 +76,9 @@ export function ControlExportEvaluation() {
               datasets: [
                 {
                   label: 'Realizat',
-                  data: [85],
+                  data: [
+                    parseInt(legalExPostEvaluation?.gradRealizare ?? '0', 10),
+                  ],
                   backgroundColor: '#88A9B5',
                   datalabels: {
                     formatter(value) {
@@ -68,7 +88,9 @@ export function ControlExportEvaluation() {
                 },
                 {
                   label: 'Nerealizat',
-                  data: [15],
+                  data: [
+                    parseInt(legalExPostEvaluation?.gradNerealizat ?? '0', 10),
+                  ],
                   backgroundColor: '#BAE2F1',
                   datalabels: {
                     formatter(value) {
@@ -92,17 +114,31 @@ export function ControlExportEvaluation() {
             Află mai multe despre
           </Typography>
           <Stack direction='row' gap={4}>
-            <Button color='secondary' size='large' variant='contained'>
+            <Button
+              color='secondary'
+              href={legalExPostEvaluation?.planEvaluare ?? ''}
+              LinkComponent={Link}
+              size='large'
+              target='_blank'
+              variant='contained'
+            >
               Planul de evaluare ex-post
             </Button>
-            <Button color='secondary' size='large' variant='contained'>
+            <Button
+              color='secondary'
+              href={legalExPostEvaluation?.linkRaportEvaluare ?? ''}
+              LinkComponent={Link}
+              size='large'
+              target='_blank'
+              variant='contained'
+            >
               Rapoartele de evaluare ex-post juridică a actelor normative
             </Button>
           </Stack>
         </>
       )}
 
-      {tabValue === 1 && (
+      {tabValue === 1 && !isLoadingImpactExPostEvaluation && (
         <>
           <Box borderRadius={2} boxShadow={3} px={6} py={4}>
             <Typography gutterBottom variant='h6'>
@@ -133,7 +169,9 @@ export function ControlExportEvaluation() {
               datasets: [
                 {
                   label: 'Realizat',
-                  data: [85],
+                  data: [
+                    parseInt(impactExPostEvaluation?.gradRealizare ?? '0', 10),
+                  ],
                   backgroundColor: '#88A9B5',
                   datalabels: {
                     formatter(value) {
@@ -143,7 +181,9 @@ export function ControlExportEvaluation() {
                 },
                 {
                   label: 'Nerealizat',
-                  data: [15],
+                  data: [
+                    parseInt(impactExPostEvaluation?.gradNerealizat ?? '0', 10),
+                  ],
                   backgroundColor: '#BAE2F1',
                   datalabels: {
                     formatter(value) {
@@ -167,10 +207,24 @@ export function ControlExportEvaluation() {
             Află mai multe despre
           </Typography>
           <Stack direction='row' gap={4}>
-            <Button color='secondary' size='large' variant='contained'>
+            <Button
+              color='secondary'
+              href={impactExPostEvaluation?.planEvaluare ?? ''}
+              LinkComponent={Link}
+              size='large'
+              target='_blank'
+              variant='contained'
+            >
               Planul de evaluare ex-post
             </Button>
-            <Button color='secondary' size='large' variant='contained'>
+            <Button
+              color='secondary'
+              href={impactExPostEvaluation?.linkRaportEvaluare ?? ''}
+              LinkComponent={Link}
+              size='large'
+              target='_blank'
+              variant='contained'
+            >
               Rapoartele de evaluare ex-post de impact a actelor normative
             </Button>
           </Stack>
