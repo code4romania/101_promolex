@@ -5,6 +5,8 @@ import {
   GridColumns,
   gridPageCountSelector,
   gridPageSelector,
+  GridRowHeightParams,
+  GridRowHeightReturnValue,
   GridRowIdGetter,
   GridValidRowModel,
   useGridApiContext,
@@ -51,6 +53,10 @@ const StyledDataGrid = styled(DataGrid)(() => ({
   '& .MuiDataGrid-footerContainer': {
     borderTopWidth: 0,
   },
+  '& .MuiDataGrid-row > .MuiDataGrid-cell.MuiDataGrid-cell--textLeft': {
+    overflow: 'unset',
+    whiteSpace: 'unset',
+  },
 }));
 
 const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
@@ -66,6 +72,7 @@ const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
 type TableProps = {
   columns: GridColumns<GridValidRowModel>;
   fromDate?: Date;
+  getRowHeight?: (params: GridRowHeightParams) => GridRowHeightReturnValue;
   getRowId: GridRowIdGetter<GridValidRowModel>;
   height: number | string;
   hideFooter?: boolean;
@@ -79,12 +86,15 @@ type TableProps = {
   toDate?: Date;
 };
 
-const cleanText = (text: string) =>
-  deburr(text.toLowerCase()).replaceAll(/ș/g, 's');
+const cleanText = (text: string | string[]): string => {
+  if (Array.isArray(text)) return text.map(cleanText).join(' ');
+  return deburr(text.toLowerCase()).replaceAll(/ș/g, 's');
+};
 
 export function Table({
   columns,
   fromDate,
+  getRowHeight,
   getRowId,
   height,
   hideFooter,
@@ -176,6 +186,7 @@ export function Table({
           disableColumnMenu
           disableColumnSelector
           disableSelectionOnClick
+          getRowHeight={getRowHeight}
           getRowId={getRowId}
           isCellEditable={() => false}
           isRowSelectable={() => false}
@@ -196,6 +207,7 @@ export function Table({
 
 Table.defaultProps = {
   fromDate: undefined,
+  getRowHeight: undefined,
   hideFooter: true,
   isLoading: false,
   onFromDateChange: undefined,

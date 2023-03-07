@@ -6,7 +6,7 @@ type Committee = {
   hasMembers: string;
 };
 
-type PartialDeputy = Pick<Deputy, 'did' | 'fullName'>;
+export type PartialDeputy = Pick<Deputy, 'did' | 'fullName'>;
 
 export type LegislationInitiativeDetails = {
   denumireProiect: string;

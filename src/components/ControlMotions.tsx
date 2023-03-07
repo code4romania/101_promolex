@@ -1,159 +1,72 @@
 import { Stack } from '@mui/material';
 import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
+import { useMemo } from 'react';
 import { useTabs } from '../hooks';
+import { useCommitteeMotionsByLegislatureQuery } from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
 
-const simpleMotionsTableColumns: GridColumns<GridValidRowModel> = [
+const motionsTableColumns: GridColumns<GridValidRowModel> = [
   {
-    field: 'nrProiect',
-    headerName: 'Nr d/o',
-    flex: 0.3,
+    field: 'denumireProiect',
+    headerName: 'Denumire moțiune',
+    flex: 1,
     sortable: false,
   },
   {
-    field: 'theme',
-    headerName: 'Tematica moțiunii',
+    field: 'numeDep',
+    headerName: 'Autorii moțiunii',
     flex: 1,
   },
   {
-    field: 'autor',
-    headerName: 'Autorii moțiunii',
+    field: 'dataVot1Lect',
+    headerName: 'Data examinării în plen',
     flex: 0.4,
   },
   {
-    field: 'date',
-    headerName: 'Data examinării în plen',
-    flex: 0.3,
-    sortable: false,
-  },
-  {
-    field: 'response',
+    field: 'decizia1Lect',
     headerName: 'Rezultat',
     flex: 0.3,
     sortable: false,
-  },
-];
-
-const censorshipMotionsTableColumns: GridColumns<GridValidRowModel> = [
-  {
-    field: 'nrProiect',
-    headerName: 'Nr d/o',
-    flex: 0.3,
-    sortable: false,
-  },
-  {
-    field: 'context',
-    headerName: 'Contextul înaintării',
-    flex: 0.4,
-  },
-  {
-    field: 'autorii',
-    headerName: 'Autorii moțiunii',
-    flex: 0.4,
-    sortable: false,
-  },
-  {
-    field: 'date',
-    headerName: 'Data examinării în plen',
-    flex: 1,
-  },
-  {
-    field: 'response',
-    headerName: 'Rezultat',
-    flex: 0.4,
-    sortable: false,
-  },
-];
-
-const mockSimpleMotionsData = [
-  {
-    id: '1',
-    nrProiect: '1',
-    theme: 'Tematica moțiunii',
-    autor: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-  {
-    id: '2',
-    nrProiect: '2',
-    theme: 'Tematica moțiunii',
-    autor: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-  {
-    id: '3',
-    nrProiect: '3',
-    theme: 'Tematica moțiunii',
-    autor: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-  {
-    id: '4',
-    nrProiect: '4',
-    theme: 'Tematica moțiunii',
-    autor: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-  {
-    id: '5',
-    nrProiect: '5',
-    theme: 'Tematica moțiunii',
-    autor: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-];
-
-const mockCensorshipMotionsData = [
-  {
-    id: '1',
-    nrProiect: '1',
-    context: 'Contextul înaintării',
-    autorii: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-  {
-    id: '2',
-    nrProiect: '2',
-    context: 'Contextul înaintării',
-    autorii: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-  {
-    id: '3',
-    nrProiect: '3',
-    context: 'Contextul înaintării',
-    autorii: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-  {
-    id: '4',
-    nrProiect: '4',
-    context: 'Contextul înaintării',
-    autorii: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
-  },
-  {
-    id: '5',
-    nrProiect: '5',
-    context: 'Contextul înaintării',
-    autorii: 'Autorii moțiunii',
-    date: 'Data examinării în plen',
-    response: 'Rezultat',
   },
 ];
 
 export function ControlMotions() {
   const { tabValue, handleTabChange } = useTabs();
+
+  const { data: simpleMotions, isInitialLoading: isLoadingSimpleMotions } =
+    useCommitteeMotionsByLegislatureQuery('simplă', {
+      enabled: tabValue === 0,
+      refetchOnMount: false,
+    });
+
+  const {
+    data: censorShipMotions,
+    isInitialLoading: isLoadingcensorShipMotions,
+  } = useCommitteeMotionsByLegislatureQuery('de cenzură', {
+    enabled: tabValue === 1,
+    refetchOnMount: false,
+  });
+
+  const simpleMotionsData = useMemo(
+    () =>
+      simpleMotions?.map((motion, index) => ({
+        ...motion,
+        numeDep: motion.numeDep.map(({ fullName }) => fullName).join(', '),
+        id: index,
+      })) ?? [],
+    [simpleMotions],
+  );
+
+  const censorShipMotionsDta = useMemo(
+    () =>
+      censorShipMotions?.map((motion, index) => ({
+        ...motion,
+        numeDep: motion.numeDep.map(({ fullName }) => fullName).join(', '),
+        id: index,
+      })) ?? [],
+    [censorShipMotions],
+  );
 
   return (
     <Stack gap={6} mt={9}>
@@ -161,7 +74,6 @@ export function ControlMotions() {
         onChange={handleTabChange}
         scrollButtons='auto'
         value={tabValue}
-        //   variant='fullWidth'
       >
         <SecondaryTab label='Moțiuni simple' />
         <SecondaryTab label='Moțiuni de cenzură' />
@@ -169,22 +81,26 @@ export function ControlMotions() {
 
       {tabValue === 0 && (
         <Table
-          columns={simpleMotionsTableColumns}
+          columns={motionsTableColumns}
+          getRowHeight={() => 'auto'}
           height={510}
+          isLoading={isLoadingSimpleMotions}
           getRowId={(row) => row.id}
-          hideFooter={!mockSimpleMotionsData?.length}
+          hideFooter={!simpleMotionsData?.length}
           pageSize={5}
-          rows={mockSimpleMotionsData}
+          rows={simpleMotionsData}
         />
       )}
       {tabValue === 1 && (
         <Table
-          columns={censorshipMotionsTableColumns}
+          columns={motionsTableColumns}
+          getRowHeight={() => 'auto'}
           height={510}
+          isLoading={isLoadingcensorShipMotions}
           getRowId={(row) => row.id}
-          hideFooter={!mockCensorshipMotionsData?.length}
+          hideFooter={!censorShipMotionsDta?.length}
           pageSize={5}
-          rows={mockCensorshipMotionsData}
+          rows={censorShipMotionsDta}
         />
       )}
     </Stack>

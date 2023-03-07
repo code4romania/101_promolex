@@ -1,23 +1,28 @@
 import { Stack } from '@mui/material';
 import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
+import { useMemo } from 'react';
 import { useTabs } from '../hooks';
+import {
+  useCommitteeInterpellationsByLegislatureQuery,
+  useCommitteeQuestionsByLegislatureQuery,
+} from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
 
 const questionsTableColumns: GridColumns<GridValidRowModel> = [
   {
-    field: 'nrProiect',
+    field: 'docid',
     headerName: 'Nr d/o',
-    flex: 0.3,
+    flex: 0.2,
     sortable: false,
   },
   {
-    field: 'dataReg',
+    field: 'dataSedinta',
     headerName: 'Data',
-    flex: 0.4,
+    flex: 0.3,
   },
   {
-    field: 'autor',
+    field: 'autori',
     headerName: 'Autor',
     flex: 0.4,
   },
@@ -34,13 +39,13 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
     sortable: false,
   },
   {
-    field: 'responseType',
+    field: 'answerType',
     headerName: 'Forma răspunsului',
     flex: 0.3,
     sortable: false,
   },
   {
-    field: 'response',
+    field: 'answerFile',
     headerName: 'Răspunsul oferit',
     flex: 0.3,
     sortable: false,
@@ -49,15 +54,21 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
 
 const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
   {
-    field: 'nrProiect',
+    field: 'docid',
     headerName: 'Nr d/o',
     flex: 0.3,
     sortable: false,
   },
   {
-    field: 'dataReg',
+    field: 'dataSedinta',
     headerName: 'Data',
     flex: 0.4,
+  },
+  {
+    field: 'autori',
+    headerName: 'Autorii interpelării',
+    flex: 0.4,
+    sortable: false,
   },
   {
     field: 'interpellation',
@@ -65,153 +76,51 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
     flex: 1,
   },
   {
-    field: 'autorii',
-    headerName: 'Autorii interpelării',
-    flex: 0.4,
+    field: 'institution',
+    headerName: 'Instituția vizată',
+    flex: 0.3,
     sortable: false,
   },
   {
-    field: 'response',
-    headerName: 'Răspunsul Guvernului',
-    flex: 0.4,
+    field: 'answerType',
+    headerName: 'Forma răspunsului',
+    flex: 0.3,
     sortable: false,
-  },
-];
-
-const mockQuestionsData = [
-  {
-    id: '1',
-    nrProiect: '1',
-    dataReg: '01.01.2021',
-    autor: 'Autor 1',
-    question: 'Întrebarea 1',
-    institution: 'Instituția 1',
-    responseType: 'Forma 1',
-    response: 'Răspunsul 1',
-  },
-  {
-    id: '2',
-    nrProiect: '2',
-    dataReg: '02.01.2021',
-    autor: 'Autor 2',
-    question: 'Întrebarea 2',
-    institution: 'Instituția 2',
-    responseType: 'Forma 2',
-    response: 'Răspunsul 2',
-  },
-  {
-    id: '3',
-    nrProiect: '3',
-    dataReg: '03.01.2021',
-    autor: 'Autor 3',
-    question: 'Întrebarea 3',
-    institution: 'Instituția 3',
-    responseType: 'Forma 3',
-    response: 'Răspunsul 3',
-  },
-  {
-    id: '4',
-    nrProiect: '4',
-    dataReg: '04.01.2021',
-    autor: 'Autor 4',
-    question: 'Întrebarea 4',
-    institution: 'Instituția 4',
-    responseType: 'Forma 4',
-    response: 'Răspunsul 4',
-  },
-  {
-    id: '5',
-    nrProiect: '5',
-    dataReg: '05.01.2021',
-    autor: 'Autor 5',
-    question: 'Întrebarea 5',
-    institution: 'Instituția 5',
-    responseType: 'Forma 5',
-    response: 'Răspunsul 5',
-  },
-  {
-    id: '6',
-    nrProiect: '6',
-    dataReg: '06.01.2021',
-    autor: 'Autor 6',
-    question: 'Întrebarea 6',
-    institution: 'Instituția 6',
-    responseType: 'Forma 6',
-    response: 'Răspunsul 6',
-  },
-  {
-    id: '7',
-    nrProiect: '7',
-    dataReg: '07.01.2021',
-    autor: 'Autor 7',
-    question: 'Întrebarea 7',
-    institution: 'Instituția 7',
-    responseType: 'Forma 7',
-    response: 'Răspunsul 7',
-  },
-];
-
-const mockInterpellationsData = [
-  {
-    id: '1',
-    nrProiect: '1',
-    dataReg: '01.01.2021',
-    interpellation: 'Interpelarea 1',
-    autorii: 'Autorii 1',
-    response: 'Răspunsul 1',
-  },
-  {
-    id: '2',
-    nrProiect: '2',
-    dataReg: '02.01.2021',
-    interpellation: 'Interpelarea 2',
-    autorii: 'Autorii 2',
-    response: 'Răspunsul 2',
-  },
-  {
-    id: '3',
-    nrProiect: '3',
-    dataReg: '03.01.2021',
-    interpellation: 'Interpelarea 3',
-    autorii: 'Autorii 3',
-    response: 'Răspunsul 3',
-  },
-  {
-    id: '4',
-    nrProiect: '4',
-    dataReg: '04.01.2021',
-    interpellation: 'Interpelarea 4',
-    autorii: 'Autorii 4',
-    response: 'Răspunsul 4',
-  },
-  {
-    id: '5',
-    nrProiect: '5',
-    dataReg: '05.01.2021',
-    interpellation: 'Interpelarea 5',
-    autorii: 'Autorii 5',
-    response: 'Răspunsul 5',
-  },
-  {
-    id: '6',
-    nrProiect: '6',
-    dataReg: '06.01.2021',
-    interpellation: 'Interpelarea 6',
-    autorii: 'Autorii 6',
-    response: 'Răspunsul 6',
-  },
-  {
-    id: '7',
-    nrProiect: '7',
-    dataReg: '07.01.2021',
-    interpellation: 'Interpelarea 7',
-    autorii: 'Autorii 7',
-    response: 'Răspunsul 7',
   },
 ];
 
 export function ControlQuestions() {
   const { tabValue, handleTabChange } = useTabs();
+
+  const { data: questions, isInitialLoading: isLoadingQuestions } =
+    useCommitteeQuestionsByLegislatureQuery({
+      enabled: tabValue === 0,
+      refetchOnMount: false,
+    });
+
+  const { data: interpellations, isInitialLoading: isLoadingInterpellations } =
+    useCommitteeInterpellationsByLegislatureQuery({
+      enabled: tabValue === 1,
+      refetchOnMount: false,
+    });
+
+  const questionsData = useMemo(
+    () =>
+      questions?.map((question) => ({
+        ...question,
+        autori: question.autori.map(({ fullName }) => fullName).join(', '),
+      })) ?? [],
+    [questions],
+  );
+
+  const interpellationsData = useMemo(
+    () =>
+      interpellations?.map((question) => ({
+        ...question,
+        autori: question.autori.map(({ fullName }) => fullName).join(', '),
+      })) ?? [],
+    [interpellations],
+  );
 
   return (
     <Stack gap={6} mt={9}>
@@ -228,10 +137,11 @@ export function ControlQuestions() {
         <Table
           columns={questionsTableColumns}
           height={510}
-          getRowId={(row) => row.id}
-          hideFooter={!mockQuestionsData?.length}
+          isLoading={isLoadingQuestions}
+          getRowId={(row) => row.docid}
+          hideFooter={!questionsData.length}
           pageSize={5}
-          rows={mockQuestionsData}
+          rows={questionsData}
           showSearch
         />
       )}
@@ -239,10 +149,11 @@ export function ControlQuestions() {
         <Table
           columns={interpellationsTableColumns}
           height={510}
-          getRowId={(row) => row.id}
-          hideFooter={!mockInterpellationsData?.length}
+          isLoading={isLoadingInterpellations}
+          getRowId={(row) => row.docid}
+          hideFooter={!interpellationsData?.length}
           pageSize={5}
-          rows={mockInterpellationsData}
+          rows={interpellationsData}
           showSearch
         />
       )}
