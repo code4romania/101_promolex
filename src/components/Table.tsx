@@ -32,7 +32,7 @@ function CustomPagination() {
       color='primary'
       count={pageCount}
       page={page + 1}
-      onChange={(event, value) => apiRef.current.setPage(value - 1)}
+      onChange={(_, value) => apiRef.current.setPage(value - 1)}
     />
   );
 }
@@ -122,9 +122,9 @@ export function Table({
   );
 
   return (
-    <Stack gap={4}>
+    <Stack gap={4} overflow='auto'>
       {(showSearch || showDatePickers) && (
-        <Stack direction='row' gap={4}>
+        <Stack direction='row' gap={4} flexWrap='wrap'>
           {showSearch && (
             <TextField
               placeholder='Caută...'
@@ -179,7 +179,7 @@ export function Table({
           )}
         </Stack>
       )}
-      <Box height={height}>
+      <Box height={height} overflow='auto' minWidth={640}>
         <StyledDataGrid
           columns={columns}
           disableColumnFilter

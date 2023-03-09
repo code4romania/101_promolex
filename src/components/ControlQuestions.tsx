@@ -8,47 +8,55 @@ import {
 } from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
+import { TextWithTooltip } from './TextWithTooltip';
 
 const questionsTableColumns: GridColumns<GridValidRowModel> = [
   {
     field: 'docid',
     headerName: 'Nr d/o',
-    flex: 0.2,
+    flex: 0.3,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'dataSedinta',
     headerName: 'Data',
     flex: 0.3,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'autori',
     headerName: 'Autor',
     flex: 0.4,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'question',
     headerName: 'Întrebarea adresată',
     flex: 1,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'institution',
     headerName: 'Instituția vizată',
-    flex: 0.3,
+    flex: 0.4,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'answerType',
     headerName: 'Forma răspunsului',
     flex: 0.3,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'answerFile',
     headerName: 'Răspunsul oferit',
     flex: 0.3,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
 ];
 
@@ -58,34 +66,40 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Nr d/o',
     flex: 0.3,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'dataSedinta',
     headerName: 'Data',
     flex: 0.4,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'autori',
     headerName: 'Autorii interpelării',
     flex: 0.4,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'interpellation',
     headerName: 'Interpelarea',
     flex: 1,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'institution',
     headerName: 'Instituția vizată',
     flex: 0.3,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'answerType',
     headerName: 'Forma răspunsului',
     flex: 0.3,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
 ];
 

@@ -47,12 +47,7 @@ export function CommitteesPage() {
           borderTopRightRadius: 2,
         }}
       >
-        <Tabs
-          onChange={handleTabChange}
-          scrollButtons='auto'
-          value={tabValue}
-          variant='fullWidth'
-        >
+        <Tabs onChange={handleTabChange} scrollButtons='auto' value={tabValue}>
           <StyledTab label='Comisii parlamentare permanente' />
           <StyledTab label='Grafice despre activitatea Comisiilor ' />
         </Tabs>
