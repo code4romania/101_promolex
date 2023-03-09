@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Stack } from '@mui/material';
+import { Stack, useMediaQuery, useTheme } from '@mui/material';
 import { ChartData } from 'chart.js';
 import { chain, keys, toPairs, zip } from 'lodash';
 import { useMemo } from 'react';
@@ -149,6 +149,9 @@ export function CommitteesActivityCharts() {
     };
   }, [committeeNotices]);
 
+  const { breakpoints } = useTheme();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
+
   return (
     <Stack gap={4} mt={10}>
       <SecondaryTabs
@@ -167,6 +170,7 @@ export function CommitteesActivityCharts() {
           data={committeesMainReporterDataChart}
           isLoading={isLoadingCommitteesMainReporterData}
           showLegend
+          showTicks={isLargeScreen}
         />
       )}
       {tabValue === 1 && (
@@ -174,12 +178,14 @@ export function CommitteesActivityCharts() {
           data={committeesMainReporterCoreporterDataChart}
           isLoading={isLoadingCommitteesMainReporterCoreporterData}
           showLegend
+          showTicks={isLargeScreen}
         />
       )}
       {tabValue === 2 && (
         <StackedBarChart
           data={committeeNoticesChart}
           isLoading={isLoadingCommitteeNotices}
+          showTicks={isLargeScreen}
         />
       )}
     </Stack>

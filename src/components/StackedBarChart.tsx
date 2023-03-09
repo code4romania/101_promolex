@@ -110,12 +110,14 @@ type StackedBarChartProps = {
   data: ChartData<'bar', (number | undefined)[], string>;
   isLoading?: boolean;
   showLegend?: boolean;
+  showTicks?: boolean;
 };
 
 export function StackedBarChart({
   data,
   isLoading,
   showLegend,
+  showTicks,
 }: StackedBarChartProps) {
   const chartOptions: ChartOptions<'bar'> = {
     ...stackedBarChartOptions,
@@ -124,6 +126,16 @@ export function StackedBarChart({
       legend: {
         ...stackedBarChartOptions.plugins?.legend,
         display: showLegend,
+      },
+    },
+    scales: {
+      ...stackedBarChartOptions.scales,
+      y: {
+        ...stackedBarChartOptions.scales?.y,
+        ticks: {
+          ...stackedBarChartOptions.scales?.y?.ticks,
+          display: showTicks,
+        },
       },
     },
   };
@@ -139,4 +151,5 @@ export function StackedBarChart({
 StackedBarChart.defaultProps = {
   isLoading: false,
   showLegend: false,
+  showTicks: true,
 };

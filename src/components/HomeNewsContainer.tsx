@@ -30,7 +30,7 @@ export function HomeNewsContainer() {
         <Loading />
       ) : (
         <Grid columnSpacing={7} container rowSpacing={15}>
-          <Grid item sm={4} height={600}>
+          <Grid item sm={4} height={640}>
             <BlogPostCard event={latestEvent} />
           </Grid>
           <Grid container item sm={8} columnSpacing={7} rowSpacing={15}>

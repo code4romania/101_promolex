@@ -25,7 +25,12 @@ export function DetailsDialog({
   open,
 }: PropsWithChildren<DetailsDialogProps>) {
   return (
-    <BootstrapDialog onClose={handleClose} open={open} fullWidth>
+    <BootstrapDialog
+      onClose={handleClose}
+      open={open}
+      fullWidth
+      PaperProps={{ sx: { m: { xs: 0 }, width: { xs: 1 } } }}
+    >
       <DialogTitle
         sx={{
           alignItems: 'center',

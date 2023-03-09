@@ -13,6 +13,8 @@ export const useRegisteredProjects = () => {
       setFromDate(new Date(legislatureFrom));
       setToDate(new Date(legislatureTo));
     },
+    refetchOnMount: true,
+    staleTime: 0,
   });
   const { data: registeredProjects } = useRegisteredProjectsQuery({
     from: getDateString(fromDate),
