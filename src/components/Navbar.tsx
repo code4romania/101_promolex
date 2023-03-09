@@ -1,31 +1,49 @@
+import MenuIcon from '@mui/icons-material/Menu';
 import {
+  alpha,
   Box,
   ButtonBase,
   ButtonBaseProps,
   Container,
+  IconButton,
   Menu,
   MenuItem,
+  MenuProps,
   Stack,
   styled,
   useTheme,
 } from '@mui/material';
-import { Fragment, MouseEvent, useState } from 'react';
+import {
+  Fragment,
+  MouseEvent,
+  MouseEventHandler,
+  useCallback,
+  useState,
+} from 'react';
 import { Link, NavLink, NavLinkProps, useNavigate } from 'react-router-dom';
 import logo101Promolex from '../assets/images/logo_101_promolex.png';
 import { Routes } from '../types';
 import { routesConfig } from '../utils';
 
-const StyledNavLink = styled(NavLink)<NavLinkProps>(({ theme }) => ({
-  color: theme.palette.common.white,
+const StyledNavLink = styled(NavLink)<NavLinkProps>(() => ({
+  color: 'inherit',
   fontSize: 18,
   fontWeight: 700,
   textDecoration: 'none',
 }));
 
-const StyledButton = styled(ButtonBase)<ButtonBaseProps>(({ theme }) => ({
-  color: theme.palette.common.white,
+const StyledMenu = styled(Menu)<MenuProps>(({ theme }) => ({
+  zIndex: theme.zIndex.appBar - 1,
+
+  '& .MuiBackdrop-root': {
+    background: alpha(theme.palette.common.black, 0.5),
+  },
+}));
+
+const StyledButton = styled(ButtonBase)<ButtonBaseProps>(() => ({
+  color: 'inherit',
   fontSize: 18,
-  fontWeight: 700,
+  fontWeight: 600,
 }));
 
 export function Navbar() {
@@ -33,6 +51,7 @@ export function Navbar() {
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -41,10 +60,25 @@ export function Navbar() {
 
   const handleClose = (path?: string) => () => {
     setAnchorEl(null);
+    setMenuAnchorEl(null);
     if (path) {
       navigate(path);
     }
   };
+
+  const openMenu = Boolean(menuAnchorEl);
+
+  const closeMenu = () => {
+    setMenuAnchorEl(null);
+  };
+
+  const toggleMenu = useCallback<MouseEventHandler<HTMLElement>>(
+    (event) => {
+      const target = !menuAnchorEl ? event.currentTarget : null;
+      setMenuAnchorEl(target);
+    },
+    [menuAnchorEl],
+  );
 
   return (
     <Box bgcolor={palette.primary.main}>
@@ -52,6 +86,7 @@ export function Navbar() {
         <Stack
           alignItems='center'
           direction='row'
+          display={{ xs: 'none', sm: 'flex' }}
           justifyContent='flex-end'
           gap={10}
           py={1}
@@ -66,7 +101,9 @@ export function Navbar() {
               <StyledNavLink
                 key={route}
                 style={({ isActive }) =>
-                  isActive ? { color: palette.primary.dark } : undefined
+                  isActive
+                    ? { color: palette.primary.dark }
+                    : { color: palette.common.white }
                 }
                 to={route}
               >
@@ -74,7 +111,12 @@ export function Navbar() {
               </StyledNavLink>
             ) : (
               <Fragment key={route}>
-                <StyledButton onClick={handleClick}>{label}</StyledButton>
+                <StyledButton
+                  onClick={handleClick}
+                  sx={{ color: 'common.white' }}
+                >
+                  {label}
+                </StyledButton>
                 <Menu anchorEl={anchorEl} open={open} onClose={handleClose()}>
                   {subRoutes.map((subRoute) => (
                     <MenuItem
@@ -89,6 +131,77 @@ export function Navbar() {
             ),
           )}
         </Stack>
+
+        <Box
+          alignItems='center'
+          display={{ xs: 'flex', md: 'none' }}
+          justifyContent='flex-end'
+        >
+          <Link to={Routes.Home}>
+            <img alt='Logo 101 Promo-LEX' height={85} src={logo101Promolex} />
+          </Link>
+
+          <IconButton onClick={toggleMenu} size='large'>
+            <MenuIcon />
+          </IconButton>
+          <StyledMenu
+            anchorEl={menuAnchorEl}
+            anchorOrigin={{
+              horizontal: 'right',
+              vertical: 'bottom',
+            }}
+            elevation={1}
+            onClose={closeMenu}
+            open={openMenu}
+            PaperProps={{
+              sx: {
+                left: '0 !important',
+                maxWidth: '100%',
+                right: 0,
+                width: '100%',
+              },
+            }}
+            transformOrigin={{
+              horizontal: 'right',
+              vertical: 'top',
+            }}
+          >
+            {routesConfig.map(({ label, route, subRoutes }) =>
+              !subRoutes?.length ? (
+                <MenuItem key={route} onClick={toggleMenu}>
+                  <StyledNavLink
+                    style={({ isActive }) =>
+                      isActive
+                        ? {
+                            color: palette.primary.dark,
+                            fontWeight: 700,
+                            flexGrow: 1,
+                          }
+                        : { flexGrow: 1 }
+                    }
+                    to={route}
+                  >
+                    {label}
+                  </StyledNavLink>
+                </MenuItem>
+              ) : (
+                <MenuItem key={route}>
+                  <StyledButton onClick={handleClick}>{label}</StyledButton>
+                  <Menu anchorEl={anchorEl} open={open} onClose={handleClose()}>
+                    {subRoutes.map((subRoute) => (
+                      <MenuItem
+                        key={subRoute.route}
+                        onClick={handleClose(subRoute.route)}
+                      >
+                        {subRoute.label}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </MenuItem>
+              ),
+            )}
+          </StyledMenu>
+        </Box>
       </Container>
     </Box>
   );

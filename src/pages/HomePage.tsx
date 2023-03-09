@@ -55,8 +55,14 @@ export function HomePage() {
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
           }}
+          py={4}
         >
-          <Typography fontWeight='bold' variant='h3'>
+          <Typography
+            fontWeight='bold'
+            fontSize={{ xs: '1.5rem', sm: '3rem' }}
+            variant='h3'
+            textAlign='center'
+          >
             Cunoașteți deputații din Parlamentul Republicii Moldova
           </Typography>
           <Link to={Routes.Deputies} style={{ textDecoration: 'none' }}>
