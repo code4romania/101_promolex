@@ -118,7 +118,7 @@ export function AboutProjectPage() {
         title: 'Metodologia de monitorizare',
         description: (
           <Stack gap={4}>
-            <Typography fontSize={20}>
+            <Typography fontSize={20} textAlign='justify'>
               Metodologia stabilește și reglementează cadrul metodic, părțile,
               durata și procedurile de monitorizare a activității Parlamentului
               Republicii Moldova, în perioada anilor 2021-2025. Exercițiul de
@@ -131,7 +131,7 @@ export function AboutProjectPage() {
               fără a afecta obiectivitatea datelor colectate și vectorul
               evoluției în timp a rezultatelor monitorizării.
             </Typography>
-            <Typography fontSize={20}>
+            <Typography fontSize={20} textAlign='justify'>
               Metodologia a fost prezentată și discutată la începutul
               monitorizării cu conducerea Parlamentului și reprezentanții
               Secretariatului instituției.,
@@ -149,7 +149,7 @@ export function AboutProjectPage() {
             </Typography>
             <Stack
               alignItems='flex-start'
-              justifyContent='center'
+              justifyContent={{ xs: 'flex-start', sm: 'center' }}
               direction='row'
               gap={4}
               overflow='auto'
@@ -157,6 +157,7 @@ export function AboutProjectPage() {
               {toPairs(pillarItems).map(
                 ([key, { label, image, description }]) => (
                   <StyledStack
+                    flexShrink={0}
                     flexGrow={0}
                     isSelected
                     key={key}
@@ -256,7 +257,7 @@ export function AboutProjectPage() {
       >
         Monitorizarea activității Parlamentului Republicii Moldova
       </Typography>
-      <Typography fontSize={20}>
+      <Typography fontSize={20} textAlign='justify'>
         Asociația Promo-LEX monitorizează activitatea Parlamentului Republicii
         Moldova în perioada anilor 2021 - 2025, în special din perspectiva
         transparenței, legalității și eficienței procedurilor. Exercițiul de
@@ -268,24 +269,33 @@ export function AboutProjectPage() {
         este evaluat nivelul de interacțiune a deputaților cu publicul larg și
         modul de comunicare a Parlamentului cu cetățenii.
       </Typography>
-      <Grid container py={12}>
+      <Grid container py={12} spacing={10}>
         <Grid
           alignItems='center'
           display='flex'
           item
           xs={12}
           justifyContent='center'
-          md={6}
+          sm={3}
         >
           <Box>
             <img alt='Logo Promo-LEX' height={98} src={logoPromoLexRo} />
           </Box>
+        </Grid>
+        <Grid
+          alignItems='center'
+          display='flex'
+          item
+          xs={12}
+          justifyContent='center'
+          sm={3}
+        >
           <Box>
             <img alt='Logo USAID' height={98} src={logoUsaid} />
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Typography fontSize={20}>
+          <Typography fontSize={20} textAlign='justify'>
             Activitatea de monitorizare a Parlamentului Republicii Moldova are
             loc în cadrul Programului „
             <strong>Democrație, Transparență și Responsabilitate</strong>”,
@@ -295,7 +305,12 @@ export function AboutProjectPage() {
           </Typography>
         </Grid>
       </Grid>
-      <Stack justifyContent='center' direction='row' gap={12} overflow='auto'>
+      <Stack
+        justifyContent={{ xs: 'flex-start', sm: 'center' }}
+        direction='row'
+        gap={12}
+        overflow='auto'
+      >
         {chain(objectives)
           .toPairs()
           .map(([key, objective]) => (
@@ -328,7 +343,7 @@ export function AboutProjectPage() {
             </Typography>
             {typeof objectiveItems[selectedObjective].description ===
             'string' ? (
-              <Typography fontSize={20}>
+              <Typography fontSize={20} textAlign='justify'>
                 {objectiveItems[selectedObjective].description}
               </Typography>
             ) : (
@@ -348,7 +363,7 @@ export function AboutProjectPage() {
         <Typography fontWeight='medium' gutterBottom variant='h5'>
           Asociația Promo-LEX
         </Typography>
-        <Typography fontSize={20}>
+        <Typography fontSize={20} textAlign='justify'>
           <u>Asociația Promo-LEX</u> este o organizație neguvernamentală, care
           are drept scop dezvoltarea democrației în Republica Moldova, inclusiv
           în regiunea transnistreană, prin promovarea și apărarea drepturilor

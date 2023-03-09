@@ -1,5 +1,13 @@
+import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
 import SearchIcon from '@mui/icons-material/Search';
-import { Box, Pagination, Stack, styled, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  Pagination,
+  Stack,
+  styled,
+  TextField,
+} from '@mui/material';
 import {
   DataGrid,
   GridColumns,
@@ -19,8 +27,9 @@ import {
 } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ro } from 'date-fns/locale';
-import { deburr, filter, values } from 'lodash';
+import { chain, deburr, filter, values } from 'lodash';
 import { useMemo, useState } from 'react';
+import { downloadAsCsv } from '../utils';
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -32,7 +41,7 @@ function CustomPagination() {
       color='primary'
       count={pageCount}
       page={page + 1}
-      onChange={(event, value) => apiRef.current.setPage(value - 1)}
+      onChange={(_, value) => apiRef.current.setPage(value - 1)}
     />
   );
 }
@@ -82,6 +91,7 @@ type TableProps = {
   pageSize?: number;
   rows: GridValidRowModel[];
   showDatePickers?: boolean;
+  showDownload?: boolean;
   showSearch?: boolean;
   toDate?: Date;
 };
@@ -104,6 +114,7 @@ export function Table({
   pageSize = 3,
   rows,
   showDatePickers,
+  showDownload,
   showSearch,
   toDate,
 }: TableProps) {
@@ -121,10 +132,28 @@ export function Table({
     [rows, search, showSearch],
   );
 
+  const downloadData = useMemo(() => {
+    const headers = columns.map((column) => column.headerName);
+    const fields = columns.map((column) => column.field);
+
+    const data = chain(rows)
+      .map((row) =>
+        chain(row)
+          .pick(fields)
+          .values()
+          .map((value) => `"${value.replaceAll('"', '""')}"`)
+          .join(',')
+          .value(),
+      )
+      .value();
+
+    return [headers, ...data].join('\n');
+  }, [columns, rows]);
+
   return (
-    <Stack gap={4}>
+    <Stack gap={4} overflow='auto'>
       {(showSearch || showDatePickers) && (
-        <Stack direction='row' gap={4}>
+        <Stack direction='row' gap={4} flexWrap='wrap' py={2}>
           {showSearch && (
             <TextField
               placeholder='Caută...'
@@ -177,9 +206,20 @@ export function Table({
               />
             </LocalizationProvider>
           )}
+
+          {showDownload && (
+            <Button
+              endIcon={<FileDownloadRoundedIcon />}
+              onClick={() => downloadAsCsv(downloadData)}
+              sx={{ marginLeft: 'auto' }}
+              variant='outlined'
+            >
+              Descarcă tabel
+            </Button>
+          )}
         </Stack>
       )}
-      <Box height={height}>
+      <Box height={height} overflow='auto' minWidth={640}>
         <StyledDataGrid
           columns={columns}
           disableColumnFilter
@@ -214,6 +254,7 @@ Table.defaultProps = {
   onToDateChange: undefined,
   pageSize: 3,
   showDatePickers: false,
+  showDownload: false,
   showSearch: false,
   toDate: undefined,
 };

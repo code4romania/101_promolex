@@ -3,30 +3,29 @@ import {
   Button,
   Grid,
   Stack,
-  styled,
-  TextField,
+  // styled,
+  // TextField,
   Typography,
 } from '@mui/material';
-import {
-  DatePicker,
-  LocalizationProvider,
-  PickersDay,
-} from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { ro } from 'date-fns/locale';
+import // DatePicker,
+// LocalizationProvider,
+// PickersDay,
+'@mui/x-date-pickers';
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+// import { ro } from 'date-fns/locale';
 import { useState } from 'react';
 import { Loading, PageContainer } from '../components';
 import { useSessionsByLegislatureQuery } from '../queries';
 
-const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
-  '&.Mui-selected': {
-    backgroundColor: theme.palette.secondary.main,
+// const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
+//   '&.Mui-selected': {
+//     backgroundColor: theme.palette.secondary.main,
 
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.dark,
-    },
-  },
-}));
+//     '&:hover': {
+//       backgroundColor: theme.palette.secondary.dark,
+//     },
+//   },
+// }));
 
 export function SessionsPage() {
   const [selectedSession, setSelectedSession] = useState(0);
@@ -45,8 +44,8 @@ export function SessionsPage() {
               {sessions?.[selectedSession]?.title}
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Stack gap={4}>
+          <Grid item xs={12} sm={4} order={{ xs: 1, sm: 0 }}>
+            {/* <Stack gap={4}>
               <Typography color='grey.700' fontWeight='medium'>
                 Dacă dorinți să vizionați o ședință plenară care nu este
                 afișată, selectați data ședinței
@@ -71,9 +70,9 @@ export function SessionsPage() {
                   value={new Date(Date.now())}
                 />
               </LocalizationProvider>
-            </Stack>
+            </Stack> */}
 
-            <Stack mt={14} gap={2}>
+            <Stack gap={2} maxHeight={460} overflow='auto' py={4}>
               {sessions?.map(({ title }, index) => (
                 <Button
                   color={selectedSession === index ? 'secondary' : undefined}
@@ -101,6 +100,7 @@ export function SessionsPage() {
                 allowFullScreen
               />
               <Box textAlign='right'>
+                {/* @todo add link the news article */}
                 <Button color='secondary'>
                   Vezi sinteza ședinței în pagina Noutăți
                 </Button>

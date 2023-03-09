@@ -1,4 +1,4 @@
-import { Box, styled, Tab, Tabs } from '@mui/material';
+import { Box, styled, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material';
 import { useState, SyntheticEvent } from 'react';
 import {
   ControlExportEvaluation,
@@ -29,6 +29,8 @@ const StyledTab = styled((props: StyledTabProps) => (
 }));
 
 export function ControlPage() {
+  const { breakpoints } = useTheme();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (_: SyntheticEvent, newValue: number) => {
@@ -37,7 +39,11 @@ export function ControlPage() {
   return (
     <PageContainer pageTitle='Control parlamentar'>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={tabValue} onChange={handleTabChange} variant='fullWidth'>
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          variant={isLargeScreen ? 'fullWidth' : 'scrollable'}
+        >
           <StyledTab label='Întrebări/interpelări' />
           <StyledTab label='Evaluarea ex-post' />
           <StyledTab label='Rapoarte' />

@@ -25,7 +25,7 @@ export function DetailsRow({ label, details }: DetailsRowProps) {
   );
 
   return (
-    <Stack direction='row' gap={1}>
+    <Stack direction='row' gap={1} flexWrap='wrap'>
       <Typography fontWeight={700} flexShrink={0}>
         {label}:
       </Typography>

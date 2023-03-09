@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { CommitteeNotices } from '../types';
-import { mapKeysToCamelCase } from '../utils';
 import { apiPaths } from './apiUrls';
 
 export const fetchCommitteesNoticesByLegislature = async (
@@ -8,5 +7,5 @@ export const fetchCommitteesNoticesByLegislature = async (
 ): Promise<CommitteeNotices> => {
   const { data } = await axios.post(`${apiPaths.committeesNotices}${lid}`);
 
-  return mapKeysToCamelCase(data);
+  return data;
 };

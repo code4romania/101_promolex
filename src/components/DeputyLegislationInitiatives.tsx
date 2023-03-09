@@ -83,8 +83,9 @@ export function DeputyLegislationInitiatives({
       onToDateChange={onToDateChange}
       pageSize={5}
       rows={filteredInitiatives}
-      showSearch
       showDatePickers
+      showDownload
+      showSearch
       toDate={toDate}
     />
   );

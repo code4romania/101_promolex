@@ -133,6 +133,7 @@ export function HomeBanner() {
             fontWeight='medium'
             gutterBottom
             textTransform='uppercase'
+            fontSize={{ xs: '1.5rem', sm: '2.125rem' }}
             variant='h4'
           >
             Parlamentul lucrează pentru tine ?

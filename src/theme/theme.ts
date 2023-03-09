@@ -85,11 +85,6 @@ export const theme = createTheme(
       },
       MuiInputLabel: {
         styleOverrides: {
-          outlined: {
-            fontWeight: 600,
-            position: 'relative',
-            transform: 'none',
-          },
           root: {
             color: 'inherit',
             '&.Mui-error': {

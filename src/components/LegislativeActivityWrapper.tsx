@@ -57,8 +57,9 @@ export function LegislativeActivityWrapper({
           onToDateChange={onToDateChange}
           pageSize={5}
           rows={registeredProjects}
-          showSearch
           showDatePickers
+          showDownload
+          showSearch
           toDate={toDate}
         />
       </Stack>

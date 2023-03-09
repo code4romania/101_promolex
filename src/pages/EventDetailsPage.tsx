@@ -57,44 +57,46 @@ export function EventDetailsPage() {
 
           {parse(event?.shortDescription ?? '', options)}
 
-          <Stack gap={5}>
-            <Typography
-              color='grey.900'
-              fontWeight='medium'
-              textTransform='uppercase'
-              variant='h5'
-            >
-              Galerie foto
-            </Typography>
+          {event?.photos && event?.photos.length > 0 && (
+            <Stack gap={5}>
+              <Typography
+                color='grey.900'
+                fontWeight='medium'
+                textTransform='uppercase'
+                variant='h5'
+              >
+                Galerie foto
+              </Typography>
 
-            <Stack alignItems='center' direction='row'>
-              <Box border={1} borderColor='grey.900' flexGrow={1} />
-              <Box
-                bgcolor='grey.900'
-                border={1}
-                borderRadius={99}
-                borderColor='grey.900'
-                height={12}
-                width={12}
-              />
+              <Stack alignItems='center' direction='row'>
+                <Box border={1} borderColor='grey.900' flexGrow={1} />
+                <Box
+                  bgcolor='grey.900'
+                  border={1}
+                  borderRadius={99}
+                  borderColor='grey.900'
+                  height={12}
+                  width={12}
+                />
+              </Stack>
+
+              <Grid container columnSpacing={8} mt={8}>
+                {event?.photos.map(({ file }) => (
+                  <Grid item key={file} sm={4}>
+                    <Box
+                      height={280}
+                      sx={{
+                        backgroundImage: `url(${file})`,
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
             </Stack>
-
-            <Grid container columnSpacing={8} mt={8}>
-              {event?.photos.map(({ file }) => (
-                <Grid item key={file} sm={4}>
-                  <Box
-                    height={280}
-                    sx={{
-                      backgroundImage: `url(${file})`,
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'cover',
-                    }}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </Stack>
+          )}
         </Stack>
       )}
     </>

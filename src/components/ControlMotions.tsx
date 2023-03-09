@@ -5,6 +5,7 @@ import { useTabs } from '../hooks';
 import { useCommitteeMotionsByLegislatureQuery } from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
+import { TextWithTooltip } from './TextWithTooltip';
 
 const motionsTableColumns: GridColumns<GridValidRowModel> = [
   {
@@ -12,22 +13,26 @@ const motionsTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Denumire moțiune',
     flex: 1,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'numeDep',
     headerName: 'Autorii moțiunii',
     flex: 1,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'dataVot1Lect',
     headerName: 'Data examinării în plen',
     flex: 0.4,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'decizia1Lect',
     headerName: 'Rezultat',
     flex: 0.3,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
 ];
 
@@ -82,7 +87,6 @@ export function ControlMotions() {
       {tabValue === 0 && (
         <Table
           columns={motionsTableColumns}
-          getRowHeight={() => 'auto'}
           height={510}
           isLoading={isLoadingSimpleMotions}
           getRowId={(row) => row.id}
@@ -94,7 +98,6 @@ export function ControlMotions() {
       {tabValue === 1 && (
         <Table
           columns={motionsTableColumns}
-          getRowHeight={() => 'auto'}
           height={510}
           isLoading={isLoadingcensorShipMotions}
           getRowId={(row) => row.id}

@@ -81,7 +81,7 @@ export function DeputyDetails() {
             <Stack gap={5}>
               <Box
                 borderRadius={2}
-                height={300}
+                height={{ xs: 400, sm: 300 }}
                 sx={{
                   backgroundImage: `url(${
                     data?.photo ??
@@ -279,7 +279,7 @@ export function DeputyDetails() {
             </Stack>
           </Grid>
 
-          <Grid item md>
+          <Grid item xs md={9}>
             <Grid container columnSpacing={12} rowSpacing={10}>
               <Grid item xs={12}>
                 <DeputyActivity

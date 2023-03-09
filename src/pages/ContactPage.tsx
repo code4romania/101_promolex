@@ -17,6 +17,7 @@ import {
   Slide,
   Snackbar,
   Stack,
+  styled,
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
@@ -32,6 +33,12 @@ import {
 } from '../components';
 import { useSendQuestionMutation } from '../mutations';
 import { ContactFormData } from '../types';
+
+const StyledInputLabel = styled(InputLabel)({
+  fontWeight: 600,
+  position: 'relative',
+  transform: 'none',
+});
 
 export function ContactPage() {
   const [alert, setAlert] = useState<{
@@ -78,14 +85,14 @@ export function ContactPage() {
         Vedeți aici cum puteți contacta Parlamentul sau funcționarii publici:
       </Typography>
       <Grid borderRadius={2} boxShadow={3} container>
-        <Grid item sm={4}>
+        <Grid item xs={12} sm={4}>
           <Stack
             color='common.white'
             bgcolor='#88A9B5'
             gap={6}
             height={1}
-            px={12}
-            py={10}
+            px={{ xs: 6, sm: 12 }}
+            py={{ xs: 4, sm: 10 }}
             sx={{ borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }}
             width={1}
           >
@@ -324,9 +331,10 @@ export function ContactPage() {
           item
           onSubmit={handleSubmit(onSubmit)}
           rowSpacing={2}
+          xs={12}
           sm={8}
-          px={12}
-          py={10}
+          px={{ xs: 6, sm: 12 }}
+          py={{ xs: 4, sm: 10 }}
         >
           <Grid item mb={4} xs={12}>
             <Typography fontWeight='bold' mb={4}>
@@ -357,9 +365,9 @@ export function ContactPage() {
               name='name'
               render={({ field, fieldState }) => (
                 <FormControl fullWidth>
-                  <InputLabel htmlFor={field.name} variant='outlined'>
+                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
                     Nume
-                  </InputLabel>
+                  </StyledInputLabel>
                   <OutlinedInput
                     error={Boolean(fieldState.error)}
                     id={field.name}
@@ -384,9 +392,9 @@ export function ContactPage() {
               name='sur_name'
               render={({ field, fieldState }) => (
                 <FormControl fullWidth>
-                  <InputLabel htmlFor={field.name} variant='outlined'>
+                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
                     Prenume
-                  </InputLabel>
+                  </StyledInputLabel>
                   <OutlinedInput
                     error={Boolean(fieldState.error)}
                     id={field.name}
@@ -411,9 +419,9 @@ export function ContactPage() {
               name='email'
               render={({ field, fieldState }) => (
                 <FormControl fullWidth>
-                  <InputLabel htmlFor={field.name} variant='outlined'>
+                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
                     Email
-                  </InputLabel>
+                  </StyledInputLabel>
                   <OutlinedInput
                     error={Boolean(fieldState.error)}
                     id={field.name}
@@ -442,9 +450,9 @@ export function ContactPage() {
               name='phone_number'
               render={({ field, fieldState }) => (
                 <FormControl fullWidth>
-                  <InputLabel htmlFor={field.name} variant='outlined'>
+                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
                     Telefon
-                  </InputLabel>
+                  </StyledInputLabel>
                   <OutlinedInput
                     error={Boolean(fieldState.error)}
                     id={field.name}
@@ -469,10 +477,10 @@ export function ContactPage() {
               name='question_for'
               render={({ field, fieldState }) => (
                 <FormControl fullWidth>
-                  <InputLabel htmlFor={field.name} variant='outlined'>
+                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
                     Întrebarea este adresată deputatului/deputatei/Parlamentului
                     (instituției)
-                  </InputLabel>
+                  </StyledInputLabel>
                   <OutlinedInput
                     error={Boolean(fieldState.error)}
                     id={field.name}
@@ -497,9 +505,9 @@ export function ContactPage() {
               name='question'
               render={({ field, fieldState }) => (
                 <FormControl fullWidth>
-                  <InputLabel htmlFor={field.name} variant='outlined'>
+                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
                     Întrebarea
-                  </InputLabel>
+                  </StyledInputLabel>
                   <OutlinedInput
                     error={Boolean(fieldState.error)}
                     id={field.name}

@@ -7,10 +7,38 @@ import {
   Button,
   useTheme,
 } from '@mui/material';
-import parse from 'html-react-parser';
+import parse, {
+  domToReact,
+  HTMLReactParserOptions,
+  Element,
+} from 'html-react-parser';
 import { Link as RouterLink } from 'react-router-dom';
-import { options } from '../constants';
 import { Event } from '../types';
+
+export const options: HTMLReactParserOptions = {
+  replace: (domNode) => {
+    if (domNode instanceof Element && domNode.name === 'p') {
+      return (
+        <Typography
+          sx={{
+            display: '-webkit-box',
+            WebkitLineClamp: 5,
+            WebkitBoxOrient: 'vertical',
+            lineClamp: 5,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxHeight: 120,
+            textAlign: 'justify',
+          }}
+        >
+          {domToReact(domNode.children)}
+        </Typography>
+      );
+    }
+
+    return domNode;
+  },
+};
 
 type BlogPostCardProps = {
   event: Event;
@@ -44,6 +72,14 @@ export function BlogPostCard({ event }: BlogPostCardProps) {
             sx={{
               '&:hover': { color: palette.secondary.main },
               cursor: 'pointer',
+
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              lineClamp: 3,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxHeight: 100,
             }}
           >
             {event.title}

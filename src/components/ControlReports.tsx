@@ -8,35 +8,41 @@ import {
 } from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
+import { TextWithTooltip } from './TextWithTooltip';
 
 const publicReportsTableColumns: GridColumns<GridValidRowModel> = [
   {
     field: 'autPublica',
     headerName: 'Autoritatea publică',
     flex: 0.4,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'tipRaport',
     headerName: 'Tipul raportului',
     flex: 0.4,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'termenPrezentare',
     headerName: 'Termenul de prezentare',
     flex: 0.4,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'prevederiLegale',
     headerName: 'Prevederi legale',
     flex: 0.4,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'dataPrezentarii',
     headerName: 'Data prezentării',
     flex: 0.3,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
 ];
 
@@ -45,17 +51,20 @@ const reportsAuditingTableColumns: GridColumns<GridValidRowModel> = [
     field: 'autPublica',
     headerName: 'Autoritatea publică',
     flex: 0.4,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'tematica',
     headerName: 'Tematică',
     flex: 1,
     sortable: false,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
   {
     field: 'dataSedinta',
     headerName: 'Data ședinței plenare',
     flex: 0.3,
+    renderCell: ({ value }) => <TextWithTooltip text={value} />,
   },
 ];
 

@@ -28,10 +28,10 @@ export function LegislationInitiativeDetails({
         details={data?.lastUpdate ?? ''}
         label='Ultima actualizare a proiectului'
       />
-      <Stack direction='row' gap={1}>
+      <Stack direction='row' gap={1} flexWrap='wrap'>
         <Typography fontWeight={700}>Link:</Typography>
         <Link href={data?.linkProiect} target='_blank'>
-          {data?.linkProiect}
+          Vezi proiect
         </Link>
       </Stack>
       <DetailsRow
@@ -39,7 +39,11 @@ export function LegislationInitiativeDetails({
         label='Domeniul de intervenție în legislație'
       />
       <DetailsRow
-        details={data?.autor?.map(({ fullName }) => fullName) ?? ''}
+        details={
+          Array.isArray(data?.autor)
+            ? data?.autor?.map(({ fullName }) => fullName) ?? ''
+            : data?.autor ?? ''
+        }
         label='Autori'
       />
       <DetailsRow

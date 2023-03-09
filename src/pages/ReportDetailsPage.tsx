@@ -23,7 +23,7 @@ export function ReportDetailsPage() {
           <HomeRoundedIcon />
         </BreadCrumbLink>
         <BreadCrumbLink to={Routes.Reports}>Publicații</BreadCrumbLink>
-        <Typography color='grey.500' fontWeight='medium'>
+        <Typography color='grey.500' fontWeight='medium' textAlign='justify'>
           {report?.title}
         </Typography>
       </Breadcrumbs>

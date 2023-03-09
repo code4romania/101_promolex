@@ -1,3 +1,4 @@
+export * from './downloadAsCsv';
 export * from './getDateString';
 export * from './getProjectsByAuthorChartData';
 export * from './getProjectsByFactionChartData';

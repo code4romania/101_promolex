@@ -33,7 +33,7 @@ export function ReportsListPage() {
 
   return (
     <>
-      <Stack direction='row' pt={12}>
+      <Stack direction='row' pt={12} gap={6} flexWrap='wrap'>
         <TextField
           fullWidth
           InputProps={{
@@ -47,7 +47,12 @@ export function ReportsListPage() {
           value={search}
         />
 
-        <Stack alignItems='center' direction='row' gap={2} ml='auto'>
+        <Stack
+          alignItems='center'
+          direction='row'
+          gap={2}
+          ml={{ xs: 0, sm: 'auto' }}
+        >
           <Typography variant='h6'>Sortează după</Typography>
           <Select
             onChange={(event) => setSort(event.target.value as string)}

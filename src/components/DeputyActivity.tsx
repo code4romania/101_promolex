@@ -6,6 +6,8 @@ import {
   Tabs,
   TabsProps,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { useState } from 'react';
 
@@ -59,9 +61,11 @@ export function DeputyActivity({
   mandatesCount,
   specialCommittees,
 }: DeputyActivityProps) {
+  const { breakpoints } = useTheme();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
   const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -82,7 +86,7 @@ export function DeputyActivity({
             onChange={handleChange}
             scrollButtons='auto'
             value={value}
-            variant='fullWidth'
+            variant={isLargeScreen ? 'fullWidth' : 'scrollable'}
           >
             <StyledTab label='Comisia parlamentară' />
             <StyledTab label='Comisii speciale/ de anchetă' />
