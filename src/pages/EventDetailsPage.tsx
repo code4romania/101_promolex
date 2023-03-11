@@ -58,7 +58,7 @@ export function EventDetailsPage() {
             </Typography>
           </Typography>
 
-          {parse(event?.shortDescription ?? '', options)}
+          {parse(event?.content ?? '', options)}
 
           {event?.photos && event?.photos.length > 0 && (
             <Stack gap={5}>
