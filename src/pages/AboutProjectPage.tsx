@@ -15,14 +15,13 @@ import { ReactNode, useMemo, useState } from 'react';
 import columns from '../assets/images/columns.png';
 import folder from '../assets/images/folder.png';
 import gears from '../assets/images/gears.png';
+import impact from '../assets/images/impact.png';
 import info from '../assets/images/info.png';
 import logoPromoLexRo from '../assets/images/logo_promo_lex_ro.png';
 import logoUsaid from '../assets/images/logo_usaid.png';
 import monitoring from '../assets/images/monitoring.png';
 import promo from '../assets/images/promo.png';
-import publications from '../assets/images/publications.png';
 import shootingTarget from '../assets/images/shooting_target.png';
-import signpost from '../assets/images/signpost.png';
 import { PageContainer } from '../components';
 
 interface StyledStackProps extends StackProps {
@@ -59,13 +58,9 @@ const objectives = {
     label: 'Piloni',
     image: columns,
   },
-  directii: {
-    label: 'Direcții',
-    image: signpost,
-  },
-  publicatii: {
-    label: 'Publicații',
-    image: publications,
+  impact: {
+    label: 'Impact',
+    image: impact,
   },
 };
 
@@ -73,26 +68,41 @@ const pillarItems = {
   monitoring: {
     label: 'Monitorizare',
     image: monitoring,
-    description:
-      'Prin observarea activității Parlamentului realizată de monitori prin: urmărire directă, efectuarea de vizite, prin scanarea online a surselor de informare, interviuri etc.',
+    descriptions: [
+      'monitorizarea transparenței decizionale;',
+      'evaluarea modului de organizare/desfășurare a ședințelor Parlamentului;',
+      'monitorizarea comisiilor parlamentare;',
+      'monitorizarea mecanismelor de control parlamentar;',
+      'monitorizarea managementului bugetar și administrativ.',
+    ],
   },
   research: {
     label: 'Cercetare',
     image: folder,
-    description:
-      'Prin elaborarea de studii analitice (opinii pe proiecte de legi; note analitice; rapoarte de monitorizare etc.) pe anumite probleme separate sau în rezultatul monitorizării anuale.',
+    descriptions: [
+      'elaborarea rapoartelor anuale de monitorizare;',
+      'elaborarea sintezelor ședințelor în plen;',
+      'elaborarea de note analitice, documente de politici pe subiecte din agenda parlamentară sau de interes public;',
+      'elaborarea opiniilor asupra proiectelor de legi/hotărârilor de Parlament relevante ariei de interes a Asociației Promo-LEX.',
+    ],
   },
   piloni: {
     label: 'Informare',
     image: info,
-    description:
-      'Prin informarea în mod constant a publicului privind rezultatele monitorizării prin: postări periodice pe rețelele sociale; comunicate de presă; publicarea analizelor tematice și a raportului anual, etc.',
+    descriptions: [
+      'crearea unei pagini web dedicată activității Parlamentului și deputaților;',
+      'organizarea meselor rotunde, dezbaterilor pe subiecte de actualitate;',
+      'comunicarea și promovarea rezultatelor monitorizării prin intermediul mass-media și a rețelelor sociale.',
+    ],
   },
-  directii: {
+  promo: {
     label: 'Promovare & Advocacy',
     image: promo,
-    description:
-      'Promovarea permanentă a concluziilor și recomandărilor deduse în rezultatul monitorizării.',
+    descriptions: [
+      'elaborarea și promovarea propunerilor de îmbunătățire a activității Parlamentului;',
+      'advocacy pentru implementarea conceptului Open data (date deschise);',
+      'încurajarea stabilirii unei platforme durabile de comunicare între Parlament și organizațiile societății civile.',
+    ],
   },
 };
 
@@ -111,30 +121,75 @@ export function AboutProjectPage() {
     () => ({
       scop: {
         title: 'Scopul activității de monitorizare',
-        description:
-          'Scopul monitorizării activității Parlamentului este de a asigura o transparență mai mare a instituției, de a eficientiza procedura legislativă și de a responsabiliza părțile implicate, inclusiv, prin sporirea participării cetățenești.',
+        description: (
+          <Typography fontSize={20} textAlign='justify'>
+            <strong>Scopul monitorizării</strong> activității Parlamentului este
+            de a asigura o transparență mai mare a instituției, de a eficientiza
+            procedurile legislative și de a responsabiliza părțile implicate,
+            inclusiv, prin sporirea interacțiunii dintre Parlament/deputați și
+            societate.
+          </Typography>
+        ),
       },
       metodologie: {
         title: 'Metodologia de monitorizare',
         description: (
           <Stack gap={4}>
             <Typography fontSize={20} textAlign='justify'>
-              Metodologia stabilește și reglementează cadrul metodic, părțile,
-              durata și procedurile de monitorizare a activității Parlamentului
-              Republicii Moldova, în perioada anilor 2021-2025. Exercițiul de
-              monitorizare presupune colectarea și prelucrarea informațiilor
-              calitative și cantitative prin intermediul unor metode/instrumente
-              de lucru prestabilite. Acesta reprezintă un ansamblu structurat de
-              obiective, instrumente și metode de cunoaștere caracterizată
-              printr-un grad anumit de generalizare. La necesitate,
-              instrumentele metodologice ar putea fi adaptate pe parcurs, dar
-              fără a afecta obiectivitatea datelor colectate și vectorul
-              evoluției în timp a rezultatelor monitorizării.
+              <strong>Metodologia</strong> elaborată de Promo-LEX ține cont de
+              experiența anterioară de monitorizare a activității Parlamentului,
+              inclusiv a eforturilor de monitorizare desfășurate de alte
+              asociații obștești din Republica Moldova, dar în special de bunele
+              practici internaționale cu privire la monitorizarea activității
+              legislativului și asigurarea unei comunicări eficiente cu
+              cetățenii.
             </Typography>
+            <Typography fontSize={20} textAlign='justify'>
+              Prezenta Metodologie de monitorizare abordează aspect precum:
+              respectarea transparenței decizionale în activitatea
+              legislativului; evaluează modul de desfășurare a ședințelor
+              plenare, dar și a activității unor comisii parlamentare;
+              analizează felul în care instituția își exercită funcția de
+              control parlamentar; precum și executarea managementului bugetar
+              și administrativ. De asemenea, este evaluat nivelul de
+              interacțiune a deputaților cu cetățenii, dar și modul de
+              comunicare a Parlamentului în ansamblu cu publicul larg.
+            </Typography>
+            <Typography fontSize={20} textAlign='justify'>
+              În practică, monitorizarea activității Parlamentului și a
+              deputaților presupune:
+            </Typography>
+
+            <List dense sx={{ listStyleType: 'disc', pl: 8 }}>
+              <ListItem disablePadding sx={{ display: 'list-item' }}>
+                <ListItemText
+                  primary='colectarea, din surse deschise, a informațiilor calitative și cantitative de către monitorii Promo-LEX, inclusiv prin urmărirea directă a ședințelor legislativului;'
+                  primaryTypographyProps={{ fontSize: 20 }}
+                />
+              </ListItem>
+              <ListItem disablePadding sx={{ display: 'list-item' }}>
+                <ListItemText
+                  primary='analiza răspunsurilor la cererile de acces la informație transmise în adresa legislativului și/sau a altor persoane/instituții care pot oferi informații relevante pentru procesul de monitorizare;'
+                  primaryTypographyProps={{ fontSize: 20 }}
+                />
+              </ListItem>
+              <ListItem disablePadding sx={{ display: 'list-item' }}>
+                <ListItemText
+                  primary='desfășurarea interviurilor cu deputații, reprezentanții Secretariatului instituției dar și alte persoane relevante;'
+                  primaryTypographyProps={{ fontSize: 20 }}
+                />
+              </ListItem>
+              <ListItem disablePadding sx={{ display: 'list-item' }}>
+                <ListItemText
+                  primary='analiza informațiilor publicate în sursele media de informare, inclusiv în rețelele sociale. '
+                  primaryTypographyProps={{ fontSize: 20 }}
+                />
+              </ListItem>
+            </List>
             <Typography fontSize={20} textAlign='justify'>
               Metodologia a fost prezentată și discutată la începutul
               monitorizării cu conducerea Parlamentului și reprezentanții
-              Secretariatului instituției.,
+              Secretariatului instituției.
             </Typography>
           </Stack>
         ),
@@ -144,8 +199,8 @@ export function AboutProjectPage() {
         description: (
           <>
             <Typography fontSize={20}>
-              Instrumentele utilizate se referă la patru aspecte fundamentale
-              ale construcției metodologice:
+              Activitățile proiectului sunt concentrate pe patru piloni de
+              intervenție:
             </Typography>
             <Stack
               alignItems='flex-start'
@@ -155,7 +210,7 @@ export function AboutProjectPage() {
               overflow='auto'
             >
               {toPairs(pillarItems).map(
-                ([key, { label, image, description }]) => (
+                ([key, { label, image, descriptions }]) => (
                   <StyledStack
                     flexShrink={0}
                     flexGrow={0}
@@ -178,7 +233,17 @@ export function AboutProjectPage() {
                       {label}
                     </Typography>
                     <Collapse in={selectedPillarItem === key} unmountOnExit>
-                      <Typography mt={3}>{description}</Typography>
+                      <List dense sx={{ listStyleType: 'disc', pl: 8 }}>
+                        {descriptions.map((description) => (
+                          <ListItem
+                            key={description}
+                            disablePadding
+                            sx={{ display: 'list-item' }}
+                          >
+                            <ListItemText primary={description} />
+                          </ListItem>
+                        ))}
+                      </List>
                     </Collapse>
                   </StyledStack>
                 ),
@@ -187,61 +252,44 @@ export function AboutProjectPage() {
           </>
         ),
       },
-      directii: {
-        title: 'Direcțiile de monitorizare',
+      impact: {
+        title: 'Impact',
         description: (
           <Box>
-            <Typography fontSize={20}>
-              Monitorizarea se realizează în baza următoarelor obiective:
-            </Typography>
-
             <List dense sx={{ listStyleType: 'disc', pl: 8 }}>
               <ListItem disablePadding sx={{ display: 'list-item' }}>
                 <ListItemText
-                  primary='Transparența organului legislativ și promovarea conceptului de
-              Open Data.'
+                  primary='realizarea de către Republica Moldova a Obiectivelor de Dezvoltare Durabilă (ODD), în special ODD 16, care se concentrează pe promovarea „păcii, justiției și instituțiilor puternice”;'
                   primaryTypographyProps={{ fontSize: 20 }}
                 />
               </ListItem>
               <ListItem disablePadding sx={{ display: 'list-item' }}>
                 <ListItemText
-                  primary='Etapele și transparența procedurii legislative.'
+                  primary='implementarea în Republica Moldova a Declarației privind deschiderea parlamentară (Declaration on Parliamentary Openness, 2012)'
                   primaryTypographyProps={{ fontSize: 20 }}
                 />
               </ListItem>
               <ListItem disablePadding sx={{ display: 'list-item' }}>
                 <ListItemText
-                  primary='Comunicarea dintre instituția parlamentară și deputați, pe de o
-              partea, și cetățean, de cealaltă parte.'
+                  primary='consolidarea transparenței Parlamentului, respectiv îmbunătățirea imaginii autorității și sporirea gradului de informare a opiniei publice privind procesul legislative;'
                   primaryTypographyProps={{ fontSize: 20 }}
                 />
               </ListItem>
               <ListItem disablePadding sx={{ display: 'list-item' }}>
                 <ListItemText
-                  primary='Activitatea unor comisii parlamentare permanente.'
+                  primary='îmbunătățirea calității procesului decizional prin monitorizarea procesului legislativ din perspectiva conformității acestuia cu cerințele legale;'
                   primaryTypographyProps={{ fontSize: 20 }}
                 />
               </ListItem>
               <ListItem disablePadding sx={{ display: 'list-item' }}>
                 <ListItemText
-                  primary='Exercitarea de către Legislativ a funcției de control parlamentar.'
-                  primaryTypographyProps={{ fontSize: 20 }}
-                />
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'list-item' }}>
-                <ListItemText
-                  primary='Managementul bugetar și administrativ.'
+                  primary='eficientizarea comunicării între Parlament și organizațiile societății civile, care pot contribui la sporirea calității procesului legislativ datorită expertizei deținute.'
                   primaryTypographyProps={{ fontSize: 20 }}
                 />
               </ListItem>
             </List>
           </Box>
         ),
-      },
-      publicatii: {
-        title: 'Publicații',
-        description:
-          'Sinteza activităților de monitorizare a proiectului va fi inclusă într-un Raport anual, cu caracter periodic, pe parcursul anilor 2022 - 2026. Raportul va include principalele aspecte ale monitorizării, fiind analizate, inclusiv, din perspectiva evolutivă.',
       },
     }),
     [selectedPillarItem],
@@ -257,59 +305,43 @@ export function AboutProjectPage() {
       >
         Monitorizarea activității Parlamentului Republicii Moldova
       </Typography>
-      <Typography fontSize={20} textAlign='justify'>
-        Asociația Promo-LEX monitorizează activitatea Parlamentului Republicii
-        Moldova în perioada anilor 2021 - 2025, în special din perspectiva
-        transparenței, legalității și eficienței procedurilor. Exercițiul de
-        monitorizare cuprinde câteva dintre domeniile gestionate de instituția
-        parlamentară. Acestea se referă la respectarea transparenței
-        decizionale, la evaluarea modului de desfășurare a ședințelor plenare, a
-        activității unor comisii parlamentare, a funcției de control
-        parlamentar, a managementului bugetar și administrativ. De asemenea,
-        este evaluat nivelul de interacțiune a deputaților cu publicul larg și
-        modul de comunicare a Parlamentului cu cetățenii.
+      <Typography fontSize={20} textAlign='justify' gutterBottom>
+        Asociația Promo-LEX implementează în perioada 2016 - 2025 Programul
+        „Democrație, Transparență și Responsabilitate”, cu susținerea financiară
+        a Agenției Statelor Unite pentru Dezvoltare Internațională (USAID).
       </Typography>
-      <Grid container py={12} spacing={10}>
-        <Grid
-          alignItems='center'
-          display='flex'
-          item
-          xs={12}
-          justifyContent='center'
-          sm={3}
-        >
-          <Box>
-            <img alt='Logo Promo-LEX' height={98} src={logoPromoLexRo} />
-          </Box>
-        </Grid>
-        <Grid
-          alignItems='center'
-          display='flex'
-          item
-          xs={12}
-          justifyContent='center'
-          sm={3}
-        >
-          <Box>
-            <img alt='Logo USAID' height={98} src={logoUsaid} />
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography fontSize={20} textAlign='justify'>
-            Activitatea de monitorizare a Parlamentului Republicii Moldova are
-            loc în cadrul Programului „
-            <strong>Democrație, Transparență și Responsabilitate</strong>”,
-            implementat de Asociația Promo-LEX, în perioada anilor 2016 - 2025,
-            cu sprijinul financiar a Agenției Statelor Unite pentru Dezvoltare
-            Internațională (USAID).
-          </Typography>
-        </Grid>
-      </Grid>
+      <Typography fontSize={20} textAlign='justify' gutterBottom>
+        În cadrul acestui Program, în anii 2016 - 2019 Promo-LEX a monitorizat
+        activitatea Parlamentului din perspectiva realizării funcției de control
+        parlamentar, dar și de asigurare a respectării cadrului legal privind
+        ocuparea și încetarea funcțiilor publice în partea ce ține de
+        atribuțiile legislativului. Rapoartele respective de monitorizare pot fi
+        consultate aici.
+      </Typography>
+      <Typography fontSize={20} textAlign='justify' gutterBottom>
+        Pornind de la concluziile respectivei monitorizări, dar și de la
+        necesitatea consolidării proceselor de luare a deciziilor și a
+        asigurării unei transparențe proactive în activitatea legislativului,
+        Promo-LEX a decis sa extindă și să aprofundeze, eforturile de
+        monitorizare a Parlamentului Republicii Moldova.
+      </Typography>
+      <Typography fontSize={20} textAlign='justify' gutterBottom>
+        Astfel, în perioada 2021 - 2025 Promo-LEX și-a propus să monitorizeze
+        activitatea Parlamentului Republicii Moldova, în special din perspectiva
+        transparenței, legalității și eficienței procedurilor.
+      </Typography>
+      <Typography fontSize={20} textAlign='justify' gutterBottom>
+        Monitorizarea activității Parlamentului este necesară și benefică în
+        virtutea necesității de îmbunătățire a calității proceselor decizionale,
+        a transparentizării continue a acestora, precum și în vederea
+        responsabilizării actorilor implicați.
+      </Typography>
       <Stack
         justifyContent={{ xs: 'flex-start', sm: 'center' }}
         direction='row'
         gap={12}
         overflow='auto'
+        mt={10}
       >
         {chain(objectives)
           .toPairs()
@@ -352,27 +384,59 @@ export function AboutProjectPage() {
           </>
         )}
       </Stack>
-      <Typography fontSize={20} fontWeight='bold' textAlign='center' my={15}>
+
+      <Box bgcolor='#83538838' py={6} px={8} mt={15}>
+        <Typography fontWeight='medium' gutterBottom variant='h5'>
+          Asociația Promo-LEX
+        </Typography>
+        <Typography fontSize={20} textAlign='justify'>
+          Asociația Promo-LEX este o organizație neguvernamentală, care are
+          drept scop dezvoltarea democrației în Republica Moldova, inclusiv în
+          regiunea transnistreană, prin promovarea și apărarea drepturilor
+          omului, monitorizarea proceselor democratice și consolidarea
+          societății civile.
+        </Typography>
+        <Typography fontSize={20} textAlign='justify'>
+          Responsabilitatea pentru opiniile exprimate pe această pagină, precum
+          și în produsele analitice elaborate în cadrul Programului „Democrație,
+          Transparență și Responsabilitate” aparțin Asociației Promo-LEX și nu
+          reflectă neapărat poziția donatorului.
+        </Typography>
+      </Box>
+      <Grid container py={12} spacing={10}>
+        <Grid display={{ xs: 'none', md: 'block' }} md={3} />
+        <Grid
+          alignItems='center'
+          display='flex'
+          item
+          xs={12}
+          justifyContent='center'
+          md={3}
+        >
+          <Box>
+            <img alt='Logo Promo-LEX' height={98} src={logoPromoLexRo} />
+          </Box>
+        </Grid>
+        <Grid
+          alignItems='center'
+          display='flex'
+          item
+          xs={12}
+          justifyContent='center'
+          md={3}
+        >
+          <Box>
+            <img alt='Logo USAID' height={98} src={logoUsaid} />
+          </Box>
+        </Grid>
+      </Grid>
+
+      <Typography fontSize={20} fontWeight='bold' textAlign='center'>
         Informațiile plasate pe această platformă pot fi preluate în mod liber
         pentru a fi distribuite, publicate și difuzate cu condiția menționării
         exprese în material a sursei (referință la Asociația Promo-LEX și/sau
         pagina www.101.promolex.md).
       </Typography>
-
-      <Box bgcolor='#83538838' py={6} px={8}>
-        <Typography fontWeight='medium' gutterBottom variant='h5'>
-          Asociația Promo-LEX
-        </Typography>
-        <Typography fontSize={20} textAlign='justify'>
-          <u>Asociația Promo-LEX</u> este o organizație neguvernamentală, care
-          are drept scop dezvoltarea democrației în Republica Moldova, inclusiv
-          în regiunea transnistreană, prin promovarea și apărarea drepturilor
-          omului, monitorizarea proceselor democratice și consolidarea
-          societății civile. Asociația Promo-LEX a fost constituită în anul 2002
-          și este o organizație apolitică, nonprofit și care deține Certificat
-          de Utilitate Publică.
-        </Typography>
-      </Box>
     </PageContainer>
   );
 }
