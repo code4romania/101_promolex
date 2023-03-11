@@ -4,6 +4,7 @@ export * from './BreadCrumbLink';
 export * from './CommitteeDetails';
 export * from './CommitteesActivityCharts';
 export * from './CommitteeSummary';
+export * from './ContactDetails';
 export * from './ControlExPostEvaluation';
 export * from './ControlInvestigationCommittees';
 export * from './ControlMotions';
