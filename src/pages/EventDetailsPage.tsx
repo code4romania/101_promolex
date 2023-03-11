@@ -39,15 +39,18 @@ export function EventDetailsPage() {
           >
             {event?.title}
           </Typography>
-          <Box
-            height={460}
-            sx={{
-              backgroundImage: `url(${event?.logo})`,
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-            }}
-          />
+          <Box pt='56.25%' position='relative'>
+            <img
+              alt={event?.title}
+              style={{
+                position: 'absolute',
+                top: 0,
+                height: '100%',
+                objectFit: 'cover',
+              }}
+              src={event?.logo}
+            />
+          </Box>
           <Typography color='grey.500' fontWeight='medium' fontSize={20}>
             Data publicării:{' '}
             <Typography color='grey.800' component='span' fontSize={20}>
