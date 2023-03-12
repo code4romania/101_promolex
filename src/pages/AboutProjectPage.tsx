@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { chain, toPairs } from 'lodash';
 import { ReactNode, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import columns from '../assets/images/columns.png';
 import folder from '../assets/images/folder.png';
 import gears from '../assets/images/gears.png';
@@ -23,6 +24,7 @@ import monitoring from '../assets/images/monitoring.png';
 import promo from '../assets/images/promo.png';
 import shootingTarget from '../assets/images/shooting_target.png';
 import { PageContainer } from '../components';
+import { Routes } from '../types';
 
 interface StyledStackProps extends StackProps {
   isSelected?: boolean;
@@ -77,7 +79,7 @@ const pillarItems = {
     ],
   },
   research: {
-    label: 'Cercetare',
+    label: 'Analiză și Cercetare',
     image: folder,
     descriptions: [
       'elaborarea rapoartelor anuale de monitorizare;',
@@ -315,8 +317,22 @@ export function AboutProjectPage() {
         activitatea Parlamentului din perspectiva realizării funcției de control
         parlamentar, dar și de asigurare a respectării cadrului legal privind
         ocuparea și încetarea funcțiilor publice în partea ce ține de
-        atribuțiile legislativului. Rapoartele respective de monitorizare pot fi
-        consultate aici.
+        atribuțiile legislativului.{' '}
+        <em>
+          Rapoartele respective de monitorizare pot fi consultate{' '}
+          <Link to={Routes.Reports} style={{ textDecoration: 'none' }}>
+            <Typography
+              color='primary'
+              component='span'
+              fontSize='inherit'
+              fontWeight='inherit'
+              sx={{ '&:hover': { textDecoration: 'underline' } }}
+            >
+              aici
+            </Typography>
+          </Link>
+        </em>
+        .
       </Typography>
       <Typography fontSize={20} textAlign='justify' gutterBottom>
         Pornind de la concluziile respectivei monitorizări, dar și de la
