@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { Footer, Navbar } from '../components';
 
 export function Root() {
@@ -8,6 +8,7 @@ export function Root() {
       <Navbar />
       <Outlet />
       <Footer />
+      <ScrollRestoration />
     </Stack>
   );
 }

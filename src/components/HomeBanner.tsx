@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   CircularProgress,
+  Fade,
   Grid,
   Slide,
   Snackbar,
@@ -14,11 +15,12 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { Chart as ChartJS, ArcElement, Tooltip, ChartOptions } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import banner from '../assets/images/banner.png';
+import votingBox from '../assets/images/vote.png';
 import { useSendVoteMutation } from '../mutations';
 import { useLiveSessionQuery } from '../queries';
 import { useVoteResultsQuery } from '../queries/useVoteResults';
@@ -125,106 +127,160 @@ export function HomeBanner() {
   const votesFor = parseInt(voteResults?.votesFor ?? '0', 10);
   const votesAgainst = parseInt(voteResults?.votesAgainst ?? '0', 10);
 
+  const [step, setStep] = useState(1);
+  const intervalIdRef = useRef<NodeJS.Timer>();
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setStep((prevStep) => prevStep + 1);
+    }, 1500);
+    intervalIdRef.current = intervalId;
+
+    if (step === 3) {
+      clearInterval(intervalId);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [step]);
+
   return (
     <>
       <Grid columnSpacing={10} container position='relative' rowSpacing={10}>
-        <Grid item xs={12} sm={6}>
-          <Typography
-            fontWeight='medium'
-            gutterBottom
-            textTransform='uppercase'
-            fontSize={{ xs: '1.5rem', sm: '2.125rem' }}
-            variant='h4'
-          >
-            Parlamentul lucrează pentru tine ?
-          </Typography>
+        <Grid display='flex' flexDirection='column' item xs={12} md={5}>
+          <Fade in={step >= 1} timeout={700}>
+            <Typography
+              fontWeight='medium'
+              gutterBottom
+              textTransform='uppercase'
+              fontSize={{ xs: '1rem', sm: '1.75rem' }}
+              variant='h4'
+            >
+              Parlamentul lucrează pentru tine ?
+            </Typography>
+          </Fade>
 
-          <Stack
-            alignItems='center'
-            borderRadius={2}
-            boxShadow={3}
-            height={265}
-            justifyContent='center'
-            px={12}
-            py={4}
-          >
-            {isLoadingChart && <CircularProgress />}
-            {hasVoted && !isLoadingChart && (
-              <>
-                <Typography fontWeight={700} variant='h6'>
-                  Rezultatele votului
-                </Typography>
-                <Box flexGrow={1}>
-                  <Doughnut
-                    data={{
-                      labels: ['Voturi pentru', 'Voturi împotrivă'],
-                      datasets: [
-                        {
-                          data: [
-                            voteResults?.votesFor,
-                            voteResults?.votesAgainst,
-                          ],
-                          backgroundColor: ['#29829E', '#A1A1AA'],
-                          datalabels: {
-                            formatter(value, context) {
-                              const total =
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                (context.dataset.data as any[]).reduce(
-                                  (acc, v) => acc + parseInt(v, 10),
-                                  0,
-                                ) ?? 0;
+          {!hasVoted && (
+            <Fade in={step >= 2} timeout={700}>
+              <Typography color='text.primary'>
+                Votează acum dând click pe unul din butoanele de mai jos și află
+                ceea ce cred și ceilalți cetățeni
+              </Typography>
+            </Fade>
+          )}
 
-                              return `${((value / total) * 100).toFixed(0)}%`;
-                            },
-                          },
-                        },
-                      ],
-                    }}
-                    options={doughnutChartOptions}
-                  />
-                </Box>
-                <Typography
-                  color='secondary'
-                  fontSize={20}
-                  fontWeight='medium'
-                  textAlign='center'
-                >
-                  {((votesFor / (votesFor + votesAgainst)) * 100).toFixed(0)}%
-                  cred ca da
-                </Typography>
-              </>
-            )}
-            {!hasVoted && !isLoadingChart && (
+          {!hasVoted && !isLoadingChart && (
+            <Fade in={step >= 3} timeout={700}>
               <Stack
                 alignItems='center'
-                color='grey.300'
+                borderRadius={2}
+                boxShadow={3}
+                py={4}
+                position='relative'
+                mt={4}
                 flexGrow={1}
-                gap={3}
-                justifyContent='center'
               >
-                <Typography color='text.primary'>
-                  Votează acum dând click pe unul din butoanele de mai jos și
-                  află ceea ce cred și ceilalți cetățeni
-                </Typography>
-                <Button
-                  color='secondary'
-                  onClick={() => onVoteHandler('1')}
-                  variant='contained'
+                <Stack
+                  alignItems='center'
+                  color='grey.300'
+                  flexGrow={1}
+                  gap={3}
+                  position='absolute'
+                  top={40}
                 >
-                  DA
-                </Button>
-                <Button
-                  color='inherit'
-                  onClick={() => onVoteHandler('0')}
-                  variant='outlined'
-                >
-                  NU
-                </Button>
+                  <Button
+                    disabled={isSendingVote}
+                    onClick={() => onVoteHandler('1')}
+                    sx={{
+                      zIndex: 1,
+                      bgcolor: '#82969D',
+                      '&:hover': { bgcolor: '#29829E' },
+                    }}
+                    variant='contained'
+                  >
+                    DA
+                  </Button>
+                  <Button
+                    disabled={isSendingVote}
+                    onClick={() => onVoteHandler('0')}
+                    sx={{
+                      zIndex: 1,
+                      bgcolor: '#82969D',
+                      '&:hover': { bgcolor: '#29829E' },
+                    }}
+                    variant='contained'
+                  >
+                    NU
+                  </Button>
+                </Stack>
+                <Box>
+                  <img width='100%' src={votingBox} alt='urna votare' />
+                </Box>
               </Stack>
-            )}
-          </Stack>
+            </Fade>
+          )}
+
+          {hasVoted && (
+            <Stack
+              alignItems='center'
+              borderRadius={2}
+              boxShadow={3}
+              py={4}
+              position='relative'
+              mt={4}
+              flexGrow={1}
+            >
+              {isLoadingChart && <CircularProgress />}
+              {!isLoadingChart && (
+                <>
+                  <Typography fontWeight={700} variant='h6'>
+                    Rezultatele votului
+                  </Typography>
+                  <Box flexGrow={1}>
+                    <Doughnut
+                      data={{
+                        labels: ['Voturi pentru', 'Voturi împotrivă'],
+                        datasets: [
+                          {
+                            data: [
+                              voteResults?.votesFor,
+                              voteResults?.votesAgainst,
+                            ],
+                            backgroundColor: ['#29829E', '#A1A1AA'],
+                            datalabels: {
+                              formatter(value, context) {
+                                const total =
+                                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                  (context.dataset.data as any[]).reduce(
+                                    (acc, v) => acc + parseInt(v, 10),
+                                    0,
+                                  ) ?? 0;
+
+                                return `${((value / total) * 100).toFixed(0)}%`;
+                              },
+                            },
+                          },
+                        ],
+                      }}
+                      options={doughnutChartOptions}
+                    />
+                  </Box>
+                  <Typography
+                    color='secondary'
+                    fontSize={20}
+                    fontWeight='medium'
+                    textAlign='center'
+                  >
+                    {((votesFor / (votesFor + votesAgainst)) * 100).toFixed(0)}%
+                    cred ca da
+                  </Typography>
+                </>
+              )}
+            </Stack>
+          )}
         </Grid>
-        <Grid item xs={12} sm={6} position='relative'>
+
+        <Grid item xs={12} md={7} position='relative'>
           <Box>
             <img src={banner} alt='banner' width='100%' />
           </Box>
@@ -251,9 +307,8 @@ export function HomeBanner() {
         </Grid>
 
         <Stack bottom={0} position='absolute' right={0} textAlign='right'>
-          <Typography variant='h6'>Pune o întrebare deputaților</Typography>
           <Link to='/contact' style={{ textDecoration: 'none' }}>
-            <Button color='secondary' variant='contained'>
+            <Button color='secondary' size='large' variant='contained'>
               Întreabă Parlamentul
             </Button>
           </Link>

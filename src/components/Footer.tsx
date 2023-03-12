@@ -1,7 +1,15 @@
 import EmailIcon from '@mui/icons-material/Email';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import PhoneIcon from '@mui/icons-material/Phone';
-import { Box, Link, Stack, Typography, styled, Grid } from '@mui/material';
+import {
+  Box,
+  Link,
+  Stack,
+  Typography,
+  styled,
+  Grid,
+  Container,
+} from '@mui/material';
 import logoPromoLexRo from '../assets/images/logo_promo_lex_ro.png';
 import {
   FacebookIcon,
@@ -17,7 +25,7 @@ const MediaIcon = styled(Link)(({ theme }) => ({
   alignItems: 'center',
   backgroundColor: theme.palette.grey[500],
   borderRadius: 4,
-  padding: 8,
+  padding: 5,
   color: theme.palette.common.white,
   cursor: 'pointer',
   display: 'flex',
@@ -31,96 +39,107 @@ const MediaIcon = styled(Link)(({ theme }) => ({
 export function Footer() {
   return (
     <Stack bgcolor='grey.50' mt='auto'>
-      <Grid container spacing={11} pb={15} pt={17} px={4}>
-        <Grid display={{ xs: 'none', sm: 'block' }} item xs={0} sm={3} />
-        <Grid item xs={12} sm={3}>
-          <Stack gap={8} ml='auto' flexGrow={0}>
-            <Box>
-              <img alt='Logo Promo-LEX' height={85} src={logoPromoLexRo} />
-            </Box>
-            <Stack direction='row' gap={2}>
-              <MediaIcon
-                href='https://www.facebook.com/promolex.md/'
-                target='_blank'
-              >
-                <FacebookIcon />
-              </MediaIcon>
-              <MediaIcon
-                href='https://www.linkedin.com/company/asociatiapromolex/'
-                target='_blank'
-              >
-                <LinkedInIcon />
-              </MediaIcon>
-              <MediaIcon
-                href='https://www.instagram.com/asociatia_promolex/?hl=en'
-                target='_blank'
-              >
-                <InstagramIcon />
-              </MediaIcon>
-              <MediaIcon href='https://twitter.com/promolex' target='_blank'>
-                <TwitterIcon />
-              </MediaIcon>
-              <MediaIcon>
-                <TelegramIcon />
-              </MediaIcon>
-              <MediaIcon
-                href='https://www.youtube.com/@asociatiapromo-lex8534'
-                target='_blank'
-              >
-                <YoutubeIcon />
-              </MediaIcon>
-            </Stack>
-          </Stack>
-        </Grid>
-
-        <Grid item xs={12} sm={3}>
-          <Stack gap={4}>
-            <Typography
-              color='grey.400'
-              fontWeight='medium'
-              textTransform='uppercase'
-            >
-              Contacte
-            </Typography>
-            <Stack color='grey.400' direction='row' gap={2}>
-              <FmdGoodIcon />
-              <Box>
-                <Typography color='text.primary' fontWeight='medium'>
-                  Str. Metropolit Petru Movilă 23/13, MD-2004
-                </Typography>
-                <Typography color='text.primary' fontWeight='medium'>
-                  Chișinău, Republica Moldova
-                </Typography>
+      <Container>
+        <Grid container spacing={11} pb={10} pt={10} px={4}>
+          <Grid display={{ xs: 'none', sm: 'block' }} item xs={0} md={3} />
+          <Grid item xs={12} md={3}>
+            <Stack gap={8} ml='auto' flexGrow={0}>
+              <Box height={85}>
+                <img alt='Logo Promo-LEX' height='100%' src={logoPromoLexRo} />
               </Box>
+              <Stack direction='row' gap={1}>
+                <MediaIcon
+                  href='https://www.facebook.com/promolex.md/'
+                  target='_blank'
+                >
+                  <FacebookIcon />
+                </MediaIcon>
+                <MediaIcon
+                  href='https://www.linkedin.com/company/asociatiapromolex/'
+                  target='_blank'
+                >
+                  <LinkedInIcon />
+                </MediaIcon>
+                <MediaIcon
+                  href='https://www.instagram.com/asociatia_promolex/?hl=en'
+                  target='_blank'
+                >
+                  <InstagramIcon />
+                </MediaIcon>
+                <MediaIcon href='https://twitter.com/promolex' target='_blank'>
+                  <TwitterIcon />
+                </MediaIcon>
+                <MediaIcon href='https://t.me/promolex ' target='_blank'>
+                  <TelegramIcon />
+                </MediaIcon>
+                <MediaIcon
+                  href='https://www.youtube.com/@asociatiapromo-lex8534'
+                  target='_blank'
+                >
+                  <YoutubeIcon />
+                </MediaIcon>
+              </Stack>
             </Stack>
-            <Stack alignItems='center' color='grey.400' direction='row' gap={2}>
-              <PhoneIcon />
-              <Typography
-                color='text.primary'
-                component={Link}
-                fontWeight='medium'
-                href='tel:+37322450024'
-                underline='none'
-              >
-                +373 224 500 24
-              </Typography>
-            </Stack>
-            <Stack alignItems='center' color='grey.400' direction='row' gap={2}>
-              <EmailIcon />
-              <Typography
-                color='text.primary'
-                component={Link}
-                fontWeight='medium'
-                href='mailto:info@promolex.md'
-                underline='none'
-              >
-                info@promolex.md
-              </Typography>
-            </Stack>
-          </Stack>
-        </Grid>
-      </Grid>
+          </Grid>
 
+          <Grid item xs={12} md={3}>
+            <Stack gap={4}>
+              <Typography
+                color='grey.400'
+                fontWeight='medium'
+                textTransform='uppercase'
+              >
+                Contacte
+              </Typography>
+              <Stack color='grey.400' direction='row' gap={2}>
+                <FmdGoodIcon />
+                <Box>
+                  <Typography color='text.primary' fontWeight='medium'>
+                    Str. Mitropolit Petru Movilă 23/13, MD-2004
+                  </Typography>
+                  <Typography color='text.primary' fontWeight='medium'>
+                    Chișinău, Republica Moldova
+                  </Typography>
+                </Box>
+              </Stack>
+              <Stack
+                alignItems='center'
+                color='grey.400'
+                direction='row'
+                gap={2}
+              >
+                <PhoneIcon />
+                <Typography
+                  color='text.primary'
+                  component={Link}
+                  fontWeight='medium'
+                  href='tel:37322450024'
+                  underline='none'
+                >
+                  + 373 22 450-024
+                </Typography>
+              </Stack>
+              <Stack
+                alignItems='center'
+                color='grey.400'
+                direction='row'
+                gap={2}
+              >
+                <EmailIcon />
+                <Typography
+                  color='text.primary'
+                  component={Link}
+                  fontWeight='medium'
+                  href='mailto:info@promolex.md'
+                  underline='none'
+                >
+                  info@promolex.md
+                </Typography>
+              </Stack>
+            </Stack>
+          </Grid>
+        </Grid>
+      </Container>
       <Stack
         alignContent='center'
         justifyContent='center'
