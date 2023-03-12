@@ -11,20 +11,12 @@ export function ReportItem({ report }: ReportItemProps) {
   const { rid, title, fileRo, fileEn, fileRu, pubdate, reportLogo } = report;
   return (
     <Grid container columnSpacing={8}>
-      <Grid item>
-        <Box
-          sx={{
-            backgroundImage: `url(${reportLogo})`,
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            bgcolor: 'grey.400',
-            height: 270,
-            width: 188,
-          }}
-        />
+      <Grid item xs={12} md={3}>
+        <Box height={320} width={1}>
+          <img height='100%' width='auto' src={reportLogo} alt='title' />
+        </Box>
       </Grid>
-      <Grid item xs>
+      <Grid item xs={12} md={9}>
         <Typography
           color='grey.900'
           component={RouterLink}
@@ -38,6 +30,7 @@ export function ReportItem({ report }: ReportItemProps) {
               textDecoration: 'underline',
             },
           }}
+          textAlign='justify'
         >
           {title}
         </Typography>
@@ -46,15 +39,15 @@ export function ReportItem({ report }: ReportItemProps) {
         </Typography>
 
         <Stack alignItems='center' direction='row' gap={4} mt={8}>
-          <DownloadLink href={fileRo} download>
+          <DownloadLink href={fileRo} download target='_blank'>
             Română
           </DownloadLink>
           <Typography fontSize={20}>|</Typography>
-          <DownloadLink href={fileEn} download>
+          <DownloadLink href={fileEn} download target='_blank'>
             Engleză
           </DownloadLink>
           <Typography fontSize={20}>|</Typography>
-          <DownloadLink href={fileRu} download>
+          <DownloadLink href={fileRu} download target='_blank'>
             Rusă
           </DownloadLink>
         </Stack>

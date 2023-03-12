@@ -22,16 +22,16 @@ export const options: HTMLReactParserOptions = {
         <Typography
           sx={{
             display: '-webkit-box',
-            WebkitLineClamp: 5,
+            WebkitLineClamp: 4,
             WebkitBoxOrient: 'vertical',
-            lineClamp: 5,
+            lineClamp: 4,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            maxHeight: 120,
+            maxHeight: 110,
             textAlign: 'justify',
           }}
         >
-          {domToReact(domNode.children)}
+          {domToReact(domNode.children, { trim: true })}
         </Typography>
       );
     }
@@ -50,7 +50,7 @@ export function BlogPostCard({ event }: BlogPostCardProps) {
   return (
     <Card raised sx={{ display: 'flex', flexDirection: 'column', height: 1 }}>
       <CardMedia
-        sx={{ minHeight: 192 }}
+        sx={{ backgroundSize: 'contain', pt: '56.25%' }}
         image={event.logo}
         title={event.title}
       />

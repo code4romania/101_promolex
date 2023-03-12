@@ -2,8 +2,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {
   alpha,
   Box,
-  ButtonBase,
-  ButtonBaseProps,
   Container,
   IconButton,
   Menu,
@@ -11,6 +9,7 @@ import {
   MenuProps,
   Stack,
   styled,
+  Typography,
   useTheme,
 } from '@mui/material';
 import {
@@ -20,7 +19,13 @@ import {
   useCallback,
   useState,
 } from 'react';
-import { Link, NavLink, NavLinkProps, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  NavLinkProps,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import logo101Promolex from '../assets/images/logo_101_promolex.png';
 import { Routes } from '../types';
 import { routesConfig } from '../utils';
@@ -40,14 +45,9 @@ const StyledMenu = styled(Menu)<MenuProps>(({ theme }) => ({
   },
 }));
 
-const StyledButton = styled(ButtonBase)<ButtonBaseProps>(() => ({
-  color: 'inherit',
-  fontSize: 18,
-  fontWeight: 600,
-}));
-
 export function Navbar() {
   const { palette } = useTheme();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -111,12 +111,19 @@ export function Navbar() {
               </StyledNavLink>
             ) : (
               <Fragment key={route}>
-                <StyledButton
+                <Typography
+                  color={
+                    pathname.includes(Routes.LegislativeActivity)
+                      ? 'primary.dark'
+                      : 'common.white'
+                  }
                   onClick={handleClick}
-                  sx={{ color: 'common.white' }}
+                  fontSize={18}
+                  fontWeight={700}
+                  sx={{ textDecoration: 'none', cursor: 'pointer' }}
                 >
                   {label}
-                </StyledButton>
+                </Typography>
                 <Menu anchorEl={anchorEl} open={open} onClose={handleClose()}>
                   {subRoutes.map((subRoute) => (
                     <MenuItem
@@ -186,7 +193,19 @@ export function Navbar() {
                 </MenuItem>
               ) : (
                 <MenuItem key={route}>
-                  <StyledButton onClick={handleClick}>{label}</StyledButton>
+                  <Typography
+                    color={
+                      pathname.includes(Routes.LegislativeActivity)
+                        ? 'primary.dark'
+                        : 'inherit'
+                    }
+                    onClick={handleClick}
+                    flexGrow={1}
+                    fontSize={18}
+                    fontWeight={700}
+                  >
+                    {label}
+                  </Typography>
                   <Menu anchorEl={anchorEl} open={open} onClose={handleClose()}>
                     {subRoutes.map((subRoute) => (
                       <MenuItem

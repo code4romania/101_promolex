@@ -47,7 +47,7 @@ export function ReportDetailsPage() {
                   backgroundImage: `url(${report?.reportLogo})`,
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
+                  backgroundSize: 'contain',
                   bgcolor: 'grey.400',
                   height: 320,
                   width: 220,
@@ -61,15 +61,15 @@ export function ReportDetailsPage() {
               {parse(report?.shortDescription ?? '', options)}
 
               <Stack alignItems='center' direction='row' gap={4} mt={8}>
-                <DownloadLink href={report?.fileRo} download>
+                <DownloadLink href={report?.fileRo} download target='_blank'>
                   Română
                 </DownloadLink>
                 <Typography fontSize={20}>|</Typography>
-                <DownloadLink href={report?.fileEn} download>
+                <DownloadLink href={report?.fileEn} download target='_blank'>
                   Engleză
                 </DownloadLink>
                 <Typography fontSize={20}>|</Typography>
-                <DownloadLink href={report?.fileRu} download>
+                <DownloadLink href={report?.fileRu} download target='_blank'>
                   Rusă
                 </DownloadLink>
               </Stack>

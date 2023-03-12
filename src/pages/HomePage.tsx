@@ -1,6 +1,16 @@
-import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import secondBanner from '../assets/images/second_banner.png';
+import secondBannerMobile from '../assets/images/second_banner_mobile.png';
 import { HomeBanner, HomeNewsContainer } from '../components';
 import {
   HomeCommitteesIcon,
@@ -15,7 +25,7 @@ const activityObjects = [
     icon: HomeLawsIcon,
     title: 'Proiecte de legi și hotărâri',
     description:
-      'Vezi proiectele de legi și hotărâri înregistrate în Parlament, cine sunt autorii acestora, care este statutul lor și domeniile din care fac parte.',
+      'Inițiativele înregistrate în Parlament, cine sunt autorii acestora și care este statutul lor.',
     url: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.projects}`,
   },
   {
@@ -23,7 +33,7 @@ const activityObjects = [
     icon: HomeCommitteesIcon,
     title: 'Comisii parlamentare permanente',
     description:
-      'Componența Comisiilor parlamentare permantente. Vezi detalii despre activitatea comisiilor monitorizate de Promo-LEX.',
+      'Componența comisiilor parlamentare permanente, datele de contact ale acestora și detalii despre activitatea comisiilor monitorizate de Promo-LEX',
     url: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.committees}`,
   },
   {
@@ -31,12 +41,15 @@ const activityObjects = [
     icon: HomeControlIcon,
     title: 'Control parlamentar',
     description:
-      'Instrumente de control parlamentar utilizate de către deputați în activitate. Vezi detalii',
+      'Care sunt instrumentele de control parlamentar disponibile deputaților și cum sunt folosite acestea în activitatea legislativului',
     url: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.control}`,
   },
 ];
 
 export function HomePage() {
+  const { breakpoints } = useTheme();
+  const isMobile = useMediaQuery(breakpoints.down('sm'));
+
   return (
     <Container>
       <Stack gap={8} pt={10} pb={6}>
@@ -50,20 +63,22 @@ export function HomePage() {
           justifyContent='center'
           gap={6}
           sx={{
-            backgroundImage: `url(${secondBanner})`,
+            backgroundImage: `url(${
+              isMobile ? secondBannerMobile : secondBanner
+            })`,
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
+            backgroundSize: 'contain',
           }}
           py={4}
         >
           <Typography
             fontWeight='bold'
-            fontSize={{ xs: '1.5rem', sm: '3rem' }}
+            fontSize={{ xs: '1.25rem', sm: '2rem' }}
             variant='h3'
             textAlign='center'
           >
-            Cunoașteți deputații din Parlamentul Republicii Moldova
+            Cunoaște deputații din Parlamentul Republicii Moldova
           </Typography>
           <Link to={Routes.Deputies} style={{ textDecoration: 'none' }}>
             <Button color='secondary' size='large' variant='contained'>
