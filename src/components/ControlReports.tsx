@@ -8,41 +8,46 @@ import {
 } from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
-import { TextWithTooltip } from './TextWithTooltip';
+// import { TextWithTooltip } from './TextWithTooltip';
 
 const publicReportsTableColumns: GridColumns<GridValidRowModel> = [
   {
     field: 'autPublica',
     headerName: 'Autoritatea publică',
     flex: 0.4,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 130,
   },
   {
     field: 'tipRaport',
     headerName: 'Tipul raportului',
     flex: 0.4,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 400,
   },
   {
     field: 'termenPrezentare',
     headerName: 'Termenul de prezentare',
     flex: 0.4,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 140,
   },
   {
     field: 'prevederiLegale',
     headerName: 'Prevederi legale',
     flex: 0.4,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 130,
   },
   {
     field: 'dataPrezentarii',
     headerName: 'Data prezentării',
     flex: 0.3,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 110,
   },
 ];
 
@@ -51,20 +56,23 @@ const reportsAuditingTableColumns: GridColumns<GridValidRowModel> = [
     field: 'autPublica',
     headerName: 'Autoritatea publică',
     flex: 0.4,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 130,
   },
   {
     field: 'tematica',
     headerName: 'Tematică',
     flex: 1,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 400,
   },
   {
     field: 'dataSedinta',
     headerName: 'Data ședinței plenare',
     flex: 0.3,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 130,
   },
 ];
 
@@ -123,9 +131,9 @@ export function ControlReports() {
           columns={publicReportsTableColumns}
           height={510}
           isLoading={isLoadingInstitutionReports}
+          getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
           hideFooter={!institutionReportsData.length}
-          pageSize={5}
           rows={institutionReportsData}
         />
       )}
@@ -134,9 +142,9 @@ export function ControlReports() {
           columns={reportsAuditingTableColumns}
           height={510}
           isLoading={isLoadingHearingReports}
+          getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
           hideFooter={!hearingReportsData.length}
-          pageSize={5}
           rows={hearingReportsData}
         />
       )}

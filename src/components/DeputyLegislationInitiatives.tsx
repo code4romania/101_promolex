@@ -75,13 +75,13 @@ export function DeputyLegislationInitiatives({
     <Table
       columns={extendedColumns}
       fromDate={fromDate}
+      getRowHeight={() => 'auto'}
       getRowId={(row) => row.docid}
       height={510}
       hideFooter={!filteredInitiatives?.length}
       isLoading={isLoadingInitiatives || isLoadingLegislatureDetails}
       onFromDateChange={onFromDateChange}
       onToDateChange={onToDateChange}
-      pageSize={5}
       rows={filteredInitiatives}
       showDatePickers
       showDownload

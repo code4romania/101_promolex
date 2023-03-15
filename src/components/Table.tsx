@@ -66,6 +66,10 @@ const StyledDataGrid = styled(DataGrid)(() => ({
     overflow: 'unset',
     whiteSpace: 'unset',
   },
+  '& .MuiDataGrid-row > .MuiDataGrid-cell': {
+    paddingBottom: 8,
+    paddingTop: 8,
+  },
 }));
 
 const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
@@ -88,7 +92,6 @@ type TableProps = {
   isLoading?: boolean;
   onFromDateChange?: (date: Date | null) => void;
   onToDateChange?: (date: Date | null) => void;
-  pageSize?: number;
   rows: GridValidRowModel[];
   showDatePickers?: boolean;
   showDownload?: boolean;
@@ -111,7 +114,6 @@ export function Table({
   isLoading,
   onFromDateChange,
   onToDateChange,
-  pageSize = 3,
   rows,
   showDatePickers,
   showDownload,
@@ -151,7 +153,7 @@ export function Table({
   }, [columns, rows]);
 
   return (
-    <Stack gap={4} overflow='auto'>
+    <Stack gap={4}>
       {(showSearch || showDatePickers) && (
         <Stack direction='row' gap={4} flexWrap='wrap' py={2}>
           {showSearch && (
@@ -219,8 +221,9 @@ export function Table({
           )}
         </Stack>
       )}
-      <Box height={height} overflow='auto' minWidth={640}>
+      <Box height={height}>
         <StyledDataGrid
+          autoPageSize
           columns={columns}
           disableColumnFilter
           disableColumnMenu
@@ -231,14 +234,12 @@ export function Table({
           isCellEditable={() => false}
           isRowSelectable={() => false}
           loading={isLoading}
-          pageSize={pageSize}
-          rowHeight={80}
           rows={filteredRows}
-          rowsPerPageOptions={[5]}
           hideFooter={hideFooter}
           components={{
             Pagination: CustomPagination,
           }}
+          sortingOrder={['desc', 'asc']}
         />
       </Box>
     </Stack>
@@ -252,7 +253,6 @@ Table.defaultProps = {
   isLoading: false,
   onFromDateChange: undefined,
   onToDateChange: undefined,
-  pageSize: 3,
   showDatePickers: false,
   showDownload: false,
   showSearch: false,

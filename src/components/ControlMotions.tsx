@@ -5,7 +5,7 @@ import { useTabs } from '../hooks';
 import { useCommitteeMotionsByLegislatureQuery } from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
-import { TextWithTooltip } from './TextWithTooltip';
+// import { TextWithTooltip } from './TextWithTooltip';
 
 const motionsTableColumns: GridColumns<GridValidRowModel> = [
   {
@@ -13,26 +13,30 @@ const motionsTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Denumire moțiune',
     flex: 1,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 260,
   },
   {
     field: 'numeDep',
     headerName: 'Autorii moțiunii',
     flex: 1,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 400,
   },
   {
     field: 'dataVot1Lect',
     headerName: 'Data examinării în plen',
     flex: 0.4,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 140,
   },
   {
     field: 'decizia1Lect',
     headerName: 'Rezultat',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 110,
   },
 ];
 
@@ -89,9 +93,9 @@ export function ControlMotions() {
           columns={motionsTableColumns}
           height={510}
           isLoading={isLoadingSimpleMotions}
+          getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
           hideFooter={!simpleMotionsData?.length}
-          pageSize={5}
           rows={simpleMotionsData}
         />
       )}
@@ -100,9 +104,9 @@ export function ControlMotions() {
           columns={motionsTableColumns}
           height={510}
           isLoading={isLoadingcensorShipMotions}
+          getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
           hideFooter={!censorShipMotionsDta?.length}
-          pageSize={5}
           rows={censorShipMotionsDta}
         />
       )}

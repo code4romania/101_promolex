@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Link, Stack } from '@mui/material';
 import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useTabs } from '../hooks';
@@ -8,7 +8,6 @@ import {
 } from '../queries';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
-import { TextWithTooltip } from './TextWithTooltip';
 
 const questionsTableColumns: GridColumns<GridValidRowModel> = [
   {
@@ -16,47 +15,55 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Nr d/o',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 60,
   },
   {
     field: 'dataSedinta',
     headerName: 'Data',
     flex: 0.3,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 90,
   },
   {
     field: 'autori',
     headerName: 'Autor',
     flex: 0.4,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 100,
   },
   {
     field: 'question',
     headerName: 'Întrebarea adresată',
     flex: 1,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 400,
   },
   {
     field: 'institution',
     headerName: 'Instituția vizată',
     flex: 0.4,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 100,
   },
   {
     field: 'answerType',
     headerName: 'Forma răspunsului',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 120,
   },
   {
     field: 'answerFile',
     headerName: 'Răspunsul oferit',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    renderCell: ({ value }) =>
+      value && <Link href={value}>Vezi răspunsul</Link>,
+    minWidth: 110,
   },
 ];
 
@@ -66,40 +73,46 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Nr d/o',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 60,
   },
   {
     field: 'dataSedinta',
     headerName: 'Data',
     flex: 0.4,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 90,
   },
   {
     field: 'autori',
     headerName: 'Autorii interpelării',
     flex: 0.4,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 120,
   },
   {
     field: 'interpellation',
     headerName: 'Interpelarea',
     flex: 1,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 400,
   },
   {
     field: 'institution',
     headerName: 'Instituția vizată',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 110,
   },
   {
     field: 'answerType',
     headerName: 'Forma răspunsului',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 120,
   },
 ];
 
@@ -152,9 +165,9 @@ export function ControlQuestions() {
           columns={questionsTableColumns}
           height={510}
           isLoading={isLoadingQuestions}
+          getRowHeight={() => 'auto'}
           getRowId={(row) => row.docid}
           hideFooter={!questionsData.length}
-          pageSize={5}
           rows={questionsData}
           showSearch
         />
@@ -164,9 +177,9 @@ export function ControlQuestions() {
           columns={interpellationsTableColumns}
           height={510}
           isLoading={isLoadingInterpellations}
+          getRowHeight={() => 'auto'}
           getRowId={(row) => row.docid}
           hideFooter={!interpellationsData?.length}
-          pageSize={5}
           rows={interpellationsData}
           showSearch
         />

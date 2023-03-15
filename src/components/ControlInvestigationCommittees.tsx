@@ -3,33 +3,36 @@ import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useCommitteeInvestigationCommissionsByLegislatureQuery } from '../queries';
 import { Table } from './Table';
-import { TextWithTooltip } from './TextWithTooltip';
 
 const investigationCommitteesTableColumns: GridColumns<GridValidRowModel> = [
   {
     field: 'denComisie',
     headerName: 'Denumirea comisiei',
     flex: 1,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 400,
   },
   {
     field: 'dataConst',
     headerName: 'Data constituirii',
     flex: 0.4,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 120,
   },
   {
     field: 'componenta',
     headerName: 'Componența',
     flex: 0.5,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 160,
   },
   {
     field: 'dataPrezParl',
     headerName: 'Data prezentării raportului',
     flex: 0.4,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 160,
   },
   {
     field: 'raportFile',
@@ -37,6 +40,7 @@ const investigationCommitteesTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.3,
     sortable: false,
     renderCell: ({ value }) => <Link href={value}>Vezi raportul</Link>,
+    minWidth: 100,
   },
 ];
 
@@ -64,9 +68,9 @@ export function ControlInvestigationCommittees() {
         columns={investigationCommitteesTableColumns}
         height={510}
         isLoading={isInitialLoading}
+        getRowHeight={() => 'auto'}
         getRowId={(row) => row.id}
         hideFooter={!tableData?.length}
-        pageSize={5}
         rows={tableData}
       />
     </Stack>
