@@ -45,7 +45,7 @@ export function ControlExportEvaluation() {
       {tabValue === 0 && !isLoadingLegalExPostEvaluation && (
         <>
           <Box borderRadius={2} boxShadow={3} px={6} py={4}>
-            <Typography gutterBottom variant='h6'>
+            <Typography gutterBottom variant='subtitle1'>
               Ce este evaluarea ex-post juridică?
             </Typography>
             <Typography>
@@ -60,7 +60,7 @@ export function ControlExportEvaluation() {
           </Box>
 
           <Stack alignItems='center' direction='row' gap={2}>
-            <Typography variant='h6'>Selectează anul</Typography>
+            <Typography variant='subtitle1'>Selectează anul</Typography>
             <Select labelId='year' value={2023}>
               <MenuItem value={2021}>2021</MenuItem>
               <MenuItem value={2022}>2022</MenuItem>
@@ -110,7 +110,7 @@ export function ControlExportEvaluation() {
             title='Nivelul de realizare a Planului de Evaluare Ex-post Juridică'
           />
 
-          <Typography fontWeight='bold' variant='h4'>
+          <Typography fontWeight='bold' variant='h5'>
             Află mai multe despre
           </Typography>
           <Stack direction='row' gap={4}>
@@ -118,7 +118,6 @@ export function ControlExportEvaluation() {
               color='secondary'
               href={legalExPostEvaluation?.planEvaluare ?? ''}
               LinkComponent={Link}
-              size='large'
               target='_blank'
               variant='contained'
             >
@@ -141,7 +140,7 @@ export function ControlExportEvaluation() {
       {tabValue === 1 && !isLoadingImpactExPostEvaluation && (
         <>
           <Box borderRadius={2} boxShadow={3} px={6} py={4}>
-            <Typography gutterBottom variant='h6'>
+            <Typography gutterBottom variant='subtitle1'>
               Ce este evaluarea ex-post de impact?
             </Typography>
             <Typography>
@@ -153,7 +152,7 @@ export function ControlExportEvaluation() {
           </Box>
 
           <Stack alignItems='center' direction='row' gap={2}>
-            <Typography variant='h6'>Selectează anul</Typography>
+            <Typography variant='subtitle1'>Selectează anul</Typography>
             <Select labelId='year' value={2023}>
               <MenuItem value={2021}>2021</MenuItem>
               <MenuItem value={2022}>2022</MenuItem>
@@ -203,7 +202,7 @@ export function ControlExportEvaluation() {
             title='Nivelul de realizare a Planului de Evaluare Ex-post de Impact'
           />
 
-          <Typography fontWeight='bold' variant='h4'>
+          <Typography fontWeight='bold' variant='h5'>
             Află mai multe despre
           </Typography>
           <Stack direction='row' gap={4}>
@@ -211,7 +210,6 @@ export function ControlExportEvaluation() {
               color='secondary'
               href={impactExPostEvaluation?.planEvaluare ?? ''}
               LinkComponent={Link}
-              size='large'
               target='_blank'
               variant='contained'
             >
@@ -221,7 +219,6 @@ export function ControlExportEvaluation() {
               color='secondary'
               href={impactExPostEvaluation?.linkRaportEvaluare ?? ''}
               LinkComponent={Link}
-              size='large'
               target='_blank'
               variant='contained'
             >

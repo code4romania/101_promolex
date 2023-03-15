@@ -53,7 +53,7 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
 
   return (
     <Stack gap={6}>
-      <Typography fontWeight={700} variant='h4'>
+      <Typography fontWeight={700} variant='h5'>
         Declarația de venituri
       </Typography>
 

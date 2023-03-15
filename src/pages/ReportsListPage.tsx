@@ -53,7 +53,7 @@ export function ReportsListPage() {
           gap={2}
           ml={{ xs: 0, sm: 'auto' }}
         >
-          <Typography variant='h6'>Sortează după</Typography>
+          <Typography variant='subtitle1'>Sortează după</Typography>
           <Select
             onChange={(event) => setSort(event.target.value as string)}
             sx={{

@@ -153,7 +153,6 @@ export function HomeBanner() {
               fontWeight='medium'
               gutterBottom
               textTransform='uppercase'
-              fontSize={{ xs: '1rem', sm: '1.75rem' }}
               variant='h4'
             >
               Parlamentul lucrează pentru tine ?
@@ -233,7 +232,7 @@ export function HomeBanner() {
               {isLoadingChart && <CircularProgress />}
               {!isLoadingChart && (
                 <>
-                  <Typography fontWeight={700} variant='h6'>
+                  <Typography fontWeight={700} variant='subtitle1'>
                     Rezultatele votului
                   </Typography>
                   <Box flexGrow={1}>
@@ -267,9 +266,9 @@ export function HomeBanner() {
                   </Box>
                   <Typography
                     color='secondary'
-                    fontSize={20}
                     fontWeight='medium'
                     textAlign='center'
+                    variant='subtitle1'
                   >
                     {((votesFor / (votesFor + votesAgainst)) * 100).toFixed(0)}%
                     cred ca da

@@ -31,12 +31,12 @@ export function ReportDetailsPage() {
         <Loading />
       ) : (
         <Box py={5}>
-          <Typography fontWeight='medium' gutterBottom variant='h5'>
+          <Typography fontWeight='medium' gutterBottom variant='h4'>
             {report?.title}
           </Typography>
-          <Typography color='grey.500' fontWeight='medium' fontSize={20}>
+          <Typography color='grey.500' fontWeight='medium' variant='subtitle1'>
             Data publicării:{' '}
-            <Typography color='grey.800' component='span' fontSize={20}>
+            <Typography color='grey.800' component='span' variant='subtitle1'>
               {report?.pubdate}
             </Typography>
           </Typography>
@@ -55,7 +55,7 @@ export function ReportDetailsPage() {
               />
             </Grid>
             <Grid item xs>
-              <Typography color='grey.800' gutterBottom variant='h6'>
+              <Typography color='grey.800' gutterBottom variant='subtitle1'>
                 Scurtă descriere/rezumat
               </Typography>
               {parse(report?.shortDescription ?? '', options)}
@@ -64,11 +64,11 @@ export function ReportDetailsPage() {
                 <DownloadLink href={report?.fileRo} download target='_blank'>
                   Română
                 </DownloadLink>
-                <Typography fontSize={20}>|</Typography>
+                <Typography>|</Typography>
                 <DownloadLink href={report?.fileEn} download target='_blank'>
                   Engleză
                 </DownloadLink>
-                <Typography fontSize={20}>|</Typography>
+                <Typography>|</Typography>
                 <DownloadLink href={report?.fileRu} download target='_blank'>
                   Rusă
                 </DownloadLink>

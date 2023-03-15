@@ -68,7 +68,7 @@ export function BlogPostCard({ event }: BlogPostCardProps) {
         >
           <Typography
             gutterBottom
-            variant='h6'
+            variant='subtitle1'
             sx={{
               '&:hover': { color: palette.secondary.main },
               cursor: 'pointer',
