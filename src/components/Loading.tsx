@@ -4,7 +4,7 @@ export function Loading() {
   return (
     <Stack alignItems='center' gap={2} height='50vh' justifyContent='center'>
       <CircularProgress />
-      <Typography variant='h6'>Se încarcă...</Typography>
+      <Typography variant='h5'>Se încarcă...</Typography>
     </Stack>
   );
 }

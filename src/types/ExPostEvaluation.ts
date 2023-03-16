@@ -6,4 +6,5 @@ export type ExPostEvaluation = {
   gradNerealizat: string;
   planEvaluare: string;
   linkRaportEvaluare: string;
+  dataUpdate: string;
 };

@@ -32,7 +32,7 @@ import { routesConfig } from '../utils';
 
 const StyledNavLink = styled(NavLink)<NavLinkProps>(() => ({
   color: 'inherit',
-  fontSize: 18,
+  fontSize: 16,
   fontWeight: 700,
   textDecoration: 'none',
 }));
@@ -86,7 +86,7 @@ export function Navbar() {
         <Stack
           alignItems='center'
           direction='row'
-          display={{ xs: 'none', sm: 'flex' }}
+          display={{ xs: 'none', md: 'flex' }}
           justifyContent='flex-end'
           gap={10}
           py={1}
@@ -118,7 +118,7 @@ export function Navbar() {
                       : 'common.white'
                   }
                   onClick={handleClick}
-                  fontSize={18}
+                  variant='subtitle1'
                   fontWeight={700}
                   sx={{ textDecoration: 'none', cursor: 'pointer' }}
                 >
@@ -201,7 +201,7 @@ export function Navbar() {
                     }
                     onClick={handleClick}
                     flexGrow={1}
-                    fontSize={18}
+                    variant='subtitle1'
                     fontWeight={700}
                   >
                     {label}

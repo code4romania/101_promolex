@@ -8,6 +8,7 @@ import {
   getProjectsByFactionChartData,
   getProjectsByTypeChartData,
 } from '../utils';
+import { StatisticsDoughnutChart } from './StatisticsDoughnutChart';
 
 export function LegislativeActivityProjects() {
   const {
@@ -82,8 +83,9 @@ export function LegislativeActivityProjects() {
           />
         </Grid>
         <Grid item xs lg={6}>
-          <StatisticsPieChart
+          <StatisticsDoughnutChart
             data={projectsByFactionChartData}
+            height={320}
             title='Inițiative legislative ale deputaților'
           />
         </Grid>

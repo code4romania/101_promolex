@@ -51,9 +51,9 @@ export function EventDetailsPage() {
               src={event?.logo}
             />
           </Box>
-          <Typography color='grey.500' fontWeight='medium' fontSize={20}>
+          <Typography color='grey.500' fontWeight='medium' variant='subtitle1'>
             Data publicării:{' '}
-            <Typography color='grey.800' component='span' fontSize={20}>
+            <Typography color='grey.800' component='span' variant='subtitle1'>
               {event?.pubdate}
             </Typography>
           </Typography>

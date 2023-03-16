@@ -71,7 +71,7 @@ export function DeputyActivity({
 
   return (
     <Stack gap={5}>
-      <Typography fontWeight={700} variant='h4'>
+      <Typography fontWeight={700} variant='h5'>
         Activitate parlamentară
       </Typography>
 
@@ -97,16 +97,14 @@ export function DeputyActivity({
         </Box>
 
         <Box height={260} overflow='auto' p={4}>
-          {value === 0 && <Typography fontSize={20}>{committee}</Typography>}
+          {value === 0 && <Typography>{committee}</Typography>}
           {value === 1 && (
             <>
               {(specialCommittees?.length ?? 0) > 0 && (
                 <>
-                  <Typography fontSize={20} fontWeight={700}>
-                    Comisii speciale:
-                  </Typography>
+                  <Typography fontWeight={700}>Comisii speciale:</Typography>
                   {specialCommittees?.map((specialCommittee) => (
-                    <Typography key={specialCommittee} fontSize={20}>
+                    <Typography key={specialCommittee}>
                       {specialCommittee}
                     </Typography>
                   ))}
@@ -114,11 +112,9 @@ export function DeputyActivity({
               )}
               {(investigationCommittees?.length ?? 0) > 0 && (
                 <>
-                  <Typography fontSize={20} fontWeight={700}>
-                    Comisii de anchetă:
-                  </Typography>
+                  <Typography fontWeight={700}>Comisii de anchetă:</Typography>
                   {investigationCommittees?.map((investigationCommittee) => (
-                    <Typography key={investigationCommittee} fontSize={20}>
+                    <Typography key={investigationCommittee}>
                       {investigationCommittee}
                     </Typography>
                   ))}
@@ -126,16 +122,12 @@ export function DeputyActivity({
               )}
             </>
           )}
-          {value === 2 && <Typography fontSize={20}>{delegates}</Typography>}
+          {value === 2 && <Typography>{delegates}</Typography>}
           {value === 3 &&
-            friendships?.split(/\r\n/).map((text) => (
-              <Typography key={text} fontSize={20}>
-                {text}
-              </Typography>
-            ))}
-          {value === 4 && (
-            <Typography fontSize={20}>{mandatesCount}</Typography>
-          )}
+            friendships
+              ?.split(/\r\n/)
+              .map((text) => <Typography key={text}>{text}</Typography>)}
+          {value === 4 && <Typography>{mandatesCount}</Typography>}
         </Box>
       </Box>
     </Stack>

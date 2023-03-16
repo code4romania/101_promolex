@@ -1,5 +1,6 @@
 export * from './fetchCommitteeDetails';
 export * from './fetchCommitteeExPostEvaluationByLegislature';
+export * from './fetchCommitteeExPostEvaluationYearsByLegislature';
 export * from './fetchCommitteeHearingReportsByLegislature';
 export * from './fetchCommitteeInstitutionHearingsByLegislature';
 export * from './fetchCommitteeInstitutionReportsByLegislature';

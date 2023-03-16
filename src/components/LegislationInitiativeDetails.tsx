@@ -1,8 +1,16 @@
 import { Box, Link, Stack, Typography } from '@mui/material';
 import { useLegislationInitiativeDetailsQuery } from '../queries';
+import { PartialDeputy, Routes } from '../types';
 import { legislationInitiativesTableColumns } from '../utils';
 import { DetailsRow } from './DetailsRow';
+import { StyledRouterLink } from './StyledRouterLink';
 import { Table } from './Table';
+
+const deputyMap = ({ fullName, did }: PartialDeputy) => (
+  <StyledRouterLink key={fullName} to={`${Routes.Deputies}/detalii/${did}`}>
+    {fullName}
+  </StyledRouterLink>
+);
 
 type LegislationInitiativeDetailsProps = {
   docId: string;
@@ -41,7 +49,7 @@ export function LegislationInitiativeDetails({
       <DetailsRow
         details={
           Array.isArray(data?.autor)
-            ? data?.autor?.map(({ fullName }) => fullName) ?? ''
+            ? data?.autor?.map(deputyMap) ?? ''
             : data?.autor ?? ''
         }
         label='Autori'
@@ -73,21 +81,15 @@ export function LegislationInitiativeDetails({
         />
         <Box pl={4}>
           <DetailsRow
-            details={
-              data?.['1LectDepPentru']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['1LectDepPentru']?.map(deputyMap) ?? ''}
             label={`Pentru (${data?.['1LectDepPentru']?.length ?? 0})`}
           />
           <DetailsRow
-            details={
-              data?.['1LectDepContra']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['1LectDepContra']?.map(deputyMap) ?? ''}
             label={`Contra (${data?.['1LectDepContra']?.length ?? 0})`}
           />
           <DetailsRow
-            details={
-              data?.['1LectDepAbtinut']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['1LectDepAbtinut']?.map(deputyMap) ?? ''}
             label={`Nu a votat (${data?.['1LectDepAbtinut']?.length ?? 0})`}
           />
         </Box>
@@ -99,21 +101,15 @@ export function LegislationInitiativeDetails({
         />
         <Box pl={4}>
           <DetailsRow
-            details={
-              data?.['2LectDepPentru']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['2LectDepPentru']?.map(deputyMap) ?? ''}
             label={`Pentru (${data?.['2LectDepPentru']?.length ?? 0})`}
           />
           <DetailsRow
-            details={
-              data?.['2LectDepContra']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['2LectDepContra']?.map(deputyMap) ?? ''}
             label={`Contra (${data?.['2LectDepContra']?.length ?? 0})`}
           />
           <DetailsRow
-            details={
-              data?.['2LectDepAbtinut']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['2LectDepAbtinut']?.map(deputyMap) ?? ''}
             label={`Nu a votat (${data?.['2LectDepAbtinut']?.length ?? 0})`}
           />
         </Box>
@@ -125,21 +121,15 @@ export function LegislationInitiativeDetails({
         />
         <Box pl={4}>
           <DetailsRow
-            details={
-              data?.['3LectDepPentru']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['3LectDepPentru']?.map(deputyMap) ?? ''}
             label={`Pentru (${data?.['3LectDepPentru']?.length ?? 0})`}
           />
           <DetailsRow
-            details={
-              data?.['3LectDepContra']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['3LectDepContra']?.map(deputyMap) ?? ''}
             label={`Contra (${data?.['3LectDepContra']?.length ?? 0})`}
           />
           <DetailsRow
-            details={
-              data?.['3LectDepAbtinut']?.map(({ fullName }) => fullName) ?? ''
-            }
+            details={data?.['3LectDepAbtinut']?.map(deputyMap) ?? ''}
             label={`Nu a votat (${data?.['3LectDepAbtinut']?.length ?? 0})`}
           />
         </Box>

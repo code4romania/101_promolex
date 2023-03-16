@@ -3,34 +3,41 @@ import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useCommitteeInstitutionHearingsByLegislatureQuery } from '../queries';
 import { Table } from './Table';
-import { TextWithTooltip } from './TextWithTooltip';
 
 const publicInstitutionsTableColumns: GridColumns<GridValidRowModel> = [
   {
     field: 'autPublica',
     headerName: 'Autoritatea publică',
     flex: 0.4,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 130,
   },
   {
     field: 'tematica',
     headerName: 'Tematica audierii',
     flex: 0.4,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 400,
   },
   {
     field: 'dataSedinta',
     headerName: 'Data ședinței plenare',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 140,
   },
   {
     field: 'audierePlen',
     headerName: 'Audierea în plen',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <Link href={value}>Vezi raportul</Link>,
+    renderCell: ({ value }) => (
+      <Link href={value} target='_blank'>
+        Vezi raportul
+      </Link>
+    ),
+    minWidth: 110,
   },
 ];
 
@@ -51,9 +58,9 @@ export function ControlPublicInstitutions() {
         columns={publicInstitutionsTableColumns}
         height={510}
         isLoading={isInitialLoading}
+        getRowHeight={() => 'auto'}
         getRowId={(row) => row.id}
         hideFooter={!tableData.length}
-        pageSize={5}
         rows={tableData}
       />
     </Stack>

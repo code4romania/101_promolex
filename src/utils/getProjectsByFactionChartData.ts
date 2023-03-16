@@ -14,7 +14,7 @@ const factionsMap = [
 
 export const getProjectsByFactionChartData = (
   projects: RegisteredProjectsStatistics<'fid'>[],
-): ChartData<'pie', number[], string> => {
+): ChartData<'doughnut', number[], string> => {
   const projectsByFid = groupBy(projects, 'fid');
 
   const sortedProjectTypeMap = chain(factionsMap)

@@ -13,6 +13,7 @@ export * from './DeputyDetails';
 export * from './ErrorResponse';
 export * from './Event';
 export * from './ExPostEvaluation';
+export * from './ExPostEvaluationYear';
 export * from './Faction';
 export * from './IncomeStatement';
 export * from './LegislationInitiative';

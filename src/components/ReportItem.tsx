@@ -42,11 +42,11 @@ export function ReportItem({ report }: ReportItemProps) {
           <DownloadLink href={fileRo} download target='_blank'>
             Română
           </DownloadLink>
-          <Typography fontSize={20}>|</Typography>
+          <Typography>|</Typography>
           <DownloadLink href={fileEn} download target='_blank'>
             Engleză
           </DownloadLink>
-          <Typography fontSize={20}>|</Typography>
+          <Typography>|</Typography>
           <DownloadLink href={fileRu} download target='_blank'>
             Rusă
           </DownloadLink>

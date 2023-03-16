@@ -47,7 +47,7 @@ export function ControlPage() {
           <StyledTab label='Întrebări/interpelări' />
           <StyledTab label='Evaluarea ex-post' />
           <StyledTab label='Rapoarte' />
-          <StyledTab label='Audieri ale instituților publice' />
+          <StyledTab label='Audieri ale instituțiilor publice' />
           <StyledTab label='Comisii speciale' />
           <StyledTab label='Comisii de anchetă' />
           <StyledTab label='Moțiuni' />

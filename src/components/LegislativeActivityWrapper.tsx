@@ -38,6 +38,7 @@ export function LegislativeActivityWrapper({
             <FindInPageIcon />
           </IconButton>
         ),
+        minWidth: 60,
       },
     ],
     [],
@@ -53,9 +54,9 @@ export function LegislativeActivityWrapper({
           height={510}
           hideFooter={!registeredProjects.length}
           getRowId={(row) => row.docid ?? uniqueId()}
+          getRowHeight={() => 'auto'}
           onFromDateChange={onFromDateChange}
           onToDateChange={onToDateChange}
-          pageSize={5}
           rows={registeredProjects}
           showDatePickers
           showDownload

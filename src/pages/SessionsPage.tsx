@@ -1,36 +1,20 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Stack,
-  // styled,
-  // TextField,
-  Typography,
-} from '@mui/material';
-import // DatePicker,
-// LocalizationProvider,
-// PickersDay,
-'@mui/x-date-pickers';
-// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-// import { ro } from 'date-fns/locale';
-import { useState } from 'react';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Loading, PageContainer } from '../components';
 import { useSessionsByLegislatureQuery } from '../queries';
 
-// const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
-//   '&.Mui-selected': {
-//     backgroundColor: theme.palette.secondary.main,
-
-//     '&:hover': {
-//       backgroundColor: theme.palette.secondary.dark,
-//     },
-//   },
-// }));
-
 export function SessionsPage() {
-  const [selectedSession, setSelectedSession] = useState(0);
+  const [params, setParams] = useSearchParams();
 
   const { data: sessions, isLoading } = useSessionsByLegislatureQuery();
+
+  const sessionId = useMemo(() => {
+    const index = sessions?.findIndex(
+      (session) => session.sessionDate === params.get('session'),
+    );
+    return index && index >= 0 ? index : 0;
+  }, [params, sessions]);
 
   return (
     <PageContainer pageTitle='Ședințe plenare'>
@@ -41,7 +25,7 @@ export function SessionsPage() {
           <Grid item xs={12} sm={4} />
           <Grid item xs={12} sm={8}>
             <Typography fontWeight='medium' variant='h4'>
-              {sessions?.[selectedSession]?.title}
+              {sessions?.[sessionId]?.title}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={4} order={{ xs: 1, sm: 0 }}>
@@ -73,12 +57,12 @@ export function SessionsPage() {
             </Stack> */}
 
             <Stack gap={2} maxHeight={460} overflow='auto' py={4}>
-              {sessions?.map(({ title }, index) => (
+              {sessions?.map(({ title, sessionDate }, index) => (
                 <Button
-                  color={selectedSession === index ? 'secondary' : undefined}
+                  color={sessionId === index ? 'secondary' : undefined}
                   key={title}
-                  onClick={() => setSelectedSession(index)}
-                  variant={selectedSession === index ? 'contained' : 'outlined'}
+                  onClick={() => setParams({ session: sessionDate })}
+                  variant={sessionId === index ? 'contained' : 'outlined'}
                 >
                   {title}
                 </Button>
@@ -90,10 +74,7 @@ export function SessionsPage() {
               <iframe
                 width='100%'
                 height='460'
-                src={sessions?.[selectedSession]?.link.replace(
-                  'watch?v=',
-                  'embed/',
-                )}
+                src={sessions?.[sessionId]?.link.replace('watch?v=', 'embed/')}
                 title='Ședința plenară a Parlamentului din 16 februarie 2023'
                 frameBorder='0'
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
