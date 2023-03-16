@@ -1,6 +1,7 @@
 export * from './QueryClientProvider';
 export * from './useCommitteeDetailsQuery';
 export * from './useCommitteeExPostEvaluationByLegislatureQuery';
+export * from './useCommitteeExPostEvaluationYearsByLegislatureQuery';
 export * from './useCommitteeHearingReportsByLegislatureQuery';
 export * from './useCommitteeInstitutionHearingsByLegislatureQuery';
 export * from './useCommitteeInstitutionReportsByLegislatureQuery';

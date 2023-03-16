@@ -6,6 +6,7 @@ import { apiPaths } from './apiUrls';
 export type CommitteeExPostEvaluationParams = {
   lid: string;
   eval_type: 'Juridică' | 'De impact';
+  year: string;
 };
 
 export const fetchCommitteeExPostEvaluationByLegislature = async (

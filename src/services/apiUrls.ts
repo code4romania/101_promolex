@@ -32,6 +32,7 @@ export const apiPaths = {
   committeeQuestions: `${API_BASE_URL}?type=get_pc_questions&lid=`,
   committeeInterpellations: `${API_BASE_URL}?type=get_pc_interpelations&lid=`,
   committeeExPostEvaluation: `${API_BASE_URL}?type=get_pc_ex_post_evaluations`,
+  committeeExPostEvaluationYears: `${API_BASE_URL}?type=get_pc_ex_post_evaluations_years`,
   committeeInstitutionReports: `${API_BASE_URL}?type=get_pc_institutions_reports&lid=`,
   committeeInstitutionHearings: `${API_BASE_URL}?type=get_pc_institutions_hearings&lid=`,
   committeeHearingReports: `${API_BASE_URL}?type=get_pc_hearings_reports&lid=`,
