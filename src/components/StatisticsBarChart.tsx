@@ -6,12 +6,14 @@ type StatisticsPieChartProps = {
   data: ChartData<'bar', (number | undefined)[], string>;
   options?: ChartOptions<'bar'>;
   title: string;
+  maxWidth?: string | number;
 };
 
 export function StatisticsBarChart({
   data,
   options,
   title,
+  maxWidth,
 }: StatisticsPieChartProps) {
   return (
     <Stack
@@ -21,6 +23,7 @@ export function StatisticsBarChart({
       boxShadow={3}
       px={6}
       py={4}
+      maxWidth={maxWidth}
     >
       <Typography fontWeight={700} variant='h6'>
         {title}
@@ -32,4 +35,5 @@ export function StatisticsBarChart({
 
 StatisticsBarChart.defaultProps = {
   options: undefined,
+  maxWidth: '100%',
 };

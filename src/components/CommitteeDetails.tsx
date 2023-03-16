@@ -1,17 +1,8 @@
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import { Box, Link, Stack, styled, Typography, useTheme } from '@mui/material';
+import { Box, Link, Stack, Typography, useTheme } from '@mui/material';
 import { deburr } from 'lodash';
-import { Link as RouterLink } from 'react-router-dom';
 import { useCommitteeDetailsQuery } from '../queries';
-
-const StyledLink = styled(RouterLink)(({ theme }) => ({
-  color: theme.palette.text.primary,
-  textDecoration: 'none',
-  '&:hover': {
-    color: theme.palette.secondary.main,
-    fontWeight: theme.typography.fontWeightBold,
-  },
-}));
+import { StyledRouterLink } from './StyledRouterLink';
 
 type CommitteeDetailsProps = {
   cid: string;
@@ -61,12 +52,13 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
         Componența comisiei
       </Typography>
 
-      <Stack direction='row' gap={6}>
+      <Stack direction='row' gap={6} flexWrap='wrap'>
         {committeePresidents.map((president) => (
           <Box key={president.did}>
             <Typography
-              component={StyledLink}
+              component={StyledRouterLink}
               to={`/deputati/detalii/${president.did}`}
+              noWrap
             >
               {president.fullName}
             </Typography>
@@ -78,8 +70,9 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
         {committeeVicePresidents.map((vicePresident) => (
           <Box key={vicePresident.did}>
             <Typography
-              component={StyledLink}
+              component={StyledRouterLink}
               to={`/deputati/detalii/${vicePresident.did}`}
+              noWrap
             >
               {vicePresident.fullName}
             </Typography>
@@ -91,8 +84,9 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
         {committeeSecretaries.map((secretary) => (
           <Box key={secretary.did}>
             <Typography
-              component={StyledLink}
+              component={StyledRouterLink}
               to={`/deputati/detalii/${secretary.did}`}
+              noWrap
             >
               {secretary.fullName}
             </Typography>
@@ -103,12 +97,13 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
         ))}
       </Stack>
 
-      <Stack direction='row' gap={6}>
+      <Stack direction='row' gap={6} flexWrap='wrap'>
         {committeeMembers.map((member) => (
           <Box key={member.did}>
             <Typography
-              component={StyledLink}
+              component={StyledRouterLink}
               to={`/deputati/detalii/${member.did}`}
+              noWrap
             >
               {member.fullName}
             </Typography>
@@ -140,34 +135,44 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
           <Typography fontWeight={typography.fontWeightBold}>
             Audieri organizate
           </Typography>
+          <Stack
+            columnGap={4}
+            rowGap={2}
+            flexDirection='row'
+            flexWrap='wrap'
+            maxHeight={300}
+            overflow='auto'
+          >
+            {committee?.organizedHearings.map(
+              ({ hearingType, dataSedinte }) => (
+                <Box key={dataSedinte}>
+                  <Typography
+                    alignItems='center'
+                    component={Stack}
+                    direction='row'
+                    fontWeight={typography.fontWeightBold}
+                    gap={1}
+                    variant='body2'
+                  >
+                    Subiect:
+                    <Typography fontSize='inherit'>{hearingType}</Typography>
+                  </Typography>
 
-          {committee?.organizedHearings.map(({ hearingType, dataSedinte }) => (
-            <Box key={hearingType}>
-              <Typography
-                alignItems='center'
-                component={Stack}
-                direction='row'
-                fontWeight={typography.fontWeightBold}
-                gap={1}
-                variant='body2'
-              >
-                Subiect:
-                <Typography fontSize='inherit'>{hearingType}</Typography>
-              </Typography>
-
-              <Typography
-                alignItems='center'
-                component={Stack}
-                direction='row'
-                fontWeight={typography.fontWeightBold}
-                gap={1}
-                variant='body2'
-              >
-                Data:
-                <Typography fontSize='inherit'>{dataSedinte}</Typography>
-              </Typography>
-            </Box>
-          ))}
+                  <Typography
+                    alignItems='center'
+                    component={Stack}
+                    direction='row'
+                    fontWeight={typography.fontWeightBold}
+                    gap={1}
+                    variant='body2'
+                  >
+                    Data:
+                    <Typography fontSize='inherit'>{dataSedinte}</Typography>
+                  </Typography>
+                </Box>
+              ),
+            )}
+          </Stack>
         </Stack>
       )}
 
@@ -177,39 +182,47 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
             Ședințele comisiei
           </Typography>
 
-          {committee?.sessions.map(({ procesVerbal, dataSedinte }) => (
-            <Box key={procesVerbal}>
-              <Typography
-                alignItems='center'
-                color='text.primary'
-                component={Link}
-                href={procesVerbal}
-                fontWeight={typography.fontWeightBold}
-                variant='body2'
-                sx={{
-                  textDecoration: 'none',
+          <Stack
+            columnGap={4}
+            rowGap={2}
+            flexDirection='row'
+            flexWrap='wrap'
+            maxHeight={300}
+            overflow='auto'
+          >
+            {committee?.sessions.map(({ procesVerbal, dataSedinte }) => (
+              <Box key={dataSedinte}>
+                <Typography
+                  alignItems='center'
+                  color='primary.main'
+                  component={Link}
+                  href={procesVerbal}
+                  fontWeight={typography.fontWeightBold}
+                  variant='body2'
+                  sx={{
+                    '&:hover': {
+                      color: 'primary.dark',
+                    },
+                  }}
+                  target='_blank'
+                >
+                  Proces verbal
+                </Typography>
 
-                  '&:hover': {
-                    textDecoration: 'underline',
-                  },
-                }}
-              >
-                Proces verbal
-              </Typography>
-
-              <Typography
-                alignItems='center'
-                component={Stack}
-                direction='row'
-                fontWeight={typography.fontWeightBold}
-                gap={1}
-                variant='body2'
-              >
-                Data:
-                <Typography fontSize='inherit'>{dataSedinte}</Typography>
-              </Typography>
-            </Box>
-          ))}
+                <Typography
+                  alignItems='center'
+                  component={Stack}
+                  direction='row'
+                  fontWeight={typography.fontWeightBold}
+                  gap={1}
+                  variant='body2'
+                >
+                  Data:
+                  <Typography fontSize='inherit'>{dataSedinte}</Typography>
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
         </Stack>
       )}
     </Stack>

@@ -6,9 +6,10 @@ import {
   useCommitteeHearingReportsByLegislatureQuery,
   useCommitteeInstitutionReportsByLegislatureQuery,
 } from '../queries';
+import { Routes } from '../types';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
+import { StyledRouterLink } from './StyledRouterLink';
 import { Table } from './Table';
-// import { TextWithTooltip } from './TextWithTooltip';
 
 const publicReportsTableColumns: GridColumns<GridValidRowModel> = [
   {
@@ -73,6 +74,18 @@ const reportsAuditingTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.3,
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 130,
+    renderCell: ({ value }) =>
+      value && (
+        <StyledRouterLink
+          to={{
+            pathname: Routes.PlenaryMeetings,
+            search: `?session=${value}`,
+          }}
+          target='_blank'
+        >
+          {value}
+        </StyledRouterLink>
+      ),
   },
 ];
 

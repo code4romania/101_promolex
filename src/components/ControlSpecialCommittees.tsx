@@ -40,7 +40,11 @@ const specialCommitteesTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Raportul',
     flex: 0.3,
     sortable: false,
-    renderCell: ({ value }) => <Link href={value}>Vezi raportul</Link>,
+    renderCell: ({ value }) => (
+      <Link href={value} target='_blank'>
+        Vezi raportul
+      </Link>
+    ),
     minWidth: 100,
   },
 ];

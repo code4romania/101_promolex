@@ -11,6 +11,13 @@ import { Table } from './Table';
 
 const questionsTableColumns: GridColumns<GridValidRowModel> = [
   {
+    field: 'id',
+    headerName: 'Nr',
+    flex: 0.1,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 65,
+  },
+  {
     field: 'docid',
     headerName: 'Nr d/o',
     flex: 0.3,
@@ -62,12 +69,23 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.3,
     sortable: false,
     renderCell: ({ value }) =>
-      value && <Link href={value}>Vezi răspunsul</Link>,
+      value && (
+        <Link href={value} target='_blank'>
+          Vezi răspunsul
+        </Link>
+      ),
     minWidth: 110,
   },
 ];
 
 const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
+  {
+    field: 'id',
+    headerName: 'Nr',
+    flex: 0.1,
+    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    minWidth: 65,
+  },
   {
     field: 'docid',
     headerName: 'Nr d/o',
@@ -133,8 +151,9 @@ export function ControlQuestions() {
 
   const questionsData = useMemo(
     () =>
-      questions?.map((question) => ({
+      questions?.map((question, index) => ({
         ...question,
+        id: (index + 1).toString(),
         autori: question.autori.map(({ fullName }) => fullName).join(', '),
       })) ?? [],
     [questions],
@@ -142,9 +161,12 @@ export function ControlQuestions() {
 
   const interpellationsData = useMemo(
     () =>
-      interpellations?.map((question) => ({
-        ...question,
-        autori: question.autori.map(({ fullName }) => fullName).join(', '),
+      interpellations?.map((interpellation, index) => ({
+        ...interpellation,
+        id: (index + 1).toString(),
+        autori: interpellation.autori
+          .map(({ fullName }) => fullName)
+          .join(', '),
       })) ?? [],
     [interpellations],
   );

@@ -1,9 +1,9 @@
 import { Stack, Typography } from '@mui/material';
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 type DetailsRowProps = {
   label: string;
-  details: string | string[];
+  details: ReactNode | ReactNode[];
 };
 
 export function DetailsRow({ label, details }: DetailsRowProps) {
@@ -12,7 +12,7 @@ export function DetailsRow({ label, details }: DetailsRowProps) {
       Array.isArray(details) ? (
         <Stack direction='row' flexWrap='wrap' gap={1}>
           {details.map((detail, index) => (
-            <Typography key={detail}>
+            <Typography key={detail?.toString()}>
               {detail}
               {index < (details.length ?? 0) - 1 ? ', ' : ''}
             </Typography>

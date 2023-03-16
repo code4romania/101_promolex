@@ -43,7 +43,7 @@ export function ControlExportEvaluation() {
       </SecondaryTabs>
 
       {tabValue === 0 && !isLoadingLegalExPostEvaluation && (
-        <>
+        <Stack gap={12}>
           <Box borderRadius={2} boxShadow={3} px={6} py={4}>
             <Typography gutterBottom variant='subtitle1'>
               Ce este evaluarea ex-post juridică?
@@ -59,86 +59,97 @@ export function ControlExportEvaluation() {
             </Typography>
           </Box>
 
-          <Stack alignItems='center' direction='row' gap={2}>
-            <Typography variant='subtitle1'>Selectează anul</Typography>
-            <Select labelId='year' value={2023}>
-              <MenuItem value={2021}>2021</MenuItem>
-              <MenuItem value={2022}>2022</MenuItem>
-              <MenuItem value={2023}>2023</MenuItem>
-            </Select>
-          </Stack>
+          <Box>
+            <Stack alignItems='center' direction='row' gap={2} mb={4}>
+              <Typography variant='subtitle1'>Selectează anul</Typography>
+              <Select labelId='year' value={2023}>
+                <MenuItem value={2021}>2021</MenuItem>
+                <MenuItem value={2022}>2022</MenuItem>
+                <MenuItem value={2023}>2023</MenuItem>
+              </Select>
+            </Stack>
 
-          <StatisticsBarChart
-            data={{
-              labels: [
-                'Nivelul de realizare a Planului de Evaluare Ex-post Juridică',
-              ],
-              datasets: [
-                {
-                  label: 'Realizat',
-                  data: [
-                    parseInt(legalExPostEvaluation?.gradRealizare ?? '0', 10),
-                  ],
-                  backgroundColor: '#88A9B5',
-                  datalabels: {
-                    formatter(value) {
-                      return `${value}%`;
+            <StatisticsBarChart
+              data={{
+                labels: [
+                  'Nivelul de realizare a Planului de Evaluare Ex-post Juridică',
+                ],
+                datasets: [
+                  {
+                    label: 'Realizat',
+                    data: [
+                      parseInt(legalExPostEvaluation?.gradRealizare ?? '0', 10),
+                    ],
+                    backgroundColor: '#88A9B5',
+                    datalabels: {
+                      formatter(value) {
+                        return `${value}%`;
+                      },
                     },
                   },
-                },
-                {
-                  label: 'Nerealizat',
-                  data: [
-                    parseInt(legalExPostEvaluation?.gradNerealizat ?? '0', 10),
-                  ],
-                  backgroundColor: '#BAE2F1',
-                  datalabels: {
-                    formatter(value) {
-                      return `${value}%`;
+                  {
+                    label: 'Nerealizat',
+                    data: [
+                      parseInt(
+                        legalExPostEvaluation?.gradNerealizat ?? '0',
+                        10,
+                      ),
+                    ],
+                    backgroundColor: '#BAE2F1',
+                    datalabels: {
+                      formatter(value) {
+                        return `${value}%`;
+                      },
                     },
                   },
+                ],
+              }}
+              maxWidth={600}
+              options={{
+                plugins: {
+                  legend: {
+                    align: 'start',
+                  },
                 },
-              ],
-            }}
-            options={{
-              plugins: {
-                legend: {
-                  align: 'start',
-                },
-              },
-            }}
-            title='Nivelul de realizare a Planului de Evaluare Ex-post Juridică'
-          />
+              }}
+              title='Nivelul de realizare a Planului de Evaluare Ex-post Juridică'
+            />
+          </Box>
 
-          <Typography fontWeight='bold' variant='h5'>
-            Află mai multe despre
-          </Typography>
-          <Stack direction='row' gap={4}>
-            <Button
-              color='secondary'
-              href={legalExPostEvaluation?.planEvaluare ?? ''}
-              LinkComponent={Link}
-              target='_blank'
-              variant='contained'
-            >
-              Planul de evaluare ex-post
-            </Button>
-            <Button
-              color='secondary'
-              href={legalExPostEvaluation?.linkRaportEvaluare ?? ''}
-              LinkComponent={Link}
-              size='large'
-              target='_blank'
-              variant='contained'
-            >
-              Rapoartele de evaluare ex-post juridică a actelor normative
-            </Button>
-          </Stack>
-        </>
+          <Box>
+            <Typography fontWeight='bold' variant='h5' gutterBottom>
+              Află mai multe despre
+            </Typography>
+            <Stack direction='row' gap={4} height={100}>
+              <Button
+                color='secondary'
+                href={legalExPostEvaluation?.planEvaluare ?? ''}
+                LinkComponent={Link}
+                target='_blank'
+                size='large'
+                variant='contained'
+                sx={{ maxWidth: 220 }}
+              >
+                Planul de evaluare ex-post
+              </Button>
+              <Button
+                color='secondary'
+                href={legalExPostEvaluation?.linkRaportEvaluare ?? ''}
+                LinkComponent={Link}
+                size='large'
+                target='_blank'
+                variant='contained'
+                sx={{ maxWidth: 220 }}
+              >
+                Rapoartele de evaluare ex-post juridică a actelor normative
+              </Button>
+            </Stack>
+          </Box>
+        </Stack>
       )}
 
       {tabValue === 1 && !isLoadingImpactExPostEvaluation && (
-        <>
+        <Stack gap={12}>
           <Box borderRadius={2} boxShadow={3} px={6} py={4}>
             <Typography gutterBottom variant='subtitle1'>
               Ce este evaluarea ex-post de impact?
@@ -151,81 +162,96 @@ export function ControlExportEvaluation() {
             </Typography>
           </Box>
 
-          <Stack alignItems='center' direction='row' gap={2}>
-            <Typography variant='subtitle1'>Selectează anul</Typography>
-            <Select labelId='year' value={2023}>
-              <MenuItem value={2021}>2021</MenuItem>
-              <MenuItem value={2022}>2022</MenuItem>
-              <MenuItem value={2023}>2023</MenuItem>
-            </Select>
-          </Stack>
+          <Box>
+            <Stack alignItems='center' direction='row' gap={2} mb={4}>
+              <Typography variant='subtitle1'>Selectează anul</Typography>
+              <Select labelId='year' value={2023}>
+                <MenuItem value={2021}>2021</MenuItem>
+                <MenuItem value={2022}>2022</MenuItem>
+                <MenuItem value={2023}>2023</MenuItem>
+              </Select>
+            </Stack>
 
-          <StatisticsBarChart
-            data={{
-              labels: [
-                'Nivelul de realizare a Planului de Evaluare Ex-post de Impact',
-              ],
-              datasets: [
-                {
-                  label: 'Realizat',
-                  data: [
-                    parseInt(impactExPostEvaluation?.gradRealizare ?? '0', 10),
-                  ],
-                  backgroundColor: '#88A9B5',
-                  datalabels: {
-                    formatter(value) {
-                      return `${value}%`;
+            <StatisticsBarChart
+              data={{
+                labels: [
+                  'Nivelul de realizare a Planului de Evaluare Ex-post de Impact',
+                ],
+                datasets: [
+                  {
+                    label: 'Realizat',
+                    data: [
+                      parseInt(
+                        impactExPostEvaluation?.gradRealizare ?? '0',
+                        10,
+                      ),
+                    ],
+                    backgroundColor: '#88A9B5',
+                    datalabels: {
+                      formatter(value) {
+                        return `${value}%`;
+                      },
                     },
                   },
-                },
-                {
-                  label: 'Nerealizat',
-                  data: [
-                    parseInt(impactExPostEvaluation?.gradNerealizat ?? '0', 10),
-                  ],
-                  backgroundColor: '#BAE2F1',
-                  datalabels: {
-                    formatter(value) {
-                      return `${value}%`;
+                  {
+                    label: 'Nerealizat',
+                    data: [
+                      parseInt(
+                        impactExPostEvaluation?.gradNerealizat ?? '0',
+                        10,
+                      ),
+                    ],
+                    backgroundColor: '#BAE2F1',
+                    datalabels: {
+                      formatter(value) {
+                        return `${value}%`;
+                      },
                     },
                   },
+                ],
+              }}
+              maxWidth={600}
+              options={{
+                plugins: {
+                  legend: {
+                    align: 'start',
+                  },
                 },
-              ],
-            }}
-            options={{
-              plugins: {
-                legend: {
-                  align: 'start',
-                },
-              },
-            }}
-            title='Nivelul de realizare a Planului de Evaluare Ex-post de Impact'
-          />
+              }}
+              title='Nivelul de realizare a Planului de Evaluare Ex-post de Impact'
+            />
+          </Box>
 
-          <Typography fontWeight='bold' variant='h5'>
-            Află mai multe despre
-          </Typography>
-          <Stack direction='row' gap={4}>
-            <Button
-              color='secondary'
-              href={impactExPostEvaluation?.planEvaluare ?? ''}
-              LinkComponent={Link}
-              target='_blank'
-              variant='contained'
-            >
-              Planul de evaluare ex-post
-            </Button>
-            <Button
-              color='secondary'
-              href={impactExPostEvaluation?.linkRaportEvaluare ?? ''}
-              LinkComponent={Link}
-              target='_blank'
-              variant='contained'
-            >
-              Rapoartele de evaluare ex-post de impact a actelor normative
-            </Button>
-          </Stack>
-        </>
+          <Box>
+            <Typography fontWeight='bold' variant='h5' gutterBottom>
+              Află mai multe despre
+            </Typography>
+            <Stack direction='row' gap={4} height={100}>
+              <Button
+                color='secondary'
+                href={impactExPostEvaluation?.planEvaluare ?? ''}
+                LinkComponent={Link}
+                size='large'
+                target='_blank'
+                variant='contained'
+                sx={{ maxWidth: 220 }}
+              >
+                Planul de evaluare ex-post
+              </Button>
+              <Button
+                color='secondary'
+                href={impactExPostEvaluation?.linkRaportEvaluare ?? ''}
+                LinkComponent={Link}
+                size='large'
+                target='_blank'
+                variant='contained'
+                sx={{ maxWidth: 220 }}
+              >
+                Rapoartele de evaluare ex-post de impact a actelor normative
+              </Button>
+            </Stack>
+          </Box>
+        </Stack>
       )}
     </Stack>
   );
