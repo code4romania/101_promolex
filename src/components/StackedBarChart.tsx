@@ -37,6 +37,9 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
     legend: {
       align: 'start',
       position: 'bottom',
+      title: {
+        padding: 20,
+      },
       labels: {
         borderRadius: 6,
         boxHeight: 20,
@@ -74,6 +77,7 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
       },
       stacked: true,
       ticks: {
+        crossAlign: 'far',
         callback(tickValue) {
           const tickLabel = this.getLabelForValue(tickValue as number);
           if (tickLabel.length <= MAX_TICK_WIDTH) {

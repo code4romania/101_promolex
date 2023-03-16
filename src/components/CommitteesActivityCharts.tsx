@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ChartData } from 'chart.js';
 import { chain, keys, toPairs, zip } from 'lodash';
 import { useMemo } from 'react';
@@ -49,6 +49,15 @@ const coreportConfig = [
     label: 'Numărul de proiecte în care comisia este/a fost coraportor',
   },
 ];
+
+function LegendItem({ color, label }: { color: string; label: string }) {
+  return (
+    <Stack direction='row' gap={4}>
+      <Box bgcolor={color} borderRadius={1} height={20} width={50} />
+      <Typography fontWeight='medium'>{label}</Typography>
+    </Stack>
+  );
+}
 
 export function CommitteesActivityCharts() {
   const { tabValue, handleTabChange } = useTabs();
@@ -166,20 +175,57 @@ export function CommitteesActivityCharts() {
       </SecondaryTabs>
 
       {tabValue === 0 && (
-        <StackedBarChart
-          data={committeesMainReporterDataChart}
-          isLoading={isLoadingCommitteesMainReporterData}
-          showLegend
-          showTicks={isLargeScreen}
-        />
+        <>
+          <StackedBarChart
+            data={committeesMainReporterDataChart}
+            isLoading={isLoadingCommitteesMainReporterData}
+            showTicks={isLargeScreen}
+          />
+          <Stack direction='row' flexWrap='wrap' columnGap={14} mt={8}>
+            <Stack gap={2}>
+              {reportChartConfig
+                .slice(3)
+                .reverse()
+                .map((config) => (
+                  <LegendItem
+                    key={config.label}
+                    color={config.backgroundColor}
+                    label={config.label}
+                  />
+                ))}
+            </Stack>
+            <Stack gap={2}>
+              {reportChartConfig
+                .slice(0, 3)
+                .reverse()
+                .map((config) => (
+                  <LegendItem
+                    key={config.label}
+                    color={config.backgroundColor}
+                    label={config.label}
+                  />
+                ))}
+            </Stack>
+          </Stack>
+        </>
       )}
       {tabValue === 1 && (
-        <StackedBarChart
-          data={committeesMainReporterCoreporterDataChart}
-          isLoading={isLoadingCommitteesMainReporterCoreporterData}
-          showLegend
-          showTicks={isLargeScreen}
-        />
+        <>
+          <StackedBarChart
+            data={committeesMainReporterCoreporterDataChart}
+            isLoading={isLoadingCommitteesMainReporterCoreporterData}
+            showTicks={isLargeScreen}
+          />
+          <Stack gap={2} mt={8}>
+            {coreportConfig.map((config) => (
+              <LegendItem
+                key={config.label}
+                color={config.backgroundColor}
+                label={config.label}
+              />
+            ))}
+          </Stack>
+        </>
       )}
       {tabValue === 2 && (
         <StackedBarChart
