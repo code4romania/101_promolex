@@ -1,35 +1,38 @@
 import { ChartData } from 'chart.js';
-import { chain, groupBy, keys, values } from 'lodash';
+import { map, zip } from 'lodash';
 import { RegisteredProjectsStatistics } from '../types';
 
-const factionsMap = [
-  {
+const factionsMap = {
+  '1': {
     color: '#FACC15',
-    key: '1',
     label: 'Partidul Acțiune și Solidaritate',
   },
-  { color: '#DC2626', key: '2', label: 'Blocul Comuniștilor și Socialiștilor' },
-  { color: '#16A34A', key: '3', label: 'Partidul Politic "ȘOR"' },
-];
+  '2': { color: '#DC2626', label: 'Blocul Comuniștilor și Socialiștilor' },
+  '3': { color: '#16A34A', label: 'Partidul Politic "ȘOR"' },
+};
 
 export const getProjectsByFactionChartData = (
   projects: RegisteredProjectsStatistics<'fid'>[],
-): ChartData<'doughnut', number[], string> => {
-  const projectsByFid = groupBy(projects, 'fid');
+): ChartData<'doughnut', number[], string> | undefined => {
+  if (!projects?.length) {
+    return undefined;
+  }
 
-  const sortedProjectTypeMap = chain(factionsMap)
-    .sortBy(({ key }) => keys(projectsByFid).indexOf(key))
-    .value();
-
-  const labels: string[] = sortedProjectTypeMap.map(({ label }) => label);
+  const [labels, backgroundColor, data] = zip(
+    ...map(projects, ({ fid, total }) => [
+      factionsMap[fid as keyof typeof factionsMap]?.label ?? '',
+      factionsMap[fid as keyof typeof factionsMap]?.color,
+      total,
+    ]),
+  );
 
   return {
-    labels,
+    labels: labels?.map((l) => l ?? '') ?? [],
     datasets: [
       {
         label: 'Nr. proiecte',
-        data: values(projects).map((p) => parseInt(p.total, 10)),
-        backgroundColor: sortedProjectTypeMap.map(({ color }) => color),
+        data: data?.map((d) => parseInt(d ?? '0', 10)) ?? [],
+        backgroundColor,
       },
     ],
   };

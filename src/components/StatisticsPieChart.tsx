@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -44,11 +44,16 @@ const pieChartOptions: ChartOptions<'pie'> = {
 };
 
 type StatisticsPieChartProps = {
-  data: ChartData<'pie', number[], string>;
+  data?: ChartData<'pie', number[], string>;
+  isLoading?: boolean;
   title: string;
 };
 
-export function StatisticsPieChart({ data, title }: StatisticsPieChartProps) {
+export function StatisticsPieChart({
+  data,
+  isLoading,
+  title,
+}: StatisticsPieChartProps) {
   return (
     <Stack
       border={1}
@@ -62,9 +67,21 @@ export function StatisticsPieChart({ data, title }: StatisticsPieChartProps) {
       <Typography fontWeight={700} variant='h6'>
         {title}
       </Typography>
-      <Box height={1}>
-        <Pie data={data} options={pieChartOptions} />
+      <Box
+        alignItems='center'
+        display='flex'
+        height={1}
+        justifyContent='center'
+      >
+        {isLoading && <CircularProgress />}
+        {!isLoading && !data && 'Lipsă date disponibile'}
+        {!isLoading && data && <Pie data={data} options={pieChartOptions} />}
       </Box>
     </Stack>
   );
 }
+
+StatisticsPieChart.defaultProps = {
+  data: undefined,
+  isLoading: false,
+};

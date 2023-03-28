@@ -16,7 +16,11 @@ export const getProjectsByStatuteAndTypeChartData = (
   projects: LegislationInitiative[],
   statute: LegislationInitiativeStatute,
   mainLabel: string,
-): ChartData<'bar', number[], string> => {
+): ChartData<'bar', number[], string> | undefined => {
+  if (!projects.length) {
+    return undefined;
+  }
+
   const projectsByStatute = chain(projects)
     .groupBy('proiectAct')
     .toPairs()

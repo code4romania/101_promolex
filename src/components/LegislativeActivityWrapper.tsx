@@ -44,6 +44,11 @@ export function LegislativeActivityWrapper({
     [],
   );
 
+  const rows = useMemo(
+    () => (Array.isArray(registeredProjects) ? registeredProjects : []),
+    [registeredProjects],
+  );
+
   return (
     <>
       <Stack gap={8} pt={8}>
@@ -52,12 +57,12 @@ export function LegislativeActivityWrapper({
           columns={extendedColumns}
           fromDate={fromDate}
           height={510}
-          hideFooter={!registeredProjects.length}
+          hideFooter={!rows.length}
           getRowId={(row) => row.docid ?? uniqueId()}
           getRowHeight={() => 'auto'}
           onFromDateChange={onFromDateChange}
           onToDateChange={onToDateChange}
-          rows={registeredProjects}
+          rows={rows}
           showDatePickers
           showDownload
           showSearch

@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Stack, Typography } from '@mui/material';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -44,14 +44,16 @@ const doughnutChartOptions: ChartOptions<'doughnut'> = {
 };
 
 type StatisticsDoughnutChartProps = {
-  data: ChartData<'doughnut', number[], string>;
+  data?: ChartData<'doughnut', number[], string>;
   height?: number;
+  isLoading?: boolean;
   title: string;
 };
 
 export function StatisticsDoughnutChart({
   data,
   height,
+  isLoading,
   title,
 }: StatisticsDoughnutChartProps) {
   return (
@@ -67,13 +69,24 @@ export function StatisticsDoughnutChart({
       <Typography fontWeight={700} variant='h6'>
         {title}
       </Typography>
-      <Box height={1}>
-        <Doughnut data={data} options={doughnutChartOptions} />
+      <Box
+        alignItems='center'
+        display='flex'
+        height={1}
+        justifyContent='center'
+      >
+        {isLoading && <CircularProgress />}
+        {!isLoading && !data && 'Lipsă date'}
+        {!isLoading && data && (
+          <Doughnut data={data} options={doughnutChartOptions} />
+        )}
       </Box>
     </Stack>
   );
 }
 
 StatisticsDoughnutChart.defaultProps = {
+  data: undefined,
   height: undefined,
+  isLoading: false,
 };
