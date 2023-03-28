@@ -2,6 +2,7 @@ import { Stack, Typography, CircularProgress, Grid } from '@mui/material';
 import { deburr, orderBy } from 'lodash';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useDeputiesSearch } from '../pages';
 import { Deputy, Routes } from '../types';
 import { DeputyCard } from './DeputyCard';
 
@@ -16,14 +17,26 @@ export function DeputiesList({
   isError,
   isLoading,
 }: DeputiesListProps) {
+  const search = useDeputiesSearch();
+
+  const filteredDeputies = useMemo(
+    () =>
+      search
+        ? deputies?.filter(({ fullName }) =>
+            fullName.toLowerCase().includes(search.toLowerCase()),
+          )
+        : deputies,
+    [deputies, search],
+  );
+
   const sortedDeputies = useMemo(
     () =>
       orderBy(
-        deputies,
+        filteredDeputies,
         ['depStatus', ({ fullName }) => deburr(fullName).replaceAll(/Ș/g, 'S')],
         ['desc', 'asc'],
       ) ?? [],
-    [deputies],
+    [filteredDeputies],
   );
 
   if (isError || isLoading || !sortedDeputies.length) {
