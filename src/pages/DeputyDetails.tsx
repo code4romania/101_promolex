@@ -41,7 +41,9 @@ export function DeputyDetails() {
   const [docId, setDocId] = useState('');
 
   const votingChartData: ChartData<'bar', number[], string> = useMemo(() => {
-    const labels = keys(data?.voting).map((label) => capitalize(label));
+    const labels = keys(data?.voting).map((label) =>
+      label === 'abtinut' ? 'Nu a votat' : capitalize(label),
+    );
     const datasets = values(data?.voting).map((value, index) => ({
       label: labels[index],
       data: [parseInt(value, 10)],
@@ -56,12 +58,12 @@ export function DeputyDetails() {
       labels: ['Sesiuni plenare'],
       datasets: [
         {
-          label: 'Prezent',
+          label: 'Prezent(ă)',
           data: [data?.sessionsPresentAbsent?.presents ?? 0],
           backgroundColor: BAR_COLOR_MAP[0],
         },
         {
-          label: 'Absent',
+          label: 'Absent(ă)',
           data: [data?.sessionsPresentAbsent?.absents ?? 0],
           backgroundColor: BAR_COLOR_MAP[1],
         },
@@ -94,9 +96,11 @@ export function DeputyDetails() {
               />
 
               <Stack gap={1}>
-                <Typography fontWeight={700} variant='h6'>
-                  Fracțiunea parlamentară
-                </Typography>
+                {data?.factionsShortName !== 'Neafiliați' && (
+                  <Typography fontWeight={700} variant='h6'>
+                    Fracțiunea parlamentară
+                  </Typography>
+                )}
                 <Stack
                   alignItems='center'
                   border={1}
@@ -112,9 +116,11 @@ export function DeputyDetails() {
                     {data?.factionsShortName}
                   </Typography>
                   <Typography>
-                    {data?.factionName
-                      ?.replace('Fracțiunea parlamentară', '')
-                      .replaceAll('"', '')}
+                    {data?.factionsShortName === 'Neafiliați'
+                      ? 'Deputat(ă) neafiliat(ă)'
+                      : data?.factionName
+                          ?.replace('Fracțiunea parlamentară', '')
+                          .replaceAll('"', '')}
                   </Typography>
                 </Stack>
               </Stack>
@@ -206,13 +212,17 @@ export function DeputyDetails() {
                   {data?.emailWork && (
                     <Tooltip arrow placement='top' title={data.emailWork ?? ''}>
                       <Typography fontWeight={600} noWrap>
-                        {data.emailWork}
+                        <Link href={`mailto:${data.emailWork}`}>
+                          {data.emailWork}
+                        </Link>
                       </Typography>
                     </Tooltip>
                   )}
                   {data?.emailPersonal && (
-                    <Typography fontWeight={600}>
-                      {data.emailPersonal}
+                    <Typography fontWeight={600} noWrap>
+                      <Link href={`mailto:${data.emailPersonal}`}>
+                        {data.emailPersonal}
+                      </Link>
                     </Typography>
                   )}
                 </Box>
@@ -226,15 +236,15 @@ export function DeputyDetails() {
 
                 <Box>
                   <Typography fontWeight={700}>Studii</Typography>
-                  <Typography>
-                    Licență: {data?.license ? data?.license : '-'}
-                  </Typography>
-                  <Typography>
-                    Master: {data?.master ? data?.master : '-'}
-                  </Typography>
-                  <Typography>
-                    Doctorat: {data?.doctorat ? data?.doctorat : '-'}
-                  </Typography>
+                  {data?.license && (
+                    <Typography>Licență: {data?.license}</Typography>
+                  )}
+                  {data?.master && (
+                    <Typography>Master: {data?.master}</Typography>
+                  )}
+                  {data?.doctorat && (
+                    <Typography>Doctorat: {data?.doctorat}</Typography>
+                  )}
                 </Box>
 
                 <Stack direction='row' columnGap={8} flexWrap='wrap' rowGap={5}>
@@ -288,36 +298,54 @@ export function DeputyDetails() {
                   investigationCommittees={data?.investigateComissions}
                   friendships={data?.friendships}
                   mandatesCount={data?.nrMandates}
+                  mandatesDetails={data?.mandatesDetails}
                   specialCommittees={data?.specialComissions}
                 />
                 <Divider variant='fullWidth' />
               </Grid>
               <Grid item md={6} xs={12}>
                 <DeputyStatisticsCard title='Votul deputatului'>
-                  <BarChart chartHeight={80} data={votingChartData} />
+                  <BarChart chartHeight={100} data={votingChartData} />
                 </DeputyStatisticsCard>
               </Grid>
               <Grid item md={6} xs={12}>
                 <DeputyStatisticsCard
-                  onClick={() => setOpen(true)}
+                  onClick={
+                    data?.author !== '0' ? () => setOpen(true) : undefined
+                  }
                   title='Inițiative legislative'
                 >
-                  <Typography color='#88A9B5' fontSize={60} fontWeight={700}>
-                    {data?.author ?? 0}
-                  </Typography>
+                  {data?.author !== '0' && (
+                    <Typography color='#88A9B5' fontSize={60} fontWeight={700}>
+                      {data?.author}
+                    </Typography>
+                  )}
+                  {data?.author === '0' && (
+                    <Typography textAlign='center'>
+                      Acest deputat nu a înregistrat pentru moment nici o
+                      inițiativă legislativă
+                    </Typography>
+                  )}
                 </DeputyStatisticsCard>
               </Grid>
               <Grid item md={6} xs={12}>
-                <DeputyStatisticsCard title='Prezența la ședintele plenare'>
-                  <BarChart chartHeight={80} data={sessionsChartData} />
+                <DeputyStatisticsCard title='Prezența la ședințe plenare'>
+                  <BarChart chartHeight={100} data={sessionsChartData} />
                 </DeputyStatisticsCard>
               </Grid>
               <Grid item md={6} xs={12}>
                 <DeputyStatisticsCard title='Întrebări și interpelări adresate instituțiilor publice'>
-                  {/* @todo missing from deputy details data. Ask from API */}
-                  <Typography color='#88A9B5' fontSize={60} fontWeight={700}>
-                    5
-                  </Typography>
+                  {data?.questionsInterpelations !== '0' && (
+                    <Typography color='#88A9B5' fontSize={60} fontWeight={700}>
+                      {data?.questionsInterpelations}
+                    </Typography>
+                  )}
+                  {data?.questionsInterpelations === '0' && (
+                    <Typography textAlign='center'>
+                      Acest deputat nu a înregistrat pentru moment nici o
+                      întrebare sau interpelare adresată instituțiilor publice
+                    </Typography>
+                  )}
                 </DeputyStatisticsCard>
               </Grid>
             </Grid>

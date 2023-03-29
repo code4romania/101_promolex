@@ -1,6 +1,6 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, ButtonBase, darken, Typography } from '@mui/material';
+import { Box, ButtonBase, Typography } from '@mui/material';
 
 type DeputyIncomeCardProps = {
   bgcolor: string;
@@ -21,25 +21,28 @@ export function DeputyIncomeCard({
     <ButtonBase
       onClick={onClick}
       sx={{
-        bgcolor: isActive ? darken(bgcolor, 0.3) : bgcolor,
+        bgcolor: isActive ? bgcolor : 'common.white',
+        border: 1,
+        borderColor: bgcolor,
         borderRadius: 2,
-        color: 'common.white',
+        color: isActive ? 'common.white' : bgcolor,
         cursor: 'pointer',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         p: 6,
-        width: 150,
+        minWidth: 130,
+        width: 130,
+        '&:hover': {
+          bgcolor,
+          color: 'common.white',
+        },
       }}
     >
       <Box fontSize={96}>
         <FontAwesomeIcon icon={icon} />
       </Box>
-      <Typography
-        fontWeight={700}
-        textAlign='center'
-        textTransform='capitalize'
-      >
+      <Typography fontWeight={700} textAlign='center'>
         {label}
       </Typography>
     </ButtonBase>

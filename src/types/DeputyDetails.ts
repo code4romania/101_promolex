@@ -32,6 +32,7 @@ export type DeputyDetails = {
   investigateComissions: string[];
   specialComissions: string[];
   author: string;
+  questionsInterpelations: string;
   sessionsPresentAbsent: { presents: number; absents: number };
   declarations: string;
   voting: {

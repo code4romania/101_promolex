@@ -61,7 +61,7 @@ export function DeputiesList({
   }
 
   return (
-    <Grid container columnSpacing={3} rowSpacing={4}>
+    <Grid container columnSpacing={10} rowSpacing={10}>
       {sortedDeputies?.map(
         ({ depStatus, did, factionsShortName, fullName, photo }) => (
           <Grid key={did} item xs={24} sm={3} columns={24}>

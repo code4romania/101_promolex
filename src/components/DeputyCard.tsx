@@ -35,7 +35,7 @@ export function DeputyCard({
       <CardActionArea disableRipple>
         <CardMedia
           component='img'
-          height='380'
+          height='320'
           image={photo ?? 'https://via.placeholder.com/150.png?text=Fără+poză'}
           alt={fullName}
         />
@@ -43,7 +43,9 @@ export function DeputyCard({
           <Typography variant='subtitle1' component='div'>
             {fullName}
           </Typography>
-          <Typography variant='subtitle2'>{factionShortName}</Typography>
+          <Typography variant='subtitle2'>
+            {factionShortName === 'Neafiliați' ? 'Neafiliat' : factionShortName}
+          </Typography>
         </CardContent>
       </CardActionArea>
     </Card>

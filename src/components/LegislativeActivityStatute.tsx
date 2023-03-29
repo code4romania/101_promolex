@@ -117,7 +117,6 @@ export function LegislativeActivityStatute() {
           />
         </Grid>
         <Grid item xs lg={8}>
-          {/* @todo missing data for project phases. Ask from API */}
           <StatisticsBarChart
             data={projectsByLectures}
             title='Etapele proiectelor de legi aflate în examinare'
