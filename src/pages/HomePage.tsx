@@ -9,20 +9,18 @@ import {
   useTheme,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import committeesIcon from '../assets/images/committees.png';
+import controlIcon from '../assets/images/control.png';
+import lawsIcon from '../assets/images/laws.png';
 import secondBanner from '../assets/images/second_banner.png';
 import secondBannerMobile from '../assets/images/second_banner_mobile.png';
 import { HomeBanner, HomeNewsContainer } from '../components';
-import {
-  HomeCommitteesIcon,
-  HomeControlIcon,
-  HomeLawsIcon,
-} from '../components/Icons';
 import { LegislativeActivityRoutes, Routes } from '../types';
 
 const activityObjects = [
   {
     color: '#88A9B5',
-    icon: HomeLawsIcon,
+    icon: lawsIcon,
     title: 'Proiecte de legi și hotărâri',
     description:
       'Inițiativele înregistrate în Parlament, cine sunt autorii acestora și care este statutul lor.',
@@ -30,7 +28,7 @@ const activityObjects = [
   },
   {
     color: '#E9C699',
-    icon: HomeCommitteesIcon,
+    icon: committeesIcon,
     title: 'Comisii parlamentare permanente',
     description:
       'Componența comisiilor parlamentare permanente, datele de contact ale acestora și detalii despre activitatea comisiilor monitorizate de Promo-LEX',
@@ -38,7 +36,7 @@ const activityObjects = [
   },
   {
     color: '#EE7C83',
-    icon: HomeControlIcon,
+    icon: controlIcon,
     title: 'Control parlamentar',
     description:
       'Care sunt instrumentele de control parlamentar disponibile deputaților și cum sunt folosite acestea în activitatea legislativului',
@@ -98,37 +96,35 @@ export function HomePage() {
             <Typography>Activitate legislativă</Typography>
           </Box>
           <Grid container spacing={6} px={4}>
-            {activityObjects.map(
-              ({ color, title, description, icon: Icon, url }) => (
-                <Grid key={title} item xs={12} sm={4}>
-                  <Stack
-                    borderRadius={2}
-                    color='text.primary'
-                    component={Link}
-                    gap={2}
-                    textAlign='center'
-                    px={4}
-                    py={8}
-                    to={url}
-                    sx={{
-                      textDecoration: 'none',
+            {activityObjects.map(({ color, title, description, icon, url }) => (
+              <Grid key={title} item xs={12} sm={4}>
+                <Stack
+                  borderRadius={2}
+                  color='text.primary'
+                  component={Link}
+                  gap={2}
+                  textAlign='center'
+                  px={4}
+                  py={8}
+                  to={url}
+                  sx={{
+                    textDecoration: 'none',
 
-                      '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                      },
-                    }}
-                  >
-                    <Box color={color} fontSize={80}>
-                      <Icon color='inherit' fontSize='inherit' />
-                    </Box>
-                    <Typography fontWeight='medium' variant='h5'>
-                      {title}
-                    </Typography>
-                    <Typography>{description}</Typography>
-                  </Stack>
-                </Grid>
-              ),
-            )}
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                    },
+                  }}
+                >
+                  <Box color={color}>
+                    <img src={icon} alt={title} height={120} width='auto' />
+                  </Box>
+                  <Typography fontWeight='medium' variant='h5'>
+                    {title}
+                  </Typography>
+                  <Typography>{description}</Typography>
+                </Stack>
+              </Grid>
+            ))}
           </Grid>
         </Stack>
       </Stack>

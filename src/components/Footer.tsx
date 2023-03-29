@@ -94,7 +94,7 @@ export function Footer() {
               <Stack color='grey.400' direction='row' gap={2}>
                 <FmdGoodIcon />
                 <Box>
-                  <Typography color='text.primary' fontWeight='medium'>
+                  <Typography color='text.primary' fontWeight='medium' noWrap>
                     Str. Mitropolit Petru Movilă 23/13, MD-2004
                   </Typography>
                   <Typography color='text.primary' fontWeight='medium'>
