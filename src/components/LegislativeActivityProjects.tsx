@@ -19,35 +19,41 @@ export function LegislativeActivityProjects() {
     toDate,
   } = useRegisteredProjects();
 
-  const { data: registeredProjectsByType } =
-    useRegisteredProjectsStatisticsQuery<'proiect_act'>(
-      {
-        key: 'proiect_act',
-        from: getDateString(fromDate),
-        to: getDateString(toDate),
-      },
-      { enabled: Boolean(fromDate && toDate) },
-    );
+  const {
+    data: registeredProjectsByType,
+    isFetching: isLoadingRegisteredProjectsByType,
+  } = useRegisteredProjectsStatisticsQuery<'proiect_act'>(
+    {
+      key: 'proiect_act',
+      from: getDateString(fromDate),
+      to: getDateString(toDate),
+    },
+    { enabled: Boolean(fromDate && toDate) },
+  );
 
-  const { data: registeredProjectsByAuthor } =
-    useRegisteredProjectsStatisticsQuery<'autor'>(
-      {
-        key: 'autor',
-        from: getDateString(fromDate),
-        to: getDateString(toDate),
-      },
-      { enabled: Boolean(fromDate && toDate) },
-    );
+  const {
+    data: registeredProjectsByAuthor,
+    isFetching: isLoadingRegisteredProjectsByAuthor,
+  } = useRegisteredProjectsStatisticsQuery<'autor'>(
+    {
+      key: 'autor',
+      from: getDateString(fromDate),
+      to: getDateString(toDate),
+    },
+    { enabled: Boolean(fromDate && toDate) },
+  );
 
-  const { data: registeredProjectsByFid } =
-    useRegisteredProjectsStatisticsQuery<'fid'>(
-      {
-        key: 'fid',
-        from: getDateString(fromDate),
-        to: getDateString(toDate),
-      },
-      { enabled: Boolean(fromDate && toDate) },
-    );
+  const {
+    data: registeredProjectsByFid,
+    isFetching: isLoadingRegisteredProjectsByFid,
+  } = useRegisteredProjectsStatisticsQuery<'fid'>(
+    {
+      key: 'fid',
+      from: getDateString(fromDate),
+      to: getDateString(toDate),
+    },
+    { enabled: Boolean(fromDate && toDate) },
+  );
 
   const projectsByTypeChartData = getProjectsByTypeChartData(
     registeredProjectsByType ?? [],
@@ -73,18 +79,21 @@ export function LegislativeActivityProjects() {
         <Grid item xs lg={6}>
           <StatisticsPieChart
             data={projectsByTypeChartData}
+            isLoading={isLoadingRegisteredProjectsByType}
             title='Tipul proiectului'
           />
         </Grid>
         <Grid item xs lg={6}>
           <StatisticsPieChart
             data={projectsByAuthorChartData}
+            isLoading={isLoadingRegisteredProjectsByAuthor}
             title='Autorii inițiativelor legislative'
           />
         </Grid>
         <Grid item xs lg={6}>
           <StatisticsDoughnutChart
             data={projectsByFactionChartData}
+            isLoading={isLoadingRegisteredProjectsByFid}
             height={320}
             title='Inițiative legislative ale deputaților'
           />

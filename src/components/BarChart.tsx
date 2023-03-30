@@ -29,16 +29,17 @@ const barChartOptions: ChartOptions<'bar'> = {
   scales: {
     x: {
       display: false,
-      stacked: true,
+      // stacked: true,
+      grace: '5%',
     },
     y: {
       display: false,
-      stacked: true,
+      // stacked: true,
     },
   },
   datasets: {
     bar: {
-      barThickness: 30,
+      barThickness: 20,
       minBarLength: 30,
     },
   },
@@ -63,8 +64,8 @@ const barChartOptions: ChartOptions<'bar'> = {
       color: 'white',
       labels: {
         title: {
-          align: 'start',
-          anchor: 'end',
+          align: 'center',
+          anchor: 'center',
           font: {
             weight: 'bold',
           },

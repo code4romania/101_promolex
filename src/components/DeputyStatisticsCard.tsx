@@ -17,7 +17,7 @@ export function DeputyStatisticsCard({
       borderColor='secondary.main'
       borderRadius={2}
       boxShadow={3}
-      height={245}
+      height={235}
       onClick={onClick}
       sx={{
         cursor: onClick ? 'pointer' : 'default',

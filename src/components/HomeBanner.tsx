@@ -2,10 +2,10 @@ import CircleRoundedIcon from '@mui/icons-material/CircleRounded';
 import {
   Alert,
   AlertProps,
+  alpha,
   Box,
   Button,
   CircularProgress,
-  Fade,
   Grid,
   Slide,
   Snackbar,
@@ -15,7 +15,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { Chart as ChartJS, ArcElement, Tooltip, ChartOptions } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -59,7 +59,9 @@ export function HomeBanner() {
     severity?: AlertProps['severity'];
   }>({ message: '' });
   const [open, setOpen] = useState(false);
-  const { data: liveSession } = useLiveSessionQuery({ refetchInterval: 5000 });
+  const { data: liveSession } = useLiveSessionQuery({
+    refetchInterval: 1000 * 60 * 2,
+  });
   const { data: voteResults, isFetching: isLoadingVoteResults } =
     useVoteResultsQuery();
   const { mutate: sendVote, isLoading: isSendingVote } = useSendVoteMutation();
@@ -127,96 +129,96 @@ export function HomeBanner() {
   const votesFor = parseInt(voteResults?.votesFor ?? '0', 10);
   const votesAgainst = parseInt(voteResults?.votesAgainst ?? '0', 10);
 
-  const [step, setStep] = useState(1);
-  const intervalIdRef = useRef<NodeJS.Timer>();
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setStep((prevStep) => prevStep + 1);
-    }, 1500);
-    intervalIdRef.current = intervalId;
+  // const [step, setStep] = useState(1);
+  // const intervalIdRef = useRef<NodeJS.Timer>();
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setStep((prevStep) => prevStep + 1);
+  //   }, 1500);
+  //   intervalIdRef.current = intervalId;
 
-    if (step === 3) {
-      clearInterval(intervalId);
-    }
+  //   if (step === 3) {
+  //     clearInterval(intervalId);
+  //   }
 
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [step]);
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [step]);
 
   return (
     <>
       <Grid columnSpacing={10} container position='relative' rowSpacing={10}>
         <Grid display='flex' flexDirection='column' item xs={12} md={5}>
-          <Fade in={step >= 1} timeout={700}>
-            <Typography
-              fontWeight='medium'
-              gutterBottom
-              textTransform='uppercase'
-              variant='h4'
-            >
-              Parlamentul lucrează pentru tine ?
-            </Typography>
-          </Fade>
+          {/* <Fade in={step >= 1} timeout={700}> */}
+          <Typography
+            fontWeight='medium'
+            gutterBottom
+            textTransform='uppercase'
+            variant='h4'
+          >
+            Parlamentul lucrează pentru tine ?
+          </Typography>
+          {/* </Fade> */}
 
           {!hasVoted && (
-            <Fade in={step >= 2} timeout={700}>
-              <Typography color='text.primary'>
-                Votează acum dând click pe unul din butoanele de mai jos și află
-                ceea ce cred și ceilalți cetățeni
-              </Typography>
-            </Fade>
+            // <Fade in={step >= 2} timeout={700}>
+            <Typography color='text.primary'>
+              Votează acum dând click pe unul din butoanele de mai jos și află
+              ceea ce cred și ceilalți cetățeni
+            </Typography>
+            // </Fade>
           )}
 
           {!hasVoted && !isLoadingChart && (
-            <Fade in={step >= 3} timeout={700}>
+            // <Fade in={step >= 3} timeout={700}>
+            <Stack
+              alignItems='center'
+              borderRadius={2}
+              boxShadow={3}
+              py={4}
+              position='relative'
+              mt={4}
+              flexGrow={1}
+            >
               <Stack
                 alignItems='center'
-                borderRadius={2}
-                boxShadow={3}
-                py={4}
-                position='relative'
-                mt={4}
+                color='grey.300'
                 flexGrow={1}
+                gap={3}
+                position='absolute'
+                top={40}
               >
-                <Stack
-                  alignItems='center'
-                  color='grey.300'
-                  flexGrow={1}
-                  gap={3}
-                  position='absolute'
-                  top={40}
+                <Button
+                  disabled={isSendingVote}
+                  onClick={() => onVoteHandler('1')}
+                  sx={{
+                    zIndex: 1,
+                    bgcolor: '#82969D',
+                    '&:hover': { bgcolor: '#29829E' },
+                  }}
+                  variant='contained'
                 >
-                  <Button
-                    disabled={isSendingVote}
-                    onClick={() => onVoteHandler('1')}
-                    sx={{
-                      zIndex: 1,
-                      bgcolor: '#82969D',
-                      '&:hover': { bgcolor: '#29829E' },
-                    }}
-                    variant='contained'
-                  >
-                    DA
-                  </Button>
-                  <Button
-                    disabled={isSendingVote}
-                    onClick={() => onVoteHandler('0')}
-                    sx={{
-                      zIndex: 1,
-                      bgcolor: '#82969D',
-                      '&:hover': { bgcolor: '#29829E' },
-                    }}
-                    variant='contained'
-                  >
-                    NU
-                  </Button>
-                </Stack>
-                <Box>
-                  <img width='100%' src={votingBox} alt='urna votare' />
-                </Box>
+                  DA
+                </Button>
+                <Button
+                  disabled={isSendingVote}
+                  onClick={() => onVoteHandler('0')}
+                  sx={{
+                    zIndex: 1,
+                    bgcolor: '#82969D',
+                    '&:hover': { bgcolor: '#29829E' },
+                  }}
+                  variant='contained'
+                >
+                  NU
+                </Button>
               </Stack>
-            </Fade>
+              <Box>
+                <img width='100%' src={votingBox} alt='urna votare' />
+              </Box>
+            </Stack>
+            // </Fade>
           )}
 
           {hasVoted && (
@@ -271,7 +273,7 @@ export function HomeBanner() {
                     variant='subtitle1'
                   >
                     {((votesFor / (votesFor + votesAgainst)) * 100).toFixed(0)}%
-                    cred ca da
+                    cred că DA
                   </Typography>
                 </>
               )}
@@ -303,15 +305,33 @@ export function HomeBanner() {
               </Link>
             </Box>
           )}
+          <Stack
+            alignItems={{ xs: 'center', md: 'flex-end' }}
+            bottom={0}
+            direction='row'
+            justifyContent={{ xs: 'center', md: 'flex-end' }}
+            left={0}
+            ml={10}
+            position='absolute'
+            right={0}
+            top={0}
+          >
+            <Link to='/contact' style={{ textDecoration: 'none' }}>
+              <Button
+                size='large'
+                variant='contained'
+                sx={{
+                  bgcolor: '#780000',
+                  '&:hover': {
+                    bgcolor: alpha('#780000', 0.85),
+                  },
+                }}
+              >
+                Întreabă Parlamentul
+              </Button>
+            </Link>
+          </Stack>
         </Grid>
-
-        <Stack bottom={0} position='absolute' right={0} textAlign='right'>
-          <Link to='/contact' style={{ textDecoration: 'none' }}>
-            <Button color='secondary' size='large' variant='contained'>
-              Întreabă Parlamentul
-            </Button>
-          </Link>
-        </Stack>
       </Grid>
 
       <Snackbar

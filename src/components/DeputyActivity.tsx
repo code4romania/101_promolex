@@ -50,6 +50,7 @@ type DeputyActivityProps = {
   investigationCommittees?: string[];
   friendships?: string;
   mandatesCount?: string;
+  mandatesDetails?: string;
   specialCommittees?: string[];
 };
 
@@ -59,6 +60,7 @@ export function DeputyActivity({
   investigationCommittees,
   friendships,
   mandatesCount,
+  mandatesDetails,
   specialCommittees,
 }: DeputyActivityProps) {
   const { breakpoints } = useTheme();
@@ -91,12 +93,12 @@ export function DeputyActivity({
             <StyledTab label='Comisia parlamentară' />
             <StyledTab label='Comisii speciale/ de anchetă' />
             <StyledTab label='Delegații parlamentare' />
-            <StyledTab label='Apartenența la grupurile de prietenie internaționale / adunări parlamentare:' />
+            <StyledTab label='Grupuri de prietenie internaționale/adunări parlamentare' />
             <StyledTab label='Numarul de mandate/ Legislatura' />
           </StyledTabs>
         </Box>
 
-        <Box height={260} overflow='auto' p={4}>
+        <Box height={180} overflow='auto' p={4}>
           {value === 0 && <Typography>{committee}</Typography>}
           {value === 1 && (
             <>
@@ -122,12 +124,20 @@ export function DeputyActivity({
               )}
             </>
           )}
-          {value === 2 && <Typography>{delegates}</Typography>}
+          {value === 2 &&
+            delegates
+              ?.split(/\r\n/)
+              .map((text) => <Typography key={text}>{text}</Typography>)}
           {value === 3 &&
             friendships
               ?.split(/\r\n/)
               .map((text) => <Typography key={text}>{text}</Typography>)}
-          {value === 4 && <Typography>{mandatesCount}</Typography>}
+          {value === 4 && (
+            <>
+              <Typography>{mandatesCount}</Typography>
+              <Typography>{mandatesDetails}</Typography>
+            </>
+          )}
         </Box>
       </Box>
     </Stack>
@@ -140,5 +150,6 @@ DeputyActivity.defaultProps = {
   investigationCommittees: [],
   friendships: '',
   mandatesCount: '',
+  mandatesDetails: '',
   specialCommittees: [],
 };

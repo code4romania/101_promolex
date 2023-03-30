@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
 import { ChartData } from 'chart.js';
-import { has } from 'lodash';
 import { useMemo } from 'react';
 import { LegislativeActivityWrapper, StatisticsBarChart } from '.';
 import { useRegisteredProjects } from '../hooks';
@@ -19,8 +18,15 @@ export function LegislativeActivityStatute() {
   } = useRegisteredProjects();
 
   const projectsByLectures = useMemo<
-    ChartData<'bar', (number | undefined)[], string>
+    ChartData<'bar', (number | undefined)[], string> | undefined
   >(() => {
+    if (
+      !registeredProjectsByFirstLecture?.length &&
+      !registeredProjectsBySecondLecture?.length &&
+      !registeredProjectsByThirdLecture?.length
+    ) {
+      return undefined;
+    }
     const firstLectureCount = registeredProjectsByFirstLecture?.length;
     const secondLectureCount = registeredProjectsBySecondLecture?.length;
     const thirdLectureCount = registeredProjectsByThirdLecture?.length;
@@ -50,10 +56,6 @@ export function LegislativeActivityStatute() {
     registeredProjectsBySecondLecture?.length,
     registeredProjectsByThirdLecture?.length,
   ]);
-
-  if (has(registeredProjects, 'error')) {
-    return null;
-  }
 
   const projectsInExamination = getProjectsByStatuteAndTypeChartData(
     registeredProjects ?? [],
@@ -115,7 +117,6 @@ export function LegislativeActivityStatute() {
           />
         </Grid>
         <Grid item xs lg={8}>
-          {/* @todo missing data for project phases. Ask from API */}
           <StatisticsBarChart
             data={projectsByLectures}
             title='Etapele proiectelor de legi aflate în examinare'

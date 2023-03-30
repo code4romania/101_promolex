@@ -1,41 +1,43 @@
 import { ChartData } from 'chart.js';
-import { chain, groupBy, keys, values } from 'lodash';
+import { map, zip } from 'lodash';
 import { RegisteredProjectsStatistics } from '../types';
 
-const authorMap = [
-  {
+const authorMap = {
+  Deputați: {
     color: '#88A9B5',
-    key: 'Deputați',
     label: 'Deputați',
   },
-  { color: '#3868D7', key: 'Guvernul', label: 'Guvernul' },
-  { color: '#BAE2F1', key: 'Președintele RM', label: 'Președintele RM' },
-  { color: '#E3F7FF', key: 'Biroul Permanent', label: 'Biroul Permanent' },
-  {
+  Guvernul: { color: '#3868D7', label: 'Guvernul' },
+  'Președintele RM': { color: '#BAE2F1', label: 'Președintele RM' },
+  'Biroul Permanent': { color: '#E3F7FF', label: 'Biroul Permanent' },
+  'Adunarea Populară a UTAG': {
     color: '#FDE68A',
-    key: 'Adunarea Populară a UTAG',
     label: 'Adunarea Populară a UTAG',
   },
-];
+};
 
 export const getProjectsByAuthorChartData = (
   projects: RegisteredProjectsStatistics<'autor'>[],
-): ChartData<'pie', number[], string> => {
-  const projectsByAuthor = groupBy(projects, 'autor');
+): ChartData<'pie', number[], string> | undefined => {
+  if (!projects?.length) {
+    return undefined;
+  }
 
-  const sortedProjectTypeMap = chain(authorMap)
-    .sortBy(({ key }) => keys(projectsByAuthor).indexOf(key))
-    .value();
-
-  const labels: string[] = sortedProjectTypeMap.map(({ label }) => label);
+  const [labels, backgroundColor, data] = zip(
+    ...map(projects, ({ autor, total }) => [
+      authorMap[autor as keyof typeof authorMap]?.label ?? '',
+      authorMap[autor as keyof typeof authorMap]?.color,
+      total,
+    ]),
+  );
 
   return {
-    labels,
+    labels: labels?.map((l) => l ?? '') ?? [],
     datasets: [
       {
         label: 'Nr. proiecte',
-        data: values(projects).map((p) => parseInt(p.total, 10)),
-        backgroundColor: sortedProjectTypeMap.map(({ color }) => color),
+        data: data?.map((d) => parseInt(d ?? '0', 10)) ?? [],
+        backgroundColor,
       },
     ],
   };

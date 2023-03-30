@@ -1,6 +1,12 @@
-import { Box, Button, ButtonGroup } from '@mui/material';
-import { useCallback } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
+import { Button, ButtonGroup, Stack, TextField } from '@mui/material';
+import { useCallback, useState } from 'react';
+import {
+  Outlet,
+  useNavigate,
+  useOutletContext,
+  useParams,
+} from 'react-router-dom';
 import { PageContainer } from '../components';
 import {
   useCurrentLegislatureQuery,
@@ -8,8 +14,15 @@ import {
 } from '../queries';
 import { RoutesParams, Routes } from '../types';
 
+type OutletContext = {
+  search: string;
+};
+
+export const useDeputiesSearch = () => useOutletContext<OutletContext>().search;
+
 export function Deputies() {
   const navigate = useNavigate();
+  const [search, setSearch] = useState('');
   const { fid: fidParam } = useParams<RoutesParams>();
   const {
     data: lid,
@@ -40,11 +53,14 @@ export function Deputies() {
 
   return (
     <PageContainer pageTitle='Deputați'>
-      <Box pb={4}>
+      <Stack alignItems='center' direction='row' pb={4}>
         <ButtonGroup
           disabled={isLoading || isError}
           disableRipple
           variant='contained'
+          sx={{
+            mr: 'auto',
+          }}
         >
           <Button
             onClick={onFilterDeputies()}
@@ -64,8 +80,20 @@ export function Deputies() {
             </Button>
           ))}
         </ButtonGroup>
-      </Box>
-      <Outlet />
+        <TextField
+          fullWidth
+          InputProps={{
+            startAdornment: <SearchIcon color='disabled' />,
+          }}
+          placeholder='Caută...'
+          onChange={(event) => setSearch(event.target.value)}
+          sx={{
+            maxWidth: 330,
+          }}
+          value={search}
+        />
+      </Stack>
+      <Outlet context={{ search }} />
     </PageContainer>
   );
 }

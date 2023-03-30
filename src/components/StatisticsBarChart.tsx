@@ -3,7 +3,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 import { BarChart } from './BarChart';
 
 type StatisticsPieChartProps = {
-  data: ChartData<'bar', (number | undefined)[], string>;
+  data?: ChartData<'bar', (number | undefined)[], string>;
   options?: ChartOptions<'bar'>;
   title: string;
   maxWidth?: string | number;
@@ -28,12 +28,14 @@ export function StatisticsBarChart({
       <Typography fontWeight={700} variant='h6'>
         {title}
       </Typography>
-      <BarChart chartHeight={1} data={data} options={options} />
+      {!data && 'Lipsă date'}
+      {data && <BarChart chartHeight={1} data={data} options={options} />}
     </Stack>
   );
 }
 
 StatisticsBarChart.defaultProps = {
+  data: undefined,
   options: undefined,
   maxWidth: '100%',
 };
