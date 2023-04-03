@@ -20,6 +20,7 @@ export * from './useDeputiesByCommitteeQuery';
 export * from './useDeputiesByFactionQuery';
 export * from './useDeputiesByLegislatureQuery';
 export * from './useDeputyDetailsQuery';
+export * from './useDeputyQuestionsAndInterpellationsQuery';
 export * from './useEventDetailsQuery';
 export * from './useEventsQuery';
 export * from './useFactionsByLegislatureQuery';

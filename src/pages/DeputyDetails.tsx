@@ -28,6 +28,7 @@ import {
   PageContainer,
 } from '../components';
 import { DeputyLegislationInitiatives } from '../components/DeputyLegislationInitiatives';
+import { DeputyQuestionsDetails } from '../components/DeputyQuestionsDetails';
 import { useDeputyDetailsQuery } from '../queries';
 import { RoutesParams } from '../types';
 
@@ -37,7 +38,8 @@ export function DeputyDetails() {
   const { did } = useParams<RoutesParams>();
   const { data } = useDeputyDetailsQuery(did);
 
-  const [open, setOpen] = useState(false);
+  const [openInitiativesDialog, setOpenInitiativesDialog] = useState(false);
+  const [openQuestionsDialog, setOpenQuestionsDialog] = useState(false);
   const [docId, setDocId] = useState('');
 
   const votingChartData: ChartData<'bar', number[], string> = useMemo(() => {
@@ -311,7 +313,9 @@ export function DeputyDetails() {
               <Grid item md={6} xs={12}>
                 <DeputyStatisticsCard
                   onClick={
-                    data?.author !== '0' ? () => setOpen(true) : undefined
+                    data?.author !== '0'
+                      ? () => setOpenInitiativesDialog(true)
+                      : undefined
                   }
                   title='Inițiative legislative'
                 >
@@ -334,7 +338,14 @@ export function DeputyDetails() {
                 </DeputyStatisticsCard>
               </Grid>
               <Grid item md={6} xs={12}>
-                <DeputyStatisticsCard title='Întrebări și interpelări adresate instituțiilor publice'>
+                <DeputyStatisticsCard
+                  onClick={
+                    data?.questionsInterpelations !== '0'
+                      ? () => setOpenQuestionsDialog(true)
+                      : undefined
+                  }
+                  title='Întrebări și interpelări adresate instituțiilor publice'
+                >
                   {data?.questionsInterpelations !== '0' && (
                     <Typography color='#88A9B5' fontSize={60} fontWeight={700}>
                       {data?.questionsInterpelations}
@@ -359,7 +370,10 @@ export function DeputyDetails() {
         </Grid>
       </PageContainer>
 
-      <DetailsDialog open={open} handleClose={() => setOpen(false)}>
+      <DetailsDialog
+        open={openInitiativesDialog}
+        handleClose={() => setOpenInitiativesDialog(false)}
+      >
         <DeputyLegislationInitiatives
           did={did ?? ''}
           onShowDetails={(id) => setDocId(id)}
@@ -368,6 +382,13 @@ export function DeputyDetails() {
 
       <DetailsDialog open={Boolean(docId)} handleClose={() => setDocId('')}>
         <LegislationInitiativeDetails docId={docId} />
+      </DetailsDialog>
+
+      <DetailsDialog
+        open={openQuestionsDialog}
+        handleClose={() => setOpenQuestionsDialog(false)}
+      >
+        <DeputyQuestionsDetails did={did} />
       </DetailsDialog>
     </>
   );
