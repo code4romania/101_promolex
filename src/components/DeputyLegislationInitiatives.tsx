@@ -5,7 +5,11 @@ import {
   useCurrentLegislatureDetailsQuery,
   useLegislationInitiativesByDeputyQuery,
 } from '../queries';
-import { legislationInitiativesTableColumns } from '../utils';
+import {
+  getLegislatureFromDate,
+  legislationInitiativesTableColumns,
+  setLegislatureFromDate,
+} from '../utils';
 import { Table } from './Table';
 
 type DeputyLegislationInitiativesProps = {
@@ -17,7 +21,9 @@ export function DeputyLegislationInitiatives({
   did,
   onShowDetails,
 }: DeputyLegislationInitiativesProps) {
-  const [fromDate, setFromDate] = useState<Date>(new Date(Date.now()));
+  const [fromDate, setFromDate] = useState<Date>(
+    new Date(getLegislatureFromDate() ?? Date.now()),
+  );
   const [toDate, setToDate] = useState<Date>(new Date(Date.now()));
   const { data, isFetching: isLoadingInitiatives } =
     useLegislationInitiativesByDeputyQuery(did);
@@ -25,6 +31,7 @@ export function DeputyLegislationInitiatives({
     useCurrentLegislatureDetailsQuery({
       onSuccess: ({ legislatureFrom }) => {
         setFromDate(new Date(legislatureFrom));
+        setLegislatureFromDate(legislatureFrom);
       },
     });
 

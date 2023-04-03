@@ -64,7 +64,7 @@ export function DeputiesList({
     <Grid container columnSpacing={10} rowSpacing={10}>
       {sortedDeputies?.map(
         ({ depStatus, did, factionsShortName, fullName, photo }) => (
-          <Grid key={did} item xs={24} sm={3} columns={24}>
+          <Grid key={did} item xs={12} sm={6} md={4} lg={3}>
             <Link
               to={`${Routes.Deputies}/detalii/${did}`}
               style={{ textDecoration: 'none' }}

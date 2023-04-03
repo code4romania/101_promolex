@@ -2,6 +2,8 @@ export type DeputyDetails = {
   did: string;
   fullName: string;
   depStatus: string;
+  deputieFrom: string;
+  deputieTo: string;
   birthYear: string;
   homeAddress: string;
   profession: string;

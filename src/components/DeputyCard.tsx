@@ -22,7 +22,7 @@ export function DeputyCard({
   photo,
 }: DeputyCardProps) {
   return (
-    <Card sx={{ position: 'relative' }}>
+    <Card sx={{ position: 'relative', maxWidth: 260, m: 'auto' }}>
       {!isActive && (
         <Box
           bgcolor={alpha('#fff', 0.5)}
@@ -35,7 +35,7 @@ export function DeputyCard({
       <CardActionArea disableRipple>
         <CardMedia
           component='img'
-          height='320'
+          height='280'
           image={photo ?? 'https://via.placeholder.com/150.png?text=Fără+poză'}
           alt={fullName}
         />

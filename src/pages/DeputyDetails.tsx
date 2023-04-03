@@ -50,10 +50,39 @@ export function DeputyDetails() {
       label: labels[index],
       data: [parseInt(value, 10)],
       backgroundColor: BAR_COLOR_MAP[index],
+      stack: index.toString(),
+      barThickness: 'flex' as const,
     }));
 
     return { labels: ['Voturi'], datasets };
   }, [data?.voting]);
+
+  const votingLegend = useMemo(
+    () =>
+      keys(data?.voting).map((label, index) => {
+        const value = label === 'abtinut' ? 'Nu a votat' : capitalize(label);
+
+        return (
+          <Tooltip
+            arrow
+            key={label}
+            title={
+              label === 'abtinut'
+                ? 'Deputatul a inițiat procedura de vot, dar nu a selectat nici una din opțiunile „Pentru” sau „Contra”'
+                : ''
+            }
+          >
+            <Stack alignItems='center' direction='row' gap={2}>
+              <Box bgcolor={BAR_COLOR_MAP[index]} height={20} width={20} />
+              <Typography color='text.hint' fontSize={16} fontWeight='medium'>
+                {value}
+              </Typography>
+            </Stack>
+          </Tooltip>
+        );
+      }),
+    [data?.voting],
+  );
 
   const sessionsChartData: ChartData<'bar', number[], string> = useMemo(
     () => ({
@@ -75,6 +104,26 @@ export function DeputyDetails() {
       data?.sessionsPresentAbsent?.absents,
       data?.sessionsPresentAbsent?.presents,
     ],
+  );
+
+  const sessionLegend = useMemo(
+    () => (
+      <>
+        <Stack alignItems='center' direction='row' gap={2}>
+          <Box bgcolor={BAR_COLOR_MAP[0]} height={20} width={20} />
+          <Typography color='text.hint' fontSize={16} fontWeight='medium'>
+            Prezent(ă)
+          </Typography>
+        </Stack>
+        <Stack alignItems='center' direction='row' gap={2}>
+          <Box bgcolor={BAR_COLOR_MAP[1]} height={20} width={20} />
+          <Typography color='text.hint' fontSize={16} fontWeight='medium'>
+            Absent(ă)
+          </Typography>
+        </Stack>
+      </>
+    ),
+    [],
   );
 
   return (
@@ -212,16 +261,14 @@ export function DeputyDetails() {
                     <Typography fontWeight={600}>{data.phone}</Typography>
                   )}
                   {data?.emailWork && (
-                    <Tooltip arrow placement='top' title={data.emailWork ?? ''}>
-                      <Typography fontWeight={600} noWrap>
-                        <Link href={`mailto:${data.emailWork}`}>
-                          {data.emailWork}
-                        </Link>
-                      </Typography>
-                    </Tooltip>
+                    <Typography fontSize={12} fontWeight={600}>
+                      <Link href={`mailto:${data.emailWork}`}>
+                        {data.emailWork}
+                      </Link>
+                    </Typography>
                   )}
                   {data?.emailPersonal && (
-                    <Typography fontWeight={600} noWrap>
+                    <Typography fontSize={12} fontWeight={600}>
                       <Link href={`mailto:${data.emailPersonal}`}>
                         {data.emailPersonal}
                       </Link>
@@ -297,6 +344,8 @@ export function DeputyDetails() {
                 <DeputyActivity
                   committee={data?.committee}
                   delegates={data?.delegates}
+                  deputyFrom={data?.deputieFrom}
+                  deputyTo={data?.deputieTo}
                   investigationCommittees={data?.investigateComissions}
                   friendships={data?.friendships}
                   mandatesCount={data?.nrMandates}
@@ -307,7 +356,14 @@ export function DeputyDetails() {
               </Grid>
               <Grid item md={6} xs={12}>
                 <DeputyStatisticsCard title='Votul deputatului'>
-                  <BarChart chartHeight={100} data={votingChartData} />
+                  <BarChart
+                    chartHeight={120}
+                    data={votingChartData}
+                    options={{ plugins: { legend: { display: false } } }}
+                  />
+                  <Stack direction='row' gap={3}>
+                    {votingLegend}
+                  </Stack>
                 </DeputyStatisticsCard>
               </Grid>
               <Grid item md={6} xs={12}>
@@ -335,6 +391,9 @@ export function DeputyDetails() {
               <Grid item md={6} xs={12}>
                 <DeputyStatisticsCard title='Prezența la ședințe plenare'>
                   <BarChart chartHeight={100} data={sessionsChartData} />
+                  <Stack direction='row' gap={3}>
+                    {sessionLegend}
+                  </Stack>
                 </DeputyStatisticsCard>
               </Grid>
               <Grid item md={6} xs={12}>
@@ -365,7 +424,11 @@ export function DeputyDetails() {
             <Divider variant='fullWidth' />
           </Grid>
           <Grid item xs={12}>
-            <DeputyWealth did={did ?? ''} />
+            <DeputyWealth
+              did={did ?? ''}
+              deputyFrom={data?.deputieFrom}
+              deputyTo={data?.deputieTo}
+            />
           </Grid>
         </Grid>
       </PageContainer>

@@ -31,6 +31,7 @@ export function DeputyStatisticsCard({
         display='flex'
         flexGrow={1}
         justifyContent='center'
+        flexDirection='column'
       >
         {children}
       </Box>

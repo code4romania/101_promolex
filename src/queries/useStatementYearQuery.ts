@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { fetchStatementYear } from '../services';
 
-export const useStatementYearQuery = () =>
-  useQuery(['statement-year'], fetchStatementYear);
+export const useStatementYearQuery = (options?: UseQueryOptions<string>) =>
+  useQuery<string>(['statement-year'], fetchStatementYear, options);

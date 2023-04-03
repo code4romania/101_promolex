@@ -7,7 +7,11 @@ import { StyledRouterLink } from './StyledRouterLink';
 import { Table } from './Table';
 
 const deputyMap = ({ fullName, did }: PartialDeputy) => (
-  <StyledRouterLink key={fullName} to={`${Routes.Deputies}/detalii/${did}`}>
+  <StyledRouterLink
+    key={fullName}
+    to={`${Routes.Deputies}/detalii/${did}`}
+    target='_blank'
+  >
     {fullName}
   </StyledRouterLink>
 );
