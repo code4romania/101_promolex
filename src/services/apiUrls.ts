@@ -39,4 +39,5 @@ export const apiPaths = {
   committeeSpecialCommissions: `${API_BASE_URL}?type=get_pc_special_comissions&lid=`,
   committeeInvestigationCommissions: `${API_BASE_URL}?type=get_pc_investigate_comissions&lid=`,
   committeeMotions: `${API_BASE_URL}?type=get_motions`,
+  deputyQuestions: `${API_BASE_URL}?type=deputie_questions_interpelations&did=`,
 };

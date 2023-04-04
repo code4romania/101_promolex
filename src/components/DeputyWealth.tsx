@@ -2,10 +2,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { MenuItem, Select, Stack, Typography } from '@mui/material';
 import { chain } from 'lodash';
 import { useState } from 'react';
-import {
-  useIncomeStatementsByDeputyQuery,
-  useStatementYearQuery,
-} from '../queries';
+import { useIncomeStatementsByDeputyQuery } from '../queries';
 import { statementsTableColumns } from '../utils';
 import { DeputyIncomeCard } from './DeputyIncomeCard';
 import { Table } from './Table';
@@ -38,17 +35,38 @@ const deputyWealthIconsMap: {
   },
 ];
 
-type DeputyWealthProps = {
-  did: string;
+const getYearsBetweenDates = (startDate: string, endDate: string) => {
+  const years: string[] = [];
+  const startYear = new Date(startDate).getFullYear();
+  const endYear =
+    endDate === 'prezent'
+      ? new Date().getFullYear()
+      : new Date(endDate).getFullYear();
+  const count = endYear - startYear;
+
+  for (let i = 0; i <= count; i += 1) {
+    years.push((startYear + i).toString());
+  }
+
+  return years;
 };
 
-export function DeputyWealth({ did }: DeputyWealthProps) {
-  const { data: year } = useStatementYearQuery();
-  const [selectedYear, setSelectedYear] = useState(year ?? '2021');
-  const { data: incomeStatements } = useIncomeStatementsByDeputyQuery(
-    did,
-    selectedYear,
+type DeputyWealthProps = {
+  did: string;
+  deputyFrom?: string;
+  deputyTo?: string;
+};
+
+export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
+  const [selectedYear, setSelectedYear] = useState<string>(
+    new Date(Date.now()).getFullYear().toString() ?? '',
   );
+  const {
+    data: incomeStatements,
+    isInitialLoading: isLoadingIncomeStatements,
+  } = useIncomeStatementsByDeputyQuery(did, selectedYear);
+
+  const years = getYearsBetweenDates(deputyFrom ?? '', deputyTo ?? '');
 
   const [selectedCategory, setSelectedCategory] = useState(
     deputyWealthIconsMap[0].category,
@@ -68,8 +86,11 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
             onChange={(event) => setSelectedYear(event.target.value)}
             value={selectedYear}
           >
-            <MenuItem value='2021'>2021</MenuItem>
-            <MenuItem value='2022'>2022</MenuItem>
+            {years.map((y) => (
+              <MenuItem key={y} value={y}>
+                {y}
+              </MenuItem>
+            ))}
           </Select>
         </Stack>
       </Stack>
@@ -97,6 +118,7 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
         ))}
       </Stack>
       <Table
+        isLoading={isLoadingIncomeStatements}
         columns={statementsTableColumns}
         getRowId={(row) => row.itemid}
         height={350}
@@ -106,3 +128,8 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
     </Stack>
   );
 }
+
+DeputyWealth.defaultProps = {
+  deputyFrom: undefined,
+  deputyTo: undefined,
+};

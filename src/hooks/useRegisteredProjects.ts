@@ -3,15 +3,21 @@ import {
   useCurrentLegislatureDetailsQuery,
   useRegisteredProjectsQuery,
 } from '../queries';
-import { getDateString } from '../utils';
+import {
+  getDateString,
+  getLegislatureFromDate,
+  setLegislatureFromDate,
+} from '../utils';
 
 export const useRegisteredProjects = () => {
-  const [fromDate, setFromDate] = useState<Date>();
-  const [toDate, setToDate] = useState<Date>();
+  const [fromDate, setFromDate] = useState<Date>(
+    new Date(getLegislatureFromDate() ?? Date.now()),
+  );
+  const [toDate, setToDate] = useState<Date>(new Date(Date.now()));
   useCurrentLegislatureDetailsQuery({
-    onSuccess: ({ legislatureFrom, legislatureTo }) => {
+    onSuccess: ({ legislatureFrom }) => {
       setFromDate(new Date(legislatureFrom));
-      setToDate(new Date(legislatureTo));
+      setLegislatureFromDate(legislatureFrom);
     },
     refetchOnMount: true,
     staleTime: 0,

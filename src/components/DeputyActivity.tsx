@@ -47,8 +47,10 @@ const StyledTabs = styled((props: TabsProps) => (
 type DeputyActivityProps = {
   committee?: string;
   delegates?: string;
-  investigationCommittees?: string[];
+  deputyFrom?: string;
+  deputyTo?: string;
   friendships?: string;
+  investigationCommittees?: string[];
   mandatesCount?: string;
   mandatesDetails?: string;
   specialCommittees?: string[];
@@ -57,6 +59,8 @@ type DeputyActivityProps = {
 export function DeputyActivity({
   committee,
   delegates,
+  deputyFrom,
+  deputyTo,
   investigationCommittees,
   friendships,
   mandatesCount,
@@ -74,7 +78,7 @@ export function DeputyActivity({
   return (
     <Stack gap={5}>
       <Typography fontWeight={700} variant='h5'>
-        Activitate parlamentară
+        Activitate parlamentară, mandat actual {deputyFrom} - {deputyTo}
       </Typography>
 
       <Box>
@@ -147,6 +151,8 @@ export function DeputyActivity({
 DeputyActivity.defaultProps = {
   committee: '',
   delegates: '',
+  deputyFrom: '',
+  deputyTo: '',
   investigationCommittees: [],
   friendships: '',
   mandatesCount: '',

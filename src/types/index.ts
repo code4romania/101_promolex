@@ -10,6 +10,7 @@ export * from './CommitteeSpecialCommission';
 export * from './ContactFormData';
 export * from './Deputy';
 export * from './DeputyDetails';
+export * from './DeputyQuestion';
 export * from './ErrorResponse';
 export * from './Event';
 export * from './ExPostEvaluation';

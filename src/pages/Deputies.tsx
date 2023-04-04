@@ -1,5 +1,12 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Button, ButtonGroup, Stack, TextField } from '@mui/material';
+import {
+  Button,
+  ButtonGroup,
+  Stack,
+  TextField,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { useCallback, useState } from 'react';
 import {
   Outlet,
@@ -50,10 +57,18 @@ export function Deputies() {
     },
     [navigate],
   );
+  const { breakpoints } = useTheme();
+  const isMobile = useMediaQuery(breakpoints.down('sm'));
 
   return (
     <PageContainer pageTitle='Deputați'>
-      <Stack alignItems='center' direction='row' pb={4}>
+      <Stack
+        alignItems={isMobile ? 'flex-start' : 'center'}
+        direction={isMobile ? 'column' : 'row'}
+        flexWrap='wrap'
+        pb={4}
+        rowGap={4}
+      >
         <ButtonGroup
           disabled={isLoading || isError}
           disableRipple

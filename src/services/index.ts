@@ -19,6 +19,7 @@ export * from './fetchDeputiesByCommittee';
 export * from './fetchDeputiesByFaction';
 export * from './fetchDeputiesByLegislature';
 export * from './fetchDeputyDetails';
+export * from './fetchDeputyQuestionsAndInterpellations';
 export * from './fetchEventDetails';
 export * from './fetchEvents';
 export * from './fetchFactionsByLegislature';
