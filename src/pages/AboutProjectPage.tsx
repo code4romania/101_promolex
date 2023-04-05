@@ -1,6 +1,8 @@
 import {
+  alpha,
   Box,
   Collapse,
+  Divider,
   Grid,
   List,
   ListItem,
@@ -28,12 +30,17 @@ import { Routes } from '../types';
 
 interface StyledStackProps extends StackProps {
   isSelected?: boolean;
+  showBackground?: boolean;
 }
 
 const StyledStack = styled(Stack, {
   shouldForwardProp: (prop) => prop !== 'success',
-})<StyledStackProps>(({ isSelected, theme }) => ({
+})<StyledStackProps>(({ isSelected, showBackground, theme }) => ({
   alignItems: 'center',
+  backgroundColor:
+    isSelected && showBackground
+      ? alpha(theme.palette.secondary.main, 0.2)
+      : 'transparent',
   border: '1px solid',
   borderColor: isSelected ? '#88A9B5' : theme.palette.common.white,
   borderRadius: theme.spacing(1),
@@ -43,6 +50,9 @@ const StyledStack = styled(Stack, {
 
   '&:hover': {
     borderColor: '#88A9B5',
+    backgroundColor: showBackground
+      ? alpha(theme.palette.secondary.main, 0.2)
+      : 'transparent',
   },
 }));
 
@@ -157,37 +167,39 @@ export function AboutProjectPage() {
               interacțiune a deputaților cu cetățenii, dar și modul de
               comunicare a Parlamentului în ansamblu cu publicul larg.
             </Typography>
-            <Typography textAlign='justify'>
-              În practică, monitorizarea activității Parlamentului și a
-              deputaților presupune:
-            </Typography>
+            <Box>
+              <Typography textAlign='justify'>
+                În practică, monitorizarea activității Parlamentului și a
+                deputaților presupune:
+              </Typography>
 
-            <List dense sx={{ listStyleType: 'disc', pl: 8 }}>
-              <ListItem disablePadding sx={{ display: 'list-item' }}>
-                <ListItemText
-                  primary='colectarea, din surse deschise, a informațiilor calitative și cantitative de către monitorii Promo-LEX, inclusiv prin urmărirea directă a ședințelor legislativului;'
-                  primaryTypographyProps={{ fontSize: 14 }}
-                />
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'list-item' }}>
-                <ListItemText
-                  primary='analiza răspunsurilor la cererile de acces la informație transmise în adresa legislativului și/sau a altor persoane/instituții care pot oferi informații relevante pentru procesul de monitorizare;'
-                  primaryTypographyProps={{ fontSize: 14 }}
-                />
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'list-item' }}>
-                <ListItemText
-                  primary='desfășurarea interviurilor cu deputații, reprezentanții Secretariatului instituției dar și alte persoane relevante;'
-                  primaryTypographyProps={{ fontSize: 14 }}
-                />
-              </ListItem>
-              <ListItem disablePadding sx={{ display: 'list-item' }}>
-                <ListItemText
-                  primary='analiza informațiilor publicate în sursele media de informare, inclusiv în rețelele sociale. '
-                  primaryTypographyProps={{ fontSize: 14 }}
-                />
-              </ListItem>
-            </List>
+              <List dense sx={{ listStyleType: 'disc', pl: 8 }} disablePadding>
+                <ListItem disablePadding sx={{ display: 'list-item' }}>
+                  <ListItemText
+                    primary='colectarea, din surse deschise, a informațiilor calitative și cantitative de către monitorii Promo-LEX, inclusiv prin urmărirea directă a ședințelor legislativului;'
+                    primaryTypographyProps={{ fontSize: 14 }}
+                  />
+                </ListItem>
+                <ListItem disablePadding sx={{ display: 'list-item' }}>
+                  <ListItemText
+                    primary='analiza răspunsurilor la cererile de acces la informație transmise în adresa legislativului și/sau a altor persoane/instituții care pot oferi informații relevante pentru procesul de monitorizare;'
+                    primaryTypographyProps={{ fontSize: 14 }}
+                  />
+                </ListItem>
+                <ListItem disablePadding sx={{ display: 'list-item' }}>
+                  <ListItemText
+                    primary='desfășurarea interviurilor cu deputații, reprezentanții Secretariatului instituției dar și alte persoane relevante;'
+                    primaryTypographyProps={{ fontSize: 14 }}
+                  />
+                </ListItem>
+                <ListItem disablePadding sx={{ display: 'list-item' }}>
+                  <ListItemText
+                    primary='analiza informațiilor publicate în sursele media de informare, inclusiv în rețelele sociale. '
+                    primaryTypographyProps={{ fontSize: 14 }}
+                  />
+                </ListItem>
+              </List>
+            </Box>
             <Typography textAlign='justify'>
               Metodologia a fost prezentată și discutată la începutul
               monitorizării cu conducerea Parlamentului și reprezentanții
@@ -320,9 +332,12 @@ export function AboutProjectPage() {
         atribuțiile legislativului.{' '}
         <em>
           Rapoartele respective de monitorizare pot fi consultate{' '}
-          <Link to={Routes.Reports} style={{ textDecoration: 'none' }}>
+          <Link
+            to={Routes.Reports}
+            style={{ textDecoration: 'none', fontWeight: 700 }}
+          >
             <Typography
-              color='primary'
+              color='secondary'
               component='span'
               fontSize='inherit'
               fontWeight='inherit'
@@ -366,6 +381,7 @@ export function AboutProjectPage() {
               key={objective.label}
               onClick={() => setSelectedObjective(key as ObjectiveKey)}
               isSelected={selectedObjective === key}
+              showBackground
               width={160}
             >
               <Typography fontWeight='medium' variant='h5'>
@@ -401,24 +417,17 @@ export function AboutProjectPage() {
         )}
       </Stack>
 
-      <Box bgcolor='#83538838' py={6} px={8} mt={15}>
-        <Typography fontWeight='medium' gutterBottom variant='h5'>
-          Asociația Promo-LEX
-        </Typography>
-        <Typography textAlign='justify'>
-          Asociația Promo-LEX este o organizație neguvernamentală, care are
-          drept scop dezvoltarea democrației în Republica Moldova, inclusiv în
-          regiunea transnistreană, prin promovarea și apărarea drepturilor
-          omului, monitorizarea proceselor democratice și consolidarea
-          societății civile.
-        </Typography>
-        <Typography textAlign='justify'>
-          Responsabilitatea pentru opiniile exprimate pe această pagină, precum
-          și în produsele analitice elaborate în cadrul Programului „Democrație,
-          Transparență și Responsabilitate” aparțin Asociației Promo-LEX și nu
-          reflectă neapărat poziția donatorului.
-        </Typography>
+      <Box py={10}>
+        <Divider />
       </Box>
+
+      <Typography textAlign='justify'>
+        <strong>Asociația Promo-LEX</strong> este o organizație
+        neguvernamentală, care are drept scop dezvoltarea democrației în
+        Republica Moldova, inclusiv în regiunea transnistreană, prin promovarea
+        și apărarea drepturilor omului, monitorizarea proceselor democratice și
+        consolidarea societății civile.
+      </Typography>
       <Grid container py={12} spacing={10}>
         <Grid display={{ xs: 'none', md: 'block' }} md={3} />
         <Grid
@@ -430,7 +439,7 @@ export function AboutProjectPage() {
           md={3}
         >
           <Box>
-            <img alt='Logo Promo-LEX' height={98} src={logoPromoLexRo} />
+            <img alt='Logo Promo-LEX' height={70} src={logoPromoLexRo} />
           </Box>
         </Grid>
         <Grid
@@ -447,7 +456,14 @@ export function AboutProjectPage() {
         </Grid>
       </Grid>
 
-      <Typography fontWeight='bold' textAlign='center'>
+      <Typography gutterBottom textAlign='justify'>
+        Responsabilitatea pentru opiniile exprimate pe această pagină, precum și
+        în produsele analitice elaborate în cadrul Programului „Democrație,
+        Transparență și Responsabilitate” aparțin Asociației Promo-LEX și nu
+        reflectă neapărat poziția donatorului.
+      </Typography>
+
+      <Typography fontWeight='bold' pb={10}>
         Informațiile plasate pe această platformă pot fi preluate în mod liber
         pentru a fi distribuite, publicate și difuzate cu condiția menționării
         exprese în material a sursei (referință la Asociația Promo-LEX și/sau
