@@ -1,5 +1,5 @@
 export * from './cookies';
-export * from './downloadAsCsv';
+export * from './downloadAsExcel';
 export * from './getDateString';
 export * from './getProjectsByAuthorChartData';
 export * from './getProjectsByFactionChartData';

@@ -29,7 +29,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ro } from 'date-fns/locale';
 import { chain, deburr, filter, values } from 'lodash';
 import { useMemo, useState } from 'react';
-import { downloadAsCsv } from '../utils';
+import { downloadAsExcel } from '../utils';
 
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -134,22 +134,19 @@ export function Table({
     [rows, search, showSearch],
   );
 
+  const headers = useMemo(
+    () => columns.map((column) => column.headerName ?? ''),
+    [columns],
+  );
+
   const downloadData = useMemo(() => {
-    const headers = columns.map((column) => column.headerName);
     const fields = columns.map((column) => column.field);
 
     const data = chain(rows)
-      .map((row) =>
-        chain(row)
-          .pick(fields)
-          .values()
-          .map((value) => `"${value.replaceAll('"', '""')}"`)
-          .join(',')
-          .value(),
-      )
+      .map((row) => chain(row).pick(fields).values().value())
       .value();
 
-    return [headers, ...data].join('\n');
+    return data;
   }, [columns, rows]);
 
   return (
@@ -212,7 +209,7 @@ export function Table({
           {showDownload && (
             <Button
               endIcon={<FileDownloadRoundedIcon />}
-              onClick={() => downloadAsCsv(downloadData)}
+              onClick={() => downloadAsExcel(headers, downloadData)}
               sx={{ marginLeft: 'auto' }}
               variant='outlined'
             >

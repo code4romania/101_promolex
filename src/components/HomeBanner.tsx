@@ -10,6 +10,7 @@ import {
   Slide,
   Snackbar,
   Stack,
+  styled,
   Typography,
 } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
@@ -52,6 +53,22 @@ const doughnutChartOptions: ChartOptions<'doughnut'> = {
     },
   },
 };
+
+const StyledCircleRoundedIcon = styled(CircleRoundedIcon)({
+  animation: 'blink 2s linear infinite',
+
+  '@keyframes blink': {
+    '0%': {
+      opacity: 0,
+    },
+    '50%': {
+      opacity: 1,
+    },
+    '100%': {
+      opacity: 0,
+    },
+  },
+});
 
 export function HomeBanner() {
   const [alert, setAlert] = useState<{
@@ -287,14 +304,17 @@ export function HomeBanner() {
           </Box>
 
           {liveSession && !isErrorResponse(liveSession) && (
-            <Box position='absolute' right={0} top={24}>
+            <Box position='absolute' right={0} top={24} zIndex={1}>
               <Link
-                to={Routes.PlenaryMeetings}
+                to={{
+                  pathname: Routes.PlenaryMeetings,
+                  search: `?session=${liveSession.sessionDate}`,
+                }}
                 style={{ textDecoration: 'none' }}
               >
                 <Button
                   color='error'
-                  startIcon={<CircleRoundedIcon />}
+                  startIcon={<StyledCircleRoundedIcon />}
                   sx={{
                     textTransform: 'uppercase',
                   }}
