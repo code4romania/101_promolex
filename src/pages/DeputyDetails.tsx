@@ -382,8 +382,8 @@ export function DeputyDetails() {
                   )}
                   {data?.author === '0' && (
                     <Typography textAlign='center'>
-                      Acest deputat nu a înregistrat pentru moment nici o
-                      inițiativă legislativă
+                      Acest deputat nu a înregistrat nici o inițiativă
+                      legislativă
                     </Typography>
                   )}
                 </DeputyStatisticsCard>
@@ -412,8 +412,8 @@ export function DeputyDetails() {
                   )}
                   {data?.questionsInterpelations === '0' && (
                     <Typography textAlign='center'>
-                      Acest deputat nu a înregistrat pentru moment nici o
-                      întrebare sau interpelare adresată instituțiilor publice
+                      Acest deputat nu a înregistrat nici o întrebare sau
+                      interpelare
                     </Typography>
                   )}
                 </DeputyStatisticsCard>

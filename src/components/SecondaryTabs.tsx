@@ -11,7 +11,7 @@ export const SecondaryTab = styled((props: TabProps) => (
 
   '&.Mui-selected': {
     color: theme.palette.grey[900],
-    backgroundColor: theme.palette.grey[100],
+    backgroundColor: theme.palette.grey[300],
   },
 }));
 
