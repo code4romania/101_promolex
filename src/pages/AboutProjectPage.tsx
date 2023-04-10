@@ -15,17 +15,19 @@ import {
 import { chain, toPairs } from 'lodash';
 import { ReactNode, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import columns from '../assets/images/columns.png';
 import folder from '../assets/images/folder.png';
-import gears from '../assets/images/gears.png';
-import impact from '../assets/images/impact.png';
 import info from '../assets/images/info.png';
 import logoPromoLexRo from '../assets/images/logo_promo_lex_ro.png';
 import logoUsaid from '../assets/images/logo_usaid.png';
 import monitoring from '../assets/images/monitoring.png';
 import promo from '../assets/images/promo.png';
-import shootingTarget from '../assets/images/shooting_target.png';
 import { PageContainer } from '../components';
+import {
+  GearsIcon,
+  ImpactIcon,
+  PillarsIcon,
+  ShootingTargetIcon,
+} from '../components/Icons';
 import { Routes } from '../types';
 
 interface StyledStackProps extends StackProps {
@@ -39,11 +41,12 @@ const StyledStack = styled(Stack, {
   alignItems: 'center',
   backgroundColor:
     isSelected && showBackground
-      ? alpha(theme.palette.secondary.main, 0.2)
+      ? alpha(theme.palette.secondary.main, 0.6)
       : 'transparent',
   border: '1px solid',
   borderColor: isSelected ? '#88A9B5' : theme.palette.common.white,
   borderRadius: theme.spacing(1),
+  color: isSelected ? theme.palette.common.white : 'initial',
   cursor: 'pointer',
   gap: 4,
   padding: theme.spacing(4),
@@ -51,28 +54,43 @@ const StyledStack = styled(Stack, {
   '&:hover': {
     borderColor: '#88A9B5',
     backgroundColor: showBackground
-      ? alpha(theme.palette.secondary.main, 0.2)
+      ? alpha(theme.palette.secondary.main, 0.6)
       : 'transparent',
+    color: theme.palette.common.white,
+  },
+}));
+
+const StyledStackPillars = styled(Stack)<StyledStackProps>(({ theme }) => ({
+  alignItems: 'center',
+  border: '1px solid',
+  borderColor: '#88A9B5',
+  borderRadius: theme.spacing(1),
+  cursor: 'pointer',
+  gap: 4,
+  padding: theme.spacing(4),
+
+  '&:hover': {
+    borderColor: '#88A9B5',
   },
 }));
 
 const objectives = {
   scop: {
     label: 'Scop',
-    image: shootingTarget,
+    icon: <ShootingTargetIcon fontSize='inherit' />,
   },
   metodologie: {
     label: 'Metodologie',
-    image: gears,
+    icon: <GearsIcon fontSize='inherit' />,
     title: 'Metodologia de monitorizare',
   },
   piloni: {
     label: 'Piloni',
-    image: columns,
+    icon: <PillarsIcon fontSize='inherit' />,
   },
   impact: {
     label: 'Impact',
-    image: impact,
+    icon: <ImpactIcon fontSize='inherit' />,
   },
 };
 
@@ -225,10 +243,9 @@ export function AboutProjectPage() {
             >
               {toPairs(pillarItems).map(
                 ([key, { label, image, descriptions }]) => (
-                  <StyledStack
+                  <StyledStackPillars
                     flexShrink={0}
                     flexGrow={0}
-                    isSelected
                     key={key}
                     onClick={() => setSelectedPillarItem(key as PillarItemKey)}
                     onMouseEnter={() =>
@@ -259,7 +276,7 @@ export function AboutProjectPage() {
                         ))}
                       </List>
                     </Collapse>
-                  </StyledStack>
+                  </StyledStackPillars>
                 ),
               )}
             </Stack>
@@ -387,9 +404,7 @@ export function AboutProjectPage() {
               <Typography fontWeight='medium' variant='h5'>
                 {objective.label}
               </Typography>
-              <Box>
-                <img alt={objective.label} height={98} src={objective.image} />
-              </Box>
+              <Box fontSize='7rem'>{objective.icon}</Box>
             </StyledStack>
           ))
           .value()}
