@@ -73,7 +73,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   },
 }));
 
-const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
+export const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
   '&.Mui-selected': {
     backgroundColor: theme.palette.secondary.main,
 
