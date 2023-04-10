@@ -14,6 +14,7 @@ import parse, {
 } from 'html-react-parser';
 import { Link as RouterLink } from 'react-router-dom';
 import { Event } from '../types';
+import { formatDate } from '../utils';
 
 export const options: HTMLReactParserOptions = {
   replace: (domNode) => {
@@ -60,7 +61,7 @@ export function BlogPostCard({ event }: BlogPostCardProps) {
           fontWeight={typography.fontWeightMedium}
           variant='body2'
         >
-          {event.pubdate}
+          {formatDate(event.pubdate)}
         </Typography>
         <RouterLink
           to={`/noutati/detalii/${event.eid}`}

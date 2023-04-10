@@ -10,6 +10,9 @@ import {
   useTheme,
 } from '@mui/material';
 import { useState } from 'react';
+import { LegislativeActivityRoutes, Routes } from '../types';
+import { formatDate } from '../utils';
+import { StyledRouterLink } from './StyledRouterLink';
 
 type StyledTabProps = {
   label: string;
@@ -78,7 +81,9 @@ export function DeputyActivity({
   return (
     <Stack gap={5}>
       <Typography fontWeight={700} variant='h5'>
-        Activitate parlamentară, mandat actual {deputyFrom} - {deputyTo}
+        Activitate parlamentară, mandat actual{' '}
+        {deputyFrom && formatDate(deputyFrom)} -{' '}
+        {deputyTo === 'prezent' ? deputyTo : deputyTo && formatDate(deputyTo)}
       </Typography>
 
       <Box>
@@ -103,7 +108,17 @@ export function DeputyActivity({
         </Box>
 
         <Box height={180} overflow='auto' p={4}>
-          {value === 0 && <Typography>{committee}</Typography>}
+          {value === 0 && (
+            <Typography
+              component={StyledRouterLink}
+              to={{
+                pathname: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.committees}`,
+                search: `?committee=${committee}`,
+              }}
+            >
+              {committee}
+            </Typography>
+          )}
           {value === 1 && (
             <>
               {(specialCommittees?.length ?? 0) > 0 && (

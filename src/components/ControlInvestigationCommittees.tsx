@@ -2,6 +2,7 @@ import { Link, Stack } from '@mui/material';
 import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useCommitteeInvestigationCommissionsByLegislatureQuery } from '../queries';
+import { formatDate } from '../utils';
 import { Table } from './Table';
 
 const investigationCommitteesTableColumns: GridColumns<GridValidRowModel> = [
@@ -18,6 +19,7 @@ const investigationCommitteesTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.4,
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 120,
+    valueFormatter: (params) => formatDate(params.value),
   },
   {
     field: 'componenta',
@@ -33,6 +35,7 @@ const investigationCommitteesTableColumns: GridColumns<GridValidRowModel> = [
     sortable: false,
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 160,
+    valueFormatter: (params) => formatDate(params.value),
   },
   {
     field: 'raportFile',

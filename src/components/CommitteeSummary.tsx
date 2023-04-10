@@ -1,7 +1,8 @@
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Typography, Stack, useTheme, Collapse } from '@mui/material';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const WATCHED_COLOR = '#835388';
 
@@ -17,7 +18,9 @@ export function CommitteeSummary({
   watched,
 }: CommitteeDetailsProps) {
   const { palette, typography } = useTheme();
-  const [expanded, setExpanded] = useState(false);
+  const [params] = useSearchParams();
+  const [expanded, setExpanded] = useState(params.get('committee') === name);
+  const containerRef = useRef<HTMLDivElement>();
 
   const expandedBgColor = watched ? WATCHED_COLOR : palette.secondary.main;
   const expandedColor = palette.common.white;
@@ -25,7 +28,7 @@ export function CommitteeSummary({
   const color = watched ? WATCHED_COLOR : palette.text.primary;
 
   return (
-    <Stack gap={2}>
+    <Stack gap={2} ref={containerRef}>
       <Stack
         bgcolor={expanded ? expandedBgColor : bgColor}
         border={watched || (expanded && !watched) ? 0 : 1}
@@ -54,7 +57,17 @@ export function CommitteeSummary({
         )}
       </Stack>
 
-      <Collapse in={expanded} mountOnEnter unmountOnExit>
+      <Collapse
+        in={expanded}
+        mountOnEnter
+        unmountOnExit
+        onEnter={() =>
+          containerRef?.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          })
+        }
+      >
         {children}
       </Collapse>
     </Stack>

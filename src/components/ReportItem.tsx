@@ -1,6 +1,7 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { Report } from '../types';
+import { formatDate } from '../utils';
 import { DownloadLink } from './DownloadLink';
 
 type ReportItemProps = {
@@ -35,7 +36,8 @@ export function ReportItem({ report }: ReportItemProps) {
           {title}
         </Typography>
         <Typography color='grey.500' fontWeight='medium'>
-          Data publicării: <Typography component='span'>{pubdate}</Typography>
+          Data publicării:{' '}
+          <Typography component='span'>{formatDate(pubdate)}</Typography>
         </Typography>
 
         <Stack alignItems='center' direction='row' gap={4} mt={8}>

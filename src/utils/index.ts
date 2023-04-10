@@ -1,5 +1,6 @@
 export * from './cookies';
 export * from './downloadAsExcel';
+export * from './formatDate';
 export * from './getDateString';
 export * from './getProjectsByAuthorChartData';
 export * from './getProjectsByFactionChartData';

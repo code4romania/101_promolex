@@ -3,6 +3,7 @@ import {
   gridNumberComparator,
   GridValidRowModel,
 } from '@mui/x-data-grid';
+import { formatDate } from './formatDate';
 // import { TextWithTooltip } from '../components/TextWithTooltip';
 
 export const legislationInitiativesTableColumns: GridColumns<GridValidRowModel> =
@@ -21,6 +22,7 @@ export const legislationInitiativesTableColumns: GridColumns<GridValidRowModel> 
       flex: 0.4,
       // renderCell: ({ value }) => <TextWithTooltip text={value} />,
       minWidth: 160,
+      valueFormatter: (params) => formatDate(params.value),
     },
     {
       field: 'denumireProiect',
