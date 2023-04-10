@@ -2,6 +2,7 @@ import { Link, Stack } from '@mui/material';
 import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useCommitteeInstitutionHearingsByLegislatureQuery } from '../queries';
+import { formatDate } from '../utils';
 import { Table } from './Table';
 
 const publicInstitutionsTableColumns: GridColumns<GridValidRowModel> = [
@@ -26,6 +27,7 @@ const publicInstitutionsTableColumns: GridColumns<GridValidRowModel> = [
     sortable: false,
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 140,
+    valueFormatter: (params) => formatDate(params.value),
   },
   {
     field: 'audierePlen',

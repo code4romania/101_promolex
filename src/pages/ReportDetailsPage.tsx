@@ -7,6 +7,7 @@ import { BreadCrumbLink, DownloadLink, Loading } from '../components';
 import { options } from '../constants';
 import { useReportDetailsQuery } from '../queries';
 import { Routes } from '../types';
+import { formatDate } from '../utils';
 
 export function ReportDetailsPage() {
   const { rid } = useParams<{ rid: string }>();
@@ -37,7 +38,7 @@ export function ReportDetailsPage() {
           <Typography color='grey.500' fontWeight='medium' variant='subtitle1'>
             Data publicării:{' '}
             <Typography color='grey.800' component='span' variant='subtitle1'>
-              {report?.pubdate}
+              {report?.pubdate ? formatDate(report.pubdate) : '-'}
             </Typography>
           </Typography>
           <Grid container columnSpacing={8} mt={8}>

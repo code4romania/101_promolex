@@ -4,6 +4,7 @@ import { chain } from 'lodash';
 import { useMemo } from 'react';
 import { useTabs } from '../hooks';
 import { useDeputyQuestionsAndInterpellations } from '../queries';
+import { formatDate } from '../utils';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
 
@@ -19,6 +20,7 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Data',
     flex: 0.3,
     minWidth: 90,
+    valueFormatter: (params) => formatDate(params.value),
   },
   {
     field: 'quest',

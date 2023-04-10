@@ -1,6 +1,7 @@
 import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
 import SearchIcon from '@mui/icons-material/Search';
 import {
+  alpha,
   Box,
   Button,
   Pagination,
@@ -46,9 +47,9 @@ function CustomPagination() {
   );
 }
 
-const StyledDataGrid = styled(DataGrid)(() => ({
+const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   '& .MuiDataGrid-columnHeader, & .MuiDataGrid-footerContainer': {
-    backgroundColor: '#EFF0F3',
+    backgroundColor: alpha(theme.palette.secondary.main, 0.45),
   },
   '& .MuiDataGrid-columnHeaders': {
     borderBottomWidth: 0,
@@ -72,7 +73,7 @@ const StyledDataGrid = styled(DataGrid)(() => ({
   },
 }));
 
-const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
+export const StyledPickersDay = styled(PickersDay<Date>)(({ theme }) => ({
   '&.Mui-selected': {
     backgroundColor: theme.palette.secondary.main,
 

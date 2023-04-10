@@ -7,6 +7,7 @@ import { BreadCrumbLink, Loading } from '../components';
 import { options } from '../constants';
 import { useEventDetailsQuery } from '../queries';
 import { Routes } from '../types';
+import { formatDate } from '../utils';
 
 export function EventDetailsPage() {
   const { eid } = useParams<{ eid: string }>();
@@ -54,7 +55,7 @@ export function EventDetailsPage() {
           <Typography color='grey.500' fontWeight='medium' variant='subtitle1'>
             Data publicării:{' '}
             <Typography color='grey.800' component='span' variant='subtitle1'>
-              {event?.pubdate}
+              {event?.pubdate ? formatDate(event.pubdate) : '-'}
             </Typography>
           </Typography>
 

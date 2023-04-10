@@ -14,7 +14,7 @@ export const routesConfig: RoutesConfig = [
     route: Routes.LegislativeActivity,
     subRoutes: [
       {
-        label: 'Proiecte de legi si hotarari',
+        label: 'Proiecte de legi si hotărâri',
         route: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.projects}`,
       },
       {

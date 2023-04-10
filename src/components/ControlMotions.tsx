@@ -3,6 +3,7 @@ import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useTabs } from '../hooks';
 import { useCommitteeMotionsByLegislatureQuery } from '../queries';
+import { formatDate } from '../utils';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
 // import { TextWithTooltip } from './TextWithTooltip';
@@ -29,6 +30,7 @@ const motionsTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.4,
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 140,
+    valueFormatter: (params) => formatDate(params.value),
   },
   {
     field: 'decizia1Lect',

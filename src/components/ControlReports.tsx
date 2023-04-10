@@ -7,6 +7,7 @@ import {
   useCommitteeInstitutionReportsByLegislatureQuery,
 } from '../queries';
 import { Routes } from '../types';
+import { formatDate } from '../utils';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { StyledRouterLink } from './StyledRouterLink';
 import { Table } from './Table';
@@ -49,6 +50,7 @@ const publicReportsTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.3,
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 110,
+    valueFormatter: (params) => formatDate(params.value),
   },
 ];
 
@@ -83,7 +85,7 @@ const reportsAuditingTableColumns: GridColumns<GridValidRowModel> = [
           }}
           target='_blank'
         >
-          {value}
+          {formatDate(value)}
         </StyledRouterLink>
       ),
   },

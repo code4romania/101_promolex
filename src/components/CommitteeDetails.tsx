@@ -2,6 +2,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import { Box, Link, Stack, Typography, useTheme } from '@mui/material';
 import { deburr } from 'lodash';
 import { useCommitteeDetailsQuery } from '../queries';
+import { formatDate } from '../utils';
 import { StyledRouterLink } from './StyledRouterLink';
 
 type CommitteeDetailsProps = {
@@ -167,7 +168,9 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
                     variant='body2'
                   >
                     Data:
-                    <Typography fontSize='inherit'>{dataSedinte}</Typography>
+                    <Typography fontSize='inherit'>
+                      {formatDate(dataSedinte)}
+                    </Typography>
                   </Typography>
                 </Box>
               ),
@@ -218,7 +221,9 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
                   variant='body2'
                 >
                   Data:
-                  <Typography fontSize='inherit'>{dataSedinte}</Typography>
+                  <Typography fontSize='inherit'>
+                    {formatDate(dataSedinte)}
+                  </Typography>
                 </Typography>
               </Box>
             ))}

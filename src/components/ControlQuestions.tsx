@@ -6,6 +6,7 @@ import {
   useCommitteeInterpellationsByLegislatureQuery,
   useCommitteeQuestionsByLegislatureQuery,
 } from '../queries';
+import { formatDate } from '../utils';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 import { Table } from './Table';
 
@@ -31,6 +32,7 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.3,
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 90,
+    valueFormatter: (params) => formatDate(params.value),
   },
   {
     field: 'autori',
@@ -100,6 +102,7 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.4,
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 90,
+    valueFormatter: (params) => formatDate(params.value),
   },
   {
     field: 'autori',
