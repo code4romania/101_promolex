@@ -1,11 +1,12 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Box, ButtonBase, Typography } from '@mui/material';
+import { Box, ButtonBase, CircularProgress, Typography } from '@mui/material';
 
 type DeputyIncomeCardProps = {
   bgcolor: string;
   icon: IconProp;
   isActive?: boolean;
+  isLoading?: boolean;
   label: string;
   onClick: () => void;
 };
@@ -14,6 +15,7 @@ export function DeputyIncomeCard({
   bgcolor,
   icon,
   isActive,
+  isLoading,
   label,
   onClick,
 }: DeputyIncomeCardProps) {
@@ -40,7 +42,7 @@ export function DeputyIncomeCard({
       }}
     >
       <Box fontSize={96}>
-        <FontAwesomeIcon icon={icon} />
+        {isLoading ? <CircularProgress /> : <FontAwesomeIcon icon={icon} />}
       </Box>
       <Typography fontWeight={700} textAlign='center'>
         {label}
@@ -51,4 +53,5 @@ export function DeputyIncomeCard({
 
 DeputyIncomeCard.defaultProps = {
   isActive: false,
+  isLoading: false,
 };

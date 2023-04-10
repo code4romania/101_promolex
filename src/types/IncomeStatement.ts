@@ -1,18 +1,26 @@
 export type IncomeStatement = {
-  itemid: string;
-  itemName: string;
-  propertyType: string;
   acquisition: string;
   cost: string;
   currency: string;
-  marketCost: string;
-  marketCurrency: string;
+  function: string;
+  icname: string;
+  itemid: string;
+  item_name: string;
+  market_cost: string;
+  market_currency: string;
   note: string;
+  organization: string;
+  property_type: string;
+  surface: string;
 };
 
 export type IncomeStatements = {
-  [k: string]: {
-    icon: string;
-    items: IncomeStatement[];
+  statement_file: string;
+  categorys: {
+    [k: string]: {
+      icon: string;
+      items: IncomeStatement[];
+      table_keys: [{ [k: string]: string }];
+    };
   };
 };
