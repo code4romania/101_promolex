@@ -48,8 +48,8 @@ const StyledStack = styled(Stack, {
   borderRadius: theme.spacing(1),
   color: isSelected ? theme.palette.common.white : 'initial',
   cursor: 'pointer',
-  gap: 4,
-  padding: theme.spacing(4),
+  gap: 24,
+  padding: theme.spacing(8, 4),
 
   '&:hover': {
     borderColor: '#88A9B5',
@@ -404,7 +404,9 @@ export function AboutProjectPage() {
               <Typography fontWeight='medium' variant='h5'>
                 {objective.label}
               </Typography>
-              <Box fontSize='7rem'>{objective.icon}</Box>
+              <Box display='flex' fontSize='7rem'>
+                {objective.icon}
+              </Box>
             </StyledStack>
           ))
           .value()}
