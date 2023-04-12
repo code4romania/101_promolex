@@ -56,7 +56,7 @@ export function LegislativeActivityWrapper({
         <Table
           columns={extendedColumns}
           fromDate={fromDate}
-          height={510}
+          height='auto'
           hideFooter={!rows.length}
           getRowId={(row) => row.docid ?? uniqueId()}
           getRowHeight={() => 'auto'}

@@ -72,7 +72,7 @@ export function ControlSpecialCommittees() {
     <Stack gap={6} mt={9}>
       <Table
         columns={specialCommitteesTableColumns}
-        height={510}
+        height='auto'
         isLoading={isInitialLoading}
         getRowHeight={() => 'auto'}
         getRowId={(row) => row.id}

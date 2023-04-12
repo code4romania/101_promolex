@@ -48,7 +48,7 @@ function CustomPagination() {
 }
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
-  '& .MuiDataGrid-columnHeader, & .MuiDataGrid-footerContainer': {
+  '& .MuiDataGrid-columnHeader': {
     backgroundColor: alpha(theme.palette.secondary.main, 0.45),
   },
   '& .MuiDataGrid-columnHeaders': {
@@ -62,6 +62,7 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) => ({
   },
   '& .MuiDataGrid-footerContainer': {
     borderTopWidth: 0,
+    backgroundColor: '#EFF0F3',
   },
   '& .MuiDataGrid-row > .MuiDataGrid-cell.MuiDataGrid-cell--textLeft': {
     overflow: 'unset',
@@ -221,7 +222,7 @@ export function Table({
       )}
       <Box height={height}>
         <StyledDataGrid
-          autoPageSize
+          autoHeight
           columns={columns}
           disableColumnFilter
           disableColumnMenu
@@ -238,6 +239,7 @@ export function Table({
             Pagination: CustomPagination,
           }}
           sortingOrder={['desc', 'asc']}
+          pageSize={7}
         />
       </Box>
     </Stack>

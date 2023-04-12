@@ -100,7 +100,7 @@ export function DeputyQuestionsDetails({ did }: DeputyQuestionsDetailsProps) {
       {tabValue === 0 && (
         <Table
           columns={questionsTableColumns}
-          height={510}
+          height='auto'
           isLoading={isInitialLoading}
           getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
@@ -112,7 +112,7 @@ export function DeputyQuestionsDetails({ did }: DeputyQuestionsDetailsProps) {
       {tabValue === 1 && (
         <Table
           columns={questionsTableColumns}
-          height={510}
+          height='auto'
           isLoading={isInitialLoading}
           getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}

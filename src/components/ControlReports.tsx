@@ -144,7 +144,7 @@ export function ControlReports() {
       {tabValue === 0 && (
         <Table
           columns={publicReportsTableColumns}
-          height={510}
+          height='auto'
           isLoading={isLoadingInstitutionReports}
           getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
@@ -155,7 +155,7 @@ export function ControlReports() {
       {tabValue === 1 && (
         <Table
           columns={reportsAuditingTableColumns}
-          height={510}
+          height='auto'
           isLoading={isLoadingHearingReports}
           getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}

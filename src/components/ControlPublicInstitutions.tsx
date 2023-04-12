@@ -58,7 +58,7 @@ export function ControlPublicInstitutions() {
     <Stack gap={6} mt={9}>
       <Table
         columns={publicInstitutionsTableColumns}
-        height={510}
+        height='auto'
         isLoading={isInitialLoading}
         getRowHeight={() => 'auto'}
         getRowId={(row) => row.id}

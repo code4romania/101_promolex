@@ -93,7 +93,7 @@ export function ControlMotions() {
       {tabValue === 0 && (
         <Table
           columns={motionsTableColumns}
-          height={510}
+          height='auto'
           isLoading={isLoadingSimpleMotions}
           getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
@@ -104,7 +104,7 @@ export function ControlMotions() {
       {tabValue === 1 && (
         <Table
           columns={motionsTableColumns}
-          height={510}
+          height='auto'
           isLoading={isLoadingcensorShipMotions}
           getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
