@@ -188,7 +188,7 @@ export function ControlQuestions() {
       {tabValue === 0 && (
         <Table
           columns={questionsTableColumns}
-          height={510}
+          height='auto'
           isLoading={isLoadingQuestions}
           getRowHeight={() => 'auto'}
           getRowId={(row) => row.docid}
@@ -200,7 +200,7 @@ export function ControlQuestions() {
       {tabValue === 1 && (
         <Table
           columns={interpellationsTableColumns}
-          height={510}
+          height='auto'
           isLoading={isLoadingInterpellations}
           getRowHeight={() => 'auto'}
           getRowId={(row) => row.docid}

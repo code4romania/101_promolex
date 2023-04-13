@@ -178,7 +178,7 @@ export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
         isLoading={isLoading}
         columns={columns}
         getRowId={(row) => row.itemid}
-        height={350}
+        height='auto'
         hideFooter={
           !incomeStatements?.categorys[selectedCategory]?.items?.length
         }

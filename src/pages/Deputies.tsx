@@ -1,14 +1,10 @@
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import SearchIcon from '@mui/icons-material/Search';
 import {
   Button,
   ButtonGroup,
-  Fab,
-  Fade,
   Stack,
   TextField,
   useMediaQuery,
-  useScrollTrigger,
   useTheme,
 } from '@mui/material';
 import { useCallback, useState } from 'react';
@@ -64,13 +60,8 @@ export function Deputies() {
   const { breakpoints } = useTheme();
   const isMobile = useMediaQuery(breakpoints.down('sm'));
 
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 100,
-  });
-
   return (
-    <PageContainer pageTitle='Deputați'>
+    <PageContainer pageTitle='Deputați' showBackToTop>
       <Stack
         alignItems={isMobile ? 'flex-start' : 'center'}
         direction={isMobile ? 'column' : 'row'}
@@ -118,17 +109,6 @@ export function Deputies() {
         />
       </Stack>
       <Outlet context={{ search }} />
-
-      <Fade in={trigger}>
-        <Fab
-          color='secondary'
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          size='small'
-          sx={{ position: 'fixed', bottom: 40, right: 40 }}
-        >
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </Fade>
     </PageContainer>
   );
 }

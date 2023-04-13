@@ -23,7 +23,16 @@ export function DeputiesList({
     () =>
       search
         ? deputies?.filter(({ fullName }) =>
-            fullName.toLowerCase().includes(search.toLowerCase()),
+            fullName
+              .normalize('NFD')
+              .replace(/[\u0300-\u036f]/g, '')
+              .toLowerCase()
+              .includes(
+                search
+                  .normalize('NFD')
+                  .replace(/[\u0300-\u036f]/g, '')
+                  .toLowerCase(),
+              ),
           )
         : deputies,
     [deputies, search],

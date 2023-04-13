@@ -1,7 +1,7 @@
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Typography, Stack, useTheme, Collapse } from '@mui/material';
-import { ReactNode, useRef, useState } from 'react';
+import { ReactNode, useLayoutEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const WATCHED_COLOR = '#835388';
@@ -26,6 +26,15 @@ export function CommitteeSummary({
   const expandedColor = palette.common.white;
   const bgColor = watched ? palette.grey[100] : palette.common.white;
   const color = watched ? WATCHED_COLOR : palette.text.primary;
+
+  useLayoutEffect(() => {
+    if (expanded) {
+      containerRef?.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [expanded]);
 
   return (
     <Stack gap={2} ref={containerRef}>
@@ -61,12 +70,12 @@ export function CommitteeSummary({
         in={expanded}
         mountOnEnter
         unmountOnExit
-        onEnter={() =>
-          containerRef?.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-          })
-        }
+        // onEntered={() =>
+        //   containerRef?.current?.scrollIntoView({
+        //     behavior: 'smooth',
+        //     block: 'center',
+        //   })
+        // }
       >
         {children}
       </Collapse>

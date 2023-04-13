@@ -412,7 +412,7 @@ export function DeputyDetails() {
                   )}
                   {data?.questionsInterpelations === '0' && (
                     <Typography textAlign='center'>
-                      Acest deputat nu a înregistrat nici o întrebare sau
+                      Acest deputat nu a adresat nici o întrebare sau
                       interpelare
                     </Typography>
                   )}
