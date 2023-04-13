@@ -98,46 +98,50 @@ export function LegislationInitiativeDetails({
           />
         </Box>
       </Stack>
-      <Stack gap={1}>
-        <DetailsRow
-          details={data?.dataVot2Lect ?? ''}
-          label='Votare a-II-a lectură'
-        />
-        <Box pl={4}>
+      {data?.dataVot2Lect && (
+        <Stack gap={1}>
           <DetailsRow
-            details={data?.['2LectDepPentru']?.map(deputyMap) ?? ''}
-            label={`Pentru (${data?.['2LectDepPentru']?.length ?? 0})`}
+            details={data.dataVot2Lect ?? ''}
+            label='Votare a-II-a lectură'
           />
+          <Box pl={4}>
+            <DetailsRow
+              details={data?.['2LectDepPentru']?.map(deputyMap) ?? ''}
+              label={`Pentru (${data?.['2LectDepPentru']?.length ?? 0})`}
+            />
+            <DetailsRow
+              details={data?.['2LectDepContra']?.map(deputyMap) ?? ''}
+              label={`Contra (${data?.['2LectDepContra']?.length ?? 0})`}
+            />
+            <DetailsRow
+              details={data?.['2LectDepAbtinut']?.map(deputyMap) ?? ''}
+              label={`Nu a votat (${data?.['2LectDepAbtinut']?.length ?? 0})`}
+            />
+          </Box>
+        </Stack>
+      )}
+      {data?.dataVot3Lect && (
+        <Stack gap={1}>
           <DetailsRow
-            details={data?.['2LectDepContra']?.map(deputyMap) ?? ''}
-            label={`Contra (${data?.['2LectDepContra']?.length ?? 0})`}
+            details={data?.dataVot3Lect ?? ''}
+            label='Votare a-III-a lectură'
           />
-          <DetailsRow
-            details={data?.['2LectDepAbtinut']?.map(deputyMap) ?? ''}
-            label={`Nu a votat (${data?.['2LectDepAbtinut']?.length ?? 0})`}
-          />
-        </Box>
-      </Stack>
-      <Stack gap={1}>
-        <DetailsRow
-          details={data?.dataVot3Lect ?? ''}
-          label='Votare a-III-a lectură'
-        />
-        <Box pl={4}>
-          <DetailsRow
-            details={data?.['3LectDepPentru']?.map(deputyMap) ?? ''}
-            label={`Pentru (${data?.['3LectDepPentru']?.length ?? 0})`}
-          />
-          <DetailsRow
-            details={data?.['3LectDepContra']?.map(deputyMap) ?? ''}
-            label={`Contra (${data?.['3LectDepContra']?.length ?? 0})`}
-          />
-          <DetailsRow
-            details={data?.['3LectDepAbtinut']?.map(deputyMap) ?? ''}
-            label={`Nu a votat (${data?.['3LectDepAbtinut']?.length ?? 0})`}
-          />
-        </Box>
-      </Stack>
+          <Box pl={4}>
+            <DetailsRow
+              details={data?.['3LectDepPentru']?.map(deputyMap) ?? ''}
+              label={`Pentru (${data?.['3LectDepPentru']?.length ?? 0})`}
+            />
+            <DetailsRow
+              details={data?.['3LectDepContra']?.map(deputyMap) ?? ''}
+              label={`Contra (${data?.['3LectDepContra']?.length ?? 0})`}
+            />
+            <DetailsRow
+              details={data?.['3LectDepAbtinut']?.map(deputyMap) ?? ''}
+              label={`Nu a votat (${data?.['3LectDepAbtinut']?.length ?? 0})`}
+            />
+          </Box>
+        </Stack>
+      )}
     </Stack>
   );
 }
