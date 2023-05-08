@@ -102,8 +102,11 @@ type TableProps = {
 };
 
 const cleanText = (text: string | string[]): string => {
+  if (typeof text === 'string') {
+    return deburr(text.toLowerCase()).replaceAll(/ș/g, 's');
+  }
   if (Array.isArray(text)) return text.map(cleanText).join(' ');
-  return deburr(text.toLowerCase()).replaceAll(/ș/g, 's');
+  return text;
 };
 
 export function Table({

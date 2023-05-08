@@ -312,28 +312,32 @@ export function DeputyDetails() {
                   </Box>
                 </Stack>
 
-                {data?.curriculumVitae && (
-                  <Stack alignItems='center' direction='row' gap={4}>
-                    <Box
-                      alignItems='center'
-                      bgcolor='secondary.main'
-                      borderRadius={99}
-                      color='common.white'
-                      display='flex'
-                      justifyContent='center'
-                      p={2}
-                    >
-                      <TextSnippetIcon />
-                    </Box>
-                    <Box>
-                      <Typography fontWeight={700}>Curriculum Vitae</Typography>
-                      <Typography color='#9CA3AF'>Vezi documentul</Typography>
-                    </Box>
+                <Stack alignItems='center' direction='row' gap={4}>
+                  <Box
+                    alignItems='center'
+                    bgcolor='secondary.main'
+                    borderRadius={99}
+                    color='common.white'
+                    display='flex'
+                    justifyContent='center'
+                    p={2}
+                  >
+                    <TextSnippetIcon />
+                  </Box>
+                  <Box>
+                    <Typography fontWeight={700}>Curriculum Vitae</Typography>
+                    <Typography color='#9CA3AF'>
+                      {data?.curriculumVitae
+                        ? 'Vezi documentul'
+                        : 'Indisponibil'}
+                    </Typography>
+                  </Box>
+                  {data?.curriculumVitae && (
                     <Link href={data.curriculumVitae} target='_blank'>
                       <LaunchIcon />
                     </Link>
-                  </Stack>
-                )}
+                  )}
+                </Stack>
               </Stack>
             </Stack>
           </Grid>

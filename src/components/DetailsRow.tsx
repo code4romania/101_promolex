@@ -1,4 +1,5 @@
 import { Stack, Typography } from '@mui/material';
+import { uniqueId } from 'lodash';
 import { ReactNode, useMemo } from 'react';
 
 type DetailsRowProps = {
@@ -12,7 +13,7 @@ export function DetailsRow({ label, details }: DetailsRowProps) {
       Array.isArray(details) ? (
         <Stack direction='row' flexWrap='wrap' gap={1}>
           {details.map((detail, index) => (
-            <Typography key={detail?.toString()}>
+            <Typography key={uniqueId()}>
               {detail}
               {index < (details.length ?? 0) - 1 ? ', ' : ''}
             </Typography>

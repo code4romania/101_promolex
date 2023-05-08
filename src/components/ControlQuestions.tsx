@@ -1,13 +1,19 @@
-import { Link, Stack } from '@mui/material';
-import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
+import { Link, Stack, Typography } from '@mui/material';
+import {
+  GridColumns,
+  GridRenderCellParams,
+  GridValidRowModel,
+} from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useTabs } from '../hooks';
 import {
   useCommitteeInterpellationsByLegislatureQuery,
   useCommitteeQuestionsByLegislatureQuery,
 } from '../queries';
+import { Deputy, Routes } from '../types';
 import { formatDate } from '../utils';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
+import { StyledRouterLink } from './StyledRouterLink';
 import { Table } from './Table';
 
 const questionsTableColumns: GridColumns<GridValidRowModel> = [
@@ -38,7 +44,19 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
     field: 'autori',
     headerName: 'Autor',
     flex: 0.4,
-    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    renderCell: ({ value }: GridRenderCellParams<Deputy[]>) => (
+      <Stack direction='row' flexWrap='wrap' columnGap={1}>
+        {value?.map(({ did, fullName }) => (
+          <StyledRouterLink
+            key={did}
+            sx={{ whiteSpace: 'nowrap' }}
+            to={`${Routes.Deputies}/detalii/${did}`}
+          >
+            {fullName}
+          </StyledRouterLink>
+        ))}
+      </Stack>
+    ),
     minWidth: 100,
   },
   {
@@ -109,7 +127,19 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Autorii interpelării',
     flex: 0.4,
     sortable: false,
-    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    renderCell: ({ value }: GridRenderCellParams<Deputy[]>) => (
+      <Stack direction='row' flexWrap='wrap' columnGap={1}>
+        {value?.map(({ did, fullName }) => (
+          <StyledRouterLink
+            key={did}
+            sx={{ whiteSpace: 'nowrap' }}
+            to={`${Routes.Deputies}/detalii/${did}`}
+          >
+            {fullName}
+          </StyledRouterLink>
+        ))}
+      </Stack>
+    ),
     minWidth: 120,
   },
   {
@@ -132,7 +162,12 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
     headerName: 'Forma răspunsului',
     flex: 0.3,
     sortable: false,
-    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    renderCell: ({ value }) =>
+      value && (
+        <Link href={value} target='_blank'>
+          Vezi răspunsul
+        </Link>
+      ),
     minWidth: 120,
   },
 ];
@@ -157,7 +192,6 @@ export function ControlQuestions() {
       questions?.map((question, index) => ({
         ...question,
         id: (index + 1).toString(),
-        autori: question.autori.map(({ fullName }) => fullName).join(', '),
       })) ?? [],
     [questions],
   );
@@ -167,15 +201,13 @@ export function ControlQuestions() {
       interpellations?.map((interpellation, index) => ({
         ...interpellation,
         id: (index + 1).toString(),
-        autori: interpellation.autori
-          .map(({ fullName }) => fullName)
-          .join(', '),
       })) ?? [],
     [interpellations],
   );
 
   return (
     <Stack gap={6} mt={9}>
+      <Typography noWrap>Text</Typography>
       <SecondaryTabs
         onChange={handleTabChange}
         scrollButtons='auto'

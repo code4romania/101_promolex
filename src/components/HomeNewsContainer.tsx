@@ -30,10 +30,10 @@ export function HomeNewsContainer() {
         <Loading />
       ) : (
         <Grid columnSpacing={7} container rowSpacing={15}>
-          <Grid item xs={12} md={6} height={640}>
+          <Grid item xs={12} md={5} height={640}>
             <BlogPostCard event={latestEvent} />
           </Grid>
-          <Grid container item xs={12} md={6} columnSpacing={7} rowSpacing={15}>
+          <Grid container item xs={12} md={7} columnSpacing={7} rowSpacing={15}>
             {otherEvents.map((event) => (
               <Grid key={event.eid} item xs={12} md={6}>
                 <BlogPostCard event={event} />

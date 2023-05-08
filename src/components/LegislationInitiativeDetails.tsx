@@ -1,6 +1,6 @@
 import { Box, Link, Stack, Typography } from '@mui/material';
 import { useLegislationInitiativeDetailsQuery } from '../queries';
-import { PartialDeputy, Routes } from '../types';
+import { LegislativeActivityRoutes, PartialDeputy, Routes } from '../types';
 import { legislationInitiativesTableColumns } from '../utils';
 import { DetailsRow } from './DetailsRow';
 import { StyledRouterLink } from './StyledRouterLink';
@@ -63,7 +63,19 @@ export function LegislationInitiativeDetails({
         label='Procedură de urgență sau mod prioritar'
       />
       <DetailsRow
-        details={data?.comisiaSesizata?.map(({ committee }) => committee) ?? ''}
+        details={
+          data?.comisiaSesizata?.map(({ committee, cid }) => (
+            <StyledRouterLink
+              key={cid}
+              to={{
+                pathname: `${Routes.LegislativeActivity}/${LegislativeActivityRoutes.committees}`,
+                search: `?committee=${committee}`,
+              }}
+            >
+              {committee}
+            </StyledRouterLink>
+          )) ?? ''
+        }
         label='Comisia permanentă sesizată în fond'
       />
       <DetailsRow
