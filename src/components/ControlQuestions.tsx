@@ -25,14 +25,6 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
     minWidth: 65,
   },
   {
-    field: 'docid',
-    headerName: 'Nr d/o',
-    flex: 0.3,
-    sortable: false,
-    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
-    minWidth: 60,
-  },
-  {
     field: 'dataSedinta',
     headerName: 'Data',
     flex: 0.3,
@@ -107,14 +99,6 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
     minWidth: 65,
   },
   {
-    field: 'docid',
-    headerName: 'Nr d/o',
-    flex: 0.3,
-    sortable: false,
-    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
-    minWidth: 60,
-  },
-  {
     field: 'dataSedinta',
     headerName: 'Data',
     flex: 0.4,
@@ -159,8 +143,8 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
   },
   {
     field: 'answerType',
-    headerName: 'Forma răspunsului',
-    flex: 0.3,
+    headerName: 'Răspunsul Guvernului',
+    flex: 0.4,
     sortable: false,
     renderCell: ({ value }) =>
       value && (

@@ -162,6 +162,7 @@ export function SessionsPage() {
                 size='large'
                 sx={{
                   bgcolor: '#780000',
+                  height: 60,
                   mt: 'auto',
                   '&:hover': {
                     bgcolor: alpha('#780000', 0.85),

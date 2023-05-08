@@ -147,12 +147,12 @@ export function Table({
   const downloadData = useMemo(() => {
     const fields = columns.map((column) => column.field);
 
-    const data = chain(rows)
+    const data = chain(filteredRows)
       .map((row) => chain(row).pick(fields).values().value())
       .value();
 
     return data;
-  }, [columns, rows]);
+  }, [columns, filteredRows]);
 
   return (
     <Stack gap={4}>
