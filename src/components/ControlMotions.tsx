@@ -1,10 +1,16 @@
 import { Stack } from '@mui/material';
-import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
+import {
+  GridColumns,
+  GridRenderCellParams,
+  GridValidRowModel,
+} from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useTabs } from '../hooks';
 import { useCommitteeMotionsByLegislatureQuery } from '../queries';
+import { Deputy, Routes } from '../types';
 import { formatDate } from '../utils';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
+import { StyledRouterLink } from './StyledRouterLink';
 import { Table } from './Table';
 // import { TextWithTooltip } from './TextWithTooltip';
 
@@ -21,7 +27,19 @@ const motionsTableColumns: GridColumns<GridValidRowModel> = [
     field: 'numeDep',
     headerName: 'Autorii moțiunii',
     flex: 1,
-    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    renderCell: ({ value }: GridRenderCellParams<Deputy[]>) => (
+      <Stack direction='row' flexWrap='wrap' columnGap={1}>
+        {value?.map(({ did, fullName }) => (
+          <StyledRouterLink
+            key={did}
+            sx={{ whiteSpace: 'nowrap' }}
+            to={`${Routes.Deputies}/detalii/${did}`}
+          >
+            {fullName}
+          </StyledRouterLink>
+        ))}
+      </Stack>
+    ),
     minWidth: 400,
   },
   {
@@ -63,7 +81,6 @@ export function ControlMotions() {
     () =>
       simpleMotions?.map((motion, index) => ({
         ...motion,
-        numeDep: motion.numeDep.map(({ fullName }) => fullName).join(', '),
         id: index,
       })) ?? [],
     [simpleMotions],
@@ -73,7 +90,6 @@ export function ControlMotions() {
     () =>
       censorShipMotions?.map((motion, index) => ({
         ...motion,
-        numeDep: motion.numeDep.map(({ fullName }) => fullName).join(', '),
         id: index,
       })) ?? [],
     [censorShipMotions],

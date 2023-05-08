@@ -17,6 +17,7 @@ const StyledTab = styled((props: StyledTabProps) => (
   borderRadius: 8,
   color: theme.palette.grey[500],
   fontWeight: theme.typography.fontWeightMedium,
+  fontSize: 16,
   textTransform: 'none',
 
   '&.Mui-selected': {

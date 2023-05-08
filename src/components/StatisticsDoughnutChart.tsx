@@ -19,10 +19,16 @@ const doughnutChartOptions: ChartOptions<'doughnut'> = {
       position: 'right',
       labels: {
         boxHeight: 20,
-        boxWidth: 40,
+        boxWidth: 20,
         filter: (legendItem, data) =>
           legendItem.index !== undefined &&
           Boolean(data.datasets[0].data[legendItem.index]),
+        font: {
+          family: 'Titillium Web',
+          lineHeight: '16px',
+          size: 16,
+          weight: 'bold',
+        },
       },
     },
     datalabels: {

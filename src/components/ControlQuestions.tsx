@@ -1,4 +1,4 @@
-import { Link, Stack, Typography } from '@mui/material';
+import { Link, Stack } from '@mui/material';
 import {
   GridColumns,
   GridRenderCellParams,
@@ -207,7 +207,6 @@ export function ControlQuestions() {
 
   return (
     <Stack gap={6} mt={9}>
-      <Typography noWrap>Text</Typography>
       <SecondaryTabs
         onChange={handleTabChange}
         scrollButtons='auto'
