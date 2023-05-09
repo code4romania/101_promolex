@@ -2,8 +2,8 @@
 import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ChartData } from 'chart.js';
 import { chain, keys, toPairs, zip } from 'lodash';
-import { useMemo } from 'react';
-import { useTabs } from '../hooks';
+import { SyntheticEvent, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   useCommitteesMainReporterCoreporterDataByLegislatureQuery,
   useCommitteesMainReporterDataByLegislatureQuery,
@@ -60,7 +60,8 @@ function LegendItem({ color, label }: { color: string; label: string }) {
 }
 
 export function CommitteesActivityCharts() {
-  const { tabValue, handleTabChange } = useTabs();
+  const [params, setParams] = useSearchParams();
+  const tabValue = parseInt(params.get('secondaryTab') ?? '0', 10);
 
   const {
     data: committeesMainReporterData,
@@ -160,6 +161,13 @@ export function CommitteesActivityCharts() {
 
   const { breakpoints } = useTheme();
   const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
+
+  const handleTabChange = (_: SyntheticEvent, newValue: number) => {
+    setParams({
+      tab: params.get('tab') ?? '1',
+      secondaryTab: newValue.toString(),
+    });
+  };
 
   return (
     <Stack gap={4} mt={10}>

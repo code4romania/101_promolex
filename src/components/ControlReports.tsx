@@ -1,7 +1,7 @@
 import { MenuItem, Select, Stack, Typography } from '@mui/material';
 import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
-import { useMemo } from 'react';
-import { useTabs } from '../hooks';
+import { SyntheticEvent, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   useCommitteeHearingReportsByLegislatureQuery,
   useCommitteeInstitutionReportsByLegislatureQuery,
@@ -92,7 +92,8 @@ const reportsAuditingTableColumns: GridColumns<GridValidRowModel> = [
 ];
 
 export function ControlReports() {
-  const { tabValue, handleTabChange } = useTabs();
+  const [params, setParams] = useSearchParams();
+  const tabValue = parseInt(params.get('secondaryTab') ?? '0', 10);
 
   const {
     data: institutionReports,
@@ -120,6 +121,13 @@ export function ControlReports() {
       hearingReports?.map((report, index) => ({ ...report, id: index })) ?? [],
     [hearingReports],
   );
+
+  const handleTabChange = (_: SyntheticEvent, newValue: number) => {
+    setParams({
+      tab: params.get('tab') ?? '2',
+      secondaryTab: newValue.toString(),
+    });
+  };
 
   return (
     <Stack gap={6} mt={9}>

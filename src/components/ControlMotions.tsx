@@ -4,8 +4,8 @@ import {
   GridRenderCellParams,
   GridValidRowModel,
 } from '@mui/x-data-grid';
-import { useMemo } from 'react';
-import { useTabs } from '../hooks';
+import { SyntheticEvent, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useCommitteeMotionsByLegislatureQuery } from '../queries';
 import { Deputy, Routes } from '../types';
 import { formatDate } from '../utils';
@@ -61,7 +61,8 @@ const motionsTableColumns: GridColumns<GridValidRowModel> = [
 ];
 
 export function ControlMotions() {
-  const { tabValue, handleTabChange } = useTabs();
+  const [params, setParams] = useSearchParams();
+  const tabValue = parseInt(params.get('secondaryTab') ?? '0', 10);
 
   const { data: simpleMotions, isInitialLoading: isLoadingSimpleMotions } =
     useCommitteeMotionsByLegislatureQuery('simplă', {
@@ -94,6 +95,13 @@ export function ControlMotions() {
       })) ?? [],
     [censorShipMotions],
   );
+
+  const handleTabChange = (_: SyntheticEvent, newValue: number) => {
+    setParams({
+      tab: params.get('tab') ?? '6',
+      secondaryTab: newValue.toString(),
+    });
+  };
 
   return (
     <Stack gap={6} mt={9}>

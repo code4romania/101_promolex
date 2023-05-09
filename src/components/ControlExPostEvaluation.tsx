@@ -1,14 +1,15 @@
 import { Box, MenuItem, Select, Stack, Typography } from '@mui/material';
 import { first } from 'lodash';
-import { useState } from 'react';
-import { useTabs } from '../hooks';
+import { SyntheticEvent, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useCommitteeExPostEvaluationYearsByLegislatureQuery } from '../queries';
 import { ControlImpactExPostEvaluation } from './ControlImpactExPostEvaluation';
 import { ControlLegalExPostEvaluation } from './ControlLegalExPostEvaluation';
 import { SecondaryTab, SecondaryTabs } from './SecondaryTabs';
 
 export function ControlExportEvaluation() {
-  const { tabValue, handleTabChange } = useTabs();
+  const [params, setParams] = useSearchParams();
+  const tabValue = parseInt(params.get('secondaryTab') ?? '0', 10);
 
   const [selectedLegalYear, setSelectedLegalYear] = useState<string>('');
   const [selectedImpactYear, setSelectedImpactYear] = useState<string>('');
@@ -36,6 +37,13 @@ export function ControlExportEvaluation() {
       setSelectedImpactYear(firstYear?.evalYear ?? '');
     },
   });
+
+  const handleTabChange = (_: SyntheticEvent, newValue: number) => {
+    setParams({
+      tab: params.get('tab') ?? '1',
+      secondaryTab: newValue.toString(),
+    });
+  };
 
   return (
     <Stack gap={6} mt={9}>

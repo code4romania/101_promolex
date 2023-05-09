@@ -1,5 +1,6 @@
 import { Box, styled, Tab, Tabs, useMediaQuery, useTheme } from '@mui/material';
-import { useState, SyntheticEvent } from 'react';
+import { SyntheticEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   ControlExportEvaluation,
   ControlInvestigationCommittees,
@@ -32,10 +33,11 @@ const StyledTab = styled((props: StyledTabProps) => (
 export function ControlPage() {
   const { breakpoints } = useTheme();
   const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
-  const [tabValue, setTabValue] = useState(0);
+  const [params, setParams] = useSearchParams();
+  const tabValue = parseInt(params.get('tab') ?? '0', 10);
 
   const handleTabChange = (_: SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
+    setParams({ tab: newValue.toString() });
   };
   return (
     <PageContainer pageTitle='Control parlamentar'>

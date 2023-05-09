@@ -1,5 +1,6 @@
 import { Stack, Container, Box, Tab, Tabs, styled } from '@mui/material';
-import { useState, SyntheticEvent } from 'react';
+import { SyntheticEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   Header,
   LegislativeActivityDomains,
@@ -27,10 +28,11 @@ const StyledTab = styled((props: StyledTabProps) => (
 }));
 
 export function LegislativeActivity() {
-  const [tabValue, setTabValue] = useState(0);
+  const [params, setParams] = useSearchParams();
+  const tabValue = parseInt(params.get('tab') ?? '0', 10);
 
   const handleTabChange = (_: SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
+    setParams({ tab: newValue.toString() });
   };
 
   return (
