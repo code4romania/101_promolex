@@ -3,11 +3,17 @@ import { CommitteeHearingReports } from '../types';
 import { mapKeysToCamelCase } from '../utils';
 import { apiPaths } from './apiUrls';
 
+type CommitteeHearingReportsByLegislatureProps = {
+  lid: string;
+  year: string;
+};
+
 export const fetchCommitteeHearingReportsByLegislature = async (
-  lid: string,
+  params: CommitteeHearingReportsByLegislatureProps,
 ): Promise<CommitteeHearingReports[]> => {
+  const queryParams = new URLSearchParams(params);
   const { data } = await axios.post(
-    `${apiPaths.committeeHearingReports}${lid}`,
+    `${apiPaths.committeeHearingReports}&${queryParams}`,
   );
 
   return mapKeysToCamelCase(data);

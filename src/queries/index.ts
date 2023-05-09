@@ -9,6 +9,7 @@ export * from './useCommitteeInterpellationsByLegislatureQuery';
 export * from './useCommitteeInvestigationCommissionsByLegislatureQuery';
 export * from './useCommitteeMotionsByLegislatureQuery';
 export * from './useCommitteeQuestionsByLegislatureQuery';
+export * from './useCommitteeReportsYearsQuery';
 export * from './useCommitteesByLegislatureQuery';
 export * from './useCommitteesMainReporterCoreporterDataByLegislatureQuery';
 export * from './useCommitteesMainReporterDataByLegislatureQuery';

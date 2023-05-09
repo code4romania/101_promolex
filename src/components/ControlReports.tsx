@@ -1,10 +1,12 @@
 import { MenuItem, Select, Stack, Typography } from '@mui/material';
 import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
-import { SyntheticEvent, useMemo } from 'react';
+import { first } from 'lodash';
+import { SyntheticEvent, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   useCommitteeHearingReportsByLegislatureQuery,
   useCommitteeInstitutionReportsByLegislatureQuery,
+  useCommitteeReportsYearsQuery,
 } from '../queries';
 import { Routes } from '../types';
 import { formatDate } from '../utils';
@@ -94,14 +96,43 @@ const reportsAuditingTableColumns: GridColumns<GridValidRowModel> = [
 export function ControlReports() {
   const [params, setParams] = useSearchParams();
   const tabValue = parseInt(params.get('secondaryTab') ?? '0', 10);
+  const [selectedInstitutionReportsYear, setSelectedInstitutionReportsYear] =
+    useState('');
+  const [selectedHearingReportsYear, setSelectedHearingReportsYear] =
+    useState('');
+
+  const { data: institutionReportYears } = useCommitteeReportsYearsQuery(
+    'Rapoartele instituțiilor publice',
+    {
+      enabled: tabValue === 0,
+      onSuccess: (data) => {
+        const firstYear = first(data);
+        setSelectedInstitutionReportsYear(firstYear?.reportYear ?? '');
+      },
+    },
+  );
+
+  const { data: hearingReportYears } = useCommitteeReportsYearsQuery(
+    'Audierea în plen a rapoartelor',
+    {
+      enabled: tabValue === 1,
+      onSuccess: (data) => {
+        const firstYear = first(data);
+        setSelectedHearingReportsYear(firstYear?.reportYear ?? '');
+      },
+    },
+  );
 
   const {
     data: institutionReports,
     isInitialLoading: isLoadingInstitutionReports,
-  } = useCommitteeInstitutionReportsByLegislatureQuery({
-    enabled: tabValue === 0,
-    refetchOnMount: false,
-  });
+  } = useCommitteeInstitutionReportsByLegislatureQuery(
+    selectedInstitutionReportsYear,
+    {
+      enabled: !!selectedInstitutionReportsYear,
+      refetchOnMount: false,
+    },
+  );
 
   const institutionReportsData = useMemo(
     () =>
@@ -111,8 +142,8 @@ export function ControlReports() {
   );
 
   const { data: hearingReports, isInitialLoading: isLoadingHearingReports } =
-    useCommitteeHearingReportsByLegislatureQuery({
-      enabled: tabValue === 1,
+    useCommitteeHearingReportsByLegislatureQuery(selectedHearingReportsYear, {
+      enabled: !!selectedHearingReportsYear,
       refetchOnMount: false,
     });
 
@@ -140,36 +171,65 @@ export function ControlReports() {
         <SecondaryTab label='Audierea în plen a rapoartelor' />
       </SecondaryTabs>
 
-      <Stack alignItems='center' direction='row' gap={2}>
-        <Typography>Selectează anul</Typography>
-        <Select labelId='year' value={2023}>
-          <MenuItem value={2021}>2021</MenuItem>
-          <MenuItem value={2022}>2022</MenuItem>
-          <MenuItem value={2023}>2023</MenuItem>
-        </Select>
-      </Stack>
-
       {tabValue === 0 && (
-        <Table
-          columns={publicReportsTableColumns}
-          height='auto'
-          isLoading={isLoadingInstitutionReports}
-          getRowHeight={() => 'auto'}
-          getRowId={(row) => row.id}
-          hideFooter={!institutionReportsData.length}
-          rows={institutionReportsData}
-        />
+        <>
+          <Stack alignItems='center' direction='row' gap={2}>
+            <Typography>Selectează anul</Typography>
+            <Select
+              defaultValue={institutionReportYears?.[0] ?? ''}
+              labelId='year'
+              onChange={(event) => {
+                setSelectedInstitutionReportsYear(event.target.value as string);
+              }}
+              value={selectedInstitutionReportsYear}
+            >
+              {institutionReportYears?.map(({ reportYear }) => (
+                <MenuItem key={reportYear} value={reportYear}>
+                  {reportYear}
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+          <Table
+            columns={publicReportsTableColumns}
+            height='auto'
+            isLoading={isLoadingInstitutionReports}
+            getRowHeight={() => 'auto'}
+            getRowId={(row) => row.id}
+            hideFooter={!institutionReportsData.length}
+            rows={institutionReportsData}
+          />
+        </>
       )}
       {tabValue === 1 && (
-        <Table
-          columns={reportsAuditingTableColumns}
-          height='auto'
-          isLoading={isLoadingHearingReports}
-          getRowHeight={() => 'auto'}
-          getRowId={(row) => row.id}
-          hideFooter={!hearingReportsData.length}
-          rows={hearingReportsData}
-        />
+        <>
+          <Stack alignItems='center' direction='row' gap={2}>
+            <Typography>Selectează anul</Typography>
+            <Select
+              defaultValue={hearingReportYears?.[0] ?? ''}
+              labelId='year'
+              onChange={(event) => {
+                setSelectedHearingReportsYear(event.target.value as string);
+              }}
+              value={selectedHearingReportsYear}
+            >
+              {hearingReportYears?.map(({ reportYear }) => (
+                <MenuItem key={reportYear} value={reportYear}>
+                  {reportYear}
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+          <Table
+            columns={reportsAuditingTableColumns}
+            height='auto'
+            isLoading={isLoadingHearingReports}
+            getRowHeight={() => 'auto'}
+            getRowId={(row) => row.id}
+            hideFooter={!hearingReportsData.length}
+            rows={hearingReportsData}
+          />
+        </>
       )}
     </Stack>
   );
