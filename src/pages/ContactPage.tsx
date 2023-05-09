@@ -6,33 +6,33 @@ import {
   Box,
   Button,
   CircularProgress,
-  FormControl,
-  FormHelperText,
+  // FormControl,
+  // FormHelperText,
   Grid,
-  InputLabel,
+  // InputLabel,
   Link as MuiLink,
   List,
   ListItem,
   ListItemText,
-  OutlinedInput,
+  // OutlinedInput,
   Slide,
   Snackbar,
   Stack,
-  styled,
+  // styled,
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { ContactDetails, PageContainer } from '../components';
 import { useSendQuestionMutation } from '../mutations';
 import { ContactFormData, Routes } from '../types';
 
-const StyledInputLabel = styled(InputLabel)({
-  fontWeight: 600,
-  position: 'relative',
-  transform: 'none',
-});
+// const StyledInputLabel = styled(InputLabel)({
+//   fontWeight: 600,
+//   position: 'relative',
+//   transform: 'none',
+// });
 
 export function ContactPage() {
   const [alert, setAlert] = useState<{
@@ -41,7 +41,7 @@ export function ContactPage() {
   }>({ message: '' });
   const [open, setOpen] = useState(false);
 
-  const { handleSubmit, control } = useForm<ContactFormData>({
+  const { handleSubmit } = useForm<ContactFormData>({
     defaultValues: {
       email: '',
       name: '',
@@ -95,14 +95,14 @@ export function ContactPage() {
           py={{ xs: 4, sm: 10 }}
         >
           <Grid item xs={12}>
-            <Alert severity='info' variant='outlined'>
-              <AlertTitle sx={{ mb: 0 }}>
+            <Alert severity='info' variant='outlined' sx={{ py: 3 }}>
+              <AlertTitle sx={{ mb: 0, fontWeight: 500 }}>
                 Pentru a contacta direct deputații, găsiți datele de contact ale
                 acestora{' '}
                 <Typography
-                  color='primary.light'
+                  color='#780000'
                   component={Link}
-                  fontWeight='bold'
+                  fontWeight={700}
                   sx={{
                     textDecoration: 'none',
                     '&:hover': {
@@ -117,24 +117,61 @@ export function ContactPage() {
                 .
               </AlertTitle>
             </Alert>
+
+            <Box pt={6}>
+              <Typography fontWeight='bold' mb={2}>
+                Alternativ, puteți adresa Parlamentului (instituției) sau
+                deputaților o întrebare prin intermediul Asociației Promo-LEX
+                respectând următoarele reguli:
+              </Typography>
+              <Typography>1. Adresați întrebări de interes public.</Typography>
+              <Typography>
+                2. Întrebarea nu trebuie să instige la ură, discriminare sau să
+                conțină expresii licențioase etc.
+              </Typography>
+              <Typography>
+                3. Este obligatorie completarea tuturor câmpurilor, iar textul
+                întrebării nu trebuie să depășească spațiul oferit.
+              </Typography>
+              <Typography>
+                4. Politica de protecție a datelor cu caracter personal. Termeni
+                și condiții de utilizare a paginii www.101.promolex.md o găsiți{' '}
+                <Typography
+                  color='#780000'
+                  component='a'
+                  fontWeight={700}
+                  sx={{
+                    textDecoration: 'none',
+                    '&:hover': {
+                      textDecoration: 'underline',
+                      color: 'primary.main',
+                    },
+                  }}
+                  href={`${process.env.PUBLIC_URL}/terms.pdf`}
+                  target='_blank'
+                >
+                  aici
+                </Typography>
+                .
+              </Typography>
+            </Box>
+
+            <Box textAlign='center'>
+              <Button
+                color='secondary'
+                variant='contained'
+                // type='submit'
+                sx={{ minWidth: 80 }}
+              >
+                {isLoading ? (
+                  <CircularProgress color='primary' size={24.5} />
+                ) : (
+                  'Adresați o întrebare'
+                )}
+              </Button>
+            </Box>
           </Grid>
-          <Grid item mb={4} xs={12}>
-            <Typography fontWeight='bold' mb={4}>
-              Alternativ, puteți adresa Parlamentului (instituției) sau
-              deputaților o întrebare prin intermediul Asociației Promo-LEX
-              respectând următoarele reguli:
-            </Typography>
-            <Typography>1. Adresați întrebări de interes public.</Typography>
-            <Typography>
-              2. Întrebarea nu trebuie să instige la ură, discriminare sau să
-              conțină expresii licențioase etc.
-            </Typography>
-            <Typography>
-              3. Este obligatorie completarea tuturor câmpurilor, iar textul
-              întrebării nu trebuie să depășească spațiul oferit.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <Controller
               control={control}
               name='name'
@@ -314,23 +351,7 @@ export function ContactPage() {
               *Răspunsul la întrebarea dumneavoastră este în responsabilitatea
               instituției sau a deputatului căruia i-a fost adresată.
             </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Box textAlign='right'>
-              <Button
-                color='secondary'
-                variant='contained'
-                type='submit'
-                sx={{ minWidth: 80 }}
-              >
-                {isLoading ? (
-                  <CircularProgress color='primary' size={24.5} />
-                ) : (
-                  'Trimite'
-                )}
-              </Button>
-            </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
 
