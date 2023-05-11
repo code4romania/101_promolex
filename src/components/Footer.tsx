@@ -11,6 +11,7 @@ import {
   Container,
 } from '@mui/material';
 import logoPromoLexRo from '../assets/images/logo_promo_lex_ro.png';
+import logoCfr from '../assets/svg/cfr_logo.svg';
 import {
   FacebookIcon,
   InstagramIcon,
@@ -25,7 +26,7 @@ const MediaIcon = styled(Link)(({ theme }) => ({
   alignItems: 'center',
   backgroundColor: theme.palette.grey[500],
   borderRadius: 4,
-  padding: 5,
+  padding: 3,
   color: theme.palette.common.white,
   cursor: 'pointer',
   display: 'flex',
@@ -40,11 +41,11 @@ export function Footer() {
   return (
     <Stack bgcolor='grey.50' mt='auto'>
       <Container>
-        <Grid container spacing={11} pb={10} pt={10} px={4}>
+        <Grid columnSpacing={5} container rowSpacing={2} pb={4} pt={4} px={4}>
           <Grid display={{ xs: 'none', sm: 'block' }} item xs={0} md={3} />
-          <Grid item xs={12} md={3}>
-            <Stack gap={8} ml='auto' flexGrow={0}>
-              <Box height={85}>
+          <Grid item xs={12} md={3} sx={{ display: 'flex' }}>
+            <Stack gap={4} ml={{ xs: 'none', md: 'auto' }} flexGrow={0}>
+              <Box height={75}>
                 <img alt='Logo Promo-LEX' height='100%' src={logoPromoLexRo} />
               </Box>
               <Stack direction='row' gap={1}>
@@ -83,7 +84,7 @@ export function Footer() {
           </Grid>
 
           <Grid item xs={12} md={3}>
-            <Stack gap={4}>
+            <Stack gap={2}>
               <Typography
                 color='grey.400'
                 fontWeight='medium'
@@ -137,6 +138,20 @@ export function Footer() {
                 </Typography>
               </Stack>
             </Stack>
+          </Grid>
+        </Grid>
+        <Grid columnSpacing={5} container rowSpacing={2} px={4}>
+          <Grid item xs={12} md={6}>
+            <Typography
+              color='grey.500'
+              fontWeight='medium'
+              textAlign={{ xs: 'left', md: 'right' }}
+            >
+              Soluție dezvolată cu sprijinul
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <img src={logoCfr} alt='' height='30px' style={{ opacity: 0.7 }} />
           </Grid>
         </Grid>
       </Container>

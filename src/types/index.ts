@@ -6,6 +6,7 @@ export * from './CommitteeInterpellation';
 export * from './CommitteeInvestigationCommission';
 export * from './CommitteeMotion';
 export * from './CommitteeQuestion';
+export * from './CommitteeReportYear';
 export * from './CommitteeSpecialCommission';
 export * from './ContactFormData';
 export * from './Deputy';

@@ -86,88 +86,89 @@ export function EventDetailsPage() {
           {parse(event?.content ?? '', options)}
 
           {event?.photos && event?.photos.length > 0 && (
-            <Stack gap={5}>
-              <Typography
-                color='grey.900'
-                fontWeight='medium'
-                textTransform='uppercase'
-                variant='h5'
-              >
-                Galerie foto
-              </Typography>
+            <>
+              <Stack gap={5}>
+                <Typography
+                  color='grey.900'
+                  fontWeight='medium'
+                  textTransform='uppercase'
+                  variant='h5'
+                >
+                  Galerie foto
+                </Typography>
 
-              <Stack alignItems='center' direction='row'>
-                <Box border={1} borderColor='grey.900' flexGrow={1} />
-                <Box
-                  bgcolor='grey.900'
-                  border={1}
-                  borderRadius={99}
-                  borderColor='grey.900'
-                  height={12}
-                  width={12}
-                />
+                <Stack alignItems='center' direction='row'>
+                  <Box border={1} borderColor='grey.900' flexGrow={1} />
+                  <Box
+                    bgcolor='grey.900'
+                    border={1}
+                    borderRadius={99}
+                    borderColor='grey.900'
+                    height={12}
+                    width={12}
+                  />
+                </Stack>
+
+                <Grid container spacing={8} mt={8}>
+                  {event?.photos.map(({ file }, index) => (
+                    <Grid item key={file} xs={12} sm={4}>
+                      <Box
+                        height={280}
+                        onClick={() => onOpenPreview(index)}
+                        sx={{
+                          backgroundImage: `url(${file})`,
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat',
+                          backgroundSize: 'cover',
+                          cursor: 'pointer',
+                        }}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
               </Stack>
-
-              <Grid container spacing={8} mt={8}>
-                {event?.photos.map(({ file }, index) => (
-                  <Grid item key={file} xs={12} sm={4}>
-                    <Box
-                      height={280}
-                      onClick={() => onOpenPreview(index)}
-                      sx={{
-                        backgroundImage: `url(${file})`,
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                        cursor: 'pointer',
-                      }}
+              <Dialog
+                open={openPreview}
+                onClose={onClosePreview}
+                fullWidth
+                fullScreen={isMobile}
+              >
+                <DialogContent sx={{ alignItems: 'center', display: 'flex' }}>
+                  <Box flexGrow={1}>
+                    <img
+                      alt={event?.photos[currentIndex].file}
+                      height='auto'
+                      src={event?.photos[currentIndex].file}
+                      width='100%'
                     />
-                  </Grid>
-                ))}
-              </Grid>
-            </Stack>
+                  </Box>
+                </DialogContent>
+                <DialogActions>
+                  <Button color='secondary' onClick={onClosePreview}>
+                    Închide
+                  </Button>
+                  <Button
+                    color='secondary'
+                    disabled={currentIndex === 0}
+                    onClick={() => setCurrentIndex((prev) => prev - 1)}
+                    variant='contained'
+                  >
+                    Precedenta
+                  </Button>
+                  <Button
+                    color='secondary'
+                    disabled={currentIndex === (event?.photos.length ?? 0) - 1}
+                    onClick={() => setCurrentIndex((prev) => prev + 1)}
+                    variant='contained'
+                  >
+                    Următoarea
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </>
           )}
         </Stack>
       )}
-
-      <Dialog
-        open={openPreview}
-        onClose={onClosePreview}
-        fullWidth
-        fullScreen={isMobile}
-      >
-        <DialogContent sx={{ alignItems: 'center', display: 'flex' }}>
-          <Box flexGrow={1}>
-            <img
-              alt={event?.photos[currentIndex].file}
-              height='auto'
-              src={event?.photos[currentIndex].file}
-              width='100%'
-            />
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button color='secondary' onClick={onClosePreview}>
-            Închide
-          </Button>
-          <Button
-            color='secondary'
-            disabled={currentIndex === 0}
-            onClick={() => setCurrentIndex((prev) => prev - 1)}
-            variant='contained'
-          >
-            Precedenta
-          </Button>
-          <Button
-            color='secondary'
-            disabled={currentIndex === (event?.photos.length ?? 0) - 1}
-            onClick={() => setCurrentIndex((prev) => prev + 1)}
-            variant='contained'
-          >
-            Următoarea
-          </Button>
-        </DialogActions>
-      </Dialog>
     </>
   );
 }

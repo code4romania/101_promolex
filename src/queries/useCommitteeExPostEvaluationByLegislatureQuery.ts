@@ -14,7 +14,7 @@ export const useCommitteeExPostEvaluationByLegislatureQuery = (
   const enabled = Boolean(lid) && !isLoading && !isError && options?.enabled;
 
   return useQuery<ExPostEvaluation>(
-    ['committee-ex-post-evaluation', lid, eval_type],
+    ['committee-ex-post-evaluation', lid, eval_type, year],
     () =>
       fetchCommitteeExPostEvaluationByLegislature({
         lid: lid ?? '',

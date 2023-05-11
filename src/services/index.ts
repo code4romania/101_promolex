@@ -8,6 +8,7 @@ export * from './fetchCommitteeInterpellationsByLegislature';
 export * from './fetchCommitteeInvestigationCommissionsByLegislature';
 export * from './fetchCommitteeMotionsByLegislature';
 export * from './fetchCommitteeQuestionsByLegislature';
+export * from './fetchCommitteeReportsYears';
 export * from './fetchCommitteesByLegislature';
 export * from './fetchCommitteesMainReporterCoreporterDataByLegislature';
 export * from './fetchCommitteesMainReporterDataByLegislature';

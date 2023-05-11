@@ -102,8 +102,11 @@ type TableProps = {
 };
 
 const cleanText = (text: string | string[]): string => {
+  if (typeof text === 'string') {
+    return deburr(text.toLowerCase()).replaceAll(/ș/g, 's');
+  }
   if (Array.isArray(text)) return text.map(cleanText).join(' ');
-  return deburr(text.toLowerCase()).replaceAll(/ș/g, 's');
+  return text;
 };
 
 export function Table({
@@ -144,12 +147,12 @@ export function Table({
   const downloadData = useMemo(() => {
     const fields = columns.map((column) => column.field);
 
-    const data = chain(rows)
+    const data = chain(filteredRows)
       .map((row) => chain(row).pick(fields).values().value())
       .value();
 
     return data;
-  }, [columns, rows]);
+  }, [columns, filteredRows]);
 
   return (
     <Stack gap={4}>

@@ -1,8 +1,14 @@
 import { Link, Stack } from '@mui/material';
-import { GridColumns, GridValidRowModel } from '@mui/x-data-grid';
+import {
+  GridColumns,
+  GridRenderCellParams,
+  GridValidRowModel,
+} from '@mui/x-data-grid';
 import { useMemo } from 'react';
 import { useCommitteeSpecialCommissionsByLegislatureQuery } from '../queries';
+import { Deputy, Routes } from '../types';
 import { formatDate } from '../utils';
+import { StyledRouterLink } from './StyledRouterLink';
 import { Table } from './Table';
 // import { TextWithTooltip } from './TextWithTooltip';
 
@@ -26,7 +32,19 @@ const specialCommitteesTableColumns: GridColumns<GridValidRowModel> = [
     field: 'componenta',
     headerName: 'Componența',
     flex: 0.5,
-    // renderCell: ({ value }) => <TextWithTooltip text={value} />,
+    renderCell: ({ value }: GridRenderCellParams<Deputy[]>) => (
+      <Stack direction='row' flexWrap='wrap' columnGap={1}>
+        {value?.map(({ did, fullName }) => (
+          <StyledRouterLink
+            key={did}
+            sx={{ whiteSpace: 'nowrap' }}
+            to={`${Routes.Deputies}/detalii/${did}`}
+          >
+            {fullName}
+          </StyledRouterLink>
+        ))}
+      </Stack>
+    ),
     minWidth: 120,
   },
   {
@@ -60,9 +78,6 @@ export function ControlSpecialCommittees() {
     () =>
       data?.map((report, index) => ({
         ...report,
-        componenta: report.componenta
-          .map(({ fullName }) => fullName)
-          .join(', '),
         id: index,
       })) ?? [],
     [data],

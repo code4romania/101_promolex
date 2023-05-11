@@ -1,6 +1,7 @@
 import { Box, Stack, styled, Tab, Tabs } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
   CommitteeDetails,
   CommitteesActivityCharts,
@@ -20,6 +21,7 @@ const StyledTab = styled((props: StyledTabProps) => (
   borderRadius: 8,
   color: theme.palette.grey[500],
   fontWeight: theme.typography.fontWeightMedium,
+  fontSize: 16,
   textTransform: 'none',
 
   '&.Mui-selected': {
@@ -29,10 +31,11 @@ const StyledTab = styled((props: StyledTabProps) => (
 }));
 
 export function CommitteesPage() {
-  const [tabValue, setTabValue] = useState(0);
+  const [params, setParams] = useSearchParams();
+  const tabValue = parseInt(params.get('tab') ?? '0', 10);
 
   const handleTabChange = (_: SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
+    setParams({ tab: newValue.toString() });
   };
 
   const { data: committees, isLoading: isCommitteesLoading } =

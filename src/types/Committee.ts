@@ -31,10 +31,11 @@ export type Committee = {
 };
 
 export type CommitteeDetails = {
-  cid: '1';
-  legislature: 'Legislatura a XI-a';
-  committee: 'Comisia administrație publică';
-  commEmail: 'cap@parlament.md';
+  cid: string;
+  legislature: string;
+  committee: string;
+  commEmail: string;
+  commPhone: string;
   members: CommitteeDeputy[];
   organizedHearings: CommitteeHearing[];
   sessions: CommitteeSession[];

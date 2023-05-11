@@ -1,4 +1,5 @@
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import PhoneIcon from '@mui/icons-material/Phone';
 import { Box, Link, Stack, Typography, useTheme } from '@mui/material';
 import { deburr } from 'lodash';
 import { useCommitteeDetailsQuery } from '../queries';
@@ -127,6 +128,19 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
             variant='body2'
           >
             Poșta electronică
+          </Typography>
+        </Stack>
+
+        <Stack alignItems='center' direction='row' gap={2}>
+          <PhoneIcon />
+          <Typography
+            color='text.primary'
+            component={Link}
+            href={`tel:${committee?.commPhone}`}
+            underline='none'
+            variant='body2'
+          >
+            {committee?.commPhone}
           </Typography>
         </Stack>
       </Stack>

@@ -33,6 +33,8 @@ export function SessionsPage() {
       }
       setFilteredSessions(latestFive);
     },
+    refetchOnMount: true,
+    staleTime: 0,
   });
 
   const onFromDateChange = useCallback(
@@ -158,10 +160,11 @@ export function SessionsPage() {
 
               <Button
                 color='secondary'
-                disabled={!filteredSessions?.[sessionId].eid}
+                disabled={!filteredSessions?.[sessionId]?.eid}
                 size='large'
                 sx={{
                   bgcolor: '#780000',
+                  height: 60,
                   mt: 'auto',
                   '&:hover': {
                     bgcolor: alpha('#780000', 0.85),
@@ -170,7 +173,7 @@ export function SessionsPage() {
                 variant='contained'
               >
                 <Link
-                  to={`${Routes.News}/detalii/${filteredSessions?.[sessionId].eid}`}
+                  to={`${Routes.News}/detalii/${filteredSessions?.[sessionId]?.eid}`}
                   target='_blank'
                   style={{ color: 'inherit', textDecoration: 'none' }}
                 >

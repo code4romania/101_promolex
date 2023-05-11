@@ -4,6 +4,7 @@ import { CommitteeHearingReports } from '../types';
 import { useCurrentLegislatureQuery } from './useCurrentLegislatureQuery';
 
 export const useCommitteeHearingReportsByLegislatureQuery = (
+  year: string,
   options?: UseQueryOptions<CommitteeHearingReports[]>,
 ) => {
   const { data: lid, isLoading, isError } = useCurrentLegislatureQuery();
@@ -11,8 +12,8 @@ export const useCommitteeHearingReportsByLegislatureQuery = (
   const enabled = Boolean(lid) && !isLoading && !isError && options?.enabled;
 
   return useQuery<CommitteeHearingReports[]>(
-    ['committee-hearing-reports', lid],
-    () => fetchCommitteeHearingReportsByLegislature(lid ?? ''),
+    ['committee-hearing-reports', lid, year],
+    () => fetchCommitteeHearingReportsByLegislature({ lid: lid ?? '', year }),
     {
       ...options,
       enabled,
