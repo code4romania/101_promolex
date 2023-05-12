@@ -6,34 +6,36 @@ import {
   Box,
   Button,
   CircularProgress,
-  // FormControl,
-  // FormHelperText,
+  FormControl,
+  FormHelperText,
   Grid,
-  // InputLabel,
+  InputLabel,
   Link as MuiLink,
   List,
   ListItem,
   ListItemText,
-  // OutlinedInput,
+  OutlinedInput,
   Slide,
   Snackbar,
   Stack,
-  // styled,
+  styled,
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { ContactDetails, PageContainer } from '../components';
 import { useSendQuestionMutation } from '../mutations';
 import { ContactFormData, Routes } from '../types';
+import { auth } from '../utils';
 import { LoginDialog } from './LoginDialog';
 
-// const StyledInputLabel = styled(InputLabel)({
-//   fontWeight: 600,
-//   position: 'relative',
-//   transform: 'none',
-// });
+const StyledInputLabel = styled(InputLabel)({
+  fontWeight: 600,
+  position: 'relative',
+  transform: 'none',
+});
 
 export function ContactPage() {
   const [alert, setAlert] = useState<{
@@ -42,7 +44,7 @@ export function ContactPage() {
   }>({ message: '' });
   const [open, setOpen] = useState(false);
 
-  const { handleSubmit } = useForm<ContactFormData>({
+  const { control, handleSubmit } = useForm<ContactFormData>({
     defaultValues: {
       email: '',
       name: '',
@@ -76,6 +78,9 @@ export function ContactPage() {
   };
 
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
+  const [user, loading] = useAuthState(auth);
+
+  console.log(user);
 
   return (
     <PageContainer pageTitle='Întreabă Parlamentul'>
@@ -159,203 +164,223 @@ export function ContactPage() {
               </Typography>
             </Box>
 
-            <Box textAlign='center'>
-              <Button
-                color='secondary'
-                // type='submit'
-                onClick={() => setOpenLoginDialog(true)}
-                sx={{ minWidth: 80 }}
-                variant='contained'
+            <Button onClick={() => auth.signOut()}>Sign out</Button>
+
+            {!user && !loading && (
+              <Box textAlign='center'>
+                <Button
+                  color='secondary'
+                  disabled={loading}
+                  onClick={() => setOpenLoginDialog(true)}
+                  sx={{ minWidth: 80 }}
+                  variant='contained'
+                >
+                  {isLoading ? (
+                    <CircularProgress color='primary' size={24.5} />
+                  ) : (
+                    'Adresați o întrebare'
+                  )}
+                </Button>
+              </Box>
+            )}
+            {loading && (
+              <Box
+                alignItems='center'
+                display='flex'
+                justifyContent='center'
+                height={200}
               >
-                {isLoading ? (
-                  <CircularProgress color='primary' size={24.5} />
-                ) : (
-                  'Adresați o întrebare'
-                )}
-              </Button>
-            </Box>
+                <CircularProgress size={24} />
+              </Box>
+            )}
           </Grid>
-          {/* <Grid item xs={12} sm={6}>
-            <Controller
-              control={control}
-              name='name'
-              render={({ field, fieldState }) => (
-                <FormControl fullWidth>
-                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                    Nume
-                  </StyledInputLabel>
-                  <OutlinedInput
-                    error={Boolean(fieldState.error)}
-                    id={field.name}
-                    {...field}
-                  />
-                  <FormHelperText error={Boolean(fieldState.error)}>
-                    {fieldState.error?.message ?? ' '}
-                  </FormHelperText>
-                </FormControl>
-              )}
-              rules={{
-                required: {
-                  value: true,
-                  message: 'Acest câmp este obligatoriu',
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              control={control}
-              name='sur_name'
-              render={({ field, fieldState }) => (
-                <FormControl fullWidth>
-                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                    Prenume
-                  </StyledInputLabel>
-                  <OutlinedInput
-                    error={Boolean(fieldState.error)}
-                    id={field.name}
-                    {...field}
-                  />
-                  <FormHelperText error={Boolean(fieldState.error)}>
-                    {fieldState.error?.message ?? ' '}
-                  </FormHelperText>
-                </FormControl>
-              )}
-              rules={{
-                required: {
-                  value: true,
-                  message: 'Acest câmp este obligatoriu',
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              control={control}
-              name='email'
-              render={({ field, fieldState }) => (
-                <FormControl fullWidth>
-                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                    Email
-                  </StyledInputLabel>
-                  <OutlinedInput
-                    error={Boolean(fieldState.error)}
-                    id={field.name}
-                    {...field}
-                  />
-                  <FormHelperText error={Boolean(fieldState.error)}>
-                    {fieldState.error?.message ?? ' '}
-                  </FormHelperText>
-                </FormControl>
-              )}
-              rules={{
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Adresa de email nu este validă',
-                },
-                required: {
-                  value: true,
-                  message: 'Acest câmp este obligatoriu',
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              control={control}
-              name='phone_number'
-              render={({ field, fieldState }) => (
-                <FormControl fullWidth>
-                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                    Telefon
-                  </StyledInputLabel>
-                  <OutlinedInput
-                    error={Boolean(fieldState.error)}
-                    id={field.name}
-                    {...field}
-                  />
-                  <FormHelperText error={Boolean(fieldState.error)}>
-                    {fieldState.error?.message ?? ' '}
-                  </FormHelperText>
-                </FormControl>
-              )}
-              rules={{
-                required: {
-                  value: true,
-                  message: 'Acest câmp este obligatoriu',
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              control={control}
-              name='question_for'
-              render={({ field, fieldState }) => (
-                <FormControl fullWidth>
-                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                    Întrebarea este adresată deputatului/deputatei sau
-                    Parlamentului
-                  </StyledInputLabel>
-                  <OutlinedInput
-                    error={Boolean(fieldState.error)}
-                    id={field.name}
-                    {...field}
-                  />
-                  <FormHelperText error={Boolean(fieldState.error)}>
-                    {fieldState.error?.message ?? 'Max. 500 caractere'}
-                  </FormHelperText>
-                </FormControl>
-              )}
-              rules={{
-                maxLength: {
-                  value: 500,
-                  message: 'Câmpul poate avea maximum 500 de caractere',
-                },
-                required: {
-                  value: true,
-                  message: 'Acest câmp este obligatoriu',
-                },
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              control={control}
-              name='question'
-              render={({ field, fieldState }) => (
-                <FormControl fullWidth>
-                  <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                    Întrebarea*
-                  </StyledInputLabel>
-                  <OutlinedInput
-                    error={Boolean(fieldState.error)}
-                    id={field.name}
-                    multiline
-                    rows={6}
-                    {...field}
-                  />
-                  <FormHelperText error={Boolean(fieldState.error)}>
-                    {fieldState.error?.message ?? 'Max. 1800 caractere'}
-                  </FormHelperText>
-                </FormControl>
-              )}
-              rules={{
-                maxLength: {
-                  value: 1800,
-                  message: 'Întrebarea poate avea maximum 1800 de caractere',
-                },
-                required: {
-                  value: true,
-                  message: 'Acest câmp este obligatoriu',
-                },
-              }}
-            />
-            <Typography fontWeight='bold'>
-              *Răspunsul la întrebarea dumneavoastră este în responsabilitatea
-              instituției sau a deputatului căruia i-a fost adresată.
-            </Typography>
-          </Grid> */}
+          {user && !loading && (
+            <>
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  control={control}
+                  name='name'
+                  render={({ field, fieldState }) => (
+                    <FormControl fullWidth>
+                      <StyledInputLabel htmlFor={field.name} variant='outlined'>
+                        Nume
+                      </StyledInputLabel>
+                      <OutlinedInput
+                        error={Boolean(fieldState.error)}
+                        id={field.name}
+                        {...field}
+                      />
+                      <FormHelperText error={Boolean(fieldState.error)}>
+                        {fieldState.error?.message ?? ' '}
+                      </FormHelperText>
+                    </FormControl>
+                  )}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: 'Acest câmp este obligatoriu',
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  control={control}
+                  name='sur_name'
+                  render={({ field, fieldState }) => (
+                    <FormControl fullWidth>
+                      <StyledInputLabel htmlFor={field.name} variant='outlined'>
+                        Prenume
+                      </StyledInputLabel>
+                      <OutlinedInput
+                        error={Boolean(fieldState.error)}
+                        id={field.name}
+                        {...field}
+                      />
+                      <FormHelperText error={Boolean(fieldState.error)}>
+                        {fieldState.error?.message ?? ' '}
+                      </FormHelperText>
+                    </FormControl>
+                  )}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: 'Acest câmp este obligatoriu',
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  control={control}
+                  name='email'
+                  render={({ field, fieldState }) => (
+                    <FormControl fullWidth>
+                      <StyledInputLabel htmlFor={field.name} variant='outlined'>
+                        Email
+                      </StyledInputLabel>
+                      <OutlinedInput
+                        error={Boolean(fieldState.error)}
+                        id={field.name}
+                        {...field}
+                      />
+                      <FormHelperText error={Boolean(fieldState.error)}>
+                        {fieldState.error?.message ?? ' '}
+                      </FormHelperText>
+                    </FormControl>
+                  )}
+                  rules={{
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Adresa de email nu este validă',
+                    },
+                    required: {
+                      value: true,
+                      message: 'Acest câmp este obligatoriu',
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  control={control}
+                  name='phone_number'
+                  render={({ field, fieldState }) => (
+                    <FormControl fullWidth>
+                      <StyledInputLabel htmlFor={field.name} variant='outlined'>
+                        Telefon
+                      </StyledInputLabel>
+                      <OutlinedInput
+                        error={Boolean(fieldState.error)}
+                        id={field.name}
+                        {...field}
+                      />
+                      <FormHelperText error={Boolean(fieldState.error)}>
+                        {fieldState.error?.message ?? ' '}
+                      </FormHelperText>
+                    </FormControl>
+                  )}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: 'Acest câmp este obligatoriu',
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  control={control}
+                  name='question_for'
+                  render={({ field, fieldState }) => (
+                    <FormControl fullWidth>
+                      <StyledInputLabel htmlFor={field.name} variant='outlined'>
+                        Întrebarea este adresată deputatului/deputatei sau
+                        Parlamentului
+                      </StyledInputLabel>
+                      <OutlinedInput
+                        error={Boolean(fieldState.error)}
+                        id={field.name}
+                        {...field}
+                      />
+                      <FormHelperText error={Boolean(fieldState.error)}>
+                        {fieldState.error?.message ?? 'Max. 500 caractere'}
+                      </FormHelperText>
+                    </FormControl>
+                  )}
+                  rules={{
+                    maxLength: {
+                      value: 500,
+                      message: 'Câmpul poate avea maximum 500 de caractere',
+                    },
+                    required: {
+                      value: true,
+                      message: 'Acest câmp este obligatoriu',
+                    },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  control={control}
+                  name='question'
+                  render={({ field, fieldState }) => (
+                    <FormControl fullWidth>
+                      <StyledInputLabel htmlFor={field.name} variant='outlined'>
+                        Întrebarea*
+                      </StyledInputLabel>
+                      <OutlinedInput
+                        error={Boolean(fieldState.error)}
+                        id={field.name}
+                        multiline
+                        rows={6}
+                        {...field}
+                      />
+                      <FormHelperText error={Boolean(fieldState.error)}>
+                        {fieldState.error?.message ?? 'Max. 1800 caractere'}
+                      </FormHelperText>
+                    </FormControl>
+                  )}
+                  rules={{
+                    maxLength: {
+                      value: 1800,
+                      message:
+                        'Întrebarea poate avea maximum 1800 de caractere',
+                    },
+                    required: {
+                      value: true,
+                      message: 'Acest câmp este obligatoriu',
+                    },
+                  }}
+                />
+                <Typography fontWeight='bold'>
+                  *Răspunsul la întrebarea dumneavoastră este în
+                  responsabilitatea instituției sau a deputatului căruia i-a
+                  fost adresată.
+                </Typography>
+              </Grid>
+            </>
+          )}
         </Grid>
       </Grid>
 

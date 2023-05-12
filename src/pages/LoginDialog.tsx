@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
-import { useOnGoogleSignIn } from '../hooks';
+import { useOnFacebookSignIn, useOnGoogleSignIn } from '../hooks';
 
 type LoginDialogProps = {
   open: boolean;
@@ -18,7 +18,12 @@ type LoginDialogProps = {
 
 export function LoginDialog({ open, onClose }: LoginDialogProps) {
   const { isLoading: isLoadingGoogleUser, onGoogleSignIn } =
-    useOnGoogleSignIn();
+    useOnGoogleSignIn(onClose);
+
+  const { isLoading: isLoadingFacebookUser, onFacebookSignIn } =
+    useOnFacebookSignIn(onClose);
+
+  const isLoading = isLoadingFacebookUser || isLoadingGoogleUser;
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -28,7 +33,7 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
       <DialogContent>
         <Stack gap={3} pt={4}>
           <ButtonBase
-            disabled={isLoadingGoogleUser}
+            disabled={isLoading}
             onClick={onGoogleSignIn}
             sx={{
               border: '1px solid',
@@ -43,8 +48,8 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
             <FcGoogle style={{ fontSize: 24 }} /> Continue with Google
           </ButtonBase>
           <ButtonBase
-            disabled={isLoadingGoogleUser}
-            onClick={onGoogleSignIn}
+            disabled={isLoading}
+            onClick={onFacebookSignIn}
             sx={{
               backgroundColor: '#1877f2',
               border: '1px solid',
