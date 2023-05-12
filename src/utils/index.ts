@@ -1,3 +1,4 @@
+export * from './authFirebase';
 export * from './cookies';
 export * from './downloadAsExcel';
 export * from './formatDate';
