@@ -27,6 +27,7 @@ import { Link } from 'react-router-dom';
 import { ContactDetails, PageContainer } from '../components';
 import { useSendQuestionMutation } from '../mutations';
 import { ContactFormData, Routes } from '../types';
+import { LoginDialog } from './LoginDialog';
 
 // const StyledInputLabel = styled(InputLabel)({
 //   fontWeight: 600,
@@ -73,6 +74,8 @@ export function ContactPage() {
       },
     });
   };
+
+  const [openLoginDialog, setOpenLoginDialog] = useState(false);
 
   return (
     <PageContainer pageTitle='Întreabă Parlamentul'>
@@ -159,9 +162,10 @@ export function ContactPage() {
             <Box textAlign='center'>
               <Button
                 color='secondary'
-                variant='contained'
                 // type='submit'
+                onClick={() => setOpenLoginDialog(true)}
                 sx={{ minWidth: 80 }}
+                variant='contained'
               >
                 {isLoading ? (
                   <CircularProgress color='primary' size={24.5} />
@@ -440,6 +444,11 @@ export function ContactPage() {
           {alert.message}
         </Alert>
       </Snackbar>
+
+      <LoginDialog
+        open={openLoginDialog}
+        onClose={() => setOpenLoginDialog(false)}
+      />
     </PageContainer>
   );
 }
