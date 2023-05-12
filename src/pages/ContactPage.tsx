@@ -21,7 +21,7 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -44,7 +44,7 @@ export function ContactPage() {
   }>({ message: '' });
   const [open, setOpen] = useState(false);
 
-  const { control, handleSubmit } = useForm<ContactFormData>({
+  const { control, handleSubmit, setValue } = useForm<ContactFormData>({
     defaultValues: {
       email: '',
       name: '',
@@ -80,7 +80,13 @@ export function ContactPage() {
   const [openLoginDialog, setOpenLoginDialog] = useState(false);
   const [user, loading] = useAuthState(auth);
 
-  console.log(user);
+  useEffect(() => {
+    if (!user || loading) {
+      return;
+    }
+
+    setValue('email', user.email ?? '');
+  }, [loading, setValue, user]);
 
   return (
     <PageContainer pageTitle='Întreabă Parlamentul'>
@@ -163,8 +169,6 @@ export function ContactPage() {
                 .
               </Typography>
             </Box>
-
-            <Button onClick={() => auth.signOut()}>Sign out</Button>
 
             {!user && !loading && (
               <Box textAlign='center'>
@@ -263,6 +267,7 @@ export function ContactPage() {
                         error={Boolean(fieldState.error)}
                         id={field.name}
                         {...field}
+                        disabled
                       />
                       <FormHelperText error={Boolean(fieldState.error)}>
                         {fieldState.error?.message ?? ' '}
@@ -378,6 +383,22 @@ export function ContactPage() {
                   responsabilitatea instituției sau a deputatului căruia i-a
                   fost adresată.
                 </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Box textAlign='right'>
+                  <Button
+                    color='secondary'
+                    variant='contained'
+                    type='submit'
+                    sx={{ minWidth: 80 }}
+                  >
+                    {isLoading ? (
+                      <CircularProgress color='primary' size={24.5} />
+                    ) : (
+                      'Trimite'
+                    )}
+                  </Button>
+                </Box>
               </Grid>
             </>
           )}
