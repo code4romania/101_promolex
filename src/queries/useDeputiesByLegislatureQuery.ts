@@ -1,8 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchDeputiesByLegislature } from '../services';
+import { useCurrentLegislatureQuery } from './useCurrentLegislatureQuery';
 
-export const useDeputiesByLegislatureQuery = (lid?: string) => {
-  const enabled = Boolean(lid);
+export const useDeputiesByLegislatureQuery = () => {
+  const {
+    data: lid,
+    isLoading: isLoadingLid,
+    isError: isErrorLoadingLid,
+  } = useCurrentLegislatureQuery();
+
+  const enabled = Boolean(lid) && !isLoadingLid && !isErrorLoadingLid;
 
   return useQuery(
     ['deputies-legislature', lid],
