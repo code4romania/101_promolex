@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Button,
   DialogActions,
+  Typography,
 } from '@mui/material';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
@@ -28,10 +29,10 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle position='relative' sx={{ textAlign: 'center' }}>
-        Autentificați-vă pentru a continua
+        Logare
       </DialogTitle>
       <DialogContent>
-        <Stack gap={3} pt={4}>
+        <Stack alignItems='center' gap={3} pt={4} justifyContent='center'>
           <ButtonBase
             disabled={isLoading}
             onClick={onGoogleSignIn}
@@ -45,7 +46,8 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
               py: 1,
             }}
           >
-            <FcGoogle style={{ fontSize: 24 }} /> Continue with Google
+            <FcGoogle style={{ fontSize: 24 }} />
+            Conectați-vă prin Google
           </ButtonBase>
           <ButtonBase
             disabled={isLoading}
@@ -62,9 +64,31 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
               py: 1,
             }}
           >
-            <FaFacebook style={{ color: 'inherit', fontSize: 24 }} /> Continue
-            with Facebook
+            <FaFacebook style={{ color: 'inherit', fontSize: 24 }} />
+            Conectați-vă prin Facebook
           </ButtonBase>
+
+          <Typography textAlign='center' maxWidth={200} variant='body2'>
+            Continuând, sunteți de acord cu Termenii și condițiile
+            101.promolex.md și confirmați că ați citit{' '}
+            <Typography
+              color='#780000'
+              component='a'
+              fontWeight={700}
+              sx={{
+                textDecoration: 'none',
+                '&:hover': {
+                  textDecoration: 'underline',
+                  color: 'primary.main',
+                },
+              }}
+              href={`${process.env.PUBLIC_URL}/terms.pdf`}
+              target='_blank'
+              variant='body2'
+            >
+              Politica de protecție a datelor cu caracter personal
+            </Typography>
+          </Typography>
         </Stack>
       </DialogContent>
       <DialogActions>

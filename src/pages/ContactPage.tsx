@@ -20,6 +20,8 @@ import {
   Stack,
   styled,
   Typography,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -43,6 +45,7 @@ export function ContactPage() {
     severity?: AlertProps['severity'];
   }>({ message: '' });
   const [open, setOpen] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const { control, handleSubmit, setValue } = useForm<ContactFormData>({
     defaultValues: {
@@ -383,11 +386,42 @@ export function ContactPage() {
                   responsabilitatea instituției sau a deputatului căruia i-a
                   fost adresată.
                 </Typography>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={(_, checked) => setAcceptedTerms(checked)}
+                    />
+                  }
+                  label={
+                    <Typography>
+                      Am citit și accept{' '}
+                      <Typography
+                        color='#780000'
+                        component='a'
+                        fontWeight={700}
+                        sx={{
+                          textDecoration: 'none',
+                          '&:hover': {
+                            textDecoration: 'underline',
+                            color: 'primary.main',
+                          },
+                        }}
+                        href={`${process.env.PUBLIC_URL}/terms.pdf`}
+                        target='_blank'
+                      >
+                        Termenii și condițiile de utilizare
+                      </Typography>{' '}
+                      a paginii
+                    </Typography>
+                  }
+                  value={acceptedTerms}
+                />
               </Grid>
               <Grid item xs={12}>
                 <Box textAlign='right'>
                   <Button
                     color='secondary'
+                    disabled={!acceptedTerms}
                     variant='contained'
                     type='submit'
                     sx={{ minWidth: 80 }}
@@ -395,7 +429,7 @@ export function ContactPage() {
                     {isLoading ? (
                       <CircularProgress color='primary' size={24.5} />
                     ) : (
-                      'Trimite'
+                      'Transmiteți'
                     )}
                   </Button>
                 </Box>
