@@ -5,6 +5,7 @@ export * from './CommitteeDetails';
 export * from './CommitteesActivityCharts';
 export * from './CommitteeSummary';
 export * from './ContactDetails';
+export * from './ContactForm';
 export * from './ControlExPostEvaluation';
 export * from './ControlInvestigationCommittees';
 export * from './ControlMotions';

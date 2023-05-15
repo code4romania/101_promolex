@@ -1,17 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
+import { UseQueryOptions, useQuery } from '@tanstack/react-query';
 import { fetchDeputyDetails } from '../services';
+import { DeputyDetails } from '../types';
 
-export const useDeputyDetailsQuery = (did?: string) => {
-  const enabled = Boolean(did);
+export const useDeputyDetailsQuery = (
+  did?: string,
+  options?: UseQueryOptions<DeputyDetails>,
+) => {
+  const enabled = Boolean(did) && (options?.enabled ?? true);
 
-  return useQuery(
+  return useQuery<DeputyDetails>(
     ['deputy-details', did],
-    () => {
-      if (!did) return undefined;
-
-      return fetchDeputyDetails(did);
-    },
+    () => fetchDeputyDetails(did ?? ''),
     {
+      ...options,
       enabled,
     },
   );
