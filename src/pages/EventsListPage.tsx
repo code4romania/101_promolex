@@ -40,40 +40,43 @@ export function EventsListPage() {
 
   return (
     <>
-      <Stack direction='row' pt={12}>
-        <TextField
-          fullWidth
-          InputProps={{
-            startAdornment: <SearchIcon color='disabled' />,
-          }}
-          placeholder='Caută...'
-          onChange={(event) => setSearch(event.target.value)}
-          sx={{
-            maxWidth: 330,
-          }}
-          value={search}
-        />
-
-        <Stack
-          alignItems='center'
-          direction='row'
-          gap={2}
-          ml={{ xs: 0, sm: 'auto' }}
-        >
-          <Typography variant='subtitle1'>Sortează după</Typography>
-          <Select
-            onChange={(event) => setSort(event.target.value as string)}
-            sx={{
-              minWidth: 145,
+      <Grid container pt={8} spacing={4}>
+        <Grid item xs={12} md={4}>
+          <TextField
+            fullWidth
+            InputProps={{
+              startAdornment: <SearchIcon color='disabled' />,
             }}
-            value={sort}
+            placeholder='Caută...'
+            onChange={(event) => setSearch(event.target.value)}
+            value={search}
+          />
+        </Grid>
+
+        <Grid display={{ xs: 'none', md: 'block' }} item xs={12} md={5} />
+
+        <Grid item xs={12} md={3}>
+          <Stack
+            alignItems='center'
+            direction='row'
+            gap={2}
+            justifyContent='flex-end'
           >
-            <MenuItem value='pubdate-newest'>Cele mai noi</MenuItem>
-            <MenuItem value='pubdate-oldest'>Cele mai vechi</MenuItem>
-            <MenuItem value='title'>Nume</MenuItem>
-          </Select>
-        </Stack>
-      </Stack>
+            <Typography variant='subtitle1' whiteSpace='nowrap'>
+              Sortează după
+            </Typography>
+            <Select
+              fullWidth
+              onChange={(event) => setSort(event.target.value as string)}
+              value={sort}
+            >
+              <MenuItem value='pubdate-newest'>Cele mai noi</MenuItem>
+              <MenuItem value='pubdate-oldest'>Cele mai vechi</MenuItem>
+              <MenuItem value='title'>Nume</MenuItem>
+            </Select>
+          </Stack>
+        </Grid>
+      </Grid>
 
       {isLoading ? (
         <Loading />

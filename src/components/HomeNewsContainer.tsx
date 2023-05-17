@@ -29,11 +29,18 @@ export function HomeNewsContainer() {
       {isLoading ? (
         <Loading />
       ) : (
-        <Grid columnSpacing={7} container rowSpacing={15}>
-          <Grid item xs={12} md={5} height={640}>
+        <Grid columnSpacing={7} container rowSpacing={7}>
+          <Grid item xs={12} md={5} height={{ xs: undefined, md: 580 }}>
             <BlogPostCard event={latestEvent} />
           </Grid>
-          <Grid container item xs={12} md={7} columnSpacing={7} rowSpacing={15}>
+          <Grid
+            container
+            item
+            xs={12}
+            md={7}
+            columnSpacing={7}
+            rowSpacing={{ xs: 7, md: 8 }}
+          >
             {otherEvents.map((event) => (
               <Grid key={event.eid} item xs={12} md={6}>
                 <BlogPostCard event={event} />

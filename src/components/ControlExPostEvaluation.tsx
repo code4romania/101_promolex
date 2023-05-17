@@ -62,7 +62,7 @@ export function ControlExportEvaluation() {
             <Typography gutterBottom variant='subtitle1'>
               Ce este evaluarea ex-post juridică?
             </Typography>
-            <Typography>
+            <Typography textAlign='justify'>
               <strong>Evaluarea ex-post juridică</strong> reprezintă analiza
               aspectelor juridice privind actul normativ adoptat, pentru a
               verifica dacă au fost aprobate toate actele normative necesare
@@ -103,7 +103,7 @@ export function ControlExportEvaluation() {
             <Typography gutterBottom variant='subtitle1'>
               Ce este evaluarea ex-post de impact?
             </Typography>
-            <Typography>
+            <Typography textAlign='justify'>
               <strong>Evaluarea ex-post de impact</strong> reprezintă analiza
               care stabilește eficiența actului normativ, îndeplinirea scopului
               și a obiectivelor actului normativ, posibilitatea de a îmbunătăți

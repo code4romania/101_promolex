@@ -13,11 +13,13 @@ export function ReportItem({ report }: ReportItemProps) {
   return (
     <Grid container columnSpacing={8}>
       <Grid item xs={12} md={3}>
-        <Box height={320} width={1}>
-          <img height='100%' width='auto' src={reportLogo} alt='title' />
-        </Box>
+        <RouterLink to={`detalii/${rid}`}>
+          <Box boxShadow={2} height={320} textAlign='center' width={1}>
+            <img height='100%' width='auto' src={reportLogo} alt='title' />
+          </Box>
+        </RouterLink>
       </Grid>
-      <Grid item xs={12} md={9}>
+      <Grid display={{ xs: 'none', md: 'block' }} item xs={12} md={9}>
         <Typography
           color='grey.900'
           component={RouterLink}

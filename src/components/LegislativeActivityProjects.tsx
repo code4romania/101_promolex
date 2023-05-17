@@ -94,7 +94,7 @@ export function LegislativeActivityProjects() {
           <StatisticsDoughnutChart
             data={projectsByFactionChartData}
             isLoading={isLoadingRegisteredProjectsByFid}
-            height={320}
+            height={380}
             title='Inițiative legislative ale deputaților'
           />
         </Grid>

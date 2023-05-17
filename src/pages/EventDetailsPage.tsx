@@ -68,10 +68,13 @@ export function EventDetailsPage() {
             <img
               alt={event?.title}
               style={{
-                position: 'absolute',
-                top: 0,
                 height: '100%',
+                left: 0,
+                margin: 'auto',
                 objectFit: 'cover',
+                position: 'absolute',
+                right: 0,
+                top: 0,
               }}
               src={event?.logo}
             />

@@ -480,7 +480,7 @@ export function AboutProjectPage() {
         reflectă neapărat poziția donatorului.
       </Typography>
 
-      <Typography fontWeight='bold' pb={10}>
+      <Typography fontWeight='bold' py={10}>
         Informațiile plasate pe această platformă pot fi preluate în mod liber
         pentru a fi distribuite, publicate și difuzate cu condiția menționării
         exprese în material a sursei (referință la Asociația Promo-LEX și/sau

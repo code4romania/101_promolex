@@ -8,6 +8,8 @@ import {
   Stack,
   styled,
   TextField,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import {
   DataGrid,
@@ -125,6 +127,8 @@ export function Table({
   showSearch,
   toDate,
 }: TableProps) {
+  const { breakpoints } = useTheme();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
   const [search, setSearch] = useState('');
 
   const filteredRows = useMemo(
@@ -165,57 +169,74 @@ export function Table({
                 startAdornment: <SearchIcon color='disabled' />,
               }}
               onChange={(event) => setSearch(event.target.value)}
+              sx={{
+                order: isLargeScreen ? 0 : 1,
+              }}
               value={search}
             />
           )}
-          {showDatePickers && onFromDateChange && (
-            <LocalizationProvider
-              dateAdapter={AdapterDateFns}
-              adapterLocale={ro}
-              localeText={{
-                nextMonth: 'Luna următoare',
-                previousMonth: 'Luna anterioară',
+          {showDatePickers && (
+            <Stack
+              direction='row'
+              gap={4}
+              sx={{
+                order: isLargeScreen ? 1 : 0,
               }}
             >
-              <DatePicker
-                label='De la data'
-                maxDate={toDate}
-                onChange={onFromDateChange}
-                renderDay={(date, selectedDays, pickersDayProps) => (
-                  <StyledPickersDay {...pickersDayProps} />
-                )}
-                renderInput={(params) => <TextField {...params} />}
-                value={fromDate}
-              />
-            </LocalizationProvider>
-          )}
-          {showDatePickers && onToDateChange && (
-            <LocalizationProvider
-              dateAdapter={AdapterDateFns}
-              adapterLocale={ro}
-              localeText={{
-                nextMonth: 'Luna următoare',
-                previousMonth: 'Luna anterioară',
-              }}
-            >
-              <DatePicker
-                label='Până la data'
-                minDate={fromDate}
-                onChange={onToDateChange}
-                renderDay={(date, selectedDays, pickersDayProps) => (
-                  <StyledPickersDay {...pickersDayProps} />
-                )}
-                renderInput={(params) => <TextField {...params} />}
-                value={toDate}
-              />
-            </LocalizationProvider>
+              {onFromDateChange && (
+                <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  adapterLocale={ro}
+                  localeText={{
+                    nextMonth: 'Luna următoare',
+                    previousMonth: 'Luna anterioară',
+                  }}
+                >
+                  <DatePicker
+                    label='De la data'
+                    maxDate={toDate}
+                    onChange={onFromDateChange}
+                    renderDay={(date, selectedDays, pickersDayProps) => (
+                      <StyledPickersDay {...pickersDayProps} />
+                    )}
+                    renderInput={(params) => <TextField {...params} />}
+                    value={fromDate}
+                  />
+                </LocalizationProvider>
+              )}
+
+              {onToDateChange && (
+                <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  adapterLocale={ro}
+                  localeText={{
+                    nextMonth: 'Luna următoare',
+                    previousMonth: 'Luna anterioară',
+                  }}
+                >
+                  <DatePicker
+                    label='Până la data'
+                    minDate={fromDate}
+                    onChange={onToDateChange}
+                    renderDay={(date, selectedDays, pickersDayProps) => (
+                      <StyledPickersDay {...pickersDayProps} />
+                    )}
+                    renderInput={(params) => <TextField {...params} />}
+                    value={toDate}
+                  />
+                </LocalizationProvider>
+              )}
+            </Stack>
           )}
 
           {showDownload && (
             <Button
               endIcon={<FileDownloadRoundedIcon />}
               onClick={() => downloadAsExcel(headers, downloadData)}
-              sx={{ marginLeft: 'auto' }}
+              sx={{
+                marginLeft: 'auto',
+                order: isLargeScreen ? 2 : 1,
+              }}
               variant='outlined'
             >
               Descarcă tabel

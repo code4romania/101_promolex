@@ -49,7 +49,7 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
         ))}
       </Stack>
     ),
-    minWidth: 100,
+    minWidth: 130,
   },
   {
     field: 'question',
