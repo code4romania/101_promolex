@@ -43,17 +43,20 @@ export function ReportItem({ report }: ReportItemProps) {
         </Typography>
 
         <Stack alignItems='center' direction='row' gap={4} mt={8}>
-          <DownloadLink href={fileRo} download target='_blank'>
-            Română
-          </DownloadLink>
-          <Typography>|</Typography>
-          <DownloadLink href={fileEn} download target='_blank'>
-            Engleză
-          </DownloadLink>
-          <Typography>|</Typography>
-          <DownloadLink href={fileRu} download target='_blank'>
-            Rusă
-          </DownloadLink>
+          {[
+            { url: fileRo, label: 'Română' },
+            { url: fileEn, label: 'Engleză' },
+            { url: fileRu, label: 'Rusă' },
+          ].map(({ url, label }, index, arr) =>
+            url ? (
+              <>
+                <DownloadLink key={url} href={url} download target='_blank'>
+                  {label}
+                </DownloadLink>
+                {index !== arr.length - 1 && <Typography>|</Typography>}
+              </>
+            ) : null,
+          )}
         </Stack>
       </Grid>
     </Grid>

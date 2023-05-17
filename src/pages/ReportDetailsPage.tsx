@@ -63,17 +63,25 @@ export function ReportDetailsPage() {
               {parse(report?.shortDescription ?? '', options)}
 
               <Stack alignItems='center' direction='row' gap={4} mt={8}>
-                <DownloadLink href={report?.fileRo} download target='_blank'>
-                  Română
-                </DownloadLink>
-                <Typography>|</Typography>
-                <DownloadLink href={report?.fileEn} download target='_blank'>
-                  Engleză
-                </DownloadLink>
-                <Typography>|</Typography>
-                <DownloadLink href={report?.fileRu} download target='_blank'>
-                  Rusă
-                </DownloadLink>
+                {[
+                  { url: report?.fileRo, label: 'Română' },
+                  { url: report?.fileEn, label: 'Engleză' },
+                  { url: report?.fileRu, label: 'Rusă' },
+                ].map(({ url, label }, index, arr) =>
+                  url ? (
+                    <>
+                      <DownloadLink
+                        key={url}
+                        href={url}
+                        download
+                        target='_blank'
+                      >
+                        {label}
+                      </DownloadLink>
+                      {index !== arr.length - 1 && <Typography>|</Typography>}
+                    </>
+                  ) : null,
+                )}
               </Stack>
             </Grid>
           </Grid>

@@ -55,7 +55,7 @@ export function EventDetailsPage() {
       {isLoading ? (
         <Loading />
       ) : (
-        <Stack gap={8} py={5}>
+        <Stack gap={3} py={5}>
           <Typography
             color='grey.900'
             fontWeight='medium'
@@ -86,7 +86,7 @@ export function EventDetailsPage() {
             </Typography>
           </Typography>
 
-          {parse(event?.content ?? '', options)}
+          <Box>{parse(event?.content ?? '', options)}</Box>
 
           {event?.photos && event?.photos.length > 0 && (
             <>
