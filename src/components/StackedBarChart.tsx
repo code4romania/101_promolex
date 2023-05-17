@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { merge } from 'lodash';
 import { Bar } from 'react-chartjs-2';
 import { Loading } from './Loading';
 
@@ -31,6 +32,32 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
   },
   maintainAspectRatio: false,
   plugins: {
+    tooltip: {
+      callbacks: {
+        title(context) {
+          const { label } = context[0];
+          if (label.length <= 35) {
+            return label;
+          }
+
+          const words = label.split(' ');
+          const lines: string[] = [];
+          let currentLine = '';
+          for (let i = 0; i < words.length; i += 1) {
+            const word = words[i];
+            if (currentLine.length + word.length <= 35) {
+              currentLine += ` ${word}`;
+            } else {
+              lines.push(currentLine);
+              currentLine = word;
+            }
+          }
+          lines.push(currentLine);
+
+          return lines;
+        },
+      },
+    },
     datalabels: {
       display: false,
     },
@@ -67,7 +94,7 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
       ticks: {
         color: '#27272A',
         font: {
-          size: 20,
+          size: 14,
         },
       },
     },
@@ -102,13 +129,43 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
         },
         color: '#27272A',
         font: {
-          size: 20,
+          size: 14,
         },
       },
     },
   },
   skipNull: true,
 };
+
+function ticksCallback(isLargeScreen: boolean) {
+  const maxTickWidth = isLargeScreen ? MAX_TICK_WIDTH : 20;
+  function ticksCallbackFunction(tickValue: string | number) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const tickLabel = this.getLabelForValue(tickValue as number);
+    if (tickLabel.length <= maxTickWidth) {
+      return tickLabel;
+    }
+
+    const words = tickLabel.split(' ');
+    const lines: string[] = [];
+    let currentLine = '';
+    for (let i = 0; i < words.length; i += 1) {
+      const word = words[i];
+      if (currentLine.length + word.length <= maxTickWidth) {
+        currentLine += ` ${word}`;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine);
+
+    return lines;
+  }
+
+  return ticksCallbackFunction;
+}
 
 type StackedBarChartProps = {
   data: ChartData<'bar', (number | undefined)[], string>;
@@ -123,6 +180,9 @@ export function StackedBarChart({
   showLegend,
   showTicks,
 }: StackedBarChartProps) {
+  const { breakpoints } = useTheme();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
+
   const chartOptions: ChartOptions<'bar'> = {
     ...stackedBarChartOptions,
     plugins: {
@@ -147,7 +207,12 @@ export function StackedBarChart({
     <Loading />
   ) : (
     <Box height={1000}>
-      <Bar options={chartOptions} data={data} />
+      <Bar
+        options={merge(chartOptions, {
+          scales: { y: { ticks: { callback: ticksCallback(isLargeScreen) } } },
+        })}
+        data={data}
+      />
     </Box>
   );
 }
