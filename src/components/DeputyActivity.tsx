@@ -81,9 +81,11 @@ export function DeputyActivity({
   return (
     <Stack gap={5}>
       <Typography fontWeight={700} variant='h5'>
-        Activitate parlamentară, mandat actual{' '}
-        {deputyFrom && formatDate(deputyFrom)} -{' '}
-        {deputyTo === 'prezent' ? deputyTo : deputyTo && formatDate(deputyTo)}
+        Activitate parlamentară,{' '}
+        <span style={{ whiteSpace: 'nowrap' }}>
+          mandat actual {deputyFrom && formatDate(deputyFrom)} -{' '}
+          {deputyTo === 'prezent' ? deputyTo : deputyTo && formatDate(deputyTo)}
+        </span>
       </Typography>
 
       <Box>

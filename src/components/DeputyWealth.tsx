@@ -1,6 +1,7 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import {
   Button,
+  Grid,
   Link,
   MenuItem,
   Select,
@@ -110,6 +111,7 @@ export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
             field,
             headerName,
             flex: smallerColumns.includes(field) ? 0.5 : 1,
+            minWidth: smallerColumns.includes(field) ? 120 : 200,
           })),
       ) ?? [],
     [incomeStatements?.categorys, selectedCategory],
@@ -119,37 +121,41 @@ export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
 
   return (
     <Stack gap={6}>
-      <Stack alignItems='center' direction='row' gap={4}>
-        <Typography fontWeight={700} variant='h5'>
-          Declarația de avere și interese personale
-        </Typography>
+      <Grid container alignItems='center' rowSpacing={4}>
+        <Grid item xs={12} md={4}>
+          <Typography fontWeight={700} variant='h5'>
+            Declarația de avere și interese personale
+          </Typography>
+        </Grid>
 
-        <Stack alignItems='center' direction='row' gap={2}>
-          <Typography>Selectează anul</Typography>
-          <Select
-            labelId='year'
-            onChange={(event) => setSelectedYear(event.target.value)}
-            value={selectedYear}
-          >
-            {years.map((y) => (
-              <MenuItem key={y} value={y}>
-                {y}
-              </MenuItem>
-            ))}
-          </Select>
-        </Stack>
+        <Grid item xs={12} md={8}>
+          <Stack alignItems='center' direction='row' gap={2}>
+            <Typography>Selectează anul</Typography>
+            <Select
+              labelId='year'
+              onChange={(event) => setSelectedYear(event.target.value)}
+              value={selectedYear}
+            >
+              {years.map((y) => (
+                <MenuItem key={y} value={y}>
+                  {y}
+                </MenuItem>
+              ))}
+            </Select>
 
-        <Button
-          disabled={isLoading}
-          LinkComponent={Link}
-          href={incomeStatements?.statement_file ?? ''}
-          sx={{ ml: 'auto' }}
-          target='_blank'
-          variant='outlined'
-        >
-          Descarcă declarația
-        </Button>
-      </Stack>
+            <Button
+              disabled={isLoading}
+              LinkComponent={Link}
+              href={incomeStatements?.statement_file ?? ''}
+              sx={{ ml: 'auto' }}
+              target='_blank'
+              variant='outlined'
+            >
+              Descarcă declarația
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
 
       <Stack
         direction='row'
@@ -178,6 +184,7 @@ export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
         isLoading={isLoading}
         columns={columns}
         getRowId={(row) => row.itemid}
+        getRowHeight={() => 'auto'}
         height='auto'
         hideFooter={
           !incomeStatements?.categorys[selectedCategory]?.items?.length

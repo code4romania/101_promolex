@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { ChartData } from 'chart.js';
 import { chain, keys, toPairs, zip } from 'lodash';
 import { SyntheticEvent, useMemo } from 'react';
@@ -159,9 +159,6 @@ export function CommitteesActivityCharts() {
     };
   }, [committeeNotices]);
 
-  const { breakpoints } = useTheme();
-  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
-
   const handleTabChange = (_: SyntheticEvent, newValue: number) => {
     setParams({
       tab: params.get('tab') ?? '1',
@@ -187,7 +184,7 @@ export function CommitteesActivityCharts() {
           <StackedBarChart
             data={committeesMainReporterDataChart}
             isLoading={isLoadingCommitteesMainReporterData}
-            showTicks={isLargeScreen}
+            showTicks
           />
           <Stack direction='row' flexWrap='wrap' columnGap={14} mt={8}>
             <Stack gap={2}>
@@ -222,7 +219,7 @@ export function CommitteesActivityCharts() {
           <StackedBarChart
             data={committeesMainReporterCoreporterDataChart}
             isLoading={isLoadingCommitteesMainReporterCoreporterData}
-            showTicks={isLargeScreen}
+            showTicks
           />
           <Stack gap={2} mt={8}>
             {coreportConfig.map((config) => (
@@ -239,7 +236,7 @@ export function CommitteesActivityCharts() {
         <StackedBarChart
           data={committeeNoticesChart}
           isLoading={isLoadingCommitteeNotices}
-          showTicks={isLargeScreen}
+          showTicks
         />
       )}
     </Stack>

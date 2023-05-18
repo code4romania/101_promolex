@@ -97,48 +97,45 @@ export function SessionsPage() {
       ) : (
         <Grid columnSpacing={10} container spacing={2} pt={8}>
           <Grid item xs={12} sm={3} order={{ xs: 1, sm: 0 }}>
-            <Stack gap={3} py={2} height={1}>
-              {/* <Typography>
-                Pentru a vizualiza o ședință plenară care nu este afișată,
-                selectați data ședinței
-              </Typography> */}
-
-              <LocalizationProvider
-                dateAdapter={AdapterDateFns}
-                adapterLocale={ro}
-                localeText={{
-                  nextMonth: 'Luna următoare',
-                  previousMonth: 'Luna anterioară',
-                }}
-              >
-                <DatePicker
-                  label='De la data'
-                  onChange={onFromDateChange}
-                  renderDay={(date, selectedDays, pickersDayProps) => (
-                    <StyledPickersDay {...pickersDayProps} />
-                  )}
-                  renderInput={(props) => <TextField {...props} />}
-                  value={fromDate}
-                />
-              </LocalizationProvider>
-              <LocalizationProvider
-                dateAdapter={AdapterDateFns}
-                adapterLocale={ro}
-                localeText={{
-                  nextMonth: 'Luna următoare',
-                  previousMonth: 'Luna anterioară',
-                }}
-              >
-                <DatePicker
-                  label='Până la data'
-                  onChange={onToDateChange}
-                  renderDay={(date, selectedDays, pickersDayProps) => (
-                    <StyledPickersDay {...pickersDayProps} />
-                  )}
-                  renderInput={(props) => <TextField {...props} />}
-                  value={toDate}
-                />
-              </LocalizationProvider>
+            <Stack gap={5} height={1}>
+              <Stack gap={3} py={{ xs: 5, md: 0 }}>
+                <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  adapterLocale={ro}
+                  localeText={{
+                    nextMonth: 'Luna următoare',
+                    previousMonth: 'Luna anterioară',
+                  }}
+                >
+                  <DatePicker
+                    label='De la data'
+                    onChange={onFromDateChange}
+                    renderDay={(date, selectedDays, pickersDayProps) => (
+                      <StyledPickersDay {...pickersDayProps} />
+                    )}
+                    renderInput={(props) => <TextField {...props} />}
+                    value={fromDate}
+                  />
+                </LocalizationProvider>
+                <LocalizationProvider
+                  dateAdapter={AdapterDateFns}
+                  adapterLocale={ro}
+                  localeText={{
+                    nextMonth: 'Luna următoare',
+                    previousMonth: 'Luna anterioară',
+                  }}
+                >
+                  <DatePicker
+                    label='Până la data'
+                    onChange={onToDateChange}
+                    renderDay={(date, selectedDays, pickersDayProps) => (
+                      <StyledPickersDay {...pickersDayProps} />
+                    )}
+                    renderInput={(props) => <TextField {...props} />}
+                    value={toDate}
+                  />
+                </LocalizationProvider>
+              </Stack>
               {!filteredSessions.length && (
                 <Typography>Nu există ședințe în perioada selectată</Typography>
               )}
@@ -165,7 +162,7 @@ export function SessionsPage() {
                 sx={{
                   bgcolor: '#780000',
                   height: 60,
-                  mt: 'auto',
+                  mt: { xs: 5, md: 'auto' },
                   '&:hover': {
                     bgcolor: alpha('#780000', 0.85),
                   },

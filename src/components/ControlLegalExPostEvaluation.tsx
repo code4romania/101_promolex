@@ -86,12 +86,27 @@ export function ControlLegalExPostEvaluation({
           maxWidth={600}
           options={{
             plugins: {
+              tooltip: {
+                callbacks: {
+                  title() {
+                    return [
+                      'Nivelul de realizare a Planului de',
+                      'Evaluare Ex-post Juridică',
+                    ];
+                  },
+                },
+              },
               legend: {
                 align: 'start',
               },
             },
           }}
-          title='Nivelul de realizare a Planului de Evaluare Ex-post Juridică'
+          title={
+            <span>
+              Nivelul de realizare a Planului de Evaluare{' '}
+              <span style={{ whiteSpace: 'nowrap' }}>Ex-post</span> Juridică
+            </span>
+          }
         />
         <Typography mt={2}>
           Ultima actualizare: {legalExPostEvaluation?.dataUpdate ?? '-'}

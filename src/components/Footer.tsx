@@ -141,7 +141,7 @@ export function Footer() {
           </Grid>
         </Grid>
         <Grid columnSpacing={5} container rowSpacing={2} px={4}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={7} md={6}>
             <Typography
               color='grey.500'
               fontWeight='medium'
@@ -150,7 +150,7 @@ export function Footer() {
               Soluție dezvolată cu sprijinul
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={5} md={6}>
             <img src={logoCfr} alt='' height='30px' style={{ opacity: 0.7 }} />
           </Grid>
         </Grid>

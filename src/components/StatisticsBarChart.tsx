@@ -1,11 +1,12 @@
 import { Stack, Typography } from '@mui/material';
 import { ChartData, ChartOptions } from 'chart.js';
+import { ReactNode } from 'react';
 import { BarChart } from './BarChart';
 
 type StatisticsPieChartProps = {
   data?: ChartData<'bar', (number | undefined)[], string>;
   options?: ChartOptions<'bar'>;
-  title: string;
+  title: ReactNode;
   maxWidth?: string | number;
 };
 

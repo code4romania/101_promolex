@@ -13,11 +13,13 @@ export function ReportItem({ report }: ReportItemProps) {
   return (
     <Grid container columnSpacing={8}>
       <Grid item xs={12} md={3}>
-        <Box height={320} width={1}>
-          <img height='100%' width='auto' src={reportLogo} alt='title' />
-        </Box>
+        <RouterLink to={`detalii/${rid}`}>
+          <Box boxShadow={2} height={320} textAlign='center' width={1}>
+            <img height='100%' width='auto' src={reportLogo} alt='title' />
+          </Box>
+        </RouterLink>
       </Grid>
-      <Grid item xs={12} md={9}>
+      <Grid display={{ xs: 'none', md: 'block' }} item xs={12} md={9}>
         <Typography
           color='grey.900'
           component={RouterLink}
@@ -41,17 +43,20 @@ export function ReportItem({ report }: ReportItemProps) {
         </Typography>
 
         <Stack alignItems='center' direction='row' gap={4} mt={8}>
-          <DownloadLink href={fileRo} download target='_blank'>
-            Română
-          </DownloadLink>
-          <Typography>|</Typography>
-          <DownloadLink href={fileEn} download target='_blank'>
-            Engleză
-          </DownloadLink>
-          <Typography>|</Typography>
-          <DownloadLink href={fileRu} download target='_blank'>
-            Rusă
-          </DownloadLink>
+          {[
+            { url: fileRo, label: 'Română' },
+            { url: fileEn, label: 'Engleză' },
+            { url: fileRu, label: 'Rusă' },
+          ].map(({ url, label }, index, arr) =>
+            url ? (
+              <>
+                <DownloadLink key={url} href={url} download target='_blank'>
+                  {label}
+                </DownloadLink>
+                {index !== arr.length - 1 && <Typography>|</Typography>}
+              </>
+            ) : null,
+          )}
         </Stack>
       </Grid>
     </Grid>

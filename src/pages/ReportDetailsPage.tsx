@@ -41,8 +41,8 @@ export function ReportDetailsPage() {
               {report?.pubdate ? formatDate(report.pubdate) : '-'}
             </Typography>
           </Typography>
-          <Grid container columnSpacing={8} mt={8}>
-            <Grid item>
+          <Grid container columnSpacing={8} rowSpacing={6} mt={4}>
+            <Grid item xs md={3}>
               <Box
                 sx={{
                   backgroundImage: `url(${report?.reportLogo})`,
@@ -50,29 +50,38 @@ export function ReportDetailsPage() {
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'contain',
                   bgcolor: 'grey.400',
-                  height: 320,
-                  width: 220,
+                  margin: 'auto',
+                  height: 360,
+                  width: 240,
                 }}
               />
             </Grid>
-            <Grid item xs>
+            <Grid item xs md={9}>
               <Typography color='grey.800' gutterBottom variant='subtitle1'>
                 Scurtă descriere/rezumat
               </Typography>
               {parse(report?.shortDescription ?? '', options)}
 
               <Stack alignItems='center' direction='row' gap={4} mt={8}>
-                <DownloadLink href={report?.fileRo} download target='_blank'>
-                  Română
-                </DownloadLink>
-                <Typography>|</Typography>
-                <DownloadLink href={report?.fileEn} download target='_blank'>
-                  Engleză
-                </DownloadLink>
-                <Typography>|</Typography>
-                <DownloadLink href={report?.fileRu} download target='_blank'>
-                  Rusă
-                </DownloadLink>
+                {[
+                  { url: report?.fileRo, label: 'Română' },
+                  { url: report?.fileEn, label: 'Engleză' },
+                  { url: report?.fileRu, label: 'Rusă' },
+                ].map(({ url, label }, index, arr) =>
+                  url ? (
+                    <>
+                      <DownloadLink
+                        key={url}
+                        href={url}
+                        download
+                        target='_blank'
+                      >
+                        {label}
+                      </DownloadLink>
+                      {index !== arr.length - 1 && <Typography>|</Typography>}
+                    </>
+                  ) : null,
+                )}
               </Stack>
             </Grid>
           </Grid>

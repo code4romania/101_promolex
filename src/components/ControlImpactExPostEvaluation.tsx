@@ -86,12 +86,27 @@ export function ControlImpactExPostEvaluation({
           maxWidth={600}
           options={{
             plugins: {
+              tooltip: {
+                callbacks: {
+                  title() {
+                    return [
+                      'Nivelul de realizare a Planului de',
+                      'Evaluare Ex-post de Impact',
+                    ];
+                  },
+                },
+              },
               legend: {
                 align: 'start',
               },
             },
           }}
-          title='Nivelul de realizare a Planului de Evaluare Ex-post de Impact'
+          title={
+            <span>
+              Nivelul de realizare a Planului de Evaluare{' '}
+              <span style={{ whiteSpace: 'nowrap' }}>Ex-post</span> de Impact
+            </span>
+          }
         />
         <Typography mt={2}>
           Ultima actualizare: {impactExPostEvaluation?.dataUpdate ?? '-'}

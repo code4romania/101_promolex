@@ -6,6 +6,7 @@ export const theme = responsiveFontSizes(
   createTheme(
     {
       palette: {
+        mode: 'light',
         primary: {
           dark: PRIMARY_DARK,
           main: PRIMARY,

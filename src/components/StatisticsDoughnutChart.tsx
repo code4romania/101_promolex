@@ -1,4 +1,11 @@
-import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -8,6 +15,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { merge } from 'lodash';
 import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
@@ -25,14 +33,15 @@ const doughnutChartOptions: ChartOptions<'doughnut'> = {
           Boolean(data.datasets[0].data[legendItem.index]),
         font: {
           family: 'Titillium Web',
-          lineHeight: '16px',
-          size: 16,
+          lineHeight: '14px',
+          size: 14,
           weight: 'bold',
         },
       },
     },
     datalabels: {
       color: 'black',
+      display: 'auto',
       labels: {
         title: {
           align: 'start',
@@ -62,6 +71,9 @@ export function StatisticsDoughnutChart({
   isLoading,
   title,
 }: StatisticsDoughnutChartProps) {
+  const { breakpoints } = useTheme();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
+
   return (
     <Stack
       border={1}
@@ -84,7 +96,17 @@ export function StatisticsDoughnutChart({
         {isLoading && <CircularProgress />}
         {!isLoading && !data && 'Lipsă date'}
         {!isLoading && data && (
-          <Doughnut data={data} options={doughnutChartOptions} />
+          <Doughnut
+            data={data}
+            options={merge(doughnutChartOptions, {
+              plugins: {
+                legend: {
+                  align: isLargeScreen ? 'center' : 'start',
+                  position: isLargeScreen ? 'right' : 'bottom',
+                },
+              },
+            })}
+          />
         )}
       </Box>
     </Stack>

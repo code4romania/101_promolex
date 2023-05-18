@@ -1,4 +1,11 @@
-import { Box, CircularProgress, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  CircularProgress,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -8,6 +15,7 @@ import {
   ChartOptions,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { merge } from 'lodash';
 import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
@@ -16,6 +24,7 @@ const pieChartOptions: ChartOptions<'pie'> = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
+      align: 'start',
       position: 'right',
       labels: {
         boxHeight: 20,
@@ -25,14 +34,15 @@ const pieChartOptions: ChartOptions<'pie'> = {
           Boolean(data.datasets[0].data[legendItem.index]),
         font: {
           family: 'Titillium Web',
-          lineHeight: '16px',
-          size: 16,
+          lineHeight: '14px',
+          size: 14,
           weight: 'bold',
         },
       },
     },
     datalabels: {
       color: 'black',
+      display: 'auto',
       labels: {
         title: {
           align: 'start',
@@ -60,13 +70,16 @@ export function StatisticsPieChart({
   isLoading,
   title,
 }: StatisticsPieChartProps) {
+  const { breakpoints } = useTheme();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
+
   return (
     <Stack
       border={1}
       borderColor='divider'
       borderRadius={2}
       boxShadow={3}
-      height={320}
+      height={380}
       px={12}
       py={4}
     >
@@ -81,7 +94,19 @@ export function StatisticsPieChart({
       >
         {isLoading && <CircularProgress />}
         {!isLoading && !data && 'Lipsă date disponibile'}
-        {!isLoading && data && <Pie data={data} options={pieChartOptions} />}
+        {!isLoading && data && (
+          <Pie
+            data={data}
+            options={merge(pieChartOptions, {
+              plugins: {
+                legend: {
+                  align: isLargeScreen ? 'center' : 'start',
+                  position: isLargeScreen ? 'right' : 'bottom',
+                },
+              },
+            })}
+          />
+        )}
       </Box>
     </Stack>
   );

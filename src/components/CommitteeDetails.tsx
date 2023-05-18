@@ -1,6 +1,6 @@
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import PhoneIcon from '@mui/icons-material/Phone';
-import { Box, Link, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Grid, Link, Stack, Typography, useTheme } from '@mui/material';
 import { deburr } from 'lodash';
 import { useCommitteeDetailsQuery } from '../queries';
 import { formatDate } from '../utils';
@@ -121,23 +121,21 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
         <Stack alignItems='center' direction='row' gap={3}>
           <EmailOutlinedIcon />
           <Typography
-            color='text.primary'
             component={Link}
+            fontWeight='bold'
             href={`mailto:${committee?.commEmail}`}
-            underline='none'
             variant='body2'
           >
-            Poșta electronică
+            {committee?.commEmail}
           </Typography>
         </Stack>
 
         <Stack alignItems='center' direction='row' gap={2}>
           <PhoneIcon />
           <Typography
-            color='text.primary'
             component={Link}
+            fontWeight='bold'
             href={`tel:${committee?.commPhone}`}
-            underline='none'
             variant='body2'
           >
             {committee?.commPhone}
@@ -150,17 +148,10 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
           <Typography fontWeight={typography.fontWeightBold}>
             Audieri organizate
           </Typography>
-          <Stack
-            columnGap={4}
-            rowGap={2}
-            flexDirection='row'
-            flexWrap='wrap'
-            maxHeight={300}
-            overflow='auto'
-          >
+          <Grid container rowSpacing={2} maxHeight={300} overflow='auto'>
             {committee?.organizedHearings.map(
               ({ hearingType, dataSedinte }) => (
-                <Box key={dataSedinte}>
+                <Grid item key={dataSedinte} md={2} xs={6}>
                   <Typography
                     alignItems='center'
                     component={Stack}
@@ -186,10 +177,10 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
                       {formatDate(dataSedinte)}
                     </Typography>
                   </Typography>
-                </Box>
+                </Grid>
               ),
             )}
-          </Stack>
+          </Grid>
         </Stack>
       )}
 

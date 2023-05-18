@@ -9,6 +9,7 @@ const factionsMap = {
   },
   '2': { color: '#DC2626', label: 'Blocul Comuniștilor și Socialiștilor' },
   '3': { color: '#16A34A', label: 'Partidul Politic "ȘOR"' },
+  '4': { color: '#82969D', label: 'Deputați neafiliați' },
 };
 
 export const getProjectsByFactionChartData = (

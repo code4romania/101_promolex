@@ -1,3 +1,4 @@
+import { useMediaQuery, useTheme } from '@mui/material';
 import { ChartData } from 'chart.js';
 import { useMemo } from 'react';
 import { useRegisteredProjects } from '../hooks';
@@ -20,6 +21,9 @@ const colors = [
 ];
 
 export function LegislativeActivityDomains() {
+  const { breakpoints } = useTheme();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
+
   const { data: lid } = useCurrentLegislatureQuery();
   const { data: registeredProjectsByDomain } =
     useRegisteredProjectsStatisticsQuery<'domeniul'>({
@@ -63,7 +67,7 @@ export function LegislativeActivityDomains() {
     >
       <StatisticsDoughnutChart
         data={chartData}
-        height={460}
+        height={isLargeScreen ? 460 : 560}
         title='Domeniile proiectelor'
       />
     </LegislativeActivityWrapper>
