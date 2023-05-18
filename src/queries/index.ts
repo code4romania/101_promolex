@@ -26,6 +26,7 @@ export * from './useEventDetailsQuery';
 export * from './useEventsQuery';
 export * from './useFactionsByLegislatureQuery';
 export * from './useIncomeStatementsByDeputyQuery';
+export * from './useIncomeStatementYearsByDeputyIdQuery';
 export * from './useLegislationInitiativeDetailsQuery';
 export * from './useLegislationInitiativesByDeputyQuery';
 export * from './useLiveSessionQuery';

@@ -11,6 +11,7 @@ import {
 import { chain, entries } from 'lodash';
 import { useMemo, useState } from 'react';
 import {
+  useIncomeStatementYearsByDeputyIdQuery,
   useIncomeStatementsByDeputyQuery,
   useStatementYearQuery,
 } from '../queries';
@@ -58,29 +59,11 @@ const smallerColumns = [
   'acquisition',
 ];
 
-const getYearsBetweenDates = (startDate: string, endDate: string) => {
-  const years: string[] = [];
-  const startYear = new Date(startDate).getFullYear();
-  const endYear =
-    endDate === 'prezent'
-      ? new Date().getFullYear()
-      : new Date(endDate).getFullYear();
-  const count = endYear - startYear;
-
-  for (let i = 0; i <= count; i += 1) {
-    years.push((startYear + i).toString());
-  }
-
-  return years;
-};
-
 type DeputyWealthProps = {
   did: string;
-  deputyFrom?: string;
-  deputyTo?: string;
 };
 
-export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
+export function DeputyWealth({ did }: DeputyWealthProps) {
   const [selectedYear, setSelectedYear] = useState<string>(
     new Date(Date.now()).getFullYear().toString() ?? '',
   );
@@ -97,7 +80,8 @@ export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
     isLoadingStatementYear ? '' : selectedYear,
   );
 
-  const years = getYearsBetweenDates(deputyFrom ?? '', deputyTo ?? '');
+  const { data: years, isInitialLoading: isLoadingStatementYears } =
+    useIncomeStatementYearsByDeputyIdQuery(did);
 
   const [selectedCategory, setSelectedCategory] = useState(
     deputyWealthIconsMap[0].category,
@@ -132,13 +116,14 @@ export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
           <Stack alignItems='center' direction='row' gap={2}>
             <Typography>Selectează anul</Typography>
             <Select
+              disabled={isLoadingStatementYears}
               labelId='year'
               onChange={(event) => setSelectedYear(event.target.value)}
               value={selectedYear}
             >
-              {years.map((y) => (
-                <MenuItem key={y} value={y}>
-                  {y}
+              {years?.map(({ year }) => (
+                <MenuItem key={year} value={year}>
+                  {year}
                 </MenuItem>
               ))}
             </Select>
@@ -194,8 +179,3 @@ export function DeputyWealth({ did, deputyFrom, deputyTo }: DeputyWealthProps) {
     </Stack>
   );
 }
-
-DeputyWealth.defaultProps = {
-  deputyFrom: undefined,
-  deputyTo: undefined,
-};
