@@ -428,11 +428,7 @@ export function DeputyDetails() {
             <Divider variant='fullWidth' />
           </Grid>
           <Grid item xs={12}>
-            <DeputyWealth
-              did={did ?? ''}
-              deputyFrom={data?.deputieFrom}
-              deputyTo={data?.deputieTo}
-            />
+            <DeputyWealth did={did ?? ''} />
           </Grid>
         </Grid>
       </PageContainer>

@@ -65,6 +65,11 @@ export function ContactForm() {
   const { data: committees } = useCommitteesByLegislatureQuery();
   const { data: deputies } = useDeputiesByLegislatureQuery();
 
+  const filteredDeputies = useMemo(
+    () => deputies?.filter(({ depStatus }) => depStatus === '1') ?? [],
+    [deputies],
+  );
+
   const [did, setDid] = useState('');
   useDeputyDetailsQuery(did, {
     onSuccess: ({ emailWork }) => {
@@ -82,7 +87,7 @@ export function ContactForm() {
       })) ?? [];
 
     const deputiesOptions =
-      deputies?.map((deputy) => ({
+      filteredDeputies?.map((deputy) => ({
         email: '',
         id: `did-${deputy.did}`,
         title: deputy.fullName,
@@ -101,7 +106,7 @@ export function ContactForm() {
       ],
       deputiesOptions,
     );
-  }, [committees, deputies]);
+  }, [committees, filteredDeputies]);
 
   const { mutate: sendQuestion, isLoading } = useSendQuestionMutation();
 
@@ -132,6 +137,8 @@ export function ContactForm() {
     }
 
     setValue('email', user.email ?? '');
+    setValue('name', user.displayName ?? '');
+    setValue('phone_number', user.phoneNumber ?? '');
   }, [loading, setValue, user]);
 
   return (
@@ -235,7 +242,7 @@ export function ContactForm() {
           render={({ field, fieldState }) => (
             <FormControl disabled={isFormDisabled} fullWidth>
               <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                Nume
+                Nume și prenume
               </StyledInputLabel>
               <OutlinedInput
                 error={Boolean(fieldState.error)}
@@ -255,33 +262,7 @@ export function ContactForm() {
           }}
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
-        <Controller
-          control={control}
-          name='sur_name'
-          render={({ field, fieldState }) => (
-            <FormControl disabled={isFormDisabled} fullWidth>
-              <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                Prenume
-              </StyledInputLabel>
-              <OutlinedInput
-                error={Boolean(fieldState.error)}
-                id={field.name}
-                {...field}
-              />
-              <FormHelperText error={Boolean(fieldState.error)}>
-                {fieldState.error?.message ?? ' '}
-              </FormHelperText>
-            </FormControl>
-          )}
-          rules={{
-            required: {
-              value: true,
-              message: 'Acest câmp este obligatoriu',
-            },
-          }}
-        />
-      </Grid>
+
       <Grid item xs={12} sm={6}>
         <Controller
           control={control}
@@ -354,6 +335,7 @@ export function ContactForm() {
                 disabled={isFormDisabled}
                 getOptionLabel={(option) => option.title}
                 groupBy={(option) => option.type}
+                noOptionsText='Nu există informații'
                 onChange={(_, value) => {
                   if (value?.type === 'Deputați') {
                     setDid(value?.id.replace('did-', '') ?? '');

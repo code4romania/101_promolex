@@ -2,6 +2,8 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Box, Breadcrumbs, Grid, Stack, Typography } from '@mui/material';
 import parse from 'html-react-parser';
+import { filter } from 'lodash';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { BreadCrumbLink, DownloadLink, Loading } from '../components';
 import { options } from '../constants';
@@ -13,6 +15,19 @@ export function ReportDetailsPage() {
   const { rid } = useParams<{ rid: string }>();
 
   const { data: report, isLoading } = useReportDetailsQuery(rid ?? '');
+
+  const urls = useMemo(
+    () =>
+      filter(
+        [
+          { url: report?.fileRo, label: 'Română' },
+          { url: report?.fileEn, label: 'Engleză' },
+          { url: report?.fileRu, label: 'Rusă' },
+        ],
+        'url',
+      ),
+    [report?.fileEn, report?.fileRo, report?.fileRu],
+  );
 
   return (
     <>
@@ -63,11 +78,7 @@ export function ReportDetailsPage() {
               {parse(report?.shortDescription ?? '', options)}
 
               <Stack alignItems='center' direction='row' gap={4} mt={8}>
-                {[
-                  { url: report?.fileRo, label: 'Română' },
-                  { url: report?.fileEn, label: 'Engleză' },
-                  { url: report?.fileRu, label: 'Rusă' },
-                ].map(({ url, label }, index, arr) =>
+                {urls.map(({ url, label }, index, arr) =>
                   url ? (
                     <>
                       <DownloadLink

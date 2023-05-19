@@ -140,14 +140,20 @@ export function Footer() {
             </Stack>
           </Grid>
         </Grid>
-        <Grid columnSpacing={5} container rowSpacing={2} px={4}>
+        <Grid
+          alignItems='center'
+          columnSpacing={5}
+          container
+          rowSpacing={2}
+          px={4}
+        >
           <Grid item xs={7} md={6}>
             <Typography
               color='grey.500'
               fontWeight='medium'
               textAlign={{ xs: 'left', md: 'right' }}
             >
-              Soluție dezvolată cu sprijinul
+              Soluție dezvolată cu sprijinul pro-bono al
             </Typography>
           </Grid>
           <Grid item xs={5} md={6}>

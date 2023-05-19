@@ -1,4 +1,6 @@
 import { Box, Grid, Stack, Typography } from '@mui/material';
+import { filter } from 'lodash';
+import { useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Report } from '../types';
 import { formatDate } from '../utils';
@@ -10,6 +12,18 @@ type ReportItemProps = {
 
 export function ReportItem({ report }: ReportItemProps) {
   const { rid, title, fileRo, fileEn, fileRu, pubdate, reportLogo } = report;
+  const urls = useMemo(
+    () =>
+      filter(
+        [
+          { url: fileRo, label: 'Română' },
+          { url: fileEn, label: 'Engleză' },
+          { url: fileRu, label: 'Rusă' },
+        ],
+        'url',
+      ),
+    [fileEn, fileRo, fileRu],
+  );
   return (
     <Grid container columnSpacing={8}>
       <Grid item xs={12} md={3}>
@@ -43,11 +57,7 @@ export function ReportItem({ report }: ReportItemProps) {
         </Typography>
 
         <Stack alignItems='center' direction='row' gap={4} mt={8}>
-          {[
-            { url: fileRo, label: 'Română' },
-            { url: fileEn, label: 'Engleză' },
-            { url: fileRu, label: 'Rusă' },
-          ].map(({ url, label }, index, arr) =>
+          {urls.map(({ url, label }, index, arr) =>
             url ? (
               <>
                 <DownloadLink key={url} href={url} download target='_blank'>

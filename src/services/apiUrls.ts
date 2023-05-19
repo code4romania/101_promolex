@@ -41,4 +41,5 @@ export const apiPaths = {
   committeeMotions: `${API_BASE_URL}?type=get_motions`,
   deputyQuestions: `${API_BASE_URL}?type=deputie_questions_interpelations&did=`,
   committeeReportsYears: `${API_BASE_URL}?type=get_pc_reports_years`,
+  deputyIncomeStatementYears: `${API_BASE_URL}?type=get_deputie_income_statement_years&did=`,
 };
