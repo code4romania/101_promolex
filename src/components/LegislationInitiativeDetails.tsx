@@ -38,7 +38,7 @@ export function LegislationInitiativeDetails({
       )}
       <DetailsRow
         details={data?.lastUpdate ?? ''}
-        label='Ultima actualizare a proiectului'
+        label='Ultima actualizare a informației'
       />
       <Stack direction='row' gap={1} flexWrap='wrap'>
         <Typography fontWeight={700}>Link:</Typography>
