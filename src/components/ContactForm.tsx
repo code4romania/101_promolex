@@ -57,7 +57,6 @@ export function ContactForm() {
       phone_number: '',
       question_for: '',
       question: '',
-      sur_name: '',
     },
     mode: 'all',
   });

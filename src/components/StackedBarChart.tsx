@@ -27,7 +27,7 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
   indexAxis: 'y' as const,
   datasets: {
     bar: {
-      barThickness: 20,
+      barThickness: 18,
     },
   },
   maintainAspectRatio: false,
@@ -104,6 +104,8 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
       },
       stacked: true,
       ticks: {
+        autoSkip: false,
+        padding: 0,
         crossAlign: 'far',
         callback(tickValue) {
           const tickLabel = this.getLabelForValue(tickValue as number);
@@ -129,7 +131,7 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
         },
         color: '#27272A',
         font: {
-          size: 14,
+          size: 12,
         },
       },
     },
@@ -206,7 +208,7 @@ export function StackedBarChart({
   return isLoading ? (
     <Loading />
   ) : (
-    <Box height={1000}>
+    <Box height={isLargeScreen ? 510 : 650}>
       <Bar
         options={merge(chartOptions, {
           scales: { y: { ticks: { callback: ticksCallback(isLargeScreen) } } },
