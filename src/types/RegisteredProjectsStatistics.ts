@@ -12,7 +12,7 @@ export type RegisteredProjectsStatisticsQueryParams = {
   lid: string;
   from: string;
   to: string;
-  statutProiect: string;
+  statut_proiect: string;
 }>;
 
 type BasicStatistics = {

@@ -1,6 +1,6 @@
 import { ChartData } from 'chart.js';
-import { chain, filter, values } from 'lodash';
-import { LegislationInitiative, LegislationInitiativeStatute } from '../types';
+import { find, values } from 'lodash';
+import { RegisteredProjectsStatistics } from '../types';
 
 const projectTypeMap = [
   {
@@ -13,39 +13,21 @@ const projectTypeMap = [
 ];
 
 export const getProjectsByStatuteAndTypeChartData = (
-  projects: LegislationInitiative[],
-  statute: LegislationInitiativeStatute,
+  projects: RegisteredProjectsStatistics<'proiect_act'>[],
   mainLabel: string,
-): ChartData<'bar', number[], string> | undefined => {
+): ChartData<'bar', (number | undefined)[], string> | undefined => {
   if (!projects.length) {
     return undefined;
   }
 
-  const projectsByStatute = chain(projects)
-    .groupBy('proiectAct')
-    .toPairs()
-    .map(([type, projectsByAct]) => {
-      const filteredProjects = filter(
-        projectsByAct,
-        ({ statutProiect }) => statutProiect.toLowerCase() === statute,
-      );
-
-      return [type, filteredProjects];
-    })
-    .fromPairs()
-    .sortBy(projectTypeMap.map(({ key }) => key))
-    .value();
-
-  const barColors = projectTypeMap.map(({ color }) => color);
-
-  const labels: string[] = projectTypeMap.map(({ label }) => label);
-
   return {
     labels: [mainLabel],
-    datasets: values(projectsByStatute).map((p, index) => ({
-      label: labels[index],
-      data: [p.length > 0 ? p.length : undefined],
-      backgroundColor: barColors[index],
+    datasets: values(projects).map((p) => ({
+      label:
+        find(projectTypeMap, ({ key }) => key === p.proiectAct)?.label ?? '',
+      data: [parseInt(p.total, 10) > 0 ? parseInt(p.total, 10) : undefined],
+      backgroundColor:
+        find(projectTypeMap, ({ key }) => key === p.proiectAct)?.color ?? '',
     })),
   };
 };
