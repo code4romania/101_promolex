@@ -1,4 +1,3 @@
-import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 import {
   Grid,
   Link as MuiLink,
@@ -9,8 +8,12 @@ import {
   Typography,
 } from '@mui/material';
 import { ContactDetails, ContactForm, PageContainer } from '../components';
+import { useAnsweredQuestionsQuery } from '../queries/useAnsweredQuestionsQuery';
+import { formatDate } from '../utils';
 
 export function ContactPage() {
+  const { data: answeredQuestions } = useAnsweredQuestionsQuery();
+
   return (
     <PageContainer pageTitle='Întreabă Parlamentul'>
       <Typography fontWeight='bold' py={6} variant='h4'>
@@ -26,71 +29,67 @@ export function ContactPage() {
         Întrebări și răspunsuri recepționate:
       </Typography>
 
-      {/* @todo replace with data from API */}
       <List>
-        <ListItem divider>
-          <ListItemText
-            primary={
-              <Stack alignItems='center' direction='row' gap={2}>
-                <Typography fontWeight='medium'>
-                  Întrebarea unu către Paralament ?
-                </Typography>
+        {answeredQuestions?.map((answeredQuestion) => (
+          <ListItem key={answeredQuestion.id} divider>
+            <ListItemText
+              primary={
                 <Typography
-                  alignItems='center'
+                  color='#780000'
                   component={MuiLink}
-                  display='inline-flex'
-                  href='/'
-                  ml='auto'
-                  whiteSpace='nowrap'
+                  fontSize={16}
+                  fontWeight='medium'
+                  href={answeredQuestion.answerFile}
+                  sx={{
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                    '&:hover': {
+                      textDecoration: 'underline',
+                      color: 'primary.main',
+                    },
+                  }}
+                  target='_blank'
                 >
-                  Vezi răspunsul <AttachFileRoundedIcon fontSize='small' />
+                  {answeredQuestion.question}
                 </Typography>
-              </Stack>
-            }
-          />
-        </ListItem>
-        <ListItem divider>
-          <ListItemText
-            primary={
-              <Stack alignItems='center' direction='row' gap={2}>
-                <Typography fontWeight='medium'>
-                  Întrebarea doi către Paralament ?
-                </Typography>
-                <Typography
-                  alignItems='center'
-                  component={MuiLink}
-                  display='inline-flex'
-                  href='/'
-                  ml='auto'
-                  whiteSpace='nowrap'
-                >
-                  Vezi răspunsul <AttachFileRoundedIcon fontSize='small' />
-                </Typography>
-              </Stack>
-            }
-          />
-        </ListItem>
-        <ListItem divider>
-          <ListItemText
-            primary={
-              <Stack alignItems='center' direction='row' gap={2}>
-                <Typography fontWeight='medium'>
-                  Întrebarea trei către Paralament ?
-                </Typography>
-                <Typography
-                  alignItems='center'
-                  component={MuiLink}
-                  display='inline-flex'
-                  href='/'
-                  ml='auto'
-                  whiteSpace='nowrap'
-                >
-                  Vezi răspunsul <AttachFileRoundedIcon fontSize='small' />
-                </Typography>
-              </Stack>
-            }
-          />
-        </ListItem>
+              }
+              secondary={
+                <Stack mt={2}>
+                  <Typography>
+                    Întrebare adresată către:{' '}
+                    <strong>{answeredQuestion.questionFor}</strong>, la data de{' '}
+                    {formatDate(answeredQuestion.askedAt)}
+                  </Typography>
+                  {answeredQuestion.answerFile ? (
+                    <Typography>
+                      <Typography
+                        color='#780000'
+                        component={MuiLink}
+                        href={answeredQuestion.answerFile}
+                        fontWeight={700}
+                        sx={{
+                          textDecoration: 'none',
+                          '&:hover': {
+                            textDecoration: 'underline',
+                            color: 'primary.main',
+                          },
+                        }}
+                        target='_blank'
+                      >
+                        Vezi răspunsul
+                      </Typography>{' '}
+                      primit la data de {formatDate(answeredQuestion.answerAt)}
+                    </Typography>
+                  ) : (
+                    <Typography>
+                      Nu există un răspuns la această întrebare
+                    </Typography>
+                  )}
+                </Stack>
+              }
+            />
+          </ListItem>
+        ))}
       </List>
     </PageContainer>
   );

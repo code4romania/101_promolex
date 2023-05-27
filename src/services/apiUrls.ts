@@ -42,4 +42,5 @@ export const apiPaths = {
   deputyQuestions: `${API_BASE_URL}?type=deputie_questions_interpelations&did=`,
   committeeReportsYears: `${API_BASE_URL}?type=get_pc_reports_years`,
   deputyIncomeStatementYears: `${API_BASE_URL}?type=get_deputie_income_statement_years&did=`,
+  answeredQuestions: `${API_BASE_URL}?type=get_questions`,
 };

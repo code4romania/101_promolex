@@ -1,3 +1,4 @@
+export * from './fetchAnsweredQuestions';
 export * from './fetchCommitteeDetails';
 export * from './fetchCommitteeExPostEvaluationByLegislature';
 export * from './fetchCommitteeExPostEvaluationYearsByLegislature';

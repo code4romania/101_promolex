@@ -1,3 +1,4 @@
+export * from './AnsweredQuestion';
 export * from './Committee';
 export * from './CommitteeHearingReports';
 export * from './CommitteeInstitutionHearings';
