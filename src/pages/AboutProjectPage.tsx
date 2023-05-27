@@ -302,7 +302,7 @@ export function AboutProjectPage() {
               </ListItem>
               <ListItem disablePadding sx={{ display: 'list-item' }}>
                 <ListItemText
-                  primary='consolidarea transparenței Parlamentului, respectiv îmbunătățirea imaginii autorității și sporirea gradului de informare a opiniei publice privind procesul legislative;'
+                  primary='consolidarea transparenței Parlamentului, respectiv îmbunătățirea imaginii autorității și sporirea gradului de informare a opiniei publice privind procesul legislativ;'
                   primaryTypographyProps={{ fontSize: 14 }}
                 />
               </ListItem>

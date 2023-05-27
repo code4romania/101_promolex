@@ -48,6 +48,7 @@ export function DeputyLegislationInitiatives({
             <FindInPageIcon />
           </IconButton>
         ),
+        minWidth: 60,
       },
     ],
     [onShowDetails],

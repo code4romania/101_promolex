@@ -56,8 +56,8 @@ export function ReportDetailsPage() {
               {report?.pubdate ? formatDate(report.pubdate) : '-'}
             </Typography>
           </Typography>
-          <Grid container columnSpacing={8} rowSpacing={6} mt={4}>
-            <Grid item xs md={3}>
+          <Grid container columnSpacing={8} rowSpacing={6} xs={12} mt={4}>
+            <Grid item xs md={3.4}>
               <Box
                 sx={{
                   backgroundImage: `url(${report?.reportLogo})`,
@@ -71,7 +71,7 @@ export function ReportDetailsPage() {
                 }}
               />
             </Grid>
-            <Grid item xs md={9}>
+            <Grid item xs={12} md={8.6}>
               <Typography color='grey.800' gutterBottom variant='subtitle1'>
                 Scurtă descriere/rezumat
               </Typography>

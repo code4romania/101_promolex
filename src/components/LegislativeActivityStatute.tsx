@@ -3,7 +3,8 @@ import { ChartData } from 'chart.js';
 import { useMemo } from 'react';
 import { LegislativeActivityWrapper, StatisticsBarChart } from '.';
 import { useRegisteredProjects } from '../hooks';
-import { getProjectsByStatuteAndTypeChartData } from '../utils';
+import { useRegisteredProjectsStatisticsQuery } from '../queries';
+import { getDateString, getProjectsByStatuteAndTypeChartData } from '../utils';
 
 export function LegislativeActivityStatute() {
   const {
@@ -11,77 +12,114 @@ export function LegislativeActivityStatute() {
     onFromDateChange,
     onToDateChange,
     registeredProjects,
-    registeredProjectsByFirstLecture,
-    registeredProjectsBySecondLecture,
-    registeredProjectsByThirdLecture,
     toDate,
   } = useRegisteredProjects();
+
+  const { data: projectsInExaminationData } =
+    useRegisteredProjectsStatisticsQuery<'proiect_act'>(
+      {
+        key: 'proiect_act',
+        from: getDateString(fromDate),
+        to: getDateString(toDate),
+        statut_proiect: 'În examinare',
+      },
+      { enabled: Boolean(fromDate && toDate) },
+    );
+
+  const projectsInExamination = getProjectsByStatuteAndTypeChartData(
+    projectsInExaminationData ?? [],
+    'În examinare',
+  );
+
+  const { data: projectsPassedData } =
+    useRegisteredProjectsStatisticsQuery<'proiect_act'>(
+      {
+        key: 'proiect_act',
+        from: getDateString(fromDate),
+        to: getDateString(toDate),
+        statut_proiect: 'Adoptat',
+      },
+      { enabled: Boolean(fromDate && toDate) },
+    );
+
+  const projectsPassed = getProjectsByStatuteAndTypeChartData(
+    projectsPassedData ?? [],
+    'Adoptate',
+  );
+
+  const { data: projectsRejectedData } =
+    useRegisteredProjectsStatisticsQuery<'proiect_act'>(
+      {
+        key: 'proiect_act',
+        from: getDateString(fromDate),
+        to: getDateString(toDate),
+        statut_proiect: 'Respins',
+      },
+      { enabled: Boolean(fromDate && toDate) },
+    );
+
+  const projectsRejected = getProjectsByStatuteAndTypeChartData(
+    projectsRejectedData ?? [],
+    'Respinse',
+  );
+
+  const { data: projectsMergedData } =
+    useRegisteredProjectsStatisticsQuery<'proiect_act'>(
+      {
+        key: 'proiect_act',
+        from: getDateString(fromDate),
+        to: getDateString(toDate),
+        statut_proiect: 'Comasat',
+      },
+      { enabled: Boolean(fromDate && toDate) },
+    );
+
+  const projectsMerged = getProjectsByStatuteAndTypeChartData(
+    projectsMergedData ?? [],
+    'Comasate',
+  );
+
+  const { data: projectsRetractedData } =
+    useRegisteredProjectsStatisticsQuery<'proiect_act'>(
+      {
+        key: 'proiect_act',
+        from: getDateString(fromDate),
+        to: getDateString(toDate),
+        statut_proiect: 'Retras',
+      },
+      { enabled: Boolean(fromDate && toDate) },
+    );
+
+  const projectsRetracted = getProjectsByStatuteAndTypeChartData(
+    projectsRetractedData ?? [],
+    'Retrase',
+  );
+
+  const { data: projectsByLecturesData } =
+    useRegisteredProjectsStatisticsQuery<'lectura'>(
+      {
+        key: 'lectura',
+        from: getDateString(fromDate),
+        to: getDateString(toDate),
+        statut_proiect: 'În examinare',
+      },
+      { enabled: Boolean(fromDate && toDate) },
+    );
 
   const projectsByLectures = useMemo<
     ChartData<'bar', (number | undefined)[], string> | undefined
   >(() => {
-    if (
-      !registeredProjectsByFirstLecture?.length &&
-      !registeredProjectsBySecondLecture?.length &&
-      !registeredProjectsByThirdLecture?.length
-    ) {
-      return undefined;
-    }
-    const firstLectureCount = registeredProjectsByFirstLecture?.length;
-    const secondLectureCount = registeredProjectsBySecondLecture?.length;
-    const thirdLectureCount = registeredProjectsByThirdLecture?.length;
-
+    const colors = ['#82969D', '#16697A', '#489FB5', '#82C0CC'];
     return {
       labels: ['Proiecte'],
-      datasets: [
-        {
-          label: 'I lectură',
-          data: [firstLectureCount],
-          backgroundColor: '#16697A',
-        },
-        {
-          label: 'a II-a lectură',
-          data: [secondLectureCount],
-          backgroundColor: '#489FB5',
-        },
-        {
-          label: 'a III-a lectură',
-          data: [thirdLectureCount],
-          backgroundColor: '#82C0CC',
-        },
-      ],
+      datasets:
+        projectsByLecturesData?.map(({ lectura, total }, index) => ({
+          label: lectura,
+          data: [parseInt(total, 10)],
+          backgroundColor: colors[index],
+        })) ?? [],
     };
-  }, [
-    registeredProjectsByFirstLecture?.length,
-    registeredProjectsBySecondLecture?.length,
-    registeredProjectsByThirdLecture?.length,
-  ]);
-
-  const projectsInExamination = getProjectsByStatuteAndTypeChartData(
-    registeredProjects ?? [],
-    'în examinare',
-    'În examinare',
-  );
-  const projectsPassed = getProjectsByStatuteAndTypeChartData(
-    registeredProjects ?? [],
-    'adoptat',
-    'Adoptate',
-  );
-  const projectsRejected = getProjectsByStatuteAndTypeChartData(
-    registeredProjects ?? [],
-    'respins',
-    'Respinse',
-  );
-  const projectsMerged = getProjectsByStatuteAndTypeChartData(
-    registeredProjects ?? [],
-    'comasat',
-    'Comasate',
-  );
-  const projectsRetracted = getProjectsByStatuteAndTypeChartData(
-    registeredProjects ?? [],
-    'retras',
-    'Retrase',
-  );
+  }, [projectsByLecturesData]);
 
   return (
     <LegislativeActivityWrapper

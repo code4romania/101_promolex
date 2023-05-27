@@ -149,8 +149,7 @@ export function CommitteesActivityCharts() {
             align: 'end',
             anchor: 'end',
             font: {
-              size: 20,
-              weight: 600,
+              size: 14,
             },
           },
           label: 'Avize acordate',
