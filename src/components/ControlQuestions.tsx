@@ -81,10 +81,12 @@ const questionsTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.3,
     sortable: false,
     renderCell: ({ value }) =>
-      value && (
+      value ? (
         <Link href={value} target='_blank'>
           Vezi răspunsul
         </Link>
+      ) : (
+        '-'
       ),
     minWidth: 110,
   },

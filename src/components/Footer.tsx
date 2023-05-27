@@ -41,125 +41,124 @@ export function Footer() {
   return (
     <Stack bgcolor='grey.50' mt='auto'>
       <Container>
-        <Grid columnSpacing={5} container rowSpacing={2} pb={4} pt={4} px={4}>
-          <Grid display={{ xs: 'none', sm: 'block' }} item xs={0} md={3} />
-          <Grid item xs={12} md={3} sx={{ display: 'flex' }}>
-            <Stack gap={4} ml={{ xs: 'none', md: 'auto' }} flexGrow={0}>
-              <Box height={75}>
-                <img alt='Logo Promo-LEX' height='100%' src={logoPromoLexRo} />
-              </Box>
-              <Stack direction='row' gap={1}>
-                <MediaIcon
-                  href='https://www.facebook.com/promolex.md/'
-                  target='_blank'
-                >
-                  <FacebookIcon />
-                </MediaIcon>
-                <MediaIcon
-                  href='https://www.linkedin.com/company/asociatiapromolex/'
-                  target='_blank'
-                >
-                  <LinkedInIcon />
-                </MediaIcon>
-                <MediaIcon
-                  href='https://www.instagram.com/asociatia_promolex/?hl=en'
-                  target='_blank'
-                >
-                  <InstagramIcon />
-                </MediaIcon>
-                <MediaIcon href='https://twitter.com/promolex' target='_blank'>
-                  <TwitterIcon />
-                </MediaIcon>
-                <MediaIcon href='https://t.me/promolex ' target='_blank'>
-                  <TelegramIcon />
-                </MediaIcon>
-                <MediaIcon
-                  href='https://www.youtube.com/@asociatiapromo-lex8534'
-                  target='_blank'
-                >
-                  <YoutubeIcon />
-                </MediaIcon>
-              </Stack>
-            </Stack>
-          </Grid>
-
-          <Grid item xs={12} md={3}>
-            <Stack gap={2}>
-              <Typography
-                color='grey.400'
-                fontWeight='medium'
-                textTransform='uppercase'
-              >
-                Contacte
-              </Typography>
-              <Stack color='grey.400' direction='row' gap={2}>
-                <FmdGoodIcon />
-                <Box>
-                  <Typography color='text.primary' fontWeight='medium' noWrap>
-                    Str. Mitropolit Petru Movilă 23/13, MD-2004
-                  </Typography>
-                  <Typography color='text.primary' fontWeight='medium'>
-                    Chișinău, Republica Moldova
-                  </Typography>
+        <Box ml={{ xs: 0, md: '25%', lg: '30%' }}>
+          <Grid columnSpacing={5} container rowSpacing={2} pb={4} pt={4} px={4}>
+            <Grid item xs={12} md={3.3} minWidth={220}>
+              <Stack gap={4} flexGrow={0}>
+                <Box height={75}>
+                  <img
+                    alt='Logo Promo-LEX'
+                    height='100%'
+                    src={logoPromoLexRo}
+                  />
                 </Box>
+                <Stack direction='row' gap={1}>
+                  <MediaIcon
+                    href='https://www.facebook.com/promolex.md/'
+                    target='_blank'
+                  >
+                    <FacebookIcon />
+                  </MediaIcon>
+                  <MediaIcon
+                    href='https://www.linkedin.com/company/asociatiapromolex/'
+                    target='_blank'
+                  >
+                    <LinkedInIcon />
+                  </MediaIcon>
+                  <MediaIcon
+                    href='https://www.instagram.com/asociatia_promolex/?hl=en'
+                    target='_blank'
+                  >
+                    <InstagramIcon />
+                  </MediaIcon>
+                  <MediaIcon
+                    href='https://twitter.com/promolex'
+                    target='_blank'
+                  >
+                    <TwitterIcon />
+                  </MediaIcon>
+                  <MediaIcon href='https://t.me/promolex ' target='_blank'>
+                    <TelegramIcon />
+                  </MediaIcon>
+                  <MediaIcon
+                    href='https://www.youtube.com/@asociatiapromo-lex8534'
+                    target='_blank'
+                  >
+                    <YoutubeIcon />
+                  </MediaIcon>
+                </Stack>
               </Stack>
-              <Stack
-                alignItems='center'
-                color='grey.400'
-                direction='row'
-                gap={2}
-              >
-                <PhoneIcon />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <Stack gap={2}>
                 <Typography
-                  color='text.primary'
-                  component={Link}
+                  color='grey.400'
                   fontWeight='medium'
-                  href='tel:37322450024'
-                  underline='none'
+                  textTransform='uppercase'
                 >
-                  + 373 22 450-024
+                  Contacte
                 </Typography>
-              </Stack>
-              <Stack
-                alignItems='center'
-                color='grey.400'
-                direction='row'
-                gap={2}
-              >
-                <EmailIcon />
-                <Typography
-                  color='text.primary'
-                  component={Link}
-                  fontWeight='medium'
-                  href='mailto:info@promolex.md'
-                  underline='none'
+                <Stack color='grey.400' direction='row' gap={2}>
+                  <FmdGoodIcon />
+                  <Box>
+                    <Typography color='text.primary' fontWeight='medium' noWrap>
+                      Str. Mitropolit Petru Movilă 23/13, MD-2004
+                    </Typography>
+                    <Typography color='text.primary' fontWeight='medium'>
+                      Chișinău, Republica Moldova
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Stack
+                  alignItems='center'
+                  color='grey.400'
+                  direction='row'
+                  gap={2}
                 >
-                  info@promolex.md
-                </Typography>
+                  <PhoneIcon />
+                  <Typography
+                    color='text.primary'
+                    component={Link}
+                    fontWeight='medium'
+                    href='tel:37322450024'
+                    underline='none'
+                  >
+                    + 373 22 450-024
+                  </Typography>
+                </Stack>
+                <Stack
+                  alignItems='center'
+                  color='grey.400'
+                  direction='row'
+                  gap={2}
+                >
+                  <EmailIcon />
+                  <Typography
+                    color='text.primary'
+                    component={Link}
+                    fontWeight='medium'
+                    href='mailto:info@promolex.md'
+                    underline='none'
+                  >
+                    info@promolex.md
+                  </Typography>
+                </Stack>
               </Stack>
-            </Stack>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid
-          alignItems='center'
-          columnSpacing={5}
-          container
-          rowSpacing={2}
-          px={4}
-        >
-          <Grid item xs={7} md={6}>
+          <Stack alignItems='center' direction='row' gap={2} px={4} mb={2}>
             <Typography
               color='grey.500'
               fontWeight='medium'
               textAlign={{ xs: 'left', md: 'right' }}
             >
-              Soluție dezvolată cu sprijinul pro-bono al
+              Soluție dezvoltată cu sprijinul{' '}
+              <span style={{ whiteSpace: 'nowrap' }}>pro-bono al</span>
             </Typography>
-          </Grid>
-          <Grid item xs={5} md={6}>
             <img src={logoCfr} alt='' height='30px' style={{ opacity: 0.7 }} />
-          </Grid>
-        </Grid>
+          </Stack>
+        </Box>
       </Container>
       <Stack
         alignContent='center'

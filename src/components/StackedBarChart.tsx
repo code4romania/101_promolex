@@ -9,7 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { merge } from 'lodash';
+import { chain, merge, sum } from 'lodash';
 import { Bar } from 'react-chartjs-2';
 import { Loading } from './Loading';
 
@@ -127,7 +127,7 @@ const stackedBarChartOptions: ChartOptions<'bar'> = {
           }
           lines.push(currentLine);
 
-          return lines;
+          return lines.map((line, index) => (index === 0 ? line : `-${line}`));
         },
         color: '#27272A',
         font: {
@@ -163,7 +163,7 @@ function ticksCallback(isLargeScreen: boolean) {
     }
     lines.push(currentLine);
 
-    return lines;
+    return lines.map((line, index) => (index === 0 ? line : ` ${line}`));
   }
 
   return ticksCallbackFunction;
@@ -205,13 +205,25 @@ export function StackedBarChart({
       },
     },
   };
+
   return isLoading ? (
     <Loading />
   ) : (
     <Box height={isLargeScreen ? 510 : 650}>
       <Bar
         options={merge(chartOptions, {
-          scales: { y: { ticks: { callback: ticksCallback(isLargeScreen) } } },
+          scales: {
+            x: {
+              max:
+                chain(data.datasets)
+                  .map((set) => set.data)
+                  .unzip()
+                  .map((set) => sum(set))
+                  .max()
+                  .value() + (isLargeScreen ? 15 : 50),
+            },
+            y: { ticks: { callback: ticksCallback(isLargeScreen) } },
+          },
         })}
         data={data}
       />

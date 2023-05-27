@@ -28,7 +28,7 @@ export function ReportItem({ report }: ReportItemProps) {
     <Grid container columnSpacing={8}>
       <Grid item xs={12} md={3}>
         <RouterLink to={`detalii/${rid}`}>
-          <Box boxShadow={2} height={320} textAlign='center' width={1}>
+          <Box height={320} textAlign='center' width={1}>
             <img height='100%' width='auto' src={reportLogo} alt='title' />
           </Box>
         </RouterLink>

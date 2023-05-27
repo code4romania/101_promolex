@@ -10,6 +10,7 @@ import {
   Stack,
   styled,
   Typography,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import {
@@ -46,8 +47,9 @@ const StyledMenu = styled(Menu)<MenuProps>(({ theme }) => ({
 }));
 
 export function Navbar() {
-  const { palette } = useTheme();
+  const { breakpoints, palette } = useTheme();
   const { pathname } = useLocation();
+  const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -83,69 +85,75 @@ export function Navbar() {
   return (
     <Box bgcolor={palette.primary.main}>
       <Container>
-        <Stack
-          alignItems='center'
-          direction='row'
-          display={{ xs: 'none', md: 'flex' }}
-          justifyContent='flex-end'
-          gap={10}
-          py={1}
-        >
-          <Box mr='auto'>
-            <Link to={Routes.Home}>
-              <img alt='Logo 101 Promo-LEX' height={85} src={logo101Promolex} />
-            </Link>
-          </Box>
-          {routesConfig.map(({ label, route, subRoutes }) =>
-            !subRoutes?.length ? (
-              <StyledNavLink
-                key={route}
-                style={({ isActive }) =>
-                  isActive
-                    ? { color: palette.primary.dark }
-                    : { color: palette.common.white }
-                }
-                to={route}
-              >
-                {label}
-              </StyledNavLink>
-            ) : (
-              <Fragment key={route}>
-                <Typography
-                  color={
-                    pathname.includes(Routes.LegislativeActivity)
-                      ? 'primary.dark'
-                      : 'common.white'
+        {isLargeScreen && (
+          <Stack
+            alignItems='center'
+            direction='row'
+            display={{ xs: 'none', md: 'flex' }}
+            justifyContent='flex-end'
+            gap={10}
+            py={1}
+          >
+            <Box mr='auto'>
+              <Link to={Routes.Home}>
+                <img
+                  alt='Logo 101 Promo-LEX'
+                  height={85}
+                  src={logo101Promolex}
+                />
+              </Link>
+            </Box>
+            {routesConfig.map(({ label, route, subRoutes }) =>
+              !subRoutes?.length ? (
+                <StyledNavLink
+                  key={route}
+                  style={({ isActive }) =>
+                    isActive
+                      ? { color: palette.primary.dark }
+                      : { color: palette.common.white }
                   }
-                  onClick={handleClick}
-                  variant='subtitle1'
-                  fontWeight={700}
-                  sx={{ textDecoration: 'none', cursor: 'pointer' }}
+                  to={route}
                 >
                   {label}
-                </Typography>
-                <Menu anchorEl={anchorEl} open={open} onClose={handleClose()}>
-                  {subRoutes.map((subRoute) => (
-                    <MenuItem
-                      key={subRoute.route}
-                      onClick={handleClose(subRoute.route)}
-                    >
-                      {subRoute.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Fragment>
-            ),
-          )}
-        </Stack>
+                </StyledNavLink>
+              ) : (
+                <Fragment key={route}>
+                  <Typography
+                    color={
+                      pathname.includes(Routes.LegislativeActivity)
+                        ? 'primary.dark'
+                        : 'common.white'
+                    }
+                    onClick={handleClick}
+                    variant='subtitle1'
+                    fontWeight={700}
+                    sx={{ textDecoration: 'none', cursor: 'pointer' }}
+                  >
+                    {label}
+                  </Typography>
+                  <Menu anchorEl={anchorEl} open={open} onClose={handleClose()}>
+                    {subRoutes.map((subRoute) => (
+                      <MenuItem
+                        key={subRoute.route}
+                        onClick={handleClose(subRoute.route)}
+                      >
+                        {subRoute.label}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Fragment>
+              ),
+            )}
+          </Stack>
+        )}
 
         <Box
           alignItems='center'
           display={{ xs: 'flex', md: 'none' }}
-          justifyContent='flex-end'
+          justifyContent='space-between'
         >
           <Link to={Routes.Home}>
-            <img alt='Logo 101 Promo-LEX' height={85} src={logo101Promolex} />
+            <img alt='Logo 101 Promo-LEX' height={70} src={logo101Promolex} />
           </Link>
 
           <IconButton onClick={toggleMenu} size='large'>

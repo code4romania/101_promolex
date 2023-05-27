@@ -148,10 +148,16 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
           <Typography fontWeight={typography.fontWeightBold}>
             Audieri organizate
           </Typography>
-          <Grid container rowSpacing={2} maxHeight={300} overflow='auto'>
+          <Grid
+            container
+            rowSpacing={2}
+            maxHeight={100}
+            overflow='auto'
+            columns={24}
+          >
             {committee?.organizedHearings.map(
               ({ hearingType, dataSedinte }) => (
-                <Grid item key={dataSedinte} md={2} xs={6}>
+                <Grid item key={dataSedinte} md={4} xs={24} sm={8}>
                   <Typography
                     alignItems='center'
                     component={Stack}
@@ -195,7 +201,7 @@ export function CommitteeDetails({ cid }: CommitteeDetailsProps) {
             rowGap={2}
             flexDirection='row'
             flexWrap='wrap'
-            maxHeight={300}
+            maxHeight={100}
             overflow='auto'
           >
             {committee?.sessions.map(({ procesVerbal, dataSedinte }) => (
