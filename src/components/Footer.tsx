@@ -138,10 +138,10 @@ export function Footer() {
                     color='text.primary'
                     component={Link}
                     fontWeight='medium'
-                    href='mailto:info@promolex.md'
+                    href='mailto:101@promolex.md'
                     underline='none'
                   >
-                    info@promolex.md
+                    101@promolex.md
                   </Typography>
                 </Stack>
               </Stack>

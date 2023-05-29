@@ -56,7 +56,13 @@ export function ReportDetailsPage() {
               {report?.pubdate ? formatDate(report.pubdate) : '-'}
             </Typography>
           </Typography>
-          <Grid container columnSpacing={8} rowSpacing={6} xs={12} mt={4}>
+          <Grid
+            container
+            columnSpacing={{ xs: 0, md: 8 }}
+            rowSpacing={6}
+            xs={12}
+            mt={4}
+          >
             <Grid item xs md={3.4}>
               <Box
                 sx={{
