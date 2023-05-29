@@ -18,17 +18,23 @@ This project is built by amazing volunteers and you can be one of them! Here's a
 
 Help us out by testing this project in the [staging environment][link-staging]. If you see something that doesn't quite work the way you expect it to, open an Issue. Make sure to describe what you _expect to happen_ and _what is actually happening_ in detail.
 
-If you would like to suggest new functionality, open an Issue and mark it as a __[Feature request]__. Please be specific about why you think this functionality will be of use. If you can, please include some visual description of what you would like the UI to look like, if you are suggesting new UI elements.
+If you would like to suggest new functionality, open an Issue and mark it as a **[Feature request]**. Please be specific about why you think this functionality will be of use. If you can, please include some visual description of what you would like the UI to look like, if you are suggesting new UI elements.
 
 ## Built With
 
 ### Programming languages
 
+[TypeScript](https://www.typescriptlang.org/)
+
 ### Platforms
 
 ### Frontend framework
 
+[React](https://react.dev/), [MUI](https://mui.com/)
+
 ### Package managers
+
+[yarn](https://yarnpkg.com/) version `1.22.19`
 
 ### Database technology & provider
 
@@ -39,19 +45,46 @@ Mention all related repos and projects.
 ## Deployment
 
 Guide users through getting your code up and running on their own system. In this section you can talk about:
+
 1. Installation process
+
+```
+yarn install
+yarn start
+```
+
 2. Software dependencies
+
+Requires node at least version `18.14.2`.
+Requires a [Firebase](https://firebase.google.com/) app with the following variables
+
+```typescript
+// .env
+REACT_APP_API_KEY;
+REACT_APP_AUTH_DOMAIN;
+REACT_APP_PROJECT_ID;
+REACT_APP_STORAGE_BUCKET;
+REACT_APP_MESSAGING_SENDER_ID;
+REACT_APP_APP_ID;
+```
+
 3. Latest releases
 4. API references
 
 Describe and show how to build your code and run the tests.
 
+```
+yarn build
+yarn global add serve
+serve -s build
+```
+
 ## Feedback
 
-* Request a new feature on GitHub.
-* Vote for popular feature requests.
-* File a bug in GitHub Issues.
-* Email us with other feedback contact@code4.ro
+- Request a new feature on GitHub.
+- Vote for popular feature requests.
+- File a bug in GitHub Issues.
+- Email us with other feedback contact@code4.ro
 
 ## License
 
@@ -63,18 +96,14 @@ Started in 2016, Code for Romania is a civic tech NGO, official member of the Co
 
 Last, but not least, we rely on donations to ensure the infrastructure, logistics and management of our community that is widely spread across 11 timezones, coding for social change to make Romania and the world a better place. If you want to support us, [you can do it here][link-donate].
 
-
 [ico-contributors]: https://img.shields.io/github/contributors/code4romania/standard-repo-template.svg?style=for-the-badge
 [ico-last-commit]: https://img.shields.io/github/last-commit/code4romania/standard-repo-template.svg?style=for-the-badge
 [ico-license]: https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge
-
 [link-contributors]: https://github.com/code4romania/standard-repo-template/graphs/contributors
 [link-last-commit]: https://github.com/code4romania/standard-repo-template/commits/main
 [link-license]: https://opensource.org/licenses/MPL-2.0
 [link-contributing]: https://github.com/code4romania/.github/blob/main/CONTRIBUTING.md
-
 [link-production]: insert_link_here
 [link-staging]: insert_link_here
-
 [link-code4]: https://www.code4.ro/en/
 [link-donate]: https://code4.ro/en/donate/
