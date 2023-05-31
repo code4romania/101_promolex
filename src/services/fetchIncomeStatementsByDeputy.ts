@@ -6,7 +6,7 @@ export const fetchIncomeStatementsByDeputy = async (
   did: string,
   year: string,
 ): Promise<IncomeStatements> => {
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     apiPaths.incomeStatementsByDeputyId(did, year),
   );
 

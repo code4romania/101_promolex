@@ -6,7 +6,7 @@ export const sendQuestion = async (
   params: ContactFormData,
 ): Promise<string> => {
   const stringParams = new URLSearchParams(params).toString();
-  const { data } = await axios.post(`${apiPaths.sendQuestion}&${stringParams}`);
+  const { data } = await axios.get(`${apiPaths.sendQuestion}&${stringParams}`);
 
   return data;
 };

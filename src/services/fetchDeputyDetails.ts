@@ -6,7 +6,7 @@ import { apiPaths } from './apiUrls';
 export const fetchDeputyDetails = async (
   did: string,
 ): Promise<DeputyDetails> => {
-  const { data } = await axios.post(`${apiPaths.deputyDetailsById}${did}`);
+  const { data } = await axios.get(`${apiPaths.deputyDetailsById}${did}`);
 
   return mapKeysToCamelCase(data);
 };

@@ -6,7 +6,7 @@ import { apiPaths } from './apiUrls';
 export const fetchCommitteeInvestigationCommissionsByLegislature = async (
   lid: string,
 ): Promise<CommitteeInvestigationCommission[]> => {
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.committeeInvestigationCommissions}${lid}`,
   );
 

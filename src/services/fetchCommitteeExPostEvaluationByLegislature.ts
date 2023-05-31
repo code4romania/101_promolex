@@ -13,7 +13,7 @@ export const fetchCommitteeExPostEvaluationByLegislature = async (
   params: CommitteeExPostEvaluationParams,
 ): Promise<ExPostEvaluation> => {
   const queryParams = new URLSearchParams(params);
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.committeeExPostEvaluation}&${queryParams}`,
   );
 

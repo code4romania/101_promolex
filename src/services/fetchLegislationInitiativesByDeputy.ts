@@ -6,7 +6,7 @@ import { apiPaths } from './apiUrls';
 export const fetchLegislationInitiativesByDeputy = async (
   did: string,
 ): Promise<LegislationInitiative[]> => {
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.legislationInitiativesByDeputyId}${did}`,
   );
 

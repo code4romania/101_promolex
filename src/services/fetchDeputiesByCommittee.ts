@@ -6,7 +6,7 @@ import { apiPaths } from './apiUrls';
 export const fetchDeputiesByCommittee = async (
   committee: string,
 ): Promise<CommitteeDeputy[]> => {
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.deputiesListByCommitteeId}${committee}`,
   );
 

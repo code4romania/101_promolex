@@ -5,7 +5,7 @@ import { apiPaths } from './apiUrls';
 export const fetchCommitteesMainReporterDataByLegislature = async (
   lid: string,
 ): Promise<CommitteesMainReporterData> => {
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.committeesMainReporterData}${lid}`,
   );
 

@@ -11,7 +11,7 @@ export const fetchRegisteredProjectsStatistics = async <T extends KeyFilter>(
   params: RegisteredProjectsStatisticsQueryParams,
 ): Promise<RegisteredProjectsStatistics<T>[]> => {
   const queryParams = new URLSearchParams(params);
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.registeredProjectsStatistics}&${queryParams.toString()}`,
   );
 
