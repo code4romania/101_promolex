@@ -6,7 +6,7 @@ import { apiPaths } from './apiUrls';
 export const fetchDeputyQuestionsAndInterpellations = async (
   did: string,
 ): Promise<DeputyQuestion[]> => {
-  const { data } = await axios.post(`${apiPaths.deputyQuestions}${did}`);
+  const { data } = await axios.get(`${apiPaths.deputyQuestions}${did}`);
 
   return mapKeysToCamelCase(data);
 };

@@ -6,7 +6,7 @@ import { apiPaths } from './apiUrls';
 export const fetchCommitteeQuestionsByLegislature = async (
   lid: string,
 ): Promise<CommitteeQuestion[]> => {
-  const { data } = await axios.post(`${apiPaths.committeeQuestions}${lid}`);
+  const { data } = await axios.get(`${apiPaths.committeeQuestions}${lid}`);
 
   return mapKeysToCamelCase(data);
 };

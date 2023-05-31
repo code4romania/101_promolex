@@ -20,7 +20,7 @@ export const fetchRegisteredProjects = async (
   params: RegisteredProjectsQueryParams,
 ): Promise<LegislationInitiative[]> => {
   const queryParams = new URLSearchParams(params);
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.registeredProjectsByFilters}&${queryParams.toString()}`,
   );
 

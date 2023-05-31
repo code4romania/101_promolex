@@ -12,7 +12,7 @@ export const fetchCommitteeInstitutionReportsByLegislature = async (
   params: CommitteeInstitutionReportsByLegislatureProps,
 ): Promise<CommitteeInstitutionReports[]> => {
   const queryParams = new URLSearchParams(params);
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.committeeInstitutionReports}&${queryParams}`,
   );
 

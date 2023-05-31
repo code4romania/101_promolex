@@ -4,7 +4,7 @@ import { mapKeysToCamelCase } from '../utils';
 import { apiPaths } from './apiUrls';
 
 export const fetchAnsweredQuestions = async (): Promise<AnsweredQuestion[]> => {
-  const { data } = await axios.post(apiPaths.answeredQuestions);
+  const { data } = await axios.get(apiPaths.answeredQuestions);
 
   return mapKeysToCamelCase(data);
 };

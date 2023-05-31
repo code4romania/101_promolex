@@ -14,7 +14,7 @@ export const fetchCommitteeReportsYears = async (
   params: CommitteeReportsYearsParams,
 ): Promise<CommitteeReportYear> => {
   const queryParams = new URLSearchParams(params);
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.committeeReportsYears}&${queryParams}`,
   );
 

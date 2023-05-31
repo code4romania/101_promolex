@@ -62,6 +62,7 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
               fontWeight: 'medium',
               px: 3,
               py: 1,
+              display:'none'
             }}
           >
             <FaFacebook style={{ color: 'inherit', fontSize: 24 }} />

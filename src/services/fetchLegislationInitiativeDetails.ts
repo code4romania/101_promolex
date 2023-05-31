@@ -6,7 +6,7 @@ import { apiPaths } from './apiUrls';
 export const fetchLegislationInitiativeDetails = async (
   docid: string,
 ): Promise<Partial<LegislationInitiativeDetails>> => {
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.legislationInitiativeDetailsById}${docid}`,
   );
 

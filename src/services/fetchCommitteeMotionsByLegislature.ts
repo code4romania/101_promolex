@@ -13,7 +13,7 @@ export const fetchCommitteeMotionsByLegislature = async (
 ): Promise<CommitteeMotion[]> => {
   const queryParams = new URLSearchParams(params);
 
-  const { data } = await axios.post(
+  const { data } = await axios.get(
     `${apiPaths.committeeMotions}&${queryParams}`,
   );
 

@@ -5,7 +5,7 @@ import { apiPaths } from './apiUrls';
 
 export const sendVote = async (params: Vote): Promise<string | VoteResults> => {
   const stringParams = new URLSearchParams(params).toString();
-  const { data } = await axios.post(`${apiPaths.sendVote}&${stringParams}`);
+  const { data } = await axios.get(`${apiPaths.sendVote}&${stringParams}`);
 
   return mapKeysToCamelCase(data);
 };
