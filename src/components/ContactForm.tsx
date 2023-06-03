@@ -241,7 +241,7 @@ export function ContactForm() {
           render={({ field, fieldState }) => (
             <FormControl disabled={isFormDisabled} fullWidth>
               <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                Nume și prenume
+                Nume și prenume*
               </StyledInputLabel>
               <OutlinedInput
                 error={Boolean(fieldState.error)}
@@ -269,7 +269,7 @@ export function ContactForm() {
           render={({ field, fieldState }) => (
             <FormControl disabled={isFormDisabled} fullWidth>
               <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                Email
+                Email*
               </StyledInputLabel>
               <OutlinedInput
                 error={Boolean(fieldState.error)}
@@ -313,12 +313,6 @@ export function ContactForm() {
               </FormHelperText>
             </FormControl>
           )}
-          rules={{
-            required: {
-              value: true,
-              message: 'Acest câmp este obligatoriu',
-            },
-          }}
         />
       </Grid>
       <Grid item xs={12}>
@@ -328,7 +322,8 @@ export function ContactForm() {
           render={({ field }) => (
             <FormControl disabled={isFormDisabled} fullWidth>
               <StyledInputLabel htmlFor={field.name} variant='outlined'>
-                Întrebarea este adresată deputatului/deputatei sau Parlamentului
+                Întrebarea este adresată deputatului/deputatei sau
+                Parlamentului*
               </StyledInputLabel>
               <Autocomplete
                 disabled={isFormDisabled}
@@ -401,7 +396,14 @@ export function ContactForm() {
           fontWeight='bold'
           sx={{ opacity: isFormDisabled ? 0.38 : 1 }}
         >
-          *Răspunsul la întrebarea dumneavoastră este în responsabilitatea
+          * Aceste date vor fi publice pe site, inclusiv pot fi afișate în
+          răspunsul furnizat.
+        </Typography>
+        <Typography
+          fontWeight='bold'
+          sx={{ opacity: isFormDisabled ? 0.38 : 1 }}
+        >
+          ! Răspunsul la întrebarea dumneavoastră este în responsabilitatea
           instituției sau a deputatului căruia i-a fost adresată.
         </Typography>
         <FormControlLabel

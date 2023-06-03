@@ -149,7 +149,9 @@ const interpellationsTableColumns: GridColumns<GridValidRowModel> = [
     flex: 0.4,
     sortable: false,
     renderCell: ({ value }) =>
-      value && (
+      !value ? (
+        '-'
+      ) : (
         <Link href={value} target='_blank'>
           Vezi răspunsul
         </Link>

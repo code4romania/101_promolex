@@ -79,7 +79,9 @@ const reportsAuditingTableColumns: GridColumns<GridValidRowModel> = [
     // renderCell: ({ value }) => <TextWithTooltip text={value} />,
     minWidth: 130,
     renderCell: ({ value }) =>
-      value && (
+      !value ? (
+        '-'
+      ) : (
         <StyledRouterLink
           to={{
             pathname: Routes.PlenaryMeetings,

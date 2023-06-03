@@ -4,6 +4,7 @@ import {
   Collapse,
   Divider,
   Grid,
+  Link as MuiLink,
   List,
   ListItem,
   ListItemText,
@@ -480,11 +481,33 @@ export function AboutProjectPage() {
         reflectă neapărat poziția donatorului.
       </Typography>
 
-      <Typography fontWeight='bold' py={10}>
+      <Typography fontWeight='bold' pt={10}>
         Informațiile plasate pe această platformă pot fi preluate în mod liber
         pentru a fi distribuite, publicate și difuzate cu condiția menționării
         exprese în material a sursei (referință la Asociația Promo-LEX și/sau
         pagina www.101.promolex.md).
+      </Typography>
+
+      <Typography fontWeight='bold' py={10}>
+        Dacă aveți propuneri, sugestii sau comentarii legate de pagina web, vă
+        rugăm să le expediați la adresa de e-mail{' '}
+        <Typography
+          color='#780000'
+          component={MuiLink}
+          fontWeight='medium'
+          href='mailto:101@promolex.md'
+          sx={{
+            cursor: 'pointer',
+            textDecoration: 'none',
+            '&:hover': {
+              textDecoration: 'underline',
+              color: 'primary.main',
+            },
+          }}
+        >
+          101@promolex.md
+        </Typography>
+        .
       </Typography>
     </PageContainer>
   );
