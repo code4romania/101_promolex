@@ -93,7 +93,6 @@ export function StatisticsDoughnutChart({
       height={height}
       px={{ xs: 4, md: 12 }}
       py={4}
-      overflow='auto'
     >
       <Typography fontWeight={700} variant='h6'>
         {title}
@@ -103,7 +102,6 @@ export function StatisticsDoughnutChart({
         display='flex'
         height={1}
         justifyContent='center'
-        width={{ xs: 465, md: 1 }}
       >
         {isLoading && <CircularProgress />}
         {!isLoading && !data && 'Lipsă date'}

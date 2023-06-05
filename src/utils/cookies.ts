@@ -6,3 +6,9 @@ export const setLegislatureFromDate = (date: string) => {
 };
 
 export const getLegislatureFromDate = () => cookie.get(LEGISLATURE_FROM);
+
+export const setConsent = () => {
+  cookie.set('consentGdpr', 'accepted', { expires: 365 });
+};
+
+export const getConsent = () => cookie.get('consentGdpr');
