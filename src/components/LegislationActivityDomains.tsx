@@ -6,6 +6,7 @@ import {
   useCurrentLegislatureQuery,
   useRegisteredProjectsStatisticsQuery,
 } from '../queries';
+import { getDateString } from '../utils';
 import { LegislativeActivityWrapper } from './LegislativeActivityWrapper';
 import { StatisticsDoughnutChart } from './StatisticsDoughnutChart';
 
@@ -24,12 +25,6 @@ export function LegislativeActivityDomains() {
   const { breakpoints } = useTheme();
   const isLargeScreen = useMediaQuery(breakpoints.up('sm'));
 
-  const { data: lid } = useCurrentLegislatureQuery();
-  const { data: registeredProjectsByDomain } =
-    useRegisteredProjectsStatisticsQuery<'domeniul'>({
-      key: 'domeniul',
-      lid,
-    });
   const {
     fromDate,
     onFromDateChange,
@@ -38,10 +33,23 @@ export function LegislativeActivityDomains() {
     toDate,
   } = useRegisteredProjects();
 
-  const chartData = useMemo<ChartData<'doughnut', number[], string>>(() => {
-    const filteredDomains = registeredProjectsByDomain?.filter(
-      ({ total }) => parseInt(total, 10) > 50,
+  const { data: lid } = useCurrentLegislatureQuery();
+  const { data: registeredProjectsByDomain } =
+    useRegisteredProjectsStatisticsQuery<'domeniul'>(
+      {
+        key: 'domeniul',
+        lid,
+        from: getDateString(fromDate),
+        to: getDateString(toDate),
+      },
+      { enabled: Boolean(fromDate && toDate) },
     );
+
+  const chartData = useMemo<ChartData<'doughnut', number[], string>>(() => {
+    const filteredDomains =
+      registeredProjectsByDomain?.filter(
+        ({ total }) => parseInt(total, 10) > 50,
+      ) ?? [];
     const labels = filteredDomains?.map(({ domeniul }) => domeniul);
     const data = filteredDomains?.map(({ total }) => parseInt(total, 10)) ?? [];
 
