@@ -142,6 +142,18 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
         }
         rows={incomeStatements?.categorys[selectedCategory]?.items ?? []}
       />
+
+      <Typography>
+        <strong>Disclaimer:</strong> Tipul de proprietate FAMILIAL, inclus de
+        Promo-LEX la secțiunea ”Declarația de avere și interese personale”,
+        presupune venituri obținute | avere dobândită | cheltuieli realizate |
+        bunuri transmise | datorii | active financiare{' '}
+        <strong>
+          deținute de membrul de familie | concubin | concubina subiectului
+          declarării
+        </strong>
+        .
+      </Typography>
     </Stack>
   );
 }
