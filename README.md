@@ -66,6 +66,14 @@ REACT_APP_PROJECT_ID;
 REACT_APP_STORAGE_BUCKET;
 REACT_APP_MESSAGING_SENDER_ID;
 REACT_APP_APP_ID;
+REACT_APP_MEASUREMENT_ID;
+```
+
+Other env variables
+
+```typescript
+// .env
+REACT_APP_API_BASE_URL;
 ```
 
 3. Latest releases

@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { chain, entries } from 'lodash';
+import { entries } from 'lodash';
 import { useMemo, useState } from 'react';
 import {
   useIncomeStatementYearsByDeputyIdQuery,
@@ -17,38 +17,6 @@ import {
 } from '../queries';
 import { DeputyIncomeCard } from './DeputyIncomeCard';
 import { Table } from './Table';
-
-const deputyWealthIconsMap: {
-  category: string;
-  color: string;
-  label?: string;
-}[] = [
-  { category: 'Venit', color: '#EE7C83' },
-  {
-    category: 'Bunuri imobile',
-    color: '#F8A58D',
-  },
-  {
-    category: 'Bunuri mobile',
-    color: '#EE7C83',
-  },
-  {
-    category: 'Active financiare',
-    color: '#88A9B5',
-  },
-  { category: 'Afaceri', color: '#474757' },
-  {
-    category: 'Bunuri de valoare',
-    color: '#E9C699',
-    label: 'Bunuri de Valoare',
-  },
-
-  { category: 'Datorii', color: '#88A9B5' },
-  {
-    category: 'Interese personale',
-    color: '#E9C699',
-  },
-];
 
 const smallerColumns = [
   'item_name',
@@ -83,9 +51,7 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
   const { data: years, isInitialLoading: isLoadingStatementYears } =
     useIncomeStatementYearsByDeputyIdQuery(did);
 
-  const [selectedCategory, setSelectedCategory] = useState(
-    deputyWealthIconsMap[0].category,
-  );
+  const [selectedCategory, setSelectedCategory] = useState(0);
 
   const columns = useMemo(
     () =>
@@ -148,20 +114,20 @@ export function DeputyWealth({ did }: DeputyWealthProps) {
         overflow='auto'
         justifyContent='space-between'
       >
-        {deputyWealthIconsMap.map(({ category, color, label }) => (
+        {incomeStatements?.categorys.map(({ category, icon, color }, index) => (
           <DeputyIncomeCard
             key={category}
             bgcolor={color}
             icon={
-              incomeStatements?.categorys[category]?.icon
+              icon
                 .replace('fa-solid', 'fas')
                 .replace('fa-', '')
                 .split(' ') as IconProp
             }
-            isActive={selectedCategory === category}
+            isActive={selectedCategory === index}
             isLoading={isLoading}
-            label={label ?? chain(category).startCase().value()}
-            onClick={() => setSelectedCategory(category)}
+            label={category}
+            onClick={() => setSelectedCategory(index)}
           />
         ))}
       </Stack>
