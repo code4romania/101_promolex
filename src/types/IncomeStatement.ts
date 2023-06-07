@@ -16,11 +16,13 @@ export type IncomeStatement = {
 
 export type IncomeStatements = {
   statement_file: string;
-  categorys: {
-    [k: string]: {
+  categorys: [
+    {
+      category: 'string';
+      color: 'string';
       icon: string;
       items: IncomeStatement[];
       table_keys: [{ [k: string]: string }];
-    };
-  };
+    },
+  ];
 };

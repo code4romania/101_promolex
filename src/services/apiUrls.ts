@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://monitor.md/101/api/post/view.php';
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export const apiPaths = {
   currentLegislatureId: `${API_BASE_URL}?type=current_legislature_id`,
