@@ -17,7 +17,7 @@ import {
 import { ChartData } from 'chart.js';
 import { capitalize, keys, values } from 'lodash';
 import { useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import {
   BarChart,
   DeputyActivity,
@@ -30,7 +30,7 @@ import {
 import { DeputyLegislationInitiatives } from '../components/DeputyLegislationInitiatives';
 import { DeputyQuestionsDetails } from '../components/DeputyQuestionsDetails';
 import { useDeputyDetailsQuery } from '../queries';
-import { RoutesParams } from '../types';
+import { LegislativeActivityRoutes, Routes, RoutesParams } from '../types';
 
 const BAR_COLOR_MAP = ['#88A9B5', '#E9C699', '#EE7C83'];
 
@@ -385,7 +385,17 @@ export function DeputyDetails() {
                     </Typography>
                   )}
                   {data?.author === '0' && (
-                    <Typography textAlign='center'>
+                    <Typography
+                      color='#88A9B5'
+                      component={RouterLink}
+                      fontSize={24}
+                      fontWeight={700}
+                      textAlign='center'
+                      to={`${Routes.LegislativeActivity}/${LegislativeActivityRoutes.control}?tab=0&secondaryTab=0`}
+                      style={{
+                        textDecoration: 'none',
+                      }}
+                    >
                       Acest deputat nu a înregistrat nici o inițiativă
                       legislativă
                     </Typography>
@@ -415,7 +425,17 @@ export function DeputyDetails() {
                     </Typography>
                   )}
                   {data?.questionsInterpelations === '0' && (
-                    <Typography textAlign='center'>
+                    <Typography
+                      color='#88A9B5'
+                      component={RouterLink}
+                      fontSize={24}
+                      fontWeight={700}
+                      textAlign='center'
+                      to={`${Routes.LegislativeActivity}/${LegislativeActivityRoutes.control}?tab=0&secondaryTab=1`}
+                      style={{
+                        textDecoration: 'none',
+                      }}
+                    >
                       Acest deputat nu a adresat nici o întrebare sau
                       interpelare
                     </Typography>

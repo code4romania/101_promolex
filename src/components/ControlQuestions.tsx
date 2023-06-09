@@ -1,4 +1,4 @@
-import { Link, Stack } from '@mui/material';
+import { Box, Link, Stack, Typography } from '@mui/material';
 import {
   GridColumns,
   GridRenderCellParams,
@@ -213,28 +213,54 @@ export function ControlQuestions() {
       </SecondaryTabs>
 
       {tabValue === 0 && (
-        <Table
-          columns={questionsTableColumns}
-          height='auto'
-          isLoading={isLoadingQuestions}
-          getRowHeight={() => 'auto'}
-          getRowId={(row) => row.docid}
-          hideFooter={!questionsData.length}
-          rows={questionsData}
-          showSearch
-        />
+        <>
+          <Box borderRadius={2} boxShadow={3} px={6} py={4}>
+            <Typography>
+              Fiecare deputat poate adresa întrebări membrilor Guvernului sau
+              conducătorilor autorităților administrației publice. Întrebările
+              sunt adresate la sfârșitul ședinței plenare în fiecare zi de joi,
+              cu excepția ultimei joi din lună. Formulând întrebarea, deputatul
+              precizează dacă dorește să primească răspunsul în scris sau oral
+              la ședința în plen.
+            </Typography>
+          </Box>
+          <Table
+            columns={questionsTableColumns}
+            height='auto'
+            isLoading={isLoadingQuestions}
+            getRowHeight={() => 'auto'}
+            getRowId={(row) => row.docid}
+            hideFooter={!questionsData.length}
+            rows={questionsData}
+            showSearch
+          />
+        </>
       )}
       {tabValue === 1 && (
-        <Table
-          columns={interpellationsTableColumns}
-          height='auto'
-          isLoading={isLoadingInterpellations}
-          getRowHeight={() => 'auto'}
-          getRowId={(row) => row.docid}
-          hideFooter={!interpellationsData?.length}
-          rows={interpellationsData}
-          showSearch
-        />
+        <>
+          <Box borderRadius={2} boxShadow={3} px={6} py={4}>
+            <Typography>
+              Interpelarea deputatului constă dintr-o cerere scrisă adresată
+              Guvernului, prin care se solicită explicații asupra unor aspecte
+              ale politicii Guvernului ce țin de activitatea sa internă sau
+              externă. Interpelările se dau citirii și se depun la președintele
+              ședinței în plen, care dispune remiterea lor Primului-ministru.
+              Autorii interpelării pot cere Parlamentului dezbaterea în ședință
+              plenară a răspunsului la interpelare, înaintând în acest sens o
+              moțiune simplă.
+            </Typography>
+          </Box>
+          <Table
+            columns={interpellationsTableColumns}
+            height='auto'
+            isLoading={isLoadingInterpellations}
+            getRowHeight={() => 'auto'}
+            getRowId={(row) => row.docid}
+            hideFooter={!interpellationsData?.length}
+            rows={interpellationsData}
+            showSearch
+          />
+        </>
       )}
     </Stack>
   );
